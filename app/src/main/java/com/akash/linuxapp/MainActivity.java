@@ -50,8 +50,14 @@ public class MainActivity extends Activity {
     static class InterviewQ {
         String q, a;
     }
+    static class CommandItem {
+        String command, example, use;
+    }
+    static class CommandGroup {
+        String title; List<CommandItem> items = new ArrayList<>();
+    }
     static class InterviewChapter {
-        String id, title; List<InterviewQ> qs = new ArrayList<>();
+        String id, title; List<InterviewQ> qs = new ArrayList<>(); List<CommandGroup> commands = new ArrayList<>();
     }
 
     private FrameLayout container;
@@ -210,6 +216,24 @@ public class MainActivity extends Activity {
                     iq.a = qj.getString("a");
                     ic.qs.add(iq);
                 }
+                JSONArray ca = c.optJSONArray("commands");
+                if(ca != null){
+                    for(int j=0;j<ca.length();j++){
+                        JSONObject gj = ca.getJSONObject(j);
+                        CommandGroup group = new CommandGroup();
+                        group.title = gj.getString("title");
+                        JSONArray ia = gj.getJSONArray("items");
+                        for(int k=0;k<ia.length();k++){
+                            JSONObject ij = ia.getJSONObject(k);
+                            CommandItem item = new CommandItem();
+                            item.command = ij.getString("command");
+                            item.example = ij.getString("example");
+                            item.use = ij.getString("use");
+                            group.items.add(item);
+                        }
+                        ic.commands.add(group);
+                    }
+                }
                 interviewChapters.add(ic);
             }
         } catch(Exception ignored){ }
@@ -300,7 +324,7 @@ public class MainActivity extends Activity {
         col.addView(sectionHead("\uD83D\uDCBC", "Interview Questions - Topic-wise", "Only questions with exact answers - no quiz here. Tap a topic area to prepare.", PURPLE), margins(0, 8));
         for(final InterviewChapter ic : interviewChapters)
             col.addView(topicCard("\uD83D\uDCBC", ic.title + " Interview Questions",
-                    ic.qs.size() + ("hr".equals(ic.id) ? " questions with sample answers" : " questions with verified answers"), PURPLE, "Open",
+                    interviewCardSub(ic), PURPLE, "Open",
                     v -> showInterviewTopic(ic)), margins(0, 5));
 
         // LEARN section - lessons grouped by chapter
@@ -343,6 +367,18 @@ public class MainActivity extends Activity {
     private String bestSuffix(Chapter ch){
         int best = prefs.getInt("best_" + ch.id, -1);
         return best >= 0 ? "  \u2022  Best: " + best + "%" : "";
+    }
+
+    private int commandCount(InterviewChapter ch){
+        int count = 0;
+        for(CommandGroup group : ch.commands) count += group.items.size();
+        return count;
+    }
+
+    private String interviewCardSub(InterviewChapter ch){
+        String base = ch.qs.size() + ("hr".equals(ch.id) ? " questions with sample answers" : " questions with verified answers");
+        int commands = commandCount(ch);
+        return commands > 0 ? base + "  \u2022  " + commands + " command examples" : base;
     }
 
     private View sectionHead(String emoji, String title, String sub, int accent){
@@ -665,7 +701,8 @@ public class MainActivity extends Activity {
         head.setPadding(dp(18), dp(16), dp(18), dp(16));
         head.addView(text("\uD83D\uDCBC", 28, TEXT));
         head.addView(bold(ch.title + " Interview Questions", 19, TEXT));
-        TextView sub = text(ch.qs.size() + " questions  \u2022  tap Show answer to reveal", 13, DIM);
+        int commands = commandCount(ch);
+        TextView sub = text(ch.qs.size() + " questions" + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer to reveal", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         head.addView(sub);
         col.addView(head, margins(0, 6));
@@ -725,6 +762,55 @@ public class MainActivity extends Activity {
             });
             col.addView(card, margins(0, 5));
             popIn(card, 40 * i);
+        }
+        if(!ch.commands.isEmpty()){
+            col.addView(sectionHead("\uD83D\uDCBB", "Command Reference", commands + " practical commands - each topic listed once, with one example per command.", PURPLE), margins(0, 8));
+            for(final CommandGroup group : ch.commands){
+                LinearLayout table = new LinearLayout(this);
+                table.setOrientation(LinearLayout.VERTICAL);
+                table.setBackground(bg(CARD, 16));
+                table.setPadding(dp(14), dp(12), dp(14), dp(10));
+                table.addView(bold(group.title, 15, TEXT));
+                TextView count = text(group.items.size() + " commands", 11, DIM);
+                count.setPadding(0, dp(2), 0, dp(8));
+                table.addView(count);
+
+                LinearLayout labels = new LinearLayout(this);
+                labels.setOrientation(LinearLayout.HORIZONTAL);
+                labels.setPadding(0, 0, 0, dp(4));
+                TextView lc = bold("Command", 10, PURPLE);
+                TextView le = bold("Example", 10, PURPLE);
+                TextView lu = bold("Use", 10, PURPLE);
+                labels.addView(lc, new LinearLayout.LayoutParams(0, -2, .85f));
+                labels.addView(le, new LinearLayout.LayoutParams(0, -2, 1.15f));
+                labels.addView(lu, new LinearLayout.LayoutParams(0, -2, 1f));
+                table.addView(labels);
+
+                for(int r=0;r<group.items.size();r++){
+                    CommandItem item = group.items.get(r);
+                    LinearLayout row = new LinearLayout(this);
+                    row.setOrientation(LinearLayout.HORIZONTAL);
+                    row.setGravity(Gravity.TOP);
+                    row.setPadding(0, dp(5), 0, dp(5));
+                    TextView c = mono(item.command, 10, PURPLE);
+                    c.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+                    TextView e = mono(item.example, 10, TEXT);
+                    TextView u = text(item.use, 10, DIM);
+                    u.setLineSpacing(0, 1.08f);
+                    row.addView(c, new LinearLayout.LayoutParams(0, -2, .85f));
+                    LinearLayout.LayoutParams ep = new LinearLayout.LayoutParams(0, -2, 1.15f);
+                    ep.leftMargin = dp(8); ep.rightMargin = dp(8);
+                    row.addView(e, ep);
+                    row.addView(u, new LinearLayout.LayoutParams(0, -2, 1f));
+                    table.addView(row);
+                    if(r < group.items.size()-1){
+                        View divider = new View(this);
+                        divider.setBackgroundColor(SOFT);
+                        table.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
+                    }
+                }
+                col.addView(table, margins(0, 5));
+            }
         }
         Button home = new Button(this);
         home.setText("Back to Home"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);

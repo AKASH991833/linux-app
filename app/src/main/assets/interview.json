@@ -1,934 +1,2056 @@
 {
- "chapters": [
-  {
-   "id": "history",
-   "title": "Linux History & Foundations",
-   "questions": [
+  "chapters": [
     {
-     "q": "Who created Linux, and when?",
-     "a": "Linus Torvalds, a Finnish student, announced the first Linux kernel (version 0.01) in September 1991. He still leads kernel development today."
+      "id": "history",
+      "title": "Linux History & Foundations",
+      "questions": [
+        {
+          "q": "Who created Linux, and when?",
+          "a": "Linus Torvalds, a Finnish student, announced the first Linux kernel (version 0.01) in September 1991. He still leads kernel development today."
+        },
+        {
+          "q": "What is the difference between Linux and a Linux distribution?",
+          "a": "Linux is only the kernel - the core that manages CPU, memory, devices and processes. A distribution (Ubuntu, Fedora, Debian) bundles the kernel with GNU tools, libraries, a package manager and apps to make a complete, usable OS."
+        },
+        {
+          "q": "Which license is the Linux kernel released under?",
+          "a": "GNU GPL version 2 (GPL-2.0-only), with a syscall exception so normal programs that just use Linux system calls do not have to be GPL themselves."
+        },
+        {
+          "q": "What does GNU stand for, and why does it matter to Linux?",
+          "a": "GNU stands for \"GNU's Not Unix\". Richard Stallman started the GNU Project in 1983 to build a free Unix-like OS. GNU supplied the tools (gcc, bash, coreutils) that, combined with the Linux kernel, make a full system - hence the name GNU/Linux."
+        },
+        {
+          "q": "What is the kernel's main job?",
+          "a": "It manages the hardware for every program: CPU scheduling, memory management, device drivers, filesystems and networking. Programs request these services through system calls instead of touching hardware directly."
+        },
+        {
+          "q": "What is the difference between Unix and Linux?",
+          "a": "Unix is the original proprietary OS family started at Bell Labs in 1969. Linux is a free, open-source Unix-like kernel written from scratch; it follows Unix design and POSIX conventions but contains no Unix source code."
+        },
+        {
+          "q": "What is a shell?",
+          "a": "A command-line interpreter between you and the OS. It reads commands, starts programs and provides scripting features like variables, loops and pipes. Bash is the most common Linux shell."
+        },
+        {
+          "q": "Name some popular Linux distributions and their families.",
+          "a": "Debian family: Debian, Ubuntu, Linux Mint (they use apt and .deb packages). Red Hat family: RHEL, CentOS Stream, Fedora (they use dnf and .rpm packages). Others: Arch, openSUSE, Alpine."
+        },
+        {
+          "q": "What is the difference between kernel space and user space?",
+          "a": "Kernel space is where the kernel runs with full hardware access. User space is where normal programs run with restricted access; for privileged work like file or network access they must ask the kernel through a system call."
+        },
+        {
+          "q": "Why is Linux so popular for servers?",
+          "a": "It is free and open source, stable for years of uptime, secure by design (users, permissions, fast patches), runs on almost any hardware, and is easy to automate with shells and tools. Most cloud and web servers run Linux."
+        },
+        {
+          "q": "How is Windows different from Linux?",
+          "a": "Windows is a commercial operating system made by Microsoft. Linux is free and open source, and it is more secure, stable, and widely used for servers."
+        },
+        {
+          "q": "What is one feature Linux has but Windows does not?",
+          "a": "Linux is fully open source, so anyone can see and modify its code. This gives complete control and customization that Windows does not allow."
+        },
+        {
+          "q": "What is Linux?",
+          "a": "Linux is a free, open-source operating system kernel based on Unix. Combined with system tools in a distribution, it powers most servers, Android phones, and cloud systems."
+        },
+        {
+          "q": "What is an Operating System (OS)?",
+          "a": "An Operating System is software that manages the computer's hardware and software resources. It acts as a bridge between the user and the hardware."
+        },
+        {
+          "q": "What is Bash?",
+          "a": "Bash (Bourne Again Shell) is the default command-line shell in most Linux distributions. It is used to run commands and to write shell scripts."
+        },
+        {
+          "q": "What is the difference between CLI and GUI?",
+          "a": "CLI (Command Line Interface) lets you work by typing commands. GUI (Graphical User Interface) lets you work with windows, icons, and menus."
+        },
+        {
+          "q": "What is the difference between the Kernel and the Shell?",
+          "a": "The Kernel talks directly to the hardware and manages system resources. The Shell is the interface through which the user gives commands to the Kernel."
+        },
+        {
+          "q": "What is the difference between RHEL and Ubuntu?",
+          "a": "RHEL uses RPM packages with dnf/yum and is enterprise-focused with paid support. Ubuntu uses DEB packages with apt and is community-focused and free."
+        },
+        {
+          "q": "What is the difference between CentOS and RHEL?",
+          "a": "RHEL is a commercial distribution with official Red Hat support. CentOS was its free community rebuild; today CentOS Stream sits just ahead of RHEL development."
+        },
+        {
+          "q": "Which Linux distribution do you like, and why?",
+          "a": "Sample answer: RHEL, because it is stable, secure, and widely used in enterprise environments with long-term support."
+        },
+        {
+          "q": "Have you explored the Linux kernel?",
+          "a": "Sample answer: Yes. I understand that the kernel manages hardware, memory, processes, and device drivers, and I use commands like uname and dmesg to see kernel information."
+        }
+      ]
     },
     {
-     "q": "What is the difference between Linux and a Linux distribution?",
-     "a": "Linux is only the kernel - the core that manages CPU, memory, devices and processes. A distribution (Ubuntu, Fedora, Debian) bundles the kernel with GNU tools, libraries, a package manager and apps to make a complete, usable OS."
+      "id": "navigation",
+      "title": "Navigation & the Filesystem",
+      "questions": [
+        {
+          "q": "What is the difference between an absolute and a relative path?",
+          "a": "An absolute path starts from the root / (for example /home/akash/file.txt) and means the same thing from anywhere. A relative path is resolved from your current directory (docs/file.txt) and changes meaning as you cd around."
+        },
+        {
+          "q": "What do . and .. mean in a directory listing?",
+          "a": ". refers to the current directory and .. to the parent directory. They are real directory entries, so commands like cd .. move you up one level and ./script runs a script in the current directory."
+        },
+        {
+          "q": "How do you see your current directory and jump to your home directory?",
+          "a": "pwd prints the current directory. cd with no argument (or cd ~) takes you to your home directory, which is stored in the $HOME variable."
+        },
+        {
+          "q": "What is the difference between ls, ls -l and ls -a?",
+          "a": "ls lists names only. ls -l shows the long format: permissions, link count, owner, group, size and modification time. ls -a also shows hidden files - names starting with a dot, including . and .."
+        },
+        {
+          "q": "What is the root directory and what lives directly under it?",
+          "a": "/ is the top of the single filesystem tree. Standard children: /etc (configuration), /home (user data), /var (logs and changing data), /usr (programs and libraries), /bin and /sbin (essential commands), /tmp (temporary files), /dev (device files), /proc and /sys (kernel information)."
+        },
+        {
+          "q": "What are /proc and /sys?",
+          "a": "Virtual filesystems the kernel exposes as files. /proc shows process and system information (for example /proc/cpuinfo); /sys exposes devices and kernel objects for tools like udev. Nothing there is a real disk file."
+        },
+        {
+          "q": "How is cd - useful?",
+          "a": "cd - jumps back to the previous directory you were in and prints it. It is the fastest way to toggle between two directories."
+        },
+        {
+          "q": "What is a hidden file in Linux?",
+          "a": "Any file whose name begins with a dot, like .bashrc. It is not secret or protected - it is simply not shown by default; ls -a reveals it. Dotfiles in your home directory store per-user configuration."
+        },
+        {
+          "q": "What does the tilde (~) expand to?",
+          "a": "Your home directory: ~/docs means /home/akash/docs. The form ~name expands to that user's home directory, for example ~root is /root."
+        },
+        {
+          "q": "What is the difference between cp a b and mv a b?",
+          "a": "cp copies, so the original stays in place. mv renames or moves, so the original path no longer exists. Across filesystems mv actually copies and then deletes the original."
+        },
+        {
+          "q": "What is the purpose of /etc, /var, /home, /tmp, /opt, /usr, /boot, /dev, /proc and /sys?",
+          "a": "/etc stores configuration files. /var stores changing data like logs. /home stores users' personal files. /tmp stores temporary files. /opt stores optional third-party software. /usr stores commands, libraries, and applications. /boot stores bootloader and kernel files. /dev contains device files. /proc shows process and kernel information. /sys shows hardware and kernel object information."
+        },
+        {
+          "q": "What is the difference between a file and a directory?",
+          "a": "A file stores data. A directory is a container that stores files and other directories."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Navigation & Basics",
+          "items": [
+            {
+              "command": "pwd",
+              "example": "pwd",
+              "use": "Current directory check"
+            },
+            {
+              "command": "ls",
+              "example": "ls -la",
+              "use": "Files, hidden files, permissions dekhna"
+            },
+            {
+              "command": "cd",
+              "example": "cd /etc",
+              "use": "Directory change"
+            },
+            {
+              "command": "cd ..",
+              "example": "cd ..",
+              "use": "Parent directory"
+            },
+            {
+              "command": "cd -",
+              "example": "cd -",
+              "use": "Previous directory"
+            },
+            {
+              "command": "cd ~",
+              "example": "cd ~",
+              "use": "Home directory"
+            },
+            {
+              "command": "clear",
+              "example": "clear",
+              "use": "Terminal clean"
+            },
+            {
+              "command": "history",
+              "example": "history 20",
+              "use": "Recent commands"
+            },
+            {
+              "command": "whoami",
+              "example": "whoami",
+              "use": "Current user"
+            },
+            {
+              "command": "man",
+              "example": "man ls",
+              "use": "Command documentation"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "Which license is the Linux kernel released under?",
-     "a": "GNU GPL version 2 (GPL-2.0-only), with a syscall exception so normal programs that just use Linux system calls do not have to be GPL themselves."
+      "id": "files",
+      "title": "File & Directory Management",
+      "questions": [
+        {
+          "q": "How do you create an empty file or update a file's timestamp?",
+          "a": "touch filename. It creates the file if it is missing; if it exists, it updates the access and modification times to now."
+        },
+        {
+          "q": "What is the difference between a hard link and a symbolic (soft) link?",
+          "a": "A hard link is another name for the same inode - the same data - so it survives deletion of the other names, but it cannot cross filesystems or point to a directory. A symlink is a small file containing a path: it can cross filesystems and point to directories, but it breaks if the target is deleted."
+        },
+        {
+          "q": "Which commands show disk usage?",
+          "a": "df -h shows free and used space per mounted filesystem. du -sh * shows the size of each item in the current directory in human-readable form. ncdu (if installed) gives an interactive browser."
+        },
+        {
+          "q": "How do you create a directory together with its parents in one step?",
+          "a": "mkdir -p /a/b/c creates any missing parent directories and does not complain if some already exist."
+        },
+        {
+          "q": "What does rm -r do, and why is rm -rf dangerous?",
+          "a": "rm -r deletes directories and everything inside them, recursively. Adding -f forces the deletion without prompts and ignores missing files, so a single typo can silently destroy the wrong directory tree or even the whole system."
+        },
+        {
+          "q": "How do you copy a whole directory tree?",
+          "a": "cp -r source dest copies recursively. cp -a (archive mode) also preserves permissions, ownership and timestamps, which is what you want for backups."
+        },
+        {
+          "q": "How do you find a file by name under a directory?",
+          "a": "find /path -name 'file.txt'. Useful variants: -iname for case-insensitive matching, -type f or -type d, and -mtime -7 for files changed in the last 7 days."
+        },
+        {
+          "q": "What is the difference between find and locate?",
+          "a": "find searches the live filesystem, so it is slower but always current. locate searches a prebuilt database (refreshed by updatedb), so it is instant but can miss very new files or still list deleted ones."
+        },
+        {
+          "q": "What does the file command do?",
+          "a": "file name inspects the file's actual contents (magic bytes) and reports its real type - text, ELF binary, image, archive - no matter what extension the name has."
+        },
+        {
+          "q": "How do you rename many files at once?",
+          "a": "The usual approach is a shell loop: for f in *.txt; do mv \"$f\" \"${f%.txt}.bak\"; done. Some distros also ship a rename command. Plain mv has no batch renaming syntax."
+        },
+        {
+          "q": "What is the Linux equivalent of a Windows .exe file?",
+          "a": "Linux does not depend on extensions. Any file with execute permission can run as a program, and shell scripts (.sh) are the common equivalent for tools and installers."
+        },
+        {
+          "q": "How do you compress and extract files?",
+          "a": "Use tar: tar -czvf archive.tar.gz folder/ creates a compressed archive, and tar -xzvf archive.tar.gz extracts it. For .zip files, use zip and unzip."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Files & Directories",
+          "items": [
+            {
+              "command": "touch",
+              "example": "touch test.txt",
+              "use": "Empty file create"
+            },
+            {
+              "command": "mkdir",
+              "example": "mkdir backup",
+              "use": "Directory create"
+            },
+            {
+              "command": "mkdir -p",
+              "example": "mkdir -p /data/app/logs",
+              "use": "Nested directories create"
+            },
+            {
+              "command": "cp",
+              "example": "cp app.conf app.conf.bak",
+              "use": "Config backup/copy"
+            },
+            {
+              "command": "cp -r",
+              "example": "cp -r app /backup/",
+              "use": "Directory copy"
+            },
+            {
+              "command": "mv",
+              "example": "mv old.log archive.log",
+              "use": "Move/rename"
+            },
+            {
+              "command": "rm",
+              "example": "rm test.txt",
+              "use": "File delete"
+            },
+            {
+              "command": "rm -r",
+              "example": "rm -r oldapp",
+              "use": "Directory delete"
+            },
+            {
+              "command": "rmdir",
+              "example": "rmdir emptydir",
+              "use": "Empty directory delete"
+            },
+            {
+              "command": "stat",
+              "example": "stat app.log",
+              "use": "Metadata/inode/timestamps"
+            }
+          ]
+        },
+        {
+          "title": "Archive & Compression",
+          "items": [
+            {
+              "command": "tar -cf",
+              "example": "tar -cf backup.tar /data",
+              "use": "Create tar archive"
+            },
+            {
+              "command": "tar -xf",
+              "example": "tar -xf backup.tar",
+              "use": "Extract tar archive"
+            },
+            {
+              "command": "tar -tf",
+              "example": "tar -tf backup.tar",
+              "use": "List archive contents"
+            },
+            {
+              "command": "tar -czf",
+              "example": "tar -czf logs.tar.gz /var/log/app",
+              "use": "Create gzip tar archive"
+            },
+            {
+              "command": "tar -xzf",
+              "example": "tar -xzf logs.tar.gz",
+              "use": "Extract gzip tar"
+            },
+            {
+              "command": "gzip",
+              "example": "gzip app.log",
+              "use": "Compress file"
+            },
+            {
+              "command": "gunzip",
+              "example": "gunzip app.log.gz",
+              "use": "Decompress gzip"
+            },
+            {
+              "command": "zip",
+              "example": "zip backup.zip app.conf",
+              "use": "Create ZIP"
+            },
+            {
+              "command": "unzip",
+              "example": "unzip backup.zip",
+              "use": "Extract ZIP"
+            },
+            {
+              "command": "zcat",
+              "example": "zcat app.log.gz",
+              "use": "Read compressed log directly"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What does GNU stand for, and why does it matter to Linux?",
-     "a": "GNU stands for \"GNU's Not Unix\". Richard Stallman started the GNU Project in 1983 to build a free Unix-like OS. GNU supplied the tools (gcc, bash, coreutils) that, combined with the Linux kernel, make a full system - hence the name GNU/Linux."
+      "id": "text",
+      "title": "Viewing & Working with Text",
+      "questions": [
+        {
+          "q": "What is the difference between cat, less, head and tail?",
+          "a": "cat dumps whole files to stdout - fine for small files or joining files. less pages through big files interactively with search. head shows the first lines (10 by default), tail the last; tail -f follows a growing file live, the classic way to watch logs."
+        },
+        {
+          "q": "How do you search for text inside files?",
+          "a": "grep 'pattern' file. Common flags: -r recursive into directories, -i case-insensitive, -n show line numbers, -v invert (show non-matching lines), -c just count matches."
+        },
+        {
+          "q": "What is a pipe?",
+          "a": "The | operator sends one command's standard output into the next command's standard input, for example ps aux | grep nginx. Chaining small tools this way is the core Unix philosophy."
+        },
+        {
+          "q": "What is the difference between > and >>?",
+          "a": "> redirects stdout to a file and overwrites it; >> appends instead. Both create the file if it does not exist. The related form 2> redirects stderr."
+        },
+        {
+          "q": "How do you count lines, words and bytes in a file?",
+          "a": "wc file prints lines, words and bytes; wc -l gives only the line count. A typical use: grep ERROR app.log | wc -l to count error lines."
+        },
+        {
+          "q": "What does sort do, and how do you get unique lines?",
+          "a": "sort orders lines alphabetically; -n sorts numerically, -r reverses, -k selects a column. uniq removes only ADJACENT duplicate lines, so the standard idiom is sort file | uniq, or simply sort -u."
+        },
+        {
+          "q": "How do you see the differences between two files?",
+          "a": "diff file1 file2 shows the changed lines; diff -u produces the unified format used in patches. For side-by-side comparison use diff -y or vimdiff."
+        },
+        {
+          "q": "What are cut, awk and sed used for?",
+          "a": "cut extracts columns by a delimiter: cut -d: -f1 /etc/passwd. awk splits lines into fields and processes them: awk '{print $1}'. sed edits streams, most often search-and-replace: sed 's/old/new/g' file (add -i to edit the file in place)."
+        },
+        {
+          "q": "How do you watch a log file in real time?",
+          "a": "tail -f /var/log/syslog, or journalctl -f on systemd systems. New lines appear as they are written; Ctrl+C stops following."
+        },
+        {
+          "q": "How do you find which files under /etc contain a string?",
+          "a": "grep -r 'string' /etc. Add -l to list only the matching filenames, or -n to include line numbers with each match."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Viewing & Text",
+          "items": [
+            {
+              "command": "cat",
+              "example": "cat /etc/hosts",
+              "use": "Small file read"
+            },
+            {
+              "command": "less",
+              "example": "less /var/log/messages",
+              "use": "Large file page-by-page"
+            },
+            {
+              "command": "more",
+              "example": "more file.txt",
+              "use": "Paged viewing"
+            },
+            {
+              "command": "head",
+              "example": "head -n 20 app.log",
+              "use": "First lines"
+            },
+            {
+              "command": "tail",
+              "example": "tail -n 50 app.log",
+              "use": "Last lines"
+            },
+            {
+              "command": "tail -f",
+              "example": "tail -f app.log",
+              "use": "Live log monitoring"
+            },
+            {
+              "command": "wc",
+              "example": "wc app.log",
+              "use": "Lines/words/bytes"
+            },
+            {
+              "command": "sort",
+              "example": "sort users.txt",
+              "use": "Sort data"
+            },
+            {
+              "command": "uniq",
+              "example": "sort users.txt | uniq",
+              "use": "Duplicate handling"
+            },
+            {
+              "command": "diff",
+              "example": "diff old.conf new.conf",
+              "use": "Compare files"
+            }
+          ]
+        },
+        {
+          "title": "Search & Filtering",
+          "items": [
+            {
+              "command": "grep",
+              "example": "grep 'error' app.log",
+              "use": "Search text"
+            },
+            {
+              "command": "grep -i",
+              "example": "grep -i 'error' app.log",
+              "use": "Case-insensitive search"
+            },
+            {
+              "command": "grep -n",
+              "example": "grep -n 'error' app.log",
+              "use": "Show line numbers"
+            },
+            {
+              "command": "grep -v",
+              "example": "grep -v 'debug' app.log",
+              "use": "Exclude matches"
+            },
+            {
+              "command": "grep -r",
+              "example": "grep -r 'DB_HOST' /etc/app",
+              "use": "Recursive search"
+            },
+            {
+              "command": "grep -E",
+              "example": "grep -E 'error|failed' app.log",
+              "use": "Multiple patterns"
+            },
+            {
+              "command": "find",
+              "example": "find /var -name '*.log'",
+              "use": "Find by name"
+            },
+            {
+              "command": "find -size",
+              "example": "find /var -type f -size +500M",
+              "use": "Find large files"
+            },
+            {
+              "command": "find -mtime",
+              "example": "find /backup -type f -mtime +30",
+              "use": "Find old files"
+            },
+            {
+              "command": "locate",
+              "example": "locate httpd.conf",
+              "use": "Fast indexed search"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is the kernel's main job?",
-     "a": "It manages the hardware for every program: CPU scheduling, memory management, device drivers, filesystems and networking. Programs request these services through system calls instead of touching hardware directly."
+      "id": "users",
+      "title": "Users, Groups & Permissions",
+      "questions": [
+        {
+          "q": "What do the fields in an ls -l permission string like -rwxr-xr-- mean?",
+          "a": "The first character is the type (- file, d directory, l symlink). Then come three triplets: owner, group, others. In each triplet r = read (4), w = write (2), x = execute (1). So rwxr-xr-- is owner rwx, group r-x, others r-- - octal 754."
+        },
+        {
+          "q": "How do you change permissions with chmod?",
+          "a": "Symbolic form: chmod u+x file, chmod g-w file. Octal form: chmod 755 file gives the owner rwx and everyone else r-x. On directories, x means 'allowed to enter'."
+        },
+        {
+          "q": "What is the difference between chmod, chown and chgrp?",
+          "a": "chmod changes the permission bits. chown changes the owner, and optionally the group too: chown user:group file. chgrp changes only the group. You need to be root or the file's owner."
+        },
+        {
+          "q": "Where are user accounts and groups stored?",
+          "a": "Account information lives in /etc/passwd; password hashes live in /etc/shadow, readable only by root. Groups are defined in /etc/group, with /etc/gshadow for group passwords and admins."
+        },
+        {
+          "q": "How do you add a user and give them sudo rights?",
+          "a": "Create the account with adduser name (Debian/Ubuntu) or useradd name plus passwd name. Then add them to the admin group: usermod -aG sudo name on Debian/Ubuntu, or the wheel group on RHEL/Fedora."
+        },
+        {
+          "q": "What is the root user, and what is sudo?",
+          "a": "root (UID 0) is the superuser that bypasses permission checks. sudo lets permitted users run single commands as root, with every use logged - much safer than working as root all the time."
+        },
+        {
+          "q": "What does the id command show?",
+          "a": "Your numeric uid, your primary gid, and every group you belong to - for example uid=1000(akash) gid=1000(akash) groups=1000(akash),27(sudo)."
+        },
+        {
+          "q": "What is the difference between su and sudo?",
+          "a": "su switches to another account (root by default) and asks for the TARGET account's password. sudo runs one command as root, asks for YOUR password, checks the sudoers policy, and logs the action."
+        },
+        {
+          "q": "How do you lock or delete a user account?",
+          "a": "Lock the password with usermod -L name (or passwd -l name). Delete the account with userdel name; add -r to also remove the home directory and mail spool."
+        },
+        {
+          "q": "What are the SUID, SGID and sticky bits?",
+          "a": "Special permission bits: SUID (octal 4xxx) runs a program with the file owner's rights - passwd is the classic example. SGID (2xxx) does the same with the group, and on a directory makes new files inherit the directory's group. The sticky bit (1xxx) on a shared directory like /tmp means only a file's owner can delete it."
+        },
+        {
+          "q": "What is the difference between useradd and adduser?",
+          "a": "useradd is the low-level command with basic options. adduser is a friendlier script on Debian/Ubuntu that creates the home directory and applies defaults automatically."
+        },
+        {
+          "q": "How do you add a user to a group?",
+          "a": "Use usermod -aG groupname username. The -a option appends the group; without it, the user's other group memberships would be replaced."
+        },
+        {
+          "q": "How do you change a user's password?",
+          "a": "Use passwd username and enter the new password. A user changes their own password with plain passwd; root can change anyone's."
+        },
+        {
+          "q": "What are primary and secondary groups?",
+          "a": "A primary group is the user's default group, which new files they create belong to. Secondary groups give the user extra permissions to shared resources."
+        },
+        {
+          "q": "What is the difference between a user and a group?",
+          "a": "A user is an individual account used to log in to the system. A group is a collection of users that makes managing permissions easier."
+        },
+        {
+          "q": "Why do we use groups in Linux?",
+          "a": "Groups let you manage permissions for many users at the same time. This makes administration easier and more secure."
+        },
+        {
+          "q": "How do you give a file only read and write permission?",
+          "a": "Use chmod 600 filename. This gives the owner read and write (rw-) and removes all permissions for group and others."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Users & Groups",
+          "items": [
+            {
+              "command": "useradd",
+              "example": "useradd rahul",
+              "use": "Create user"
+            },
+            {
+              "command": "adduser",
+              "example": "adduser rahul",
+              "use": "Interactive user creation"
+            },
+            {
+              "command": "passwd",
+              "example": "passwd rahul",
+              "use": "Set/change password"
+            },
+            {
+              "command": "usermod",
+              "example": "usermod -s /bin/bash rahul",
+              "use": "Modify user"
+            },
+            {
+              "command": "usermod -aG",
+              "example": "usermod -aG developers rahul",
+              "use": "Add supplementary group"
+            },
+            {
+              "command": "userdel",
+              "example": "userdel rahul",
+              "use": "Delete user"
+            },
+            {
+              "command": "userdel -r",
+              "example": "userdel -r rahul",
+              "use": "Delete user + home"
+            },
+            {
+              "command": "groupadd",
+              "example": "groupadd developers",
+              "use": "Create group"
+            },
+            {
+              "command": "groupdel",
+              "example": "groupdel developers",
+              "use": "Delete group"
+            },
+            {
+              "command": "groups",
+              "example": "groups rahul",
+              "use": "Show user's groups"
+            }
+          ]
+        },
+        {
+          "title": "Permissions & Ownership",
+          "items": [
+            {
+              "command": "chmod",
+              "example": "chmod 644 app.conf",
+              "use": "Change permissions"
+            },
+            {
+              "command": "chmod +x",
+              "example": "chmod +x backup.sh",
+              "use": "Make script executable"
+            },
+            {
+              "command": "chown",
+              "example": "chown appuser app.conf",
+              "use": "Change owner"
+            },
+            {
+              "command": "chown user:group",
+              "example": "chown app:app app.conf",
+              "use": "Change owner + group"
+            },
+            {
+              "command": "chgrp",
+              "example": "chgrp developers project.txt",
+              "use": "Change group"
+            },
+            {
+              "command": "umask",
+              "example": "umask 027",
+              "use": "Default permissions"
+            },
+            {
+              "command": "getfacl",
+              "example": "getfacl report.txt",
+              "use": "View ACL"
+            },
+            {
+              "command": "setfacl",
+              "example": "setfacl -m u:rahul:r report.txt",
+              "use": "Give ACL permission"
+            },
+            {
+              "command": "lsattr",
+              "example": "lsattr important.conf",
+              "use": "View file attributes"
+            },
+            {
+              "command": "chattr",
+              "example": "chattr +i important.conf",
+              "use": "Make file immutable"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is the difference between Unix and Linux?",
-     "a": "Unix is the original proprietary OS family started at Bell Labs in 1969. Linux is a free, open-source Unix-like kernel written from scratch; it follows Unix design and POSIX conventions but contains no Unix source code."
+      "id": "processes",
+      "title": "Processes & Job Control",
+      "questions": [
+        {
+          "q": "How do you see which processes are running?",
+          "a": "ps aux for a one-time snapshot of all processes; top or htop for a live, sorted view; pgrep name to find the PID of a process by name."
+        },
+        {
+          "q": "What are PID and PPID?",
+          "a": "PID is the process ID the kernel assigns to each process; PPID is its parent's PID. PID 1 - systemd on most distros - is the first process at boot and the ancestor of everything else."
+        },
+        {
+          "q": "How do you stop a process?",
+          "a": "kill PID sends SIGTERM (15), a polite request to exit that allows cleanup. kill -9 PID sends SIGKILL, which the process cannot catch or ignore - a last resort, because it gets no chance to clean up. pkill and killall work by name instead of PID."
+        },
+        {
+          "q": "What is the difference between a process and a thread?",
+          "a": "A process has its own private memory space; threads are tasks inside a process that share its memory, so they are cheaper to create but can interfere with each other's data."
+        },
+        {
+          "q": "What is a daemon?",
+          "a": "A background service process that runs detached from any terminal - for example sshd or cron. On modern distros daemons are normally started and supervised by systemd as service units."
+        },
+        {
+          "q": "How do you run a command in the background and bring it back?",
+          "a": "Append & to start it in the background. jobs lists the shell's jobs, fg %1 brings one to the foreground, Ctrl+Z suspends a foreground job, and bg %1 resumes it in the background. To survive logout use nohup, tmux, or a systemd service."
+        },
+        {
+          "q": "What is a zombie process?",
+          "a": "A process that has finished but whose parent has not yet collected its exit status with wait(). It keeps only a process-table entry and no memory. The real fix is to signal or restart the misbehaving parent; orphaned zombies are reaped by PID 1."
+        },
+        {
+          "q": "How do you find which process is using a file or a port?",
+          "a": "lsof /path/to/file shows processes with that file open; lsof -i :80 shows what holds port 80. ss -tulpen maps listening sockets to processes (run as root to see other users' processes)."
+        },
+        {
+          "q": "What do nice and renice do?",
+          "a": "They adjust CPU scheduling priority. Nice values run from -20 (highest priority, root only) to 19 (lowest). nice -n 10 command starts a program at lower priority; renice changes the priority of an already-running process."
+        },
+        {
+          "q": "What is the difference between SIGTERM and SIGKILL?",
+          "a": "SIGTERM (15) asks the process to shut down and can be caught or ignored, so the process can clean up first. SIGKILL (9) is enforced by the kernel directly: the process dies immediately with no cleanup."
+        },
+        {
+          "q": "What is a process?",
+          "a": "A process is a running instance of a program. Every process gets a unique Process ID (PID) from the kernel."
+        },
+        {
+          "q": "What is the difference between a process and a service?",
+          "a": "A process is any running program. A service is a background process that provides system or application functionality, like sshd or Apache."
+        },
+        {
+          "q": "What is an orphan process?",
+          "a": "An orphan is a running process whose parent has already terminated. It is automatically adopted by PID 1 (init or systemd)."
+        },
+        {
+          "q": "What is the difference between foreground and background processes?",
+          "a": "A foreground process runs in the terminal and accepts user input. A background process runs independently without blocking the terminal."
+        },
+        {
+          "q": "What are parent and child processes?",
+          "a": "A parent process is one that creates another process. The new process is called the child, and it runs independently but is initially managed by its parent."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Processes",
+          "items": [
+            {
+              "command": "ps",
+              "example": "ps",
+              "use": "Current shell processes"
+            },
+            {
+              "command": "ps aux",
+              "example": "ps aux",
+              "use": "All detailed processes"
+            },
+            {
+              "command": "ps -ef",
+              "example": "ps -ef | grep nginx",
+              "use": "Find PID/process details"
+            },
+            {
+              "command": "top",
+              "example": "top",
+              "use": "Live CPU/RAM monitoring"
+            },
+            {
+              "command": "htop",
+              "example": "htop",
+              "use": "Interactive monitoring"
+            },
+            {
+              "command": "pgrep",
+              "example": "pgrep nginx",
+              "use": "Find PID by name"
+            },
+            {
+              "command": "pkill",
+              "example": "pkill nginx",
+              "use": "Terminate by name"
+            },
+            {
+              "command": "kill",
+              "example": "kill 1234",
+              "use": "Graceful termination"
+            },
+            {
+              "command": "kill -9",
+              "example": "kill -9 1234",
+              "use": "Force terminate"
+            },
+            {
+              "command": "jobs",
+              "example": "jobs",
+              "use": "Background jobs"
+            }
+          ]
+        },
+        {
+          "title": "System Info & Monitoring",
+          "items": [
+            {
+              "command": "uname -a",
+              "example": "uname -a",
+              "use": "System/kernel information"
+            },
+            {
+              "command": "uname -r",
+              "example": "uname -r",
+              "use": "Kernel version"
+            },
+            {
+              "command": "cat /etc/os-release",
+              "example": "cat /etc/os-release",
+              "use": "OS/version"
+            },
+            {
+              "command": "lscpu",
+              "example": "lscpu",
+              "use": "CPU details"
+            },
+            {
+              "command": "lsmem",
+              "example": "lsmem",
+              "use": "Memory layout"
+            },
+            {
+              "command": "lsusb",
+              "example": "lsusb",
+              "use": "USB devices"
+            },
+            {
+              "command": "lspci",
+              "example": "lspci",
+              "use": "PCI hardware"
+            },
+            {
+              "command": "vmstat",
+              "example": "vmstat 1 5",
+              "use": "CPU/memory/IO stats"
+            },
+            {
+              "command": "iostat",
+              "example": "iostat -xz 1 3",
+              "use": "Disk I/O stats"
+            },
+            {
+              "command": "sar",
+              "example": "sar -u 1 5",
+              "use": "Performance statistics; sysstat required"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is a shell?",
-     "a": "A command-line interpreter between you and the OS. It reads commands, starts programs and provides scripting features like variables, loops and pipes. Bash is the most common Linux shell."
+      "id": "packages",
+      "title": "Package Management",
+      "questions": [
+        {
+          "q": "What is the difference between apt, apt-get and dpkg?",
+          "a": "dpkg installs individual .deb files but does not resolve dependencies. apt and apt-get work with repositories and handle dependencies automatically; apt is the friendlier modern command (apt install, apt update), apt-get is the older script-stable interface."
+        },
+        {
+          "q": "What do apt update and apt upgrade actually do?",
+          "a": "apt update only downloads the latest package INDEX from the repositories - it installs nothing. apt upgrade then installs the newer versions of your installed packages. The correct order is update first, then upgrade."
+        },
+        {
+          "q": "How do you find, install and remove a package on Debian/Ubuntu?",
+          "a": "apt search keyword to find it, apt show name for details, sudo apt install name to install it, and sudo apt remove name to uninstall (apt purge also deletes its configuration files)."
+        },
+        {
+          "q": "What are the equivalents on RHEL/Fedora systems?",
+          "a": "dnf, the modern replacement for yum: dnf search, dnf install, dnf remove, dnf update. These manage .rpm packages; rpm -ivh installs a single downloaded package without resolving dependencies."
+        },
+        {
+          "q": "What is a package repository?",
+          "a": "A server that hosts packages plus signed metadata about them. Your system fetches from the repositories listed in /etc/apt/sources.list and /etc/apt/sources.list.d (Debian/Ubuntu) or /etc/yum.repos.d (RHEL/Fedora)."
+        },
+        {
+          "q": "What is a dependency?",
+          "a": "Another package a program needs in order to run - libraries, interpreters, helper tools. apt and dnf install dependencies automatically; dpkg and rpm alone do not, which is the main reason the higher-level tools exist."
+        },
+        {
+          "q": "How do you list installed packages and find which package owns a file?",
+          "a": "On Debian/Ubuntu: dpkg -l lists installed packages and dpkg -S /path/to/file names the owning package. On RHEL/Fedora: rpm -qa lists them and rpm -qf /path/to/file names the owner."
+        },
+        {
+          "q": "What are snap and flatpak?",
+          "a": "Distribution-independent package formats that bundle their dependencies and run sandboxed. Snaps come from Canonical's store; flatpaks usually come from Flathub. They trade extra disk space for portability across distros."
+        },
+        {
+          "q": "How do you compile software from source, in short?",
+          "a": "The classic flow is ./configure (checks your system and generates a Makefile), make (compiles), then sudo make install (copies files, usually under /usr/local). You need a compiler and the relevant -dev libraries installed first."
+        },
+        {
+          "q": "How do you fix 'Unable to locate package' on Ubuntu?",
+          "a": "Run sudo apt update first - the local package index is missing or stale. If it still fails, either the package name is wrong (check with apt search) or the repository that carries it (universe, multiverse, or a PPA) is not enabled."
+        },
+        {
+          "q": "What is RPM?",
+          "a": "RPM (Red Hat Package Manager) is the package format used by RHEL-based distributions. The rpm command installs and manages individual .rpm package files."
+        },
+        {
+          "q": "What is the difference between RPM and YUM/DNF?",
+          "a": "rpm installs individual package files but does not resolve dependencies. YUM and DNF work with repositories and install dependencies automatically."
+        },
+        {
+          "q": "What is the difference between MySQL and MariaDB?",
+          "a": "MariaDB is a community-driven fork of MySQL. It is fully open source and offers extra features and performance improvements."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Package Management RHEL",
+          "items": [
+            {
+              "command": "dnf install",
+              "example": "dnf install httpd",
+              "use": "Install package"
+            },
+            {
+              "command": "dnf remove",
+              "example": "dnf remove httpd",
+              "use": "Remove package"
+            },
+            {
+              "command": "dnf update",
+              "example": "dnf update",
+              "use": "Update packages"
+            },
+            {
+              "command": "dnf search",
+              "example": "dnf search nginx",
+              "use": "Search packages"
+            },
+            {
+              "command": "dnf info",
+              "example": "dnf info httpd",
+              "use": "Package details"
+            },
+            {
+              "command": "dnf history",
+              "example": "dnf history",
+              "use": "Transaction history"
+            },
+            {
+              "command": "rpm -qa",
+              "example": "rpm -qa | grep httpd",
+              "use": "Installed RPMs"
+            },
+            {
+              "command": "rpm -qi",
+              "example": "rpm -qi httpd",
+              "use": "RPM package info"
+            },
+            {
+              "command": "rpm -ql",
+              "example": "rpm -ql httpd",
+              "use": "Files installed by RPM"
+            },
+            {
+              "command": "rpm -qf",
+              "example": "rpm -qf /usr/sbin/httpd",
+              "use": "Find owning package"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "Name some popular Linux distributions and their families.",
-     "a": "Debian family: Debian, Ubuntu, Linux Mint (they use apt and .deb packages). Red Hat family: RHEL, CentOS Stream, Fedora (they use dnf and .rpm packages). Others: Arch, openSUSE, Alpine."
+      "id": "network",
+      "title": "Networking Essentials",
+      "questions": [
+        {
+          "q": "How do you check your IP address and routing table?",
+          "a": "ip addr shows interfaces and their addresses; ip route shows the routing table, including the default gateway. The older equivalents are ifconfig and route -n."
+        },
+        {
+          "q": "How do you test connectivity step by step?",
+          "a": "Ping your gateway first, then an external IP like 8.8.8.8, then a name like google.com. If the IP works but the name fails, the problem is DNS; if even the gateway fails, the problem is the local link or Wi-Fi."
+        },
+        {
+          "q": "What is DNS and where is it configured?",
+          "a": "DNS resolves hostnames to IP addresses. Clients query the resolvers listed in /etc/resolv.conf (often managed by systemd-resolved or NetworkManager today). The static /etc/hosts file is consulted before DNS."
+        },
+        {
+          "q": "How do you see which ports are listening on a machine?",
+          "a": "ss -tuln lists listening TCP and UDP sockets numerically; add -p (as root) to see the process behind each one. The older equivalent is netstat -tulpn."
+        },
+        {
+          "q": "What is the difference between TCP and UDP?",
+          "a": "TCP is connection-oriented: ordered, acknowledged and retransmitted delivery - used by the web and SSH. UDP is connectionless: no delivery guarantee or ordering, but very low overhead - used by DNS queries, DHCP and voice/video."
+        },
+        {
+          "q": "How do you test whether a remote port is open?",
+          "a": "nc -zv host port does a direct check; telnet host port also works. For a web service, curl -Iv https://host tests the whole stack including DNS and TLS."
+        },
+        {
+          "q": "What does the /etc/hosts file do?",
+          "a": "It maps names to IP addresses locally and is checked before DNS. Each line is an IP followed by one or more names, for example 127.0.0.1 localhost. It is handy for overrides and for blocking names by pointing them at 127.0.0.1."
+        },
+        {
+          "q": "What is a default gateway?",
+          "a": "The router your machine forwards traffic to when the destination is outside the local network. It appears as 'default via ...' in the output of ip route."
+        },
+        {
+          "q": "How do you download a file from the command line?",
+          "a": "curl -O URL saves it under the remote name; wget URL does the same. curl is also the standard tool for testing HTTP APIs: curl -s https://api.example.com."
+        },
+        {
+          "q": "What is the difference between ssh and scp?",
+          "a": "ssh opens an encrypted remote shell: ssh user@host. scp copies files over the same encrypted channel: scp file user@host:/path. sftp is the interactive file-transfer variant, and rsync over ssh is better for large or repeated syncs."
+        },
+        {
+          "q": "What is an IP address?",
+          "a": "An IP address is a unique address assigned to a device on a network. It allows devices to find and communicate with each other."
+        },
+        {
+          "q": "What is the difference between IPv4 and IPv6?",
+          "a": "IPv4 is a 32-bit address (like 192.168.1.10) and is the most common. IPv6 is a 128-bit address created to solve the IPv4 address shortage."
+        },
+        {
+          "q": "What is a subnet mask?",
+          "a": "A subnet mask separates the network part from the host part of an IP address. It tells whether two devices are in the same network."
+        },
+        {
+          "q": "What is DHCP?",
+          "a": "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and other network settings to devices. It removes manual configuration."
+        },
+        {
+          "q": "What is NAT?",
+          "a": "NAT (Network Address Translation) converts private IP addresses into a public IP address. It lets many devices share one public IP address."
+        },
+        {
+          "q": "What is the difference between a switch and a router?",
+          "a": "A switch connects devices within the same network. A router connects different networks and forwards data between them."
+        },
+        {
+          "q": "What is a MAC address?",
+          "a": "A MAC address is a unique physical address assigned to a network card (NIC). It is used for communication inside the local network."
+        },
+        {
+          "q": "What is ping?",
+          "a": "Ping is a network utility that checks connectivity between two devices. It also measures the response time."
+        },
+        {
+          "q": "What is traceroute?",
+          "a": "Traceroute shows the path packets take to reach a destination. It helps find where network delays or failures happen."
+        },
+        {
+          "q": "What are nslookup and dig?",
+          "a": "Both are DNS lookup tools. nslookup quickly resolves a name to an IP address; dig gives detailed DNS query results and is preferred for troubleshooting."
+        },
+        {
+          "q": "What is the difference between /etc/resolv.conf and /etc/hosts?",
+          "a": "/etc/resolv.conf stores the DNS server addresses the system queries. /etc/hosts maps names to IP addresses locally and is checked before DNS."
+        },
+        {
+          "q": "What are the 7 layers of the OSI model?",
+          "a": "1. Physical, 2. Data Link, 3. Network, 4. Transport, 5. Session, 6. Presentation, 7. Application."
+        },
+        {
+          "q": "What are the common port numbers?",
+          "a": "22 - SSH, 21 - FTP, 53 - DNS, 80 - HTTP, 443 - HTTPS, 143 - IMAP, 3389 - RDP, 161 - SNMP, 2049 - NFS."
+        },
+        {
+          "q": "What is a port number?",
+          "a": "A port number identifies a specific service or application on a device. It directs network traffic to the correct application."
+        },
+        {
+          "q": "What is RIP?",
+          "a": "RIP is a distance-vector routing protocol. It chooses the best route based on hop count."
+        },
+        {
+          "q": "What are OSPF and IGRP?",
+          "a": "OSPF is a link-state routing protocol. IGRP is Cisco's distance-vector routing protocol."
+        },
+        {
+          "q": "What is the main DNS configuration file?",
+          "a": "On RHEL-based systems running BIND, the main DNS server configuration file is /etc/named.conf."
+        },
+        {
+          "q": "Why do we need subnetting?",
+          "a": "Subnetting divides a network into smaller networks. It improves IP address management, performance, and security."
+        },
+        {
+          "q": "What is a VLAN?",
+          "a": "A VLAN divides one physical network into multiple logical networks. Devices in different VLANs cannot communicate without a router."
+        },
+        {
+          "q": "What are the classes of IP addresses?",
+          "a": "The five classes are A, B, C, D, and E. Classes A, B, and C are used for host addressing, D is for multicast, and E is experimental."
+        },
+        {
+          "q": "What is the network ID of 72.59.120.10/25?",
+          "a": "A /25 mask is 255.255.255.128, so the network ID is 72.59.120.0. Usable host addresses run from 72.59.120.1 to 72.59.120.126."
+        },
+        {
+          "q": "What is the difference between private and public IP addresses?",
+          "a": "A private IP is used inside a local network and is not reachable from the internet. A public IP is assigned by the ISP and is used to communicate on the internet."
+        },
+        {
+          "q": "What is the difference between HTTP and HTTPS?",
+          "a": "HTTP transfers data without encryption. HTTPS encrypts data using SSL/TLS, so the communication is secure."
+        },
+        {
+          "q": "What is Active Directory?",
+          "a": "Active Directory is Microsoft's directory service. It manages users, computers, groups, and permissions in a Windows network."
+        },
+        {
+          "q": "How do you configure a switch?",
+          "a": "Assign a hostname and a management IP, configure VLANs, and enable the required ports. Always save the configuration after changes."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Networking Basics",
+          "items": [
+            {
+              "command": "ip addr",
+              "example": "ip addr show",
+              "use": "IP/interface details"
+            },
+            {
+              "command": "ip link",
+              "example": "ip link show",
+              "use": "Interface state"
+            },
+            {
+              "command": "ip route",
+              "example": "ip route",
+              "use": "Routing/default gateway"
+            },
+            {
+              "command": "ip neigh",
+              "example": "ip neigh",
+              "use": "ARP/neighbor table"
+            },
+            {
+              "command": "ping",
+              "example": "ping -c 4 8.8.8.8",
+              "use": "Connectivity test"
+            },
+            {
+              "command": "ss -tuln",
+              "example": "ss -tuln",
+              "use": "Listening ports"
+            },
+            {
+              "command": "ss -tp",
+              "example": "ss -tp",
+              "use": "Connections + processes"
+            },
+            {
+              "command": "hostname",
+              "example": "hostname",
+              "use": "Server hostname"
+            },
+            {
+              "command": "hostnamectl",
+              "example": "hostnamectl",
+              "use": "Hostname/system details"
+            },
+            {
+              "command": "curl",
+              "example": "curl -I https://example.com",
+              "use": "HTTP connectivity test"
+            }
+          ]
+        },
+        {
+          "title": "DNS & Network Tools",
+          "items": [
+            {
+              "command": "nslookup",
+              "example": "nslookup example.com",
+              "use": "DNS resolution"
+            },
+            {
+              "command": "dig",
+              "example": "dig example.com",
+              "use": "Detailed DNS query"
+            },
+            {
+              "command": "host",
+              "example": "host example.com",
+              "use": "Simple DNS lookup"
+            },
+            {
+              "command": "traceroute",
+              "example": "traceroute example.com",
+              "use": "Packet path"
+            },
+            {
+              "command": "tracepath",
+              "example": "tracepath example.com",
+              "use": "Path/MTU troubleshooting"
+            },
+            {
+              "command": "nmcli",
+              "example": "nmcli device status",
+              "use": "NetworkManager status"
+            },
+            {
+              "command": "nmtui",
+              "example": "nmtui",
+              "use": "Text UI network config"
+            },
+            {
+              "command": "ethtool",
+              "example": "ethtool eth0",
+              "use": "NIC link/speed info"
+            },
+            {
+              "command": "tcpdump",
+              "example": "tcpdump -i eth0 port 443",
+              "use": "Packet troubleshooting"
+            },
+            {
+              "command": "wget",
+              "example": "wget https://example.com/file.zip",
+              "use": "Download file"
+            }
+          ]
+        },
+        {
+          "title": "SSH & File Transfer",
+          "items": [
+            {
+              "command": "ssh",
+              "example": "ssh user@192.168.1.10",
+              "use": "Remote login"
+            },
+            {
+              "command": "ssh -p",
+              "example": "ssh -p 2222 user@server",
+              "use": "Connect on custom port"
+            },
+            {
+              "command": "ssh -v",
+              "example": "ssh -v user@server",
+              "use": "Debug SSH connection"
+            },
+            {
+              "command": "scp",
+              "example": "scp app.conf user@server:/tmp/",
+              "use": "Secure file copy"
+            },
+            {
+              "command": "scp -r",
+              "example": "scp -r app/ user@server:/opt/",
+              "use": "Directory copy"
+            },
+            {
+              "command": "sftp",
+              "example": "sftp user@server",
+              "use": "Interactive file transfer"
+            },
+            {
+              "command": "ssh-keygen",
+              "example": "ssh-keygen -t ed25519",
+              "use": "Generate SSH keys"
+            },
+            {
+              "command": "ssh-copy-id",
+              "example": "ssh-copy-id user@server",
+              "use": "Install public key"
+            },
+            {
+              "command": "ssh-keyscan",
+              "example": "ssh-keyscan server",
+              "use": "Get host key"
+            },
+            {
+              "command": "sshd -t",
+              "example": "sshd -t",
+              "use": "Validate SSH config syntax"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is the difference between kernel space and user space?",
-     "a": "Kernel space is where the kernel runs with full hardware access. User space is where normal programs run with restricted access; for privileged work like file or network access they must ask the kernel through a system call."
+      "id": "storage",
+      "title": "Disks, Filesystems & Storage",
+      "questions": [
+        {
+          "q": "How do you check disk space and directory sizes?",
+          "a": "df -h shows used and free space per mounted filesystem. du -sh /path shows how much one directory uses, and du -sh * sizes everything in the current directory."
+        },
+        {
+          "q": "What does mounting a filesystem mean?",
+          "a": "Attaching a filesystem - from a partition, disk or network share - onto a directory in the tree, for example mount /dev/sdb1 /mnt/data. Everything written under that directory then goes to the device."
+        },
+        {
+          "q": "What is /etc/fstab?",
+          "a": "The table of filesystems mounted automatically at boot: device (best given as UUID=...), mount point, filesystem type, options, and dump/fsck fields. A broken line can drop the boot into emergency mode, so always test edits with mount -a."
+        },
+        {
+          "q": "ext4, XFS and Btrfs in one line each?",
+          "a": "ext4 is the mature journaling default on many distros. XFS is tuned for large files and parallel workloads and is the RHEL default. Btrfs adds copy-on-write, snapshots and built-in volume features."
+        },
+        {
+          "q": "What is swap?",
+          "a": "Disk space the kernel uses as overflow memory when RAM runs out, and for hibernation. swapon --show lists active swap; a new swap area is prepared with mkswap and activated with swapon."
+        },
+        {
+          "q": "What is LVM and why use it?",
+          "a": "Logical Volume Manager inserts a flexible layer between disks and filesystems: physical volumes (disks) join a volume group, from which logical volumes are carved out. The benefit is resizing, snapshots and moving volumes without repartitioning."
+        },
+        {
+          "q": "What does fsck do, and when does it run?",
+          "a": "fsck checks and repairs filesystem consistency, and it must run on an UNMOUNTED filesystem. At boot it runs automatically when a filesystem is marked dirty or has passed its mount-count limit."
+        },
+        {
+          "q": "The disk is full - how do you find what is filling it?",
+          "a": "df -h shows which filesystem is full, then du -xh --max-depth=1 / | sort -h finds the biggest directories; /var/log and package caches are common culprits. Files that are deleted but still open keep holding space - find them with lsof +L1."
+        },
+        {
+          "q": "What is an inode?",
+          "a": "The filesystem's record for a file: permissions, owner, timestamps and pointers to the data blocks - everything except the name, which lives in directory entries. Running out of inodes makes a disk report full even with blocks free; check with df -i."
+        },
+        {
+          "q": "How do you partition and format a disk from the command line?",
+          "a": "Identify the disk with lsblk, partition it with fdisk /dev/sdX or parted, format the new partition with mkfs.ext4 /dev/sdX1, then mount it. Every step destroys data if you pick the wrong disk - double-check the device name first."
+        },
+        {
+          "q": "What is a partition?",
+          "a": "A partition is a logical section of a storage device. It lets one disk be divided into multiple independent areas."
+        },
+        {
+          "q": "What is the difference between MBR and GPT?",
+          "a": "MBR supports disks up to 2 TB and a maximum of four primary partitions. GPT supports very large disks and many more partitions, and it is the modern standard."
+        },
+        {
+          "q": "What is a file system?",
+          "a": "A file system is the method an operating system uses to store, organize, and manage files on a storage device. Examples are ext4, XFS, and Btrfs."
+        },
+        {
+          "q": "Which file system does RHEL 7 use by default?",
+          "a": "RHEL 7 uses XFS as its default file system."
+        },
+        {
+          "q": "How do you check free memory?",
+          "a": "Use free -h to see RAM and swap usage in human-readable form."
+        },
+        {
+          "q": "How do you mount and unmount a directory?",
+          "a": "Use mount to attach a filesystem to a directory: mount /dev/sdb1 /mnt/data. Use umount /mnt/data to detach it safely before removing the device."
+        },
+        {
+          "q": "How do you increase a disk partition?",
+          "a": "First grow the partition itself (with growpart or fdisk), then expand the filesystem: resize2fs for ext4 or xfs_growfs for XFS. With LVM, use lvextend and then the same filesystem resize step."
+        },
+        {
+          "q": "What are the common LVM commands?",
+          "a": "pvcreate prepares a disk as a physical volume, vgcreate builds a volume group, lvcreate carves out a logical volume, lvextend grows it, and lvreduce shrinks it."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Storage & Filesystems",
+          "items": [
+            {
+              "command": "lsblk",
+              "example": "lsblk -f",
+              "use": "Disks/partitions/filesystems"
+            },
+            {
+              "command": "blkid",
+              "example": "blkid /dev/sdb1",
+              "use": "UUID/filesystem type"
+            },
+            {
+              "command": "fdisk",
+              "example": "fdisk -l",
+              "use": "Partition information"
+            },
+            {
+              "command": "parted",
+              "example": "parted -l",
+              "use": "Partition table inspect"
+            },
+            {
+              "command": "df -h",
+              "example": "df -h",
+              "use": "Filesystem space"
+            },
+            {
+              "command": "df -i",
+              "example": "df -i",
+              "use": "Inode usage"
+            },
+            {
+              "command": "du -sh",
+              "example": "du -sh /var/log",
+              "use": "Directory size"
+            },
+            {
+              "command": "du -ah",
+              "example": "du -ah /var | sort -h",
+              "use": "Find large items"
+            },
+            {
+              "command": "mount",
+              "example": "mount /dev/sdb1 /data",
+              "use": "Mount filesystem"
+            },
+            {
+              "command": "umount",
+              "example": "umount /data",
+              "use": "Unmount filesystem"
+            }
+          ]
+        },
+        {
+          "title": "LVM",
+          "items": [
+            {
+              "command": "pvs",
+              "example": "pvs",
+              "use": "PV summary"
+            },
+            {
+              "command": "pvdisplay",
+              "example": "pvdisplay",
+              "use": "Detailed PV"
+            },
+            {
+              "command": "pvcreate",
+              "example": "pvcreate /dev/sdb1",
+              "use": "Create physical volume"
+            },
+            {
+              "command": "vgs",
+              "example": "vgs",
+              "use": "VG summary"
+            },
+            {
+              "command": "vgdisplay",
+              "example": "vgdisplay",
+              "use": "Detailed VG"
+            },
+            {
+              "command": "vgcreate",
+              "example": "vgcreate vgdata /dev/sdb1",
+              "use": "Create volume group"
+            },
+            {
+              "command": "vgextend",
+              "example": "vgextend vgdata /dev/sdc1",
+              "use": "Add PV to VG"
+            },
+            {
+              "command": "lvs",
+              "example": "lvs",
+              "use": "LV summary"
+            },
+            {
+              "command": "lvdisplay",
+              "example": "lvdisplay",
+              "use": "Detailed LV"
+            },
+            {
+              "command": "lvcreate",
+              "example": "lvcreate -L 5G -n lvapp vgdata",
+              "use": "Create logical volume"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "Why is Linux so popular for servers?",
-     "a": "It is free and open source, stable for years of uptime, secure by design (users, permissions, fast patches), runs on almost any hardware, and is easy to automate with shells and tools. Most cloud and web servers run Linux."
+      "id": "scripting",
+      "title": "Shell Scripting Basics",
+      "questions": [
+        {
+          "q": "What is the shebang line?",
+          "a": "The first line of a script, like #!/bin/bash, that tells the kernel which interpreter should execute the file. Without it, your current shell interprets the script instead."
+        },
+        {
+          "q": "How do you make a script executable and run it?",
+          "a": "chmod +x script.sh, then run it with an explicit path: ./script.sh. The current directory is deliberately not in PATH, so the ./ is required. bash script.sh works without the execute bit."
+        },
+        {
+          "q": "How do variables and command substitution work?",
+          "a": "name=value sets a variable (no spaces around =); $name or ${name} reads it. $(command) captures a command's output, as in today=$(date +%F). Quote expansions - \"$name\" - so values with spaces survive."
+        },
+        {
+          "q": "How do you read command-line arguments in a script?",
+          "a": "$1, $2... are the positional parameters, $# is their count, $@ is all of them and $0 is the script's own name. Validate them early: [ $# -lt 1 ] && { echo \"usage: $0 FILE\"; exit 1; }."
+        },
+        {
+          "q": "What is the exit status and what is $?",
+          "a": "Every command returns 0 on success and a non-zero code on failure; $? holds the last command's status. Writing if command; then tests it directly, and well-behaved scripts end with exit 0 on success."
+        },
+        {
+          "q": "Give one example each of if, for and while in bash.",
+          "a": "if [ -f /etc/passwd ]; then echo yes; fi --- for f in *.log; do echo \"$f\"; done --- while read -r line; do echo \"$line\"; done < file. The [ ] command runs tests: -f file exists, -z empty string, = string equality, -eq numeric equality."
+        },
+        {
+          "q": "What does set -euo pipefail do?",
+          "a": "Strict mode: -e exits the script at the first failing command, -u treats unset variables as errors, and -o pipefail makes a pipeline fail if ANY stage fails, not just the last. It surfaces bugs early and is expected in serious scripts."
+        },
+        {
+          "q": "What is the difference between $* and $@?",
+          "a": "Both expand to all arguments, but quoted \"$@\" keeps each argument as a separate word while \"$*\" joins them into one. For looping over arguments, \"$@\" is almost always the right choice."
+        },
+        {
+          "q": "How do you schedule a script to run regularly?",
+          "a": "With cron: crontab -e, then a line like 0 2 * * * /home/akash/backup.sh (minute hour day month weekday). systemd timers are the modern alternative when you need dependencies and journal logging."
+        },
+        {
+          "q": "How do you debug a shell script?",
+          "a": "bash -x script.sh prints every command as it executes; you can wrap a suspect block in set -x / set +x. Echo key variables along the way and check failures with echo $?."
+        },
+        {
+          "q": "What is a shell script?",
+          "a": "A shell script is a text file that contains a sequence of Linux commands. It is used to automate repetitive tasks."
+        },
+        {
+          "q": "Why do we use shell scripting?",
+          "a": "Shell scripting saves time by automating manual work. It makes tasks repeatable and reduces human error."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Shell & Text Processing",
+          "items": [
+            {
+              "command": "echo",
+              "example": "echo $PATH",
+              "use": "Print values"
+            },
+            {
+              "command": "printf",
+              "example": "printf 'Server: %s\\n' \"$HOSTNAME\"",
+              "use": "Formatted output"
+            },
+            {
+              "command": "env",
+              "example": "env",
+              "use": "Environment variables"
+            },
+            {
+              "command": "printenv",
+              "example": "printenv HOME",
+              "use": "Specific environment variable"
+            },
+            {
+              "command": "export",
+              "example": "export APP_ENV=prod",
+              "use": "Export variable"
+            },
+            {
+              "command": "source",
+              "example": "source ~/.bashrc",
+              "use": "Reload shell config"
+            },
+            {
+              "command": "alias",
+              "example": "alias ll='ls -lah'",
+              "use": "Create shortcut"
+            },
+            {
+              "command": "unalias",
+              "example": "unalias ll",
+              "use": "Remove alias"
+            },
+            {
+              "command": "awk",
+              "example": "awk '{print $1}' access.log",
+              "use": "Extract/process columns"
+            },
+            {
+              "command": "sed",
+              "example": "sed 's/old/new/g' file.txt",
+              "use": "Replace text"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "How is Windows different from Linux?",
-     "a": "Windows is a commercial operating system made by Microsoft. Linux is free and open source, and it is more secure, stable, and widely used for servers."
+      "id": "systemd",
+      "title": "Boot, systemd & Services",
+      "questions": [
+        {
+          "q": "What happens when a Linux machine boots?",
+          "a": "The firmware (BIOS/UEFI) runs the bootloader (GRUB); GRUB loads the kernel and initramfs; the kernel mounts the root filesystem and starts PID 1 (systemd); systemd then starts units until the default target - multi-user or graphical - is reached."
+        },
+        {
+          "q": "What is systemd and what is a unit?",
+          "a": "systemd is PID 1, the init system that starts and supervises everything else. A unit is a resource it manages: .service (daemons), .socket, .timer, .mount, .path and .target (boot stages that group units)."
+        },
+        {
+          "q": "systemctl basics: start, stop, enable?",
+          "a": "systemctl start/stop/restart name controls a service right now. systemctl enable name links it to start at boot (disable removes the link). systemctl enable --now name does both at once, and status name shows its state plus recent log lines."
+        },
+        {
+          "q": "What is the difference between systemctl enable and systemctl start?",
+          "a": "start changes the running system only - the effect is gone after reboot. enable only creates the boot-time symlink and does not start anything now. systemctl enable --now combines both."
+        },
+        {
+          "q": "How do you read a service's logs?",
+          "a": "journalctl -u name shows one unit's logs; journalctl -f follows new entries live; journalctl -b limits to the current boot; journalctl -p err shows errors and worse. Traditional text logs still live under /var/log."
+        },
+        {
+          "q": "Where do unit files live, and how do you edit one safely?",
+          "a": "Vendor units live in /usr/lib/systemd/system (or /lib/systemd/system on Debian/Ubuntu); local and custom units live in /etc/systemd/system and override them. Edit with systemctl edit name, which creates a drop-in instead of touching vendor files, then run systemctl daemon-reload."
+        },
+        {
+          "q": "What is a target?",
+          "a": "A systemd boot stage that groups units - the successor of runlevels. multi-user.target is the text-mode server state and graphical.target adds the desktop. systemctl get-default and set-default control which one boots; systemctl isolate switches immediately."
+        },
+        {
+          "q": "How do you create your own service?",
+          "a": "Write /etc/systemd/system/myservice.service with a [Unit] section (Description, After=network.target), a [Service] section (ExecStart=/path/to/command, optionally Restart=on-failure) and an [Install] section (WantedBy=multi-user.target). Then systemctl daemon-reload and systemctl enable --now myservice."
+        },
+        {
+          "q": "How do you see why boot was slow or what failed?",
+          "a": "systemd-analyze prints the total boot time; systemd-analyze blame ranks units by startup time; systemctl --failed lists failed units; journalctl -b -p err shows this boot's errors."
+        },
+        {
+          "q": "What is the difference between a systemd timer and cron?",
+          "a": "A timer unit triggers a service on a schedule and adds dependencies, journal logging and catch-up of missed runs (Persistent=true). cron is simpler and available everywhere; timers integrate with the rest of systemd."
+        },
+        {
+          "q": "What is a service?",
+          "a": "A service is a program that runs in the background to provide specific functionality. Examples include the SSH, Apache, and MySQL services."
+        },
+        {
+          "q": "What is the difference between systemctl and service?",
+          "a": "systemctl manages services on systemd-based systems, which covers most modern distros. service is the older SysVinit command that still works for compatibility on many systems."
+        },
+        {
+          "q": "What is GRUB?",
+          "a": "GRUB (Grand Unified Bootloader) is the Linux bootloader. It loads the kernel into memory and starts the operating system."
+        },
+        {
+          "q": "What is journald?",
+          "a": "journald is the logging service of systemd. It collects and stores system and service logs, which you read with journalctl."
+        },
+        {
+          "q": "How do you host a web server on Linux?",
+          "a": "Install a web server like Apache or Nginx with the package manager, place the website files in its web root (for example /var/www/html), then start and enable the service with systemctl."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Services & systemd",
+          "items": [
+            {
+              "command": "systemctl status",
+              "example": "systemctl status sshd",
+              "use": "Service status"
+            },
+            {
+              "command": "systemctl start",
+              "example": "systemctl start nginx",
+              "use": "Start service"
+            },
+            {
+              "command": "systemctl stop",
+              "example": "systemctl stop nginx",
+              "use": "Stop service"
+            },
+            {
+              "command": "systemctl restart",
+              "example": "systemctl restart nginx",
+              "use": "Restart service"
+            },
+            {
+              "command": "systemctl reload",
+              "example": "systemctl reload nginx",
+              "use": "Reload config when supported"
+            },
+            {
+              "command": "systemctl enable",
+              "example": "systemctl enable nginx",
+              "use": "Start at boot"
+            },
+            {
+              "command": "systemctl disable",
+              "example": "systemctl disable nginx",
+              "use": "Disable boot start"
+            },
+            {
+              "command": "systemctl is-active",
+              "example": "systemctl is-active nginx",
+              "use": "Check active state"
+            },
+            {
+              "command": "systemctl is-enabled",
+              "example": "systemctl is-enabled nginx",
+              "use": "Check boot state"
+            },
+            {
+              "command": "systemctl list-units",
+              "example": "systemctl list-units --type=service",
+              "use": "List loaded services"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is one feature Linux has but Windows does not?",
-     "a": "Linux is fully open source, so anyone can see and modify its code. This gives complete control and customization that Windows does not allow."
+      "id": "security",
+      "title": "Security, Logs & Scheduled Tasks",
+      "questions": [
+        {
+          "q": "What are the most important log locations?",
+          "a": "The systemd journal (read it with journalctl), /var/log/syslog or /var/log/messages for general logs, /var/log/auth.log or /var/log/secure for logins and sudo, and per-service files like /var/log/nginx/. Kernel messages appear in the journal and /var/log/kern.log."
+        },
+        {
+          "q": "How do you see who is logged in and the login history?",
+          "a": "who or w shows current sessions. last lists past logins from the wtmp database, and lastb lists FAILED attempts from btmp. journalctl _COMM=sshd filters SSH events."
+        },
+        {
+          "q": "What is the cron time format?",
+          "a": "Five fields - minute, hour, day of month, month, day of week - followed by the command. A * means 'every'. So 30 3 * * 0 runs at 03:30 every Sunday. Shortcuts like @daily and @reboot also exist."
+        },
+        {
+          "q": "crontab -e versus /etc/crontab versus /etc/cron.d?",
+          "a": "crontab -e edits the current user's personal crontab, whose lines have no user field. /etc/crontab and files in /etc/cron.d are system-wide and include a user field between the schedule and the command. Scripts dropped in cron.daily, cron.weekly and cron.monthly run on those schedules."
+        },
+        {
+          "q": "A cron job did not run - how do you debug it?",
+          "a": "Check the log with grep CRON /var/log/syslog or journalctl -u cron, confirm the cron service is running, and remember cron uses a minimal environment: use absolute paths, set PATH explicitly, and capture errors with >> /tmp/job.log 2>&1."
+        },
+        {
+          "q": "What is a Linux firewall and which tools manage it?",
+          "a": "It filters network traffic by rules. The kernel framework is nftables (iptables is the legacy one); friendly front-ends are ufw on Ubuntu (ufw allow 22, ufw enable) and firewalld on RHEL (firewall-cmd)."
+        },
+        {
+          "q": "How do you harden SSH on a server?",
+          "a": "Use key-based login and disable passwords (PasswordAuthentication no), disable direct root login (PermitRootLogin no), optionally restrict users with AllowUsers, keep the system patched, and add fail2ban to slow brute-force attacks."
+        },
+        {
+          "q": "What are SSH keys and how do you set them up?",
+          "a": "A key pair: the private key stays on your machine (~/.ssh/id_ed25519) and the public key goes on the server (~/.ssh/authorized_keys). Create them with ssh-keygen -t ed25519 and install the public key with ssh-copy-id user@host - after that, logins need no password."
+        },
+        {
+          "q": "What are SELinux and AppArmor?",
+          "a": "Mandatory Access Control systems that confine even root-owned processes by policy. SELinux (RHEL family) works with labels - check getenforce and the audit log for denials. AppArmor (Ubuntu, SUSE) confines programs by path-based profiles - check aa-status."
+        },
+        {
+          "q": "How do you investigate high load or memory trouble?",
+          "a": "uptime shows the load average - compare it with the CPU count. top or htop shows per-process CPU and memory, free -h shows RAM and swap usage, vmstat 1 shows trends, and dmesg -T reveals kernel events such as OOM-killer kills."
+        },
+        {
+          "q": "What is the difference between SELinux and a firewall?",
+          "a": "SELinux controls access inside the operating system - files, processes, and resources. A firewall controls incoming and outgoing network traffic."
+        },
+        {
+          "q": "What is firewalld?",
+          "a": "firewalld is the default firewall management service on RHEL-based systems. It manages rules dynamically with zones, using the firewall-cmd command."
+        },
+        {
+          "q": "What is the difference between iptables and a firewall?",
+          "a": "A firewall is the security system that filters network traffic. iptables is the classic command-line tool for writing those rules; modern systems use nftables instead."
+        },
+        {
+          "q": "How do you add an iptables rule?",
+          "a": "Use iptables -A to append a rule, for example: iptables -A INPUT -p tcp --dport 22 -j ACCEPT allows SSH traffic. Save the rules afterwards so they survive a reboot."
+        },
+        {
+          "q": "What is Anacron?",
+          "a": "Anacron runs scheduled tasks that were missed because the system was powered off. It is meant for machines that do not run all the time, like laptops."
+        },
+        {
+          "q": "What is the difference between Cron and Anacron?",
+          "a": "Cron runs jobs at exact times and assumes the machine is always on. Anacron catches up on missed jobs when the system comes back, working with day-level schedules."
+        },
+        {
+          "q": "Your Linux system has malware. What will you do?",
+          "a": "Disconnect the system from the network, identify and remove the infected files, patch and update the system, and restore from a clean backup if needed. Review logs to find how it entered."
+        },
+        {
+          "q": "The server is down. How will you troubleshoot?",
+          "a": "Check power and network first, then whether the server is reachable with ping. Check services, logs, disk space, CPU, and memory. Restart the failed service and verify the application works."
+        },
+        {
+          "q": "SSH is not working. How will you troubleshoot?",
+          "a": "Check network connectivity, confirm sshd is running with systemctl status sshd, verify the firewall allows port 22, and review the SSH logs."
+        },
+        {
+          "q": "A service is not starting. What will you check?",
+          "a": "Check systemctl status for the error, read its logs with journalctl -u, and verify the configuration file for mistakes."
+        },
+        {
+          "q": "The server cannot access the internet. What will you verify?",
+          "a": "Check the IP address, gateway, and DNS settings, then test step by step: ping the gateway, an external IP, and a domain name."
+        },
+        {
+          "q": "Users cannot log in. What will you check?",
+          "a": "Check whether the account is locked or expired, the password, permissions, and the authentication logs. Also verify that SSH or login services are running."
+        },
+        {
+          "q": "A filesystem became read-only. What could be the reason?",
+          "a": "Usually filesystem corruption or disk errors - the kernel remounts it read-only to protect data. Check dmesg and disk health, then run fsck from a rescue environment."
+        },
+        {
+          "q": "The server does not boot after a restart. What will you do?",
+          "a": "Check the bootloader (GRUB), the kernel, and the boot logs. Boot into rescue mode if needed, identify the failed component, and repair it."
+        },
+        {
+          "q": "How do you take a backup in Linux?",
+          "a": "Use tar for archives and rsync to sync files to another disk or server. Keep backups in a separate, secure location and test that restores work."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Logs & Troubleshooting",
+          "items": [
+            {
+              "command": "journalctl",
+              "example": "journalctl",
+              "use": "Systemd journal"
+            },
+            {
+              "command": "journalctl -u",
+              "example": "journalctl -u nginx",
+              "use": "Service logs"
+            },
+            {
+              "command": "journalctl -f",
+              "example": "journalctl -f",
+              "use": "Follow logs live"
+            },
+            {
+              "command": "journalctl -b",
+              "example": "journalctl -b",
+              "use": "Current boot logs"
+            },
+            {
+              "command": "journalctl --since",
+              "example": "journalctl --since '1 hour ago'",
+              "use": "Recent logs"
+            },
+            {
+              "command": "dmesg",
+              "example": "dmesg | tail",
+              "use": "Kernel/hardware messages"
+            },
+            {
+              "command": "logger",
+              "example": "logger 'Backup completed'",
+              "use": "Write custom log message"
+            },
+            {
+              "command": "last",
+              "example": "last",
+              "use": "Login/reboot history"
+            },
+            {
+              "command": "lastb",
+              "example": "lastb",
+              "use": "Failed login attempts"
+            },
+            {
+              "command": "tail -f",
+              "example": "tail -f /var/log/messages",
+              "use": "Live traditional log"
+            }
+          ]
+        },
+        {
+          "title": "Scheduling & Repetition",
+          "items": [
+            {
+              "command": "crontab -e",
+              "example": "crontab -e",
+              "use": "Edit user cron jobs"
+            },
+            {
+              "command": "crontab -l",
+              "example": "crontab -l",
+              "use": "List cron jobs"
+            },
+            {
+              "command": "crontab -r",
+              "example": "crontab -r",
+              "use": "Remove user cron jobs; caution"
+            },
+            {
+              "command": "at",
+              "example": "at 23:00",
+              "use": "One-time scheduled job"
+            },
+            {
+              "command": "atq",
+              "example": "atq",
+              "use": "List pending at jobs"
+            },
+            {
+              "command": "atrm",
+              "example": "atrm 5",
+              "use": "Remove at job"
+            },
+            {
+              "command": "systemctl list-timers",
+              "example": "systemctl list-timers",
+              "use": "List systemd timers"
+            },
+            {
+              "command": "watch",
+              "example": "watch -n 2 df -h",
+              "use": "Repeat command for monitoring"
+            },
+            {
+              "command": "sleep",
+              "example": "sleep 10",
+              "use": "Script delay"
+            },
+            {
+              "command": "timeout",
+              "example": "timeout 10s ping server",
+              "use": "Limit command duration"
+            }
+          ]
+        },
+        {
+          "title": "Security & Firewall",
+          "items": [
+            {
+              "command": "sudo",
+              "example": "sudo systemctl restart nginx",
+              "use": "Run authorized admin command"
+            },
+            {
+              "command": "su",
+              "example": "su - appuser",
+              "use": "Switch user"
+            },
+            {
+              "command": "visudo",
+              "example": "visudo",
+              "use": "Safely edit sudoers"
+            },
+            {
+              "command": "getenforce",
+              "example": "getenforce",
+              "use": "SELinux mode"
+            },
+            {
+              "command": "sestatus",
+              "example": "sestatus",
+              "use": "SELinux details"
+            },
+            {
+              "command": "firewall-cmd --state",
+              "example": "firewall-cmd --state",
+              "use": "Firewalld state"
+            },
+            {
+              "command": "firewall-cmd --list-all",
+              "example": "firewall-cmd --list-all",
+              "use": "Current firewall rules"
+            },
+            {
+              "command": "firewall-cmd --add-service",
+              "example": "firewall-cmd --add-service=http --permanent",
+              "use": "Allow HTTP"
+            },
+            {
+              "command": "firewall-cmd --reload",
+              "example": "firewall-cmd --reload",
+              "use": "Apply permanent firewalld changes"
+            },
+            {
+              "command": "openssl",
+              "example": "openssl s_client -connect example.com:443",
+              "use": "TLS/SSL troubleshooting"
+            }
+          ]
+        }
+      ]
     },
     {
-     "q": "What is Linux?",
-     "a": "Linux is a free, open-source operating system kernel based on Unix. Combined with system tools in a distribution, it powers most servers, Android phones, and cloud systems."
-    },
-    {
-     "q": "What is an Operating System (OS)?",
-     "a": "An Operating System is software that manages the computer's hardware and software resources. It acts as a bridge between the user and the hardware."
-    },
-    {
-     "q": "What is Bash?",
-     "a": "Bash (Bourne Again Shell) is the default command-line shell in most Linux distributions. It is used to run commands and to write shell scripts."
-    },
-    {
-     "q": "What is the difference between CLI and GUI?",
-     "a": "CLI (Command Line Interface) lets you work by typing commands. GUI (Graphical User Interface) lets you work with windows, icons, and menus."
-    },
-    {
-     "q": "What is the difference between the Kernel and the Shell?",
-     "a": "The Kernel talks directly to the hardware and manages system resources. The Shell is the interface through which the user gives commands to the Kernel."
-    },
-    {
-     "q": "What is the difference between RHEL and Ubuntu?",
-     "a": "RHEL uses RPM packages with dnf/yum and is enterprise-focused with paid support. Ubuntu uses DEB packages with apt and is community-focused and free."
-    },
-    {
-     "q": "What is the difference between CentOS and RHEL?",
-     "a": "RHEL is a commercial distribution with official Red Hat support. CentOS was its free community rebuild; today CentOS Stream sits just ahead of RHEL development."
-    },
-    {
-     "q": "Which Linux distribution do you like, and why?",
-     "a": "Sample answer: RHEL, because it is stable, secure, and widely used in enterprise environments with long-term support."
-    },
-    {
-     "q": "Have you explored the Linux kernel?",
-     "a": "Sample answer: Yes. I understand that the kernel manages hardware, memory, processes, and device drivers, and I use commands like uname and dmesg to see kernel information."
+      "id": "hr",
+      "title": "HR & Closing Round",
+      "questions": [
+        {
+          "q": "Tell me about yourself.",
+          "a": "My name is Akash Vishwakarma. I have completed my BCA, and I am learning Linux System Administration. I have hands-on practice with Linux commands, user management, networking, services, and troubleshooting, and I am looking for an opportunity to grow as a Linux Administrator."
+        },
+        {
+          "q": "Why do you want to become a Linux Administrator?",
+          "a": "I enjoy working with Linux systems and solving technical problems. I want to build my career in system administration and continuously improve my skills."
+        },
+        {
+          "q": "Why should we hire you?",
+          "a": "I have a strong foundation in Linux and a willingness to learn quickly. I am dedicated, responsible, and ready to work in a real production environment."
+        },
+        {
+          "q": "What are your strengths?",
+          "a": "I am a quick learner, patient, and I enjoy troubleshooting technical issues. I work well in a team and adapt to new technologies easily."
+        },
+        {
+          "q": "What is your weakness?",
+          "a": "I am still gaining real-world production experience, but I am learning every day through hands-on practice and labs."
+        },
+        {
+          "q": "Where do you see yourself in 5 years?",
+          "a": "I see myself as an experienced Linux System Administrator handling production servers and mentoring junior team members."
+        },
+        {
+          "q": "Are you comfortable working in shifts?",
+          "a": "Yes. I understand that system administration often requires shift work, and I am comfortable working in rotational shifts if needed."
+        },
+        {
+          "q": "Do you have any questions for us?",
+          "a": "Yes. What technologies and Linux distributions does your team use? Also, what kind of training and learning opportunities do you provide for freshers?"
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "navigation",
-   "title": "Navigation & the Filesystem",
-   "questions": [
-    {
-     "q": "What is the difference between an absolute and a relative path?",
-     "a": "An absolute path starts from the root / (for example /home/akash/file.txt) and means the same thing from anywhere. A relative path is resolved from your current directory (docs/file.txt) and changes meaning as you cd around."
-    },
-    {
-     "q": "What do . and .. mean in a directory listing?",
-     "a": ". refers to the current directory and .. to the parent directory. They are real directory entries, so commands like cd .. move you up one level and ./script runs a script in the current directory."
-    },
-    {
-     "q": "How do you see your current directory and jump to your home directory?",
-     "a": "pwd prints the current directory. cd with no argument (or cd ~) takes you to your home directory, which is stored in the $HOME variable."
-    },
-    {
-     "q": "What is the difference between ls, ls -l and ls -a?",
-     "a": "ls lists names only. ls -l shows the long format: permissions, link count, owner, group, size and modification time. ls -a also shows hidden files - names starting with a dot, including . and .."
-    },
-    {
-     "q": "What is the root directory and what lives directly under it?",
-     "a": "/ is the top of the single filesystem tree. Standard children: /etc (configuration), /home (user data), /var (logs and changing data), /usr (programs and libraries), /bin and /sbin (essential commands), /tmp (temporary files), /dev (device files), /proc and /sys (kernel information)."
-    },
-    {
-     "q": "What are /proc and /sys?",
-     "a": "Virtual filesystems the kernel exposes as files. /proc shows process and system information (for example /proc/cpuinfo); /sys exposes devices and kernel objects for tools like udev. Nothing there is a real disk file."
-    },
-    {
-     "q": "How is cd - useful?",
-     "a": "cd - jumps back to the previous directory you were in and prints it. It is the fastest way to toggle between two directories."
-    },
-    {
-     "q": "What is a hidden file in Linux?",
-     "a": "Any file whose name begins with a dot, like .bashrc. It is not secret or protected - it is simply not shown by default; ls -a reveals it. Dotfiles in your home directory store per-user configuration."
-    },
-    {
-     "q": "What does the tilde (~) expand to?",
-     "a": "Your home directory: ~/docs means /home/akash/docs. The form ~name expands to that user's home directory, for example ~root is /root."
-    },
-    {
-     "q": "What is the difference between cp a b and mv a b?",
-     "a": "cp copies, so the original stays in place. mv renames or moves, so the original path no longer exists. Across filesystems mv actually copies and then deletes the original."
-    },
-    {
-     "q": "What is the purpose of /etc, /var, /home, /tmp, /opt, /usr, /boot, /dev, /proc and /sys?",
-     "a": "/etc stores configuration files. /var stores changing data like logs. /home stores users' personal files. /tmp stores temporary files. /opt stores optional third-party software. /usr stores commands, libraries, and applications. /boot stores bootloader and kernel files. /dev contains device files. /proc shows process and kernel information. /sys shows hardware and kernel object information."
-    },
-    {
-     "q": "What is the difference between a file and a directory?",
-     "a": "A file stores data. A directory is a container that stores files and other directories."
-    }
-   ]
-  },
-  {
-   "id": "files",
-   "title": "File & Directory Management",
-   "questions": [
-    {
-     "q": "How do you create an empty file or update a file's timestamp?",
-     "a": "touch filename. It creates the file if it is missing; if it exists, it updates the access and modification times to now."
-    },
-    {
-     "q": "What is the difference between a hard link and a symbolic (soft) link?",
-     "a": "A hard link is another name for the same inode - the same data - so it survives deletion of the other names, but it cannot cross filesystems or point to a directory. A symlink is a small file containing a path: it can cross filesystems and point to directories, but it breaks if the target is deleted."
-    },
-    {
-     "q": "Which commands show disk usage?",
-     "a": "df -h shows free and used space per mounted filesystem. du -sh * shows the size of each item in the current directory in human-readable form. ncdu (if installed) gives an interactive browser."
-    },
-    {
-     "q": "How do you create a directory together with its parents in one step?",
-     "a": "mkdir -p /a/b/c creates any missing parent directories and does not complain if some already exist."
-    },
-    {
-     "q": "What does rm -r do, and why is rm -rf dangerous?",
-     "a": "rm -r deletes directories and everything inside them, recursively. Adding -f forces the deletion without prompts and ignores missing files, so a single typo can silently destroy the wrong directory tree or even the whole system."
-    },
-    {
-     "q": "How do you copy a whole directory tree?",
-     "a": "cp -r source dest copies recursively. cp -a (archive mode) also preserves permissions, ownership and timestamps, which is what you want for backups."
-    },
-    {
-     "q": "How do you find a file by name under a directory?",
-     "a": "find /path -name 'file.txt'. Useful variants: -iname for case-insensitive matching, -type f or -type d, and -mtime -7 for files changed in the last 7 days."
-    },
-    {
-     "q": "What is the difference between find and locate?",
-     "a": "find searches the live filesystem, so it is slower but always current. locate searches a prebuilt database (refreshed by updatedb), so it is instant but can miss very new files or still list deleted ones."
-    },
-    {
-     "q": "What does the file command do?",
-     "a": "file name inspects the file's actual contents (magic bytes) and reports its real type - text, ELF binary, image, archive - no matter what extension the name has."
-    },
-    {
-     "q": "How do you rename many files at once?",
-     "a": "The usual approach is a shell loop: for f in *.txt; do mv \"$f\" \"${f%.txt}.bak\"; done. Some distros also ship a rename command. Plain mv has no batch renaming syntax."
-    },
-    {
-     "q": "What is the Linux equivalent of a Windows .exe file?",
-     "a": "Linux does not depend on extensions. Any file with execute permission can run as a program, and shell scripts (.sh) are the common equivalent for tools and installers."
-    },
-    {
-     "q": "How do you compress and extract files?",
-     "a": "Use tar: tar -czvf archive.tar.gz folder/ creates a compressed archive, and tar -xzvf archive.tar.gz extracts it. For .zip files, use zip and unzip."
-    }
-   ]
-  },
-  {
-   "id": "text",
-   "title": "Viewing & Working with Text",
-   "questions": [
-    {
-     "q": "What is the difference between cat, less, head and tail?",
-     "a": "cat dumps whole files to stdout - fine for small files or joining files. less pages through big files interactively with search. head shows the first lines (10 by default), tail the last; tail -f follows a growing file live, the classic way to watch logs."
-    },
-    {
-     "q": "How do you search for text inside files?",
-     "a": "grep 'pattern' file. Common flags: -r recursive into directories, -i case-insensitive, -n show line numbers, -v invert (show non-matching lines), -c just count matches."
-    },
-    {
-     "q": "What is a pipe?",
-     "a": "The | operator sends one command's standard output into the next command's standard input, for example ps aux | grep nginx. Chaining small tools this way is the core Unix philosophy."
-    },
-    {
-     "q": "What is the difference between > and >>?",
-     "a": "> redirects stdout to a file and overwrites it; >> appends instead. Both create the file if it does not exist. The related form 2> redirects stderr."
-    },
-    {
-     "q": "How do you count lines, words and bytes in a file?",
-     "a": "wc file prints lines, words and bytes; wc -l gives only the line count. A typical use: grep ERROR app.log | wc -l to count error lines."
-    },
-    {
-     "q": "What does sort do, and how do you get unique lines?",
-     "a": "sort orders lines alphabetically; -n sorts numerically, -r reverses, -k selects a column. uniq removes only ADJACENT duplicate lines, so the standard idiom is sort file | uniq, or simply sort -u."
-    },
-    {
-     "q": "How do you see the differences between two files?",
-     "a": "diff file1 file2 shows the changed lines; diff -u produces the unified format used in patches. For side-by-side comparison use diff -y or vimdiff."
-    },
-    {
-     "q": "What are cut, awk and sed used for?",
-     "a": "cut extracts columns by a delimiter: cut -d: -f1 /etc/passwd. awk splits lines into fields and processes them: awk '{print $1}'. sed edits streams, most often search-and-replace: sed 's/old/new/g' file (add -i to edit the file in place)."
-    },
-    {
-     "q": "How do you watch a log file in real time?",
-     "a": "tail -f /var/log/syslog, or journalctl -f on systemd systems. New lines appear as they are written; Ctrl+C stops following."
-    },
-    {
-     "q": "How do you find which files under /etc contain a string?",
-     "a": "grep -r 'string' /etc. Add -l to list only the matching filenames, or -n to include line numbers with each match."
-    }
-   ]
-  },
-  {
-   "id": "users",
-   "title": "Users, Groups & Permissions",
-   "questions": [
-    {
-     "q": "What do the fields in an ls -l permission string like -rwxr-xr-- mean?",
-     "a": "The first character is the type (- file, d directory, l symlink). Then come three triplets: owner, group, others. In each triplet r = read (4), w = write (2), x = execute (1). So rwxr-xr-- is owner rwx, group r-x, others r-- - octal 754."
-    },
-    {
-     "q": "How do you change permissions with chmod?",
-     "a": "Symbolic form: chmod u+x file, chmod g-w file. Octal form: chmod 755 file gives the owner rwx and everyone else r-x. On directories, x means 'allowed to enter'."
-    },
-    {
-     "q": "What is the difference between chmod, chown and chgrp?",
-     "a": "chmod changes the permission bits. chown changes the owner, and optionally the group too: chown user:group file. chgrp changes only the group. You need to be root or the file's owner."
-    },
-    {
-     "q": "Where are user accounts and groups stored?",
-     "a": "Account information lives in /etc/passwd; password hashes live in /etc/shadow, readable only by root. Groups are defined in /etc/group, with /etc/gshadow for group passwords and admins."
-    },
-    {
-     "q": "How do you add a user and give them sudo rights?",
-     "a": "Create the account with adduser name (Debian/Ubuntu) or useradd name plus passwd name. Then add them to the admin group: usermod -aG sudo name on Debian/Ubuntu, or the wheel group on RHEL/Fedora."
-    },
-    {
-     "q": "What is the root user, and what is sudo?",
-     "a": "root (UID 0) is the superuser that bypasses permission checks. sudo lets permitted users run single commands as root, with every use logged - much safer than working as root all the time."
-    },
-    {
-     "q": "What does the id command show?",
-     "a": "Your numeric uid, your primary gid, and every group you belong to - for example uid=1000(akash) gid=1000(akash) groups=1000(akash),27(sudo)."
-    },
-    {
-     "q": "What is the difference between su and sudo?",
-     "a": "su switches to another account (root by default) and asks for the TARGET account's password. sudo runs one command as root, asks for YOUR password, checks the sudoers policy, and logs the action."
-    },
-    {
-     "q": "How do you lock or delete a user account?",
-     "a": "Lock the password with usermod -L name (or passwd -l name). Delete the account with userdel name; add -r to also remove the home directory and mail spool."
-    },
-    {
-     "q": "What are the SUID, SGID and sticky bits?",
-     "a": "Special permission bits: SUID (octal 4xxx) runs a program with the file owner's rights - passwd is the classic example. SGID (2xxx) does the same with the group, and on a directory makes new files inherit the directory's group. The sticky bit (1xxx) on a shared directory like /tmp means only a file's owner can delete it."
-    },
-    {
-     "q": "What is the difference between useradd and adduser?",
-     "a": "useradd is the low-level command with basic options. adduser is a friendlier script on Debian/Ubuntu that creates the home directory and applies defaults automatically."
-    },
-    {
-     "q": "How do you add a user to a group?",
-     "a": "Use usermod -aG groupname username. The -a option appends the group; without it, the user's other group memberships would be replaced."
-    },
-    {
-     "q": "How do you change a user's password?",
-     "a": "Use passwd username and enter the new password. A user changes their own password with plain passwd; root can change anyone's."
-    },
-    {
-     "q": "What are primary and secondary groups?",
-     "a": "A primary group is the user's default group, which new files they create belong to. Secondary groups give the user extra permissions to shared resources."
-    },
-    {
-     "q": "What is the difference between a user and a group?",
-     "a": "A user is an individual account used to log in to the system. A group is a collection of users that makes managing permissions easier."
-    },
-    {
-     "q": "Why do we use groups in Linux?",
-     "a": "Groups let you manage permissions for many users at the same time. This makes administration easier and more secure."
-    },
-    {
-     "q": "How do you give a file only read and write permission?",
-     "a": "Use chmod 600 filename. This gives the owner read and write (rw-) and removes all permissions for group and others."
-    }
-   ]
-  },
-  {
-   "id": "processes",
-   "title": "Processes & Job Control",
-   "questions": [
-    {
-     "q": "How do you see which processes are running?",
-     "a": "ps aux for a one-time snapshot of all processes; top or htop for a live, sorted view; pgrep name to find the PID of a process by name."
-    },
-    {
-     "q": "What are PID and PPID?",
-     "a": "PID is the process ID the kernel assigns to each process; PPID is its parent's PID. PID 1 - systemd on most distros - is the first process at boot and the ancestor of everything else."
-    },
-    {
-     "q": "How do you stop a process?",
-     "a": "kill PID sends SIGTERM (15), a polite request to exit that allows cleanup. kill -9 PID sends SIGKILL, which the process cannot catch or ignore - a last resort, because it gets no chance to clean up. pkill and killall work by name instead of PID."
-    },
-    {
-     "q": "What is the difference between a process and a thread?",
-     "a": "A process has its own private memory space; threads are tasks inside a process that share its memory, so they are cheaper to create but can interfere with each other's data."
-    },
-    {
-     "q": "What is a daemon?",
-     "a": "A background service process that runs detached from any terminal - for example sshd or cron. On modern distros daemons are normally started and supervised by systemd as service units."
-    },
-    {
-     "q": "How do you run a command in the background and bring it back?",
-     "a": "Append & to start it in the background. jobs lists the shell's jobs, fg %1 brings one to the foreground, Ctrl+Z suspends a foreground job, and bg %1 resumes it in the background. To survive logout use nohup, tmux, or a systemd service."
-    },
-    {
-     "q": "What is a zombie process?",
-     "a": "A process that has finished but whose parent has not yet collected its exit status with wait(). It keeps only a process-table entry and no memory. The real fix is to signal or restart the misbehaving parent; orphaned zombies are reaped by PID 1."
-    },
-    {
-     "q": "How do you find which process is using a file or a port?",
-     "a": "lsof /path/to/file shows processes with that file open; lsof -i :80 shows what holds port 80. ss -tulpen maps listening sockets to processes (run as root to see other users' processes)."
-    },
-    {
-     "q": "What do nice and renice do?",
-     "a": "They adjust CPU scheduling priority. Nice values run from -20 (highest priority, root only) to 19 (lowest). nice -n 10 command starts a program at lower priority; renice changes the priority of an already-running process."
-    },
-    {
-     "q": "What is the difference between SIGTERM and SIGKILL?",
-     "a": "SIGTERM (15) asks the process to shut down and can be caught or ignored, so the process can clean up first. SIGKILL (9) is enforced by the kernel directly: the process dies immediately with no cleanup."
-    },
-    {
-     "q": "What is a process?",
-     "a": "A process is a running instance of a program. Every process gets a unique Process ID (PID) from the kernel."
-    },
-    {
-     "q": "What is the difference between a process and a service?",
-     "a": "A process is any running program. A service is a background process that provides system or application functionality, like sshd or Apache."
-    },
-    {
-     "q": "What is an orphan process?",
-     "a": "An orphan is a running process whose parent has already terminated. It is automatically adopted by PID 1 (init or systemd)."
-    },
-    {
-     "q": "What is the difference between foreground and background processes?",
-     "a": "A foreground process runs in the terminal and accepts user input. A background process runs independently without blocking the terminal."
-    },
-    {
-     "q": "What are parent and child processes?",
-     "a": "A parent process is one that creates another process. The new process is called the child, and it runs independently but is initially managed by its parent."
-    }
-   ]
-  },
-  {
-   "id": "packages",
-   "title": "Package Management",
-   "questions": [
-    {
-     "q": "What is the difference between apt, apt-get and dpkg?",
-     "a": "dpkg installs individual .deb files but does not resolve dependencies. apt and apt-get work with repositories and handle dependencies automatically; apt is the friendlier modern command (apt install, apt update), apt-get is the older script-stable interface."
-    },
-    {
-     "q": "What do apt update and apt upgrade actually do?",
-     "a": "apt update only downloads the latest package INDEX from the repositories - it installs nothing. apt upgrade then installs the newer versions of your installed packages. The correct order is update first, then upgrade."
-    },
-    {
-     "q": "How do you find, install and remove a package on Debian/Ubuntu?",
-     "a": "apt search keyword to find it, apt show name for details, sudo apt install name to install it, and sudo apt remove name to uninstall (apt purge also deletes its configuration files)."
-    },
-    {
-     "q": "What are the equivalents on RHEL/Fedora systems?",
-     "a": "dnf, the modern replacement for yum: dnf search, dnf install, dnf remove, dnf update. These manage .rpm packages; rpm -ivh installs a single downloaded package without resolving dependencies."
-    },
-    {
-     "q": "What is a package repository?",
-     "a": "A server that hosts packages plus signed metadata about them. Your system fetches from the repositories listed in /etc/apt/sources.list and /etc/apt/sources.list.d (Debian/Ubuntu) or /etc/yum.repos.d (RHEL/Fedora)."
-    },
-    {
-     "q": "What is a dependency?",
-     "a": "Another package a program needs in order to run - libraries, interpreters, helper tools. apt and dnf install dependencies automatically; dpkg and rpm alone do not, which is the main reason the higher-level tools exist."
-    },
-    {
-     "q": "How do you list installed packages and find which package owns a file?",
-     "a": "On Debian/Ubuntu: dpkg -l lists installed packages and dpkg -S /path/to/file names the owning package. On RHEL/Fedora: rpm -qa lists them and rpm -qf /path/to/file names the owner."
-    },
-    {
-     "q": "What are snap and flatpak?",
-     "a": "Distribution-independent package formats that bundle their dependencies and run sandboxed. Snaps come from Canonical's store; flatpaks usually come from Flathub. They trade extra disk space for portability across distros."
-    },
-    {
-     "q": "How do you compile software from source, in short?",
-     "a": "The classic flow is ./configure (checks your system and generates a Makefile), make (compiles), then sudo make install (copies files, usually under /usr/local). You need a compiler and the relevant -dev libraries installed first."
-    },
-    {
-     "q": "How do you fix 'Unable to locate package' on Ubuntu?",
-     "a": "Run sudo apt update first - the local package index is missing or stale. If it still fails, either the package name is wrong (check with apt search) or the repository that carries it (universe, multiverse, or a PPA) is not enabled."
-    },
-    {
-     "q": "What is RPM?",
-     "a": "RPM (Red Hat Package Manager) is the package format used by RHEL-based distributions. The rpm command installs and manages individual .rpm package files."
-    },
-    {
-     "q": "What is the difference between RPM and YUM/DNF?",
-     "a": "rpm installs individual package files but does not resolve dependencies. YUM and DNF work with repositories and install dependencies automatically."
-    },
-    {
-     "q": "What is the difference between MySQL and MariaDB?",
-     "a": "MariaDB is a community-driven fork of MySQL. It is fully open source and offers extra features and performance improvements."
-    }
-   ]
-  },
-  {
-   "id": "network",
-   "title": "Networking Essentials",
-   "questions": [
-    {
-     "q": "How do you check your IP address and routing table?",
-     "a": "ip addr shows interfaces and their addresses; ip route shows the routing table, including the default gateway. The older equivalents are ifconfig and route -n."
-    },
-    {
-     "q": "How do you test connectivity step by step?",
-     "a": "Ping your gateway first, then an external IP like 8.8.8.8, then a name like google.com. If the IP works but the name fails, the problem is DNS; if even the gateway fails, the problem is the local link or Wi-Fi."
-    },
-    {
-     "q": "What is DNS and where is it configured?",
-     "a": "DNS resolves hostnames to IP addresses. Clients query the resolvers listed in /etc/resolv.conf (often managed by systemd-resolved or NetworkManager today). The static /etc/hosts file is consulted before DNS."
-    },
-    {
-     "q": "How do you see which ports are listening on a machine?",
-     "a": "ss -tuln lists listening TCP and UDP sockets numerically; add -p (as root) to see the process behind each one. The older equivalent is netstat -tulpn."
-    },
-    {
-     "q": "What is the difference between TCP and UDP?",
-     "a": "TCP is connection-oriented: ordered, acknowledged and retransmitted delivery - used by the web and SSH. UDP is connectionless: no delivery guarantee or ordering, but very low overhead - used by DNS queries, DHCP and voice/video."
-    },
-    {
-     "q": "How do you test whether a remote port is open?",
-     "a": "nc -zv host port does a direct check; telnet host port also works. For a web service, curl -Iv https://host tests the whole stack including DNS and TLS."
-    },
-    {
-     "q": "What does the /etc/hosts file do?",
-     "a": "It maps names to IP addresses locally and is checked before DNS. Each line is an IP followed by one or more names, for example 127.0.0.1 localhost. It is handy for overrides and for blocking names by pointing them at 127.0.0.1."
-    },
-    {
-     "q": "What is a default gateway?",
-     "a": "The router your machine forwards traffic to when the destination is outside the local network. It appears as 'default via ...' in the output of ip route."
-    },
-    {
-     "q": "How do you download a file from the command line?",
-     "a": "curl -O URL saves it under the remote name; wget URL does the same. curl is also the standard tool for testing HTTP APIs: curl -s https://api.example.com."
-    },
-    {
-     "q": "What is the difference between ssh and scp?",
-     "a": "ssh opens an encrypted remote shell: ssh user@host. scp copies files over the same encrypted channel: scp file user@host:/path. sftp is the interactive file-transfer variant, and rsync over ssh is better for large or repeated syncs."
-    },
-    {
-     "q": "What is an IP address?",
-     "a": "An IP address is a unique address assigned to a device on a network. It allows devices to find and communicate with each other."
-    },
-    {
-     "q": "What is the difference between IPv4 and IPv6?",
-     "a": "IPv4 is a 32-bit address (like 192.168.1.10) and is the most common. IPv6 is a 128-bit address created to solve the IPv4 address shortage."
-    },
-    {
-     "q": "What is a subnet mask?",
-     "a": "A subnet mask separates the network part from the host part of an IP address. It tells whether two devices are in the same network."
-    },
-    {
-     "q": "What is DHCP?",
-     "a": "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and other network settings to devices. It removes manual configuration."
-    },
-    {
-     "q": "What is NAT?",
-     "a": "NAT (Network Address Translation) converts private IP addresses into a public IP address. It lets many devices share one public IP address."
-    },
-    {
-     "q": "What is the difference between a switch and a router?",
-     "a": "A switch connects devices within the same network. A router connects different networks and forwards data between them."
-    },
-    {
-     "q": "What is a MAC address?",
-     "a": "A MAC address is a unique physical address assigned to a network card (NIC). It is used for communication inside the local network."
-    },
-    {
-     "q": "What is ping?",
-     "a": "Ping is a network utility that checks connectivity between two devices. It also measures the response time."
-    },
-    {
-     "q": "What is traceroute?",
-     "a": "Traceroute shows the path packets take to reach a destination. It helps find where network delays or failures happen."
-    },
-    {
-     "q": "What are nslookup and dig?",
-     "a": "Both are DNS lookup tools. nslookup quickly resolves a name to an IP address; dig gives detailed DNS query results and is preferred for troubleshooting."
-    },
-    {
-     "q": "What is the difference between /etc/resolv.conf and /etc/hosts?",
-     "a": "/etc/resolv.conf stores the DNS server addresses the system queries. /etc/hosts maps names to IP addresses locally and is checked before DNS."
-    },
-    {
-     "q": "What are the 7 layers of the OSI model?",
-     "a": "1. Physical, 2. Data Link, 3. Network, 4. Transport, 5. Session, 6. Presentation, 7. Application."
-    },
-    {
-     "q": "What are the common port numbers?",
-     "a": "22 - SSH, 21 - FTP, 53 - DNS, 80 - HTTP, 443 - HTTPS, 143 - IMAP, 3389 - RDP, 161 - SNMP, 2049 - NFS."
-    },
-    {
-     "q": "What is a port number?",
-     "a": "A port number identifies a specific service or application on a device. It directs network traffic to the correct application."
-    },
-    {
-     "q": "What is RIP?",
-     "a": "RIP is a distance-vector routing protocol. It chooses the best route based on hop count."
-    },
-    {
-     "q": "What are OSPF and IGRP?",
-     "a": "OSPF is a link-state routing protocol. IGRP is Cisco's distance-vector routing protocol."
-    },
-    {
-     "q": "What is the main DNS configuration file?",
-     "a": "On RHEL-based systems running BIND, the main DNS server configuration file is /etc/named.conf."
-    },
-    {
-     "q": "Why do we need subnetting?",
-     "a": "Subnetting divides a network into smaller networks. It improves IP address management, performance, and security."
-    },
-    {
-     "q": "What is a VLAN?",
-     "a": "A VLAN divides one physical network into multiple logical networks. Devices in different VLANs cannot communicate without a router."
-    },
-    {
-     "q": "What are the classes of IP addresses?",
-     "a": "The five classes are A, B, C, D, and E. Classes A, B, and C are used for host addressing, D is for multicast, and E is experimental."
-    },
-    {
-     "q": "What is the network ID of 72.59.120.10/25?",
-     "a": "A /25 mask is 255.255.255.128, so the network ID is 72.59.120.0. Usable host addresses run from 72.59.120.1 to 72.59.120.126."
-    },
-    {
-     "q": "What is the difference between private and public IP addresses?",
-     "a": "A private IP is used inside a local network and is not reachable from the internet. A public IP is assigned by the ISP and is used to communicate on the internet."
-    },
-    {
-     "q": "What is the difference between HTTP and HTTPS?",
-     "a": "HTTP transfers data without encryption. HTTPS encrypts data using SSL/TLS, so the communication is secure."
-    },
-    {
-     "q": "What is Active Directory?",
-     "a": "Active Directory is Microsoft's directory service. It manages users, computers, groups, and permissions in a Windows network."
-    },
-    {
-     "q": "How do you configure a switch?",
-     "a": "Assign a hostname and a management IP, configure VLANs, and enable the required ports. Always save the configuration after changes."
-    }
-   ]
-  },
-  {
-   "id": "storage",
-   "title": "Disks, Filesystems & Storage",
-   "questions": [
-    {
-     "q": "How do you check disk space and directory sizes?",
-     "a": "df -h shows used and free space per mounted filesystem. du -sh /path shows how much one directory uses, and du -sh * sizes everything in the current directory."
-    },
-    {
-     "q": "What does mounting a filesystem mean?",
-     "a": "Attaching a filesystem - from a partition, disk or network share - onto a directory in the tree, for example mount /dev/sdb1 /mnt/data. Everything written under that directory then goes to the device."
-    },
-    {
-     "q": "What is /etc/fstab?",
-     "a": "The table of filesystems mounted automatically at boot: device (best given as UUID=...), mount point, filesystem type, options, and dump/fsck fields. A broken line can drop the boot into emergency mode, so always test edits with mount -a."
-    },
-    {
-     "q": "ext4, XFS and Btrfs in one line each?",
-     "a": "ext4 is the mature journaling default on many distros. XFS is tuned for large files and parallel workloads and is the RHEL default. Btrfs adds copy-on-write, snapshots and built-in volume features."
-    },
-    {
-     "q": "What is swap?",
-     "a": "Disk space the kernel uses as overflow memory when RAM runs out, and for hibernation. swapon --show lists active swap; a new swap area is prepared with mkswap and activated with swapon."
-    },
-    {
-     "q": "What is LVM and why use it?",
-     "a": "Logical Volume Manager inserts a flexible layer between disks and filesystems: physical volumes (disks) join a volume group, from which logical volumes are carved out. The benefit is resizing, snapshots and moving volumes without repartitioning."
-    },
-    {
-     "q": "What does fsck do, and when does it run?",
-     "a": "fsck checks and repairs filesystem consistency, and it must run on an UNMOUNTED filesystem. At boot it runs automatically when a filesystem is marked dirty or has passed its mount-count limit."
-    },
-    {
-     "q": "The disk is full - how do you find what is filling it?",
-     "a": "df -h shows which filesystem is full, then du -xh --max-depth=1 / | sort -h finds the biggest directories; /var/log and package caches are common culprits. Files that are deleted but still open keep holding space - find them with lsof +L1."
-    },
-    {
-     "q": "What is an inode?",
-     "a": "The filesystem's record for a file: permissions, owner, timestamps and pointers to the data blocks - everything except the name, which lives in directory entries. Running out of inodes makes a disk report full even with blocks free; check with df -i."
-    },
-    {
-     "q": "How do you partition and format a disk from the command line?",
-     "a": "Identify the disk with lsblk, partition it with fdisk /dev/sdX or parted, format the new partition with mkfs.ext4 /dev/sdX1, then mount it. Every step destroys data if you pick the wrong disk - double-check the device name first."
-    },
-    {
-     "q": "What is a partition?",
-     "a": "A partition is a logical section of a storage device. It lets one disk be divided into multiple independent areas."
-    },
-    {
-     "q": "What is the difference between MBR and GPT?",
-     "a": "MBR supports disks up to 2 TB and a maximum of four primary partitions. GPT supports very large disks and many more partitions, and it is the modern standard."
-    },
-    {
-     "q": "What is a file system?",
-     "a": "A file system is the method an operating system uses to store, organize, and manage files on a storage device. Examples are ext4, XFS, and Btrfs."
-    },
-    {
-     "q": "Which file system does RHEL 7 use by default?",
-     "a": "RHEL 7 uses XFS as its default file system."
-    },
-    {
-     "q": "How do you check free memory?",
-     "a": "Use free -h to see RAM and swap usage in human-readable form."
-    },
-    {
-     "q": "How do you mount and unmount a directory?",
-     "a": "Use mount to attach a filesystem to a directory: mount /dev/sdb1 /mnt/data. Use umount /mnt/data to detach it safely before removing the device."
-    },
-    {
-     "q": "How do you increase a disk partition?",
-     "a": "First grow the partition itself (with growpart or fdisk), then expand the filesystem: resize2fs for ext4 or xfs_growfs for XFS. With LVM, use lvextend and then the same filesystem resize step."
-    },
-    {
-     "q": "What are the common LVM commands?",
-     "a": "pvcreate prepares a disk as a physical volume, vgcreate builds a volume group, lvcreate carves out a logical volume, lvextend grows it, and lvreduce shrinks it."
-    }
-   ]
-  },
-  {
-   "id": "scripting",
-   "title": "Shell Scripting Basics",
-   "questions": [
-    {
-     "q": "What is the shebang line?",
-     "a": "The first line of a script, like #!/bin/bash, that tells the kernel which interpreter should execute the file. Without it, your current shell interprets the script instead."
-    },
-    {
-     "q": "How do you make a script executable and run it?",
-     "a": "chmod +x script.sh, then run it with an explicit path: ./script.sh. The current directory is deliberately not in PATH, so the ./ is required. bash script.sh works without the execute bit."
-    },
-    {
-     "q": "How do variables and command substitution work?",
-     "a": "name=value sets a variable (no spaces around =); $name or ${name} reads it. $(command) captures a command's output, as in today=$(date +%F). Quote expansions - \"$name\" - so values with spaces survive."
-    },
-    {
-     "q": "How do you read command-line arguments in a script?",
-     "a": "$1, $2... are the positional parameters, $# is their count, $@ is all of them and $0 is the script's own name. Validate them early: [ $# -lt 1 ] && { echo \"usage: $0 FILE\"; exit 1; }."
-    },
-    {
-     "q": "What is the exit status and what is $?",
-     "a": "Every command returns 0 on success and a non-zero code on failure; $? holds the last command's status. Writing if command; then tests it directly, and well-behaved scripts end with exit 0 on success."
-    },
-    {
-     "q": "Give one example each of if, for and while in bash.",
-     "a": "if [ -f /etc/passwd ]; then echo yes; fi --- for f in *.log; do echo \"$f\"; done --- while read -r line; do echo \"$line\"; done < file. The [ ] command runs tests: -f file exists, -z empty string, = string equality, -eq numeric equality."
-    },
-    {
-     "q": "What does set -euo pipefail do?",
-     "a": "Strict mode: -e exits the script at the first failing command, -u treats unset variables as errors, and -o pipefail makes a pipeline fail if ANY stage fails, not just the last. It surfaces bugs early and is expected in serious scripts."
-    },
-    {
-     "q": "What is the difference between $* and $@?",
-     "a": "Both expand to all arguments, but quoted \"$@\" keeps each argument as a separate word while \"$*\" joins them into one. For looping over arguments, \"$@\" is almost always the right choice."
-    },
-    {
-     "q": "How do you schedule a script to run regularly?",
-     "a": "With cron: crontab -e, then a line like 0 2 * * * /home/akash/backup.sh (minute hour day month weekday). systemd timers are the modern alternative when you need dependencies and journal logging."
-    },
-    {
-     "q": "How do you debug a shell script?",
-     "a": "bash -x script.sh prints every command as it executes; you can wrap a suspect block in set -x / set +x. Echo key variables along the way and check failures with echo $?."
-    },
-    {
-     "q": "What is a shell script?",
-     "a": "A shell script is a text file that contains a sequence of Linux commands. It is used to automate repetitive tasks."
-    },
-    {
-     "q": "Why do we use shell scripting?",
-     "a": "Shell scripting saves time by automating manual work. It makes tasks repeatable and reduces human error."
-    }
-   ]
-  },
-  {
-   "id": "systemd",
-   "title": "Boot, systemd & Services",
-   "questions": [
-    {
-     "q": "What happens when a Linux machine boots?",
-     "a": "The firmware (BIOS/UEFI) runs the bootloader (GRUB); GRUB loads the kernel and initramfs; the kernel mounts the root filesystem and starts PID 1 (systemd); systemd then starts units until the default target - multi-user or graphical - is reached."
-    },
-    {
-     "q": "What is systemd and what is a unit?",
-     "a": "systemd is PID 1, the init system that starts and supervises everything else. A unit is a resource it manages: .service (daemons), .socket, .timer, .mount, .path and .target (boot stages that group units)."
-    },
-    {
-     "q": "systemctl basics: start, stop, enable?",
-     "a": "systemctl start/stop/restart name controls a service right now. systemctl enable name links it to start at boot (disable removes the link). systemctl enable --now name does both at once, and status name shows its state plus recent log lines."
-    },
-    {
-     "q": "What is the difference between systemctl enable and systemctl start?",
-     "a": "start changes the running system only - the effect is gone after reboot. enable only creates the boot-time symlink and does not start anything now. systemctl enable --now combines both."
-    },
-    {
-     "q": "How do you read a service's logs?",
-     "a": "journalctl -u name shows one unit's logs; journalctl -f follows new entries live; journalctl -b limits to the current boot; journalctl -p err shows errors and worse. Traditional text logs still live under /var/log."
-    },
-    {
-     "q": "Where do unit files live, and how do you edit one safely?",
-     "a": "Vendor units live in /usr/lib/systemd/system (or /lib/systemd/system on Debian/Ubuntu); local and custom units live in /etc/systemd/system and override them. Edit with systemctl edit name, which creates a drop-in instead of touching vendor files, then run systemctl daemon-reload."
-    },
-    {
-     "q": "What is a target?",
-     "a": "A systemd boot stage that groups units - the successor of runlevels. multi-user.target is the text-mode server state and graphical.target adds the desktop. systemctl get-default and set-default control which one boots; systemctl isolate switches immediately."
-    },
-    {
-     "q": "How do you create your own service?",
-     "a": "Write /etc/systemd/system/myservice.service with a [Unit] section (Description, After=network.target), a [Service] section (ExecStart=/path/to/command, optionally Restart=on-failure) and an [Install] section (WantedBy=multi-user.target). Then systemctl daemon-reload and systemctl enable --now myservice."
-    },
-    {
-     "q": "How do you see why boot was slow or what failed?",
-     "a": "systemd-analyze prints the total boot time; systemd-analyze blame ranks units by startup time; systemctl --failed lists failed units; journalctl -b -p err shows this boot's errors."
-    },
-    {
-     "q": "What is the difference between a systemd timer and cron?",
-     "a": "A timer unit triggers a service on a schedule and adds dependencies, journal logging and catch-up of missed runs (Persistent=true). cron is simpler and available everywhere; timers integrate with the rest of systemd."
-    },
-    {
-     "q": "What is a service?",
-     "a": "A service is a program that runs in the background to provide specific functionality. Examples include the SSH, Apache, and MySQL services."
-    },
-    {
-     "q": "What is the difference between systemctl and service?",
-     "a": "systemctl manages services on systemd-based systems, which covers most modern distros. service is the older SysVinit command that still works for compatibility on many systems."
-    },
-    {
-     "q": "What is GRUB?",
-     "a": "GRUB (Grand Unified Bootloader) is the Linux bootloader. It loads the kernel into memory and starts the operating system."
-    },
-    {
-     "q": "What is journald?",
-     "a": "journald is the logging service of systemd. It collects and stores system and service logs, which you read with journalctl."
-    },
-    {
-     "q": "How do you host a web server on Linux?",
-     "a": "Install a web server like Apache or Nginx with the package manager, place the website files in its web root (for example /var/www/html), then start and enable the service with systemctl."
-    }
-   ]
-  },
-  {
-   "id": "security",
-   "title": "Security, Logs & Scheduled Tasks",
-   "questions": [
-    {
-     "q": "What are the most important log locations?",
-     "a": "The systemd journal (read it with journalctl), /var/log/syslog or /var/log/messages for general logs, /var/log/auth.log or /var/log/secure for logins and sudo, and per-service files like /var/log/nginx/. Kernel messages appear in the journal and /var/log/kern.log."
-    },
-    {
-     "q": "How do you see who is logged in and the login history?",
-     "a": "who or w shows current sessions. last lists past logins from the wtmp database, and lastb lists FAILED attempts from btmp. journalctl _COMM=sshd filters SSH events."
-    },
-    {
-     "q": "What is the cron time format?",
-     "a": "Five fields - minute, hour, day of month, month, day of week - followed by the command. A * means 'every'. So 30 3 * * 0 runs at 03:30 every Sunday. Shortcuts like @daily and @reboot also exist."
-    },
-    {
-     "q": "crontab -e versus /etc/crontab versus /etc/cron.d?",
-     "a": "crontab -e edits the current user's personal crontab, whose lines have no user field. /etc/crontab and files in /etc/cron.d are system-wide and include a user field between the schedule and the command. Scripts dropped in cron.daily, cron.weekly and cron.monthly run on those schedules."
-    },
-    {
-     "q": "A cron job did not run - how do you debug it?",
-     "a": "Check the log with grep CRON /var/log/syslog or journalctl -u cron, confirm the cron service is running, and remember cron uses a minimal environment: use absolute paths, set PATH explicitly, and capture errors with >> /tmp/job.log 2>&1."
-    },
-    {
-     "q": "What is a Linux firewall and which tools manage it?",
-     "a": "It filters network traffic by rules. The kernel framework is nftables (iptables is the legacy one); friendly front-ends are ufw on Ubuntu (ufw allow 22, ufw enable) and firewalld on RHEL (firewall-cmd)."
-    },
-    {
-     "q": "How do you harden SSH on a server?",
-     "a": "Use key-based login and disable passwords (PasswordAuthentication no), disable direct root login (PermitRootLogin no), optionally restrict users with AllowUsers, keep the system patched, and add fail2ban to slow brute-force attacks."
-    },
-    {
-     "q": "What are SSH keys and how do you set them up?",
-     "a": "A key pair: the private key stays on your machine (~/.ssh/id_ed25519) and the public key goes on the server (~/.ssh/authorized_keys). Create them with ssh-keygen -t ed25519 and install the public key with ssh-copy-id user@host - after that, logins need no password."
-    },
-    {
-     "q": "What are SELinux and AppArmor?",
-     "a": "Mandatory Access Control systems that confine even root-owned processes by policy. SELinux (RHEL family) works with labels - check getenforce and the audit log for denials. AppArmor (Ubuntu, SUSE) confines programs by path-based profiles - check aa-status."
-    },
-    {
-     "q": "How do you investigate high load or memory trouble?",
-     "a": "uptime shows the load average - compare it with the CPU count. top or htop shows per-process CPU and memory, free -h shows RAM and swap usage, vmstat 1 shows trends, and dmesg -T reveals kernel events such as OOM-killer kills."
-    },
-    {
-     "q": "What is the difference between SELinux and a firewall?",
-     "a": "SELinux controls access inside the operating system - files, processes, and resources. A firewall controls incoming and outgoing network traffic."
-    },
-    {
-     "q": "What is firewalld?",
-     "a": "firewalld is the default firewall management service on RHEL-based systems. It manages rules dynamically with zones, using the firewall-cmd command."
-    },
-    {
-     "q": "What is the difference between iptables and a firewall?",
-     "a": "A firewall is the security system that filters network traffic. iptables is the classic command-line tool for writing those rules; modern systems use nftables instead."
-    },
-    {
-     "q": "How do you add an iptables rule?",
-     "a": "Use iptables -A to append a rule, for example: iptables -A INPUT -p tcp --dport 22 -j ACCEPT allows SSH traffic. Save the rules afterwards so they survive a reboot."
-    },
-    {
-     "q": "What is Anacron?",
-     "a": "Anacron runs scheduled tasks that were missed because the system was powered off. It is meant for machines that do not run all the time, like laptops."
-    },
-    {
-     "q": "What is the difference between Cron and Anacron?",
-     "a": "Cron runs jobs at exact times and assumes the machine is always on. Anacron catches up on missed jobs when the system comes back, working with day-level schedules."
-    },
-    {
-     "q": "Your Linux system has malware. What will you do?",
-     "a": "Disconnect the system from the network, identify and remove the infected files, patch and update the system, and restore from a clean backup if needed. Review logs to find how it entered."
-    },
-    {
-     "q": "The server is down. How will you troubleshoot?",
-     "a": "Check power and network first, then whether the server is reachable with ping. Check services, logs, disk space, CPU, and memory. Restart the failed service and verify the application works."
-    },
-    {
-     "q": "SSH is not working. How will you troubleshoot?",
-     "a": "Check network connectivity, confirm sshd is running with systemctl status sshd, verify the firewall allows port 22, and review the SSH logs."
-    },
-    {
-     "q": "A service is not starting. What will you check?",
-     "a": "Check systemctl status for the error, read its logs with journalctl -u, and verify the configuration file for mistakes."
-    },
-    {
-     "q": "The server cannot access the internet. What will you verify?",
-     "a": "Check the IP address, gateway, and DNS settings, then test step by step: ping the gateway, an external IP, and a domain name."
-    },
-    {
-     "q": "Users cannot log in. What will you check?",
-     "a": "Check whether the account is locked or expired, the password, permissions, and the authentication logs. Also verify that SSH or login services are running."
-    },
-    {
-     "q": "A filesystem became read-only. What could be the reason?",
-     "a": "Usually filesystem corruption or disk errors - the kernel remounts it read-only to protect data. Check dmesg and disk health, then run fsck from a rescue environment."
-    },
-    {
-     "q": "The server does not boot after a restart. What will you do?",
-     "a": "Check the bootloader (GRUB), the kernel, and the boot logs. Boot into rescue mode if needed, identify the failed component, and repair it."
-    },
-    {
-     "q": "How do you take a backup in Linux?",
-     "a": "Use tar for archives and rsync to sync files to another disk or server. Keep backups in a separate, secure location and test that restores work."
-    }
-   ]
-  },
-  {
-   "id": "hr",
-   "title": "HR & Closing Round",
-   "questions": [
-    {
-     "q": "Tell me about yourself.",
-     "a": "My name is Akash Vishwakarma. I have completed my BCA, and I am learning Linux System Administration. I have hands-on practice with Linux commands, user management, networking, services, and troubleshooting, and I am looking for an opportunity to grow as a Linux Administrator."
-    },
-    {
-     "q": "Why do you want to become a Linux Administrator?",
-     "a": "I enjoy working with Linux systems and solving technical problems. I want to build my career in system administration and continuously improve my skills."
-    },
-    {
-     "q": "Why should we hire you?",
-     "a": "I have a strong foundation in Linux and a willingness to learn quickly. I am dedicated, responsible, and ready to work in a real production environment."
-    },
-    {
-     "q": "What are your strengths?",
-     "a": "I am a quick learner, patient, and I enjoy troubleshooting technical issues. I work well in a team and adapt to new technologies easily."
-    },
-    {
-     "q": "What is your weakness?",
-     "a": "I am still gaining real-world production experience, but I am learning every day through hands-on practice and labs."
-    },
-    {
-     "q": "Where do you see yourself in 5 years?",
-     "a": "I see myself as an experienced Linux System Administrator handling production servers and mentoring junior team members."
-    },
-    {
-     "q": "Are you comfortable working in shifts?",
-     "a": "Yes. I understand that system administration often requires shift work, and I am comfortable working in rotational shifts if needed."
-    },
-    {
-     "q": "Do you have any questions for us?",
-     "a": "Yes. What technologies and Linux distributions does your team use? Also, what kind of training and learning opportunities do you provide for freshers?"
-    }
-   ]
-  }
- ]
+  ]
 }

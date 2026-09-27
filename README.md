@@ -13,15 +13,17 @@ and security.
   sample output. Read ticks track your progress
 - **12 chapters, 300 quiz questions** - 25 hand-written MCQs per chapter (4
   options, one correct, short explanation for every answer)
-- **213 interview Q&A** - real interview questions per topic area with exact,
-  verified answers, plus an HR & closing-round set
+- **213 interview Q&A + 200 command examples** - real interview questions per
+  topic area with exact, verified answers, plus practical command/example/use
+  reference tables and an HR & closing-round set
   (`app/src/main/assets/interview.json`)
 - **Chapter-wise practice** - Basic to advanced, one concept area at a time
 - **Quiz section - topic-wise** - every topic area has its own clearly labelled
   quiz (Beginner untimed, Intermediate 30s per question). Only quizzes here
 - **Interview Questions section - topic-wise** - every topic area has its own
-  set of real interview questions with verified answers; tap to reveal. Only
-  questions and answers here, no quiz
+  set of real interview questions with verified answers; tap to reveal. Each
+  matching topic also groups practical commands once, in clean
+  command/example/use rows. No quiz here
 - **Instant feedback** - right/wrong highlighting plus an explanation card
 - **Score & progress** - best score per chapter, animated progress bars
 - **Revise mistakes** - wrong answers are collected automatically; answer them
