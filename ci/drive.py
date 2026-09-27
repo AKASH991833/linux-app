@@ -139,6 +139,7 @@ def main():
     if not nodes:
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
+    check('home shows v1.2 content marker', bool(find_all(xml, contains='v1.2.0')) and bool(find_all(xml, contains='328 interview Q&A')))
     shot('01_home')
 
     # Quiz section: only quizzes, one card per topic area
@@ -156,6 +157,20 @@ def main():
         nodes, xml = wait_node(20, contains='Question 1 of')
         check('topic quiz opens at question 1', bool(nodes))
         check('topic quiz shows its area name', bool(find_all(xml, contains='Question 1 of 10 • Linux History & Foundations')))
+        qspeak = find_all(xml, text='🔊 Speak question', clazz='Button')
+        check('quiz speak button present', bool(qspeak))
+        if qspeak:
+            tap_node(qspeak[0])
+            time.sleep(1.2)
+            xml = dump()
+            check('quiz speech starts or stays safe without TTS engine',
+                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
+            qstop = find_all(xml, text='⏸ Stop', clazz='Button')
+            if qstop:
+                tap_node(qstop[0])
+                time.sleep(0.7)
+                xml = dump()
+                check('quiz speech stop works', bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
         shot('03_topic_quiz')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
@@ -352,7 +367,7 @@ def main():
     tap_node(start[0])
     nodes, xml = wait_node(20, contains='Question 1 of')
     check('quiz opens at question 1', bool(nodes))
-    opts = [n for n in find_all(xml, clazz='Button') if (n.get('text') or '').strip() and n.get('text') not in ('Next', 'See results')]
+    opts = [n for n in find_all(xml, clazz='Button') if (n.get('text') or '').strip() and n.get('text') not in ('Next', 'See results', '🔊 Speak question', '⏸ Stop')]
     check('4 options shown', len(opts) == 4, 'found %d' % len(opts))
     shot('09_question')
     if not opts:

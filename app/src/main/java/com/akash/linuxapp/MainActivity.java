@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
     private ProgressBar quizBar;
     private LinearLayout optionsBox;
     private View explainCard;
-    private Button nextBtn;
+    private Button nextBtn, quizSpeakBtn;
 
     private int dp(int n){ return (int)(n*getResources().getDisplayMetrics().density+.5f); }
     private GradientDrawable bg(int color){ GradientDrawable d=new GradientDrawable(); d.setColor(color); d.setCornerRadius(dp(14)); return d; }
@@ -295,6 +295,10 @@ public class MainActivity extends Activity {
         TextView sub = text("Lessons, topic-wise quizzes and topic-wise interview questions - from history to systemd. Fully offline.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
+        TextView version = text("v1.2.0  •  328 interview Q&A  •  346 commands  •  Speak + diagrams", 12, ORANGE);
+        version.setTypeface(null, Typeface.BOLD);
+        version.setPadding(0, dp(8), 0, 0);
+        hero.addView(version);
         int passed=totalPassedChecks();
         TextView guide=text(passed==0 ? "Start here: open a chapter, read a lesson, then answer its quick check. No Linux machine needed." :
             "Quick checks: " + passed + "/48 passed. Next, open any chapter to continue.", 13, GREEN);
@@ -311,7 +315,7 @@ public class MainActivity extends Activity {
                     v -> startRevise()), margins(0, 6));
 
         // QUIZ section - only quizzes, one per topic area
-        col.addView(sectionHead("\uD83D\uDCDD", "Quiz - Topic-wise", "Only quizzes - every topic area has its own quiz. Pick a topic and start.", BLUE), margins(0, 8));
+        col.addView(sectionHead("\uD83D\uDCDD", "Quiz - Topic-wise", "Only quizzes - Beginner/Intermediate levels, with Speak on every question.", BLUE), margins(0, 8));
 
         LinearLayout modesRow = new LinearLayout(this);
         modesRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -336,14 +340,14 @@ public class MainActivity extends Activity {
                     v -> startChapterQuiz(ch)), margins(0, 5));
 
         // INTERVIEW QUESTIONS section - only questions with answers, one area per topic
-        col.addView(sectionHead("\uD83D\uDCBC", "Interview Questions - Topic-wise", "Only questions with exact answers - no quiz here. Tap a topic area to prepare.", PURPLE), margins(0, 8));
+        col.addView(sectionHead("\uD83D\uDCBC", "Interview Questions - Topic-wise", "28 topic sets from your PDFs/questions, with Speak and Play all for revision.", PURPLE), margins(0, 8));
         for(final InterviewChapter ic : interviewChapters)
             col.addView(topicCard("\uD83D\uDCBC", ic.title + " Interview Questions",
                     interviewCardSub(ic), PURPLE, "Open",
                     v -> showInterviewTopic(ic)), margins(0, 5));
 
         // LEARN section - lessons grouped by chapter
-        col.addView(sectionHead("\uD83D\uDCD6", "Learn - Lessons by Chapter", "Short beginner lessons with quick checks, chapter by chapter.", GREEN), margins(0, 8));
+        col.addView(sectionHead("\uD83D\uDCD6", "Learn - Lessons by Chapter", "Short beginner lessons with Listen, visual guides and quick checks.", GREEN), margins(0, 8));
         int delay = 0;
         for(final Chapter ch : chapters){
             col.addView(chapterCard(ch, delay), margins(0, 6));
@@ -1017,6 +1021,15 @@ public class MainActivity extends Activity {
         questionText = bold("", 17, TEXT);
         questionText.setLineSpacing(0, 1.15f);
         qCard.addView(questionText);
+        quizSpeakBtn = new Button(this);
+        quizSpeakBtn.setText("\uD83D\uDD0A Speak question"); quizSpeakBtn.setAllCaps(false); quizSpeakBtn.setTextColor(BLUE); quizSpeakBtn.setTextSize(12);
+        quizSpeakBtn.setTypeface(null, Typeface.BOLD);
+        quizSpeakBtn.setBackground(bg(SOFT, 20));
+        quizSpeakBtn.setOnClickListener(v -> toggleSpeech(quizSpeakBtn, "\uD83D\uDD0A Speak question", quizSpeechParts()));
+        press(quizSpeakBtn);
+        LinearLayout.LayoutParams qsp = new LinearLayout.LayoutParams(-2, dp(38));
+        qsp.setMargins(0, dp(10), 0, 0);
+        qCard.addView(quizSpeakBtn, qsp);
         col.addView(qCard, margins(0, 8));
 
         optionsBox = new LinearLayout(this);
@@ -1054,6 +1067,7 @@ public class MainActivity extends Activity {
     }
 
     private void renderQuestion(){
+        stopSpeech();
         final Q q = quiz.get(qi);
         counterText.setText("Question " + (qi+1) + " of " + quiz.size() + "  \u2022  " + quizTitle);
         quizBar.setProgress(qi);
@@ -1061,6 +1075,7 @@ public class MainActivity extends Activity {
         optionsBox.removeAllViews();
         explainCard.setVisibility(View.GONE);
         nextBtn.setVisibility(View.GONE);
+        if(quizSpeakBtn != null) quizSpeakBtn.setText("\uD83D\uDD0A Speak question");
         for(int i=0;i<q.o.length;i++){
             final int idx = i;
             Button b = new Button(this);
@@ -1080,6 +1095,18 @@ public class MainActivity extends Activity {
             popIn(b, 60 * i);
         }
         startTimerIfNeeded();
+    }
+
+    private List<String> quizSpeechParts(){
+        List<String> parts = new ArrayList<>();
+        if(quiz == null || qi < 0 || qi >= quiz.size()) return parts;
+        Q q = quiz.get(qi);
+        parts.add("Question " + (qi+1) + ". " + q.q);
+        for(int i=0;i<q.o.length;i++) parts.add("Option " + (i+1) + ". " + q.o[i]);
+        if(explainCard != null && explainCard.getVisibility() == View.VISIBLE){
+            parts.add("Correct answer. " + q.o[q.a] + ". Explanation. " + q.e);
+        }
+        return parts;
     }
 
     private void startTimerIfNeeded(){

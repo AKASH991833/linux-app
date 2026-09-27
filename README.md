@@ -21,7 +21,8 @@ and security.
   permissions/octal, OSI vs TCP/IP, TCP handshake, LVM, RAID, process states,
   systemd dependencies, SELinux, Docker vs VM and NFS/Samba
 - **Offline Speak mode** - listen to interview Q&A, full lessons, individual
-  command rows, or play a whole interview topic for revision; play/stop uses
+  command rows, quiz questions/options/explanations, or play a whole interview
+  topic for revision; play/stop uses
   Android TextToSpeech and needs no internet or new permission
 - **Chapter-wise practice** - Basic to advanced, one concept area at a time
 - **Quiz section - topic-wise** - every topic area has its own clearly labelled
