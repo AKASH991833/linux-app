@@ -93,6 +93,7 @@ public class MainActivity extends Activity {
     private int utteranceSeq;
     private boolean speechActive;
     private final List<Chapter> chapters = new ArrayList<>();
+    private final List<Chapter> computerChapters = new ArrayList<>();
     private final java.util.Map<String, List<Lesson>> lessons = new java.util.HashMap<>();
     private final List<InterviewChapter> interviewChapters = new ArrayList<>();
     private final List<SourceQ> myQuestions = new ArrayList<>();
@@ -317,6 +318,54 @@ public class MainActivity extends Activity {
                 networkSource.add(q);
             }
         } catch(Exception ignored){ }
+        try {
+            InputStream in = getAssets().open("fullforms.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray groups = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("groups");
+            fullFormCount = 0;
+            for(int i=0;i<groups.length();i++){
+                JSONObject gj = groups.getJSONObject(i);
+                FullFormGroup group = new FullFormGroup();
+                group.title = gj.getString("title");
+                JSONArray items = gj.getJSONArray("items");
+                for(int j=0;j<items.length();j++){
+                    JSONObject ij = items.getJSONObject(j);
+                    FullForm item = new FullForm();
+                    item.n = ij.getInt("n"); item.abbr = ij.getString("abbr"); item.full = ij.getString("full"); item.category = group.title;
+                    group.items.add(item);
+                    fullFormCount++;
+                }
+                fullForms.add(group);
+            }
+        } catch(Exception ignored){ }
+        try {
+            InputStream in = getAssets().open("computer_questions.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray arr = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("chapters");
+            for(int i=0;i<arr.length();i++){
+                JSONObject c = arr.getJSONObject(i);
+                Chapter ch = new Chapter();
+                ch.id = c.getString("id"); ch.title = c.getString("title"); ch.desc = c.getString("desc");
+                JSONArray qa = c.getJSONArray("questions");
+                for(int j=0;j<qa.length();j++){
+                    JSONObject qj = qa.getJSONObject(j);
+                    Q q = new Q();
+                    q.q = qj.getString("q"); q.e = qj.getString("e"); q.a = qj.getInt("a");
+                    q.chapter = ch.id; q.idx = j; q.level = "Computer"; q.difficulty = qj.getString("difficulty");
+                    JSONArray oa = qj.getJSONArray("o");
+                    q.o = new String[oa.length()];
+                    for(int k=0;k<oa.length();k++) q.o[k] = oa.getString(k);
+                    ch.qs.add(q);
+                }
+                computerChapters.add(ch);
+            }
+        } catch(Exception ignored){ }
     }
 
     private Set<String> wrongSet(){ return new HashSet<>(prefs.getStringSet("wrong", new HashSet<String>())); }
@@ -359,7 +408,7 @@ public class MainActivity extends Activity {
         TextView sub = text("One simple dashboard. Open a tile, then choose a topic or chapter.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
-        TextView version = text("v1.4.0  •  " + allQuestions().size() + " quiz Qs  •  " + fullFormCount + " full forms  •  Speak focused", 12, ORANGE);
+        TextView version = text("v1.5.0  •  " + allQuestions().size() + " Linux Qs  •  " + computerQuestionCount() + " computer Qs  •  " + fullFormCount + " full forms", 12, ORANGE);
         version.setTypeface(null, Typeface.BOLD);
         version.setPadding(0, dp(8), 0, 0);
         hero.addView(version);
@@ -374,8 +423,10 @@ public class MainActivity extends Activity {
                     v -> startRevise()), margins(0, 6));
 
         col.addView(sectionHead("🎯", "Home Dashboard", "Big entry tiles only - topics open after you tap.", GREEN), margins(0, 8));
-        col.addView(dashboardTile("📝", "Quiz", "Beginner / Intermediate / Advanced  •  Easy / Normal / Hard", BLUE,
+        col.addView(dashboardTile("📝", "Quiz", "Linux levels  •  Easy / Normal / Hard", BLUE,
                 v -> showQuizLevels()), margins(0, 6));
+        col.addView(dashboardTile("💻", "Computer Quiz", computerChapters.size() + " chapters  •  Easy / Normal / Hard", GREEN,
+                v -> showComputerQuizChapters()), margins(0, 6));
         col.addView(dashboardTile("🔠", "Full Forms", fullFormCount + " technical abbreviations  •  searchable list", ORANGE,
                 v -> showFullForms()), margins(0, 6));
         col.addView(dashboardTile("💼", "Interview Questions", "Your questions, PDFs + topic-wise chapters", PURPLE,
@@ -451,6 +502,43 @@ public class MainActivity extends Activity {
                     v -> startComboQuiz(level, selectedDifficulty)), margins(0, 5));
         }
         col.addView(listBackButton("Back to Quiz Levels", v -> showQuizLevels()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showComputerQuizChapters(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("💻", "Computer Quiz Chapters", "Choose a computer fundamentals chapter, then Easy, Normal, or Hard.", GREEN), margins(0, 7));
+        for(final Chapter ch : computerChapters){
+            col.addView(topicCard("💻", ch.title,
+                    ch.qs.size() + " questions  •  Easy / Normal / Hard" + bestComputerChapterSuffix(ch), GREEN, "Open",
+                    v -> showComputerQuizDifficulties(ch)), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showComputerQuizDifficulties(final Chapter ch){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("💻", ch.title, ch.desc + " Choose a difficulty for a 5-question round.", GREEN), margins(0, 7));
+        for(int difficulty=DIFF_EASY; difficulty<=DIFF_HARD; difficulty++){
+            final int selectedDifficulty = difficulty;
+            int count = computerQuestionCountFor(ch, difficulty);
+            col.addView(topicCard(difficulty == DIFF_EASY ? "🟢" : difficulty == DIFF_NORMAL ? "🟠" : "🔴",
+                    difficultyName(difficulty),
+                    count + " questions  •  " + timerLabel(MODE_BEGINNER, difficulty) + bestComputerSuffix(ch, difficulty), GREEN, "Start",
+                    v -> startComputerQuiz(ch, selectedDifficulty)), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Computer Chapters", v -> showComputerQuizChapters()), margins(0, 10));
         switchScreen(scroll);
     }
 
@@ -925,6 +1013,36 @@ public class MainActivity extends Activity {
         return level == MODE_INTERMEDIATE ? 30 : 0;
     }
 
+    private int computerQuestionCount(){
+        int count = 0;
+        for(Chapter ch : computerChapters) count += ch.qs.size();
+        return count;
+    }
+    private int computerQuestionCountFor(Chapter ch, int difficulty){
+        int count = 0;
+        String wanted = difficultyName(difficulty);
+        for(Q q : ch.qs) if(wanted.equals(q.difficulty)) count++;
+        return count;
+    }
+    private List<Q> computerQuestionsFor(Chapter ch, int difficulty){
+        List<Q> pick = new ArrayList<>();
+        String wanted = difficultyName(difficulty);
+        for(Q q : ch.qs) if(wanted.equals(q.difficulty)) pick.add(q);
+        return pick;
+    }
+    private String bestComputerSuffix(Chapter ch, int difficulty){
+        int best = prefs.getInt("best_computer_" + ch.id + "_" + difficulty, -1);
+        return best >= 0 ? "  \u2022  Best: " + best + "%" : "";
+    }
+    private String bestComputerChapterSuffix(Chapter ch){
+        int total = 0, count = 0;
+        for(int d=DIFF_EASY; d<=DIFF_HARD; d++){
+            int best = prefs.getInt("best_computer_" + ch.id + "_" + d, -1);
+            if(best >= 0){ total += best; count++; }
+        }
+        return count > 0 ? "  \u2022  Avg best: " + (total / count) + "%" : "";
+    }
+
     private int commandCount(InterviewChapter ch){
         int count = 0;
         for(CommandGroup group : ch.commands) count += group.items.size();
@@ -1363,6 +1481,15 @@ public class MainActivity extends Activity {
         if(pick.size() > 10) pick = pick.subList(0, 10);
         startQuiz(new ArrayList<>(pick), levelName(level) + " • " + difficultyName(difficulty), level,
                 "best_quiz_" + level + "_" + difficulty, false, false, () -> startComboQuiz(level, difficulty));
+    }
+    private void startComputerQuiz(final Chapter ch, final int difficulty){
+        quizDifficulty = difficulty;
+        List<Q> pick = computerQuestionsFor(ch, difficulty);
+        Collections.shuffle(pick);
+        if(pick.size() > 5) pick = pick.subList(0, 5);
+        if(pick.isEmpty()) return;
+        startQuiz(new ArrayList<>(pick), "Computer • " + ch.title + " • " + difficultyName(difficulty), MODE_BEGINNER,
+                "best_computer_" + ch.id + "_" + difficulty, false, false, () -> startComputerQuiz(ch, difficulty));
     }
     private void startDaily(){
         quizDifficulty = -1;

@@ -1,19 +1,23 @@
 # Linux App
 
 Master Linux, step by step. A fully offline Android app with a simple home
-dashboard: Quiz, Full Forms, Interview Questions and Learn Chapters. Each tile
-opens a clean level, concept, or chapter list, and every interview answer opens
-as a readable book-style page.
+dashboard: Linux Quiz, Computer Quiz, Full Forms, Interview Questions and Learn
+Chapters. Each tile opens a clean level, concept, or chapter list, and every
+interview answer opens as a readable book-style page.
 
 ## Features
 
-- **Simple home dashboard** - big entry tiles only: Quiz, Full Forms,
-  Interview Questions and Learn Chapters. Levels, topics and chapters stay
-  inside their section, so the home screen remains clean
+- **Simple home dashboard** - big entry tiles only: Linux Quiz, Computer Quiz,
+  Full Forms, Interview Questions and Learn Chapters. Levels, topics and
+  chapters stay inside their section, so the home screen remains clean
 - **Quiz levels and difficulty** - one Quiz tile opens Beginner, Intermediate,
   or Advanced, then Easy, Normal, or Hard. All 300 questions are tagged across
   the nine level/difficulty sets, with 10 mixed questions per round and harder
   sets using shorter timers
+- **Computer Quiz** - 10 computer fundamentals chapters (basics, hardware,
+  software, memory/storage, number system, networking, internet, MS Office,
+  security and troubleshooting), each with Easy, Normal and Hard sets - 150
+  verified questions total
 - **477 technical full forms** - searchable concept-wise list covering Linux,
   networking, security, cloud/DevOps, web, databases, hardware, programming and
   IT standards. Speak reads only the abbreviation and its full form
@@ -81,9 +85,10 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 ## Testing
 
 `emulator-test.yml` boots an Android 10 (API 29) emulator, installs the APK,
-drives the dashboard UI (Quiz level/difficulty flow, searchable Full Forms,
-interview chapters and Learn chapters, answer a question, check feedback,
-navigate back), checks the Speak controls, opens every named source section and
+drives the dashboard UI (Linux Quiz level/difficulty flow, Computer Quiz
+chapter/difficulty flow, searchable Full Forms, interview chapters and Learn
+chapters, answer a question, check feedback, navigate back), checks the Speak
+controls, opens every named source section and
 the book-style reader, confirms generated diagrams and collapsed answer cards
 are absent, and publishes screenshots to the `emulator-shots-api29` branch.
 

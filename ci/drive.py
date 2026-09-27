@@ -139,10 +139,11 @@ def main():
     if not nodes:
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
-    check('home shows v1.4.0 content marker', bool(find_all(xml, contains='v1.4.0')) and bool(find_all(xml, contains='477 full forms')))
+    check('home shows v1.5.0 content marker', bool(find_all(xml, contains='v1.5.0')) and bool(find_all(xml, contains='150 computer Qs')) and bool(find_all(xml, contains='477 full forms')))
     check('dashboard tiles present',
-          bool(find_all(xml, text='Quiz')) and bool(find_all(xml, text='Full Forms')) and
-          bool(find_all(xml, text='Interview Questions')) and bool(find_all(xml, text='Learn Chapters')))
+          bool(find_all(xml, text='Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
+          bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')) and
+          bool(find_all(xml, text='Learn Chapters')))
     check('old split quiz tiles removed', not find_all(xml, text='Beginner') and not find_all(xml, text='Intermediate'))
     check('home has no topic cards', not find_all(xml, contains='Linux History & Foundations Quiz'))
     check('home has no generated diagrams', not find_all(xml, contains='Diagram:') and not find_all(xml, contains='Visual guide'))
@@ -219,6 +220,39 @@ def main():
         nodes, xml = wait_node(15, contains='Home Dashboard')
         PAGES.append(xml)
 
+    # Computer Quiz tile opens chapter -> difficulty -> question.
+    computer = find_all(xml, text='Computer Quiz')
+    check('computer quiz tile present', bool(computer))
+    if computer:
+        tap_node(computer[0])
+        nodes, xml = wait_node(20, contains='Computer Quiz Chapters')
+        PAGES.append(xml)
+        check('computer quiz chapters open', bool(nodes))
+        check('computer fundamentals chapter visible', bool(find_all(xml, contains='Computer Fundamentals')))
+        shot('07_computer_chapters')
+        chapter = find_all(xml, contains='Computer Fundamentals')
+        if chapter:
+            tap_node(chapter[0])
+            nodes, xml = wait_node(20, contains='Choose a difficulty')
+            PAGES.append(xml)
+            check('computer difficulty screen opens', bool(nodes))
+            check('computer easy normal hard visible',
+                  bool(find_all(xml, text='Easy')) and bool(find_all(xml, text='Normal')) and bool(find_all(xml, text='Hard')))
+            check('computer difficulty has five questions', bool(find_all(xml, contains='5 questions')))
+            shot('08_computer_difficulties')
+            easy = find_all(xml, text='Easy')
+            if easy:
+                tap_node(easy[0])
+                nodes, xml = wait_node(20, contains='Question 1 of 5')
+                check('computer easy quiz opens at question 1', bool(nodes))
+                check('computer quiz title shows chapter and difficulty', bool(find_all(xml, contains='Computer Fundamentals • Easy')))
+                check('computer quiz speak button present', bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
+                shot('09_computer_question')
+                run(['adb', 'shell', 'input', 'keyevent', '4'])
+                time.sleep(1)
+                nodes, xml = wait_node(15, contains='Home Dashboard')
+                PAGES.append(xml)
+
     # Interview tile opens named source sections plus topic-wise chapters.
     interview = find_all(xml, text='Interview Questions')
     check('interview tile present', bool(interview))
@@ -232,7 +266,7 @@ def main():
               bool(find_all(xml, contains='200 Important Commands')) and
               bool(find_all(xml, contains='Networking Interview Q&A')) and
               bool(find_all(xml, contains='15 Advanced Topics Handbook')))
-        shot('07_interview_sections')
+        shot('10_interview_sections')
 
         # His original 52 Q&A, in order, book-style.
         nodes, xml = find_scrolled(contains='My Interview Questions')
@@ -240,7 +274,7 @@ def main():
             tap_node(nodes[0])
             nodes, xml = wait_node(20, contains='52 Q&A')
             check('My Interview Questions opens with 52 items', bool(nodes))
-            shot('08_my_questions')
+            shot('11_my_questions')
             first = find_all(xml, contains='How is Windows different from Linux?')
             check('first original question visible', bool(first))
             if first:
@@ -249,14 +283,14 @@ def main():
                 check('book reader opens first answer', bool(nodes))
                 check('his original answer is fully visible', bool(find_all(xml, contains='Windows is a commercial operating system')))
                 check('reader speak button present', bool(find_all(xml, text='🔊 Speak answer', clazz='Button')))
-                shot('09_my_book_answer')
+                shot('12_my_book_answer')
                 nxt = find_all(xml, text='Next →', clazz='Button')
                 check('reader next button present', bool(nxt))
                 if nxt:
                     tap_node(nxt[0])
                     nodes, xml = wait_node(10, contains='2 of 52')
                     check('reader next page works', bool(nodes) and bool(find_all(xml, contains='Difference between Unix and Linux?')))
-                    shot('10_my_next_page')
+                    shot('13_my_next_page')
             run(['adb', 'shell', 'input', 'keyevent', '4'])
             time.sleep(1)
             nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -277,7 +311,7 @@ def main():
                 check('topic header visible once', bool(find_all(xml, text='Navigation & Basics')))
                 check('command example visible', bool(find_all(xml, contains='Example: pwd')))
                 check('command speak present', bool(find_all(xml, text='🔊', clazz='Button')))
-                shot('11_commands200')
+                shot('14_commands200')
                 run(['adb', 'shell', 'input', 'keyevent', '4'])
                 time.sleep(1)
                 nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -294,7 +328,7 @@ def main():
                 tap_node(nodes[0])
                 nodes, xml = wait_node(20, contains='all 40 Q&A in original order')
                 check('networking source opens', bool(nodes))
-                shot('12_networking_source')
+                shot('15_networking_source')
                 first = find_all(xml, contains='What is a network?')
                 check('first networking PDF question visible', bool(first))
                 if first:
@@ -302,7 +336,7 @@ def main():
                     nodes, xml = wait_node(20, contains='Networking Interview Q&A  •  1 of 40')
                     check('networking book reader opens', bool(nodes))
                     check('English answer visible without Hinglish', bool(find_all(xml, contains='Answer: A network is a group')) and not find_all(xml, contains='Hinglish:'))
-                    shot('13_networking_book_answer')
+                    shot('16_networking_book_answer')
                 run(['adb', 'shell', 'input', 'keyevent', '4'])
                 time.sleep(1)
                 nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -320,20 +354,20 @@ def main():
                 nodes, xml = wait_node(20, contains='15 practical topics in original order')
                 check('advanced handbook opens', bool(nodes))
                 check('first handbook topic visible', bool(find_all(xml, contains='1. Backup & Restore')))
-                shot('14_advanced_handbook')
+                shot('17_advanced_handbook')
                 first = find_all(xml, contains='1. Backup & Restore')
                 if first:
                     tap_node(first[0])
                     nodes, xml = wait_node(20, contains='Backup & Restore Interview Questions')
                     check('handbook topic opens as question list', bool(nodes))
                     check('question rows use book reader links', bool(find_all(xml, contains='Read answer')))
-                    shot('15_advanced_topic')
+                    shot('18_advanced_topic')
                     q = find_all(xml, contains='What is the difference between backup and synchronization?')
                     if q:
                         tap_node(q[0])
                         nodes, xml = wait_node(20, contains='Backup & Restore Interview Questions  •  1 of')
                         check('topic book reader opens', bool(nodes) and bool(find_all(xml, contains='A backup is a separate copy')))
-                        shot('16_advanced_book_answer')
+                        shot('19_advanced_book_answer')
                     run(['adb', 'shell', 'input', 'keyevent', '4'])
                     time.sleep(1)
                     nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -351,13 +385,13 @@ def main():
                 nodes, xml = wait_node(20, contains='Navigation & the Filesystem Interview Questions')
                 check('topic-wise chapter opens', bool(nodes))
                 check('no collapsed Show answer cards', not find_all(xml, text='Show answer', clazz='Button'))
-                shot('17_topic_interview')
+                shot('20_topic_interview')
                 q = find_all(xml, contains='What is the difference between an absolute and relative path?')
                 if q:
                     tap_node(q[0])
                     nodes, xml = wait_node(20, contains='Navigation & the Filesystem Interview Questions  •')
                     check('topic answer opens as full page', bool(nodes) and bool(find_all(xml, contains='absolute path')))
-                    shot('18_topic_book_answer')
+                    shot('21_topic_book_answer')
                 run(['adb', 'shell', 'input', 'keyevent', '4'])
                 time.sleep(1)
                 nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -374,13 +408,13 @@ def main():
     check('learn chapter list opens', bool(nodes))
     chap, xml = find_scrolled(text='Linux History & Foundations')
     check('chapter list present', bool(chap))
-    shot('19_learn_topics')
+    shot('22_learn_topics')
     if not chap:
         die('chapter card not found')
     tap_node(chap[0])
     nodes, xml = wait_node(20, contains='Start Quiz')
     check('chapter page opens with Start Quiz', bool(nodes))
-    shot('20_chapter')
+    shot('23_chapter')
     les = find_all(xml, contains='What is Linux, really?')
     if les:
         tap_node(les[0])
@@ -389,7 +423,7 @@ def main():
         check('lesson has no diagram block', not find_all(xml, contains='HARDWARE') and not find_all(xml, contains='Diagram:'))
         listen = find_all(xml, text='🔊 Listen to lesson', clazz='Button')
         check('lesson listen button present', bool(listen))
-        shot('21_lesson')
+        shot('24_lesson')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
         nodes, xml = wait_node(15, contains='Home Dashboard')
@@ -409,13 +443,13 @@ def main():
     check('quiz opens at question 1', bool(nodes))
     opts = [n for n in find_all(xml, clazz='Button') if (n.get('text') or '').strip() and n.get('text') not in ('Next', 'See results', '🔊 Speak question', '⏸ Stop')]
     check('4 options shown', len(opts) == 4, 'found %d' % len(opts))
-    shot('22_question')
+    shot('25_question')
     if not opts:
         die('no option buttons')
     tap_node(opts[0])
     nodes, xml = wait_node(15, regex=r'^(Next|See results)$')
     check('answer feedback + explanation shown', bool(nodes) and bool(find_all(xml, contains='Correct') + find_all(xml, contains='Not quite')))
-    shot('23_feedback')
+    shot('26_feedback')
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(1)
     xml = dump()

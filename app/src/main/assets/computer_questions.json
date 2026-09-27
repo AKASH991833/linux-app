@@ -1,0 +1,1874 @@
+{
+  "chapters": [
+    {
+      "id": "fundamentals",
+      "title": "Computer Fundamentals",
+      "desc": "What a computer is, how it works, and basic terms.",
+      "questions": [
+        {
+          "q": "What does CPU stand for?",
+          "o": [
+            "Central Processing Unit",
+            "Computer Personal Unit",
+            "Central Program Utility",
+            "Control Processing Unit"
+          ],
+          "a": 0,
+          "e": "CPU means Central Processing Unit. It executes instructions.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which of these is an input device?",
+          "o": [
+            "Keyboard",
+            "Monitor",
+            "Printer",
+            "Speaker"
+          ],
+          "a": 0,
+          "e": "A keyboard sends user input into the computer.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device is mainly an output device?",
+          "o": [
+            "Monitor",
+            "Mouse",
+            "Keyboard",
+            "Scanner"
+          ],
+          "a": 0,
+          "e": "A monitor displays output from the computer.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which part is often called the brain of the computer?",
+          "o": [
+            "CPU",
+            "Monitor",
+            "Keyboard",
+            "USB drive"
+          ],
+          "a": 0,
+          "e": "The CPU processes instructions, so it is often called the computer's brain.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the smallest unit of data in a computer?",
+          "o": [
+            "Bit",
+            "Byte",
+            "Kilobyte",
+            "Word"
+          ],
+          "a": 0,
+          "e": "A bit is the smallest unit and stores 0 or 1.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the main difference between hardware and software?",
+          "o": [
+            "Hardware is physical; software is programs",
+            "Hardware is free; software is paid",
+            "Hardware is online; software is offline",
+            "Hardware is data; software is electricity"
+          ],
+          "a": 0,
+          "e": "Hardware is the physical equipment. Software is the set of programs and instructions.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which of these is system software?",
+          "o": [
+            "Operating system",
+            "Word processor",
+            "Web browser",
+            "Photo editor"
+          ],
+          "a": 0,
+          "e": "An operating system is system software because it manages the computer.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which memory loses its contents when power is turned off?",
+          "o": [
+            "RAM",
+            "ROM",
+            "Hard disk",
+            "SSD"
+          ],
+          "a": 0,
+          "e": "RAM is volatile memory, so its contents are lost without power.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "How many bits are in one byte?",
+          "o": [
+            "8",
+            "4",
+            "16",
+            "32"
+          ],
+          "a": 0,
+          "e": "One byte contains 8 bits.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which device can work as both an input and output device?",
+          "o": [
+            "Touchscreen",
+            "Keyboard",
+            "Speaker",
+            "Laser printer"
+          ],
+          "a": 0,
+          "e": "A touchscreen shows output and also accepts touch input.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which computer generation is associated with microprocessors?",
+          "o": [
+            "Fourth generation",
+            "First generation",
+            "Second generation",
+            "Third generation"
+          ],
+          "a": 0,
+          "e": "Fourth-generation computers used microprocessors.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which sequence correctly describes the basic CPU cycle?",
+          "o": [
+            "Fetch, decode, execute",
+            "Decode, fetch, store",
+            "Execute, fetch, decode",
+            "Store, execute, fetch"
+          ],
+          "a": 0,
+          "e": "The CPU repeatedly fetches an instruction, decodes it, and executes it.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which register holds the address of the next instruction to execute?",
+          "o": [
+            "Program counter",
+            "Accumulator",
+            "Memory data register",
+            "Instruction register"
+          ],
+          "a": 0,
+          "e": "The program counter stores the address of the next instruction.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is the main job of the ALU?",
+          "o": [
+            "Perform arithmetic and logical operations",
+            "Store files permanently",
+            "Manage network cables",
+            "Display graphics"
+          ],
+          "a": 0,
+          "e": "The Arithmetic Logic Unit performs calculations and logical comparisons.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is firmware?",
+          "o": [
+            "Software stored on hardware such as ROM",
+            "A type of computer virus",
+            "A temporary RAM file",
+            "A printed circuit board"
+          ],
+          "a": 0,
+          "e": "Firmware is software embedded in hardware, commonly stored in non-volatile memory.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware & Devices",
+      "desc": "CPU, memory, storage, ports, and physical devices.",
+      "questions": [
+        {
+          "q": "Which device prints documents?",
+          "o": [
+            "Printer",
+            "Scanner",
+            "Mouse",
+            "Webcam"
+          ],
+          "a": 0,
+          "e": "A printer produces paper output from digital documents.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device is used to point and click?",
+          "o": [
+            "Mouse",
+            "Monitor",
+            "Speaker",
+            "Printer"
+          ],
+          "a": 0,
+          "e": "A mouse is a pointing device.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the main circuit board inside a computer called?",
+          "o": [
+            "Motherboard",
+            "Keyboard",
+            "Hard disk",
+            "Power cable"
+          ],
+          "a": 0,
+          "e": "The motherboard connects the CPU, memory, storage, and other components.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which component is temporary working memory?",
+          "o": [
+            "RAM",
+            "HDD",
+            "DVD",
+            "Monitor"
+          ],
+          "a": 0,
+          "e": "RAM is temporary working memory used while programs run.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device is used for long-term file storage?",
+          "o": [
+            "Hard disk drive",
+            "CPU register",
+            "Cache",
+            "Keyboard"
+          ],
+          "a": 0,
+          "e": "A hard disk drive stores files long term.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Why are SSDs usually faster than HDDs?",
+          "o": [
+            "They have no moving mechanical parts",
+            "They use bigger cables",
+            "They need no power",
+            "They store data on paper"
+          ],
+          "a": 0,
+          "e": "SSDs use flash memory and do not rely on moving read/write heads.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is PCIe mainly used for?",
+          "o": [
+            "Connecting high-speed expansion cards",
+            "Printing documents",
+            "Cooling the CPU",
+            "Charging phones only"
+          ],
+          "a": 0,
+          "e": "PCI Express connects devices such as graphics cards and NVMe storage.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does a PSU do?",
+          "o": [
+            "Converts mains power for computer components",
+            "Stores user files",
+            "Controls the mouse",
+            "Displays images"
+          ],
+          "a": 0,
+          "e": "The power supply unit converts AC power to the DC voltages components need.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which component connects a computer to a network?",
+          "o": [
+            "Network interface card",
+            "Sound card only",
+            "Optical drive",
+            "Webcam"
+          ],
+          "a": 0,
+          "e": "A network interface card or controller provides network connectivity.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which component is designed mainly for graphics processing?",
+          "o": [
+            "GPU",
+            "BIOS battery",
+            "HDD",
+            "PSU"
+          ],
+          "a": 0,
+          "e": "A graphics processing unit renders images and handles parallel graphics work.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "In older PC architecture, which chip connected the CPU to fast components such as RAM and graphics?",
+          "o": [
+            "Northbridge",
+            "Southbridge",
+            "CMOS battery",
+            "BIOS chip"
+          ],
+          "a": 0,
+          "e": "The northbridge handled high-speed links such as memory and graphics.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does POST check?",
+          "o": [
+            "Basic hardware during startup",
+            "Internet speed",
+            "Printer ink level",
+            "Email spelling"
+          ],
+          "a": 0,
+          "e": "The Power-On Self-Test checks essential hardware before the operating system loads.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Why does a motherboard use a CMOS battery?",
+          "o": [
+            "To keep firmware settings and the real-time clock when power is off",
+            "To speed up the CPU",
+            "To power the monitor",
+            "To store user photos"
+          ],
+          "a": 0,
+          "e": "The small battery preserves settings and time when the computer is unplugged.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does RAID 1 provide?",
+          "o": [
+            "Mirroring between disks",
+            "Striping without redundancy",
+            "Only faster CPU speed",
+            "A network firewall"
+          ],
+          "a": 0,
+          "e": "RAID 1 mirrors data on two disks so one disk can fail without losing the data.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which storage interface is designed for very fast SSDs connected over PCIe?",
+          "o": [
+            "NVMe",
+            "VGA",
+            "PS/2",
+            "RJ-45"
+          ],
+          "a": 0,
+          "e": "NVMe is a storage protocol built for flash storage over PCI Express.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "software-os",
+      "title": "Software & Operating Systems",
+      "desc": "Programs, operating systems, processes, and memory management.",
+      "questions": [
+        {
+          "q": "Which of these is an operating system?",
+          "o": [
+            "Linux",
+            "Google Chrome",
+            "Microsoft Word",
+            "Adobe Photoshop"
+          ],
+          "a": 0,
+          "e": "Linux is an operating system kernel used by many operating systems.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which of these is application software?",
+          "o": [
+            "Web browser",
+            "Device driver",
+            "BIOS",
+            "Kernel"
+          ],
+          "a": 0,
+          "e": "A web browser is an application used directly by people.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which file extension normally means a plain text file?",
+          "o": [
+            ".txt",
+            ".exe",
+            ".jpg",
+            ".mp3"
+          ],
+          "a": 0,
+          "e": "A .txt file normally contains plain text.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is a folder used for?",
+          "o": [
+            "Organising files",
+            "Cooling the CPU",
+            "Increasing voltage",
+            "Printing pages"
+          ],
+          "a": 0,
+          "e": "Folders organise files and other folders.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which keyboard shortcut copies selected text?",
+          "o": [
+            "Ctrl+C",
+            "Ctrl+V",
+            "Ctrl+X",
+            "Ctrl+P"
+          ],
+          "a": 0,
+          "e": "Ctrl+C copies the selected item.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the main job of an operating system?",
+          "o": [
+            "Manage hardware, software, files, and users",
+            "Create electricity",
+            "Repair the monitor",
+            "Design websites automatically"
+          ],
+          "a": 0,
+          "e": "The operating system manages resources and provides services to applications.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does a compiler do?",
+          "o": [
+            "Translates a whole high-level program into machine code",
+            "Runs one command line only",
+            "Deletes temporary files",
+            "Connects Wi-Fi"
+          ],
+          "a": 0,
+          "e": "A compiler translates source code into an executable form, usually before it runs.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "How does an interpreter usually run code?",
+          "o": [
+            "Line by line or statement by statement",
+            "Only after printing it",
+            "By turning off the CPU",
+            "By converting text to images"
+          ],
+          "a": 0,
+          "e": "An interpreter executes source code step by step without first building one whole executable.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is a process?",
+          "o": [
+            "A running program",
+            "A type of keyboard",
+            "A storage cable",
+            "A printed document"
+          ],
+          "a": 0,
+          "e": "A process is a program that is currently running.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does multitasking allow?",
+          "o": [
+            "Several tasks to share CPU time",
+            "Several printers to share ink",
+            "Only one program to run",
+            "The monitor to show two colors only"
+          ],
+          "a": 0,
+          "e": "Multitasking lets the operating system switch between tasks so several appear to run together.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is virtual memory?",
+          "o": [
+            "Disk space used as an extension of RAM",
+            "A fake monitor",
+            "A secure password",
+            "A type of CPU fan"
+          ],
+          "a": 0,
+          "e": "Virtual memory lets the system move inactive pages to storage so programs can use more memory than physical RAM.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is the kernel?",
+          "o": [
+            "The core part of the operating system",
+            "A web page",
+            "A printer driver only",
+            "A spreadsheet formula"
+          ],
+          "a": 0,
+          "e": "The kernel manages low-level resources such as CPU, memory, devices, and system calls.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is a deadlock?",
+          "o": [
+            "Processes waiting forever for each other's resources",
+            "A very fast program",
+            "A broken keyboard",
+            "A normal shutdown"
+          ],
+          "a": 0,
+          "e": "Deadlock happens when processes hold resources and wait in a cycle for each other.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is thrashing in an operating system?",
+          "o": [
+            "Too much paging and too little useful work",
+            "Very fast cache use",
+            "Normal file saving",
+            "A network cable fault"
+          ],
+          "a": 0,
+          "e": "Thrashing occurs when the system spends most of its time moving memory pages instead of running programs.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which OS component decides which ready process runs next?",
+          "o": [
+            "CPU scheduler",
+            "File explorer",
+            "Print spooler",
+            "Login screen"
+          ],
+          "a": 0,
+          "e": "The CPU scheduler chooses the next process or thread to run.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "memory-storage",
+      "title": "Memory & Storage",
+      "desc": "RAM, ROM, cache, disks, units, and RAID.",
+      "questions": [
+        {
+          "q": "Which memory is volatile?",
+          "o": [
+            "RAM",
+            "ROM",
+            "SSD",
+            "DVD"
+          ],
+          "a": 0,
+          "e": "RAM loses its data when power is removed.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which memory is normally non-volatile?",
+          "o": [
+            "ROM",
+            "RAM",
+            "CPU register",
+            "Cache"
+          ],
+          "a": 0,
+          "e": "ROM keeps its contents without power.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which memory is usually the fastest in a computer?",
+          "o": [
+            "CPU cache",
+            "Hard disk",
+            "DVD",
+            "USB drive"
+          ],
+          "a": 0,
+          "e": "Cache memory is much faster than main storage and sits close to the CPU.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does SSD stand for?",
+          "o": [
+            "Solid State Drive",
+            "Super System Disk",
+            "Secure Software Device",
+            "Serial Storage Drive"
+          ],
+          "a": 0,
+          "e": "SSD means Solid State Drive.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device is commonly used as portable storage?",
+          "o": [
+            "USB flash drive",
+            "CPU fan",
+            "Monitor",
+            "Motherboard"
+          ],
+          "a": 0,
+          "e": "A USB flash drive is portable storage.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "In binary computer units, how many bytes are in 1 KiB?",
+          "o": [
+            "1024",
+            "100",
+            "512",
+            "2048"
+          ],
+          "a": 0,
+          "e": "One kibibyte (KiB) is 1024 bytes. Many people informally say kilobyte.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is virtual memory used for?",
+          "o": [
+            "Extending usable memory with storage",
+            "Creating a virtual monitor",
+            "Cooling the disk",
+            "Blocking viruses"
+          ],
+          "a": 0,
+          "e": "Virtual memory uses disk space to supplement physical RAM.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which pair is primary memory?",
+          "o": [
+            "RAM and ROM",
+            "HDD and SSD",
+            "DVD and Blu-ray",
+            "Mouse and keyboard"
+          ],
+          "a": 0,
+          "e": "RAM and ROM are primary memory directly used by the system.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which of these is secondary storage?",
+          "o": [
+            "SSD",
+            "CPU register",
+            "L1 cache",
+            "Instruction register"
+          ],
+          "a": 0,
+          "e": "An SSD is persistent secondary storage.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which memory type is commonly used in USB flash drives?",
+          "o": [
+            "Flash memory",
+            "Magnetic tape only",
+            "DRAM only",
+            "Paper memory"
+          ],
+          "a": 0,
+          "e": "USB drives commonly use non-volatile flash memory.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which cache level is usually smallest and fastest?",
+          "o": [
+            "L1",
+            "L2",
+            "L3",
+            "Disk cache"
+          ],
+          "a": 0,
+          "e": "L1 cache is closest to the CPU core and is usually the smallest and fastest.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Why does DRAM need refreshing?",
+          "o": [
+            "Its charge leaks over time",
+            "It becomes magnetic",
+            "It deletes the operating system",
+            "It uses too many pixels"
+          ],
+          "a": 0,
+          "e": "DRAM cells store charge that leaks, so the memory controller refreshes them.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which is generally faster, SRAM or DRAM?",
+          "o": [
+            "SRAM",
+            "DRAM",
+            "They are identical",
+            "Neither is memory"
+          ],
+          "a": 0,
+          "e": "SRAM is faster and more expensive; DRAM is denser and used for main memory.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does RAID 0 provide?",
+          "o": [
+            "Striping for speed without redundancy",
+            "Automatic backup",
+            "Mirroring",
+            "Virus protection"
+          ],
+          "a": 0,
+          "e": "RAID 0 stripes data across disks for performance, but one disk failure can lose the array.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does wear leveling do in an SSD?",
+          "o": [
+            "Spreads writes to extend flash life",
+            "Increases monitor brightness",
+            "Deletes old files",
+            "Mirrors two disks"
+          ],
+          "a": 0,
+          "e": "Wear leveling distributes writes across flash cells so no small area wears out too quickly.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "number-system",
+      "title": "Number System & Data",
+      "desc": "Binary, decimal, octal, hexadecimal, and character data.",
+      "questions": [
+        {
+          "q": "Which digits are used in binary?",
+          "o": [
+            "0 and 1",
+            "0 to 7",
+            "0 to 9",
+            "A to F"
+          ],
+          "a": 0,
+          "e": "Binary uses only 0 and 1.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the base of the decimal number system?",
+          "o": [
+            "10",
+            "2",
+            "8",
+            "16"
+          ],
+          "a": 0,
+          "e": "Decimal is base 10.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which symbols are used in hexadecimal?",
+          "o": [
+            "0-9 and A-F",
+            "0 and 1 only",
+            "0-7 only",
+            "A-Z only"
+          ],
+          "a": 0,
+          "e": "Hexadecimal uses digits 0 to 9 and letters A to F.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is the base of the octal number system?",
+          "o": [
+            "8",
+            "2",
+            "10",
+            "16"
+          ],
+          "a": 0,
+          "e": "Octal is base 8.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is one bit?",
+          "o": [
+            "A single 0 or 1",
+            "Eight bytes",
+            "One kilobyte",
+            "One file"
+          ],
+          "a": 0,
+          "e": "A bit stores one binary digit: 0 or 1.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is binary 1010 in decimal?",
+          "o": [
+            "10",
+            "8",
+            "12",
+            "20"
+          ],
+          "a": 0,
+          "e": "1010 binary is 8 + 2 = 10.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is decimal 15 in hexadecimal?",
+          "o": [
+            "F",
+            "E",
+            "10",
+            "15"
+          ],
+          "a": 0,
+          "e": "Hexadecimal F represents decimal 15.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is binary 1111 in decimal?",
+          "o": [
+            "15",
+            "8",
+            "16",
+            "31"
+          ],
+          "a": 0,
+          "e": "1111 binary is 8 + 4 + 2 + 1 = 15.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is octal 10 in decimal?",
+          "o": [
+            "8",
+            "10",
+            "16",
+            "2"
+          ],
+          "a": 0,
+          "e": "Octal 10 means one group of 8, so it is decimal 8.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "How many bits are in one nibble?",
+          "o": [
+            "4",
+            "8",
+            "16",
+            "2"
+          ],
+          "a": 0,
+          "e": "A nibble contains 4 bits.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which representation is commonly used for signed binary integers?",
+          "o": [
+            "Two's complement",
+            "ASCII",
+            "RAID",
+            "URL encoding"
+          ],
+          "a": 0,
+          "e": "Modern computers commonly use two's complement for signed integers.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is binary 1011 + 0110?",
+          "o": [
+            "10001",
+            "1111",
+            "10000",
+            "10101"
+          ],
+          "a": 0,
+          "e": "Binary 1011 is 11 and 0110 is 6; their sum is 17, which is 10001.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is hexadecimal 2F in decimal?",
+          "o": [
+            "47",
+            "25",
+            "32",
+            "57"
+          ],
+          "a": 0,
+          "e": "2F hex is 2 x 16 + 15 = 47.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is octal 17 in decimal?",
+          "o": [
+            "15",
+            "17",
+            "23",
+            "8"
+          ],
+          "a": 0,
+          "e": "Octal 17 is 1 x 8 + 7 = 15.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is the ASCII decimal value of uppercase A?",
+          "o": [
+            "65",
+            "97",
+            "32",
+            "48"
+          ],
+          "a": 0,
+          "e": "ASCII represents uppercase A as decimal 65.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "networking-basics",
+      "title": "Computer Networking Basics",
+      "desc": "LANs, IP addresses, common devices, and protocols.",
+      "questions": [
+        {
+          "q": "What does LAN stand for?",
+          "o": [
+            "Local Area Network",
+            "Large Access Node",
+            "Long Area Network",
+            "Local Account Number"
+          ],
+          "a": 0,
+          "e": "LAN means Local Area Network.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device connects different networks together?",
+          "o": [
+            "Router",
+            "Keyboard",
+            "Monitor",
+            "Printer"
+          ],
+          "a": 0,
+          "e": "A router forwards traffic between different networks.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device traditionally connects a home network to an ISP line?",
+          "o": [
+            "Modem",
+            "Scanner",
+            "Projector",
+            "Joystick"
+          ],
+          "a": 0,
+          "e": "A modem connects the local network to the provider's line.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does an IP address help identify?",
+          "o": [
+            "A device on a network",
+            "A printer cartridge",
+            "A file extension",
+            "A keyboard layout"
+          ],
+          "a": 0,
+          "e": "An IP address identifies a network interface so traffic can reach it.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is Wi-Fi used for?",
+          "o": [
+            "Wireless networking",
+            "Wired printing only",
+            "CPU cooling",
+            "File compression"
+          ],
+          "a": 0,
+          "e": "Wi-Fi provides wireless network access.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does DNS translate?",
+          "o": [
+            "Domain names to IP addresses",
+            "Files to printers",
+            "Passwords to usernames",
+            "Binary to decimal only"
+          ],
+          "a": 0,
+          "e": "DNS resolves names like example.com to IP addresses.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which protocol is connection-oriented and reliable?",
+          "o": [
+            "TCP",
+            "UDP",
+            "ICMP",
+            "ARP"
+          ],
+          "a": 0,
+          "e": "TCP creates a connection and provides ordered, reliable delivery.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which protocol is faster but does not guarantee delivery?",
+          "o": [
+            "UDP",
+            "TCP",
+            "FTP",
+            "SSH"
+          ],
+          "a": 0,
+          "e": "UDP sends datagrams without TCP's delivery and ordering guarantees.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is a MAC address?",
+          "o": [
+            "A hardware address for a network interface",
+            "An email address",
+            "A website name",
+            "A Windows password"
+          ],
+          "a": 0,
+          "e": "A MAC address identifies a network interface on the local link.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which device forwards frames inside a LAN using MAC addresses?",
+          "o": [
+            "Switch",
+            "Modem",
+            "Speaker",
+            "Scanner"
+          ],
+          "a": 0,
+          "e": "A switch learns MAC addresses and forwards frames to the right port.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "How many layers does the OSI model have?",
+          "o": [
+            "7",
+            "4",
+            "5",
+            "9"
+          ],
+          "a": 0,
+          "e": "The OSI reference model has seven layers.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does a subnet mask help separate?",
+          "o": [
+            "Network and host portions of an IP address",
+            "Text and images",
+            "Username and password",
+            "Input and output devices"
+          ],
+          "a": 0,
+          "e": "The subnet mask shows which part of an IPv4 address is the network prefix.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which service assigns IP settings automatically?",
+          "o": [
+            "DHCP",
+            "SMTP",
+            "FTP",
+            "SSH"
+          ],
+          "a": 0,
+          "e": "DHCP assigns IP addresses, gateways, DNS servers, and related settings.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is a default gateway used for?",
+          "o": [
+            "Sending traffic to destinations outside the local network",
+            "Opening a web browser",
+            "Printing a document",
+            "Formatting a disk"
+          ],
+          "a": 0,
+          "e": "Hosts send non-local traffic to their default gateway, usually a router.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does NAT commonly do?",
+          "o": [
+            "Translates private addresses to a public address",
+            "Encrypts every file",
+            "Assigns computer names",
+            "Deletes old packets"
+          ],
+          "a": 0,
+          "e": "Network Address Translation lets many private devices share public address space.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "internet-web",
+      "title": "Internet & Web",
+      "desc": "Browsers, URLs, websites, email, and web safety.",
+      "questions": [
+        {
+          "q": "What does WWW stand for?",
+          "o": [
+            "World Wide Web",
+            "World Web Window",
+            "Wide World Web",
+            "Web World Wide"
+          ],
+          "a": 0,
+          "e": "WWW means World Wide Web.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which of these is a web browser?",
+          "o": [
+            "Google Chrome",
+            "Microsoft Excel",
+            "Windows Explorer",
+            "Task Manager"
+          ],
+          "a": 0,
+          "e": "Google Chrome is a web browser.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is a URL?",
+          "o": [
+            "The address of a web resource",
+            "A computer virus",
+            "A type of RAM",
+            "A printer cable"
+          ],
+          "a": 0,
+          "e": "A URL is the address used to locate a resource on the web.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which of these is a search engine?",
+          "o": [
+            "Google",
+            "Excel",
+            "Paint",
+            "Notepad"
+          ],
+          "a": 0,
+          "e": "Google is a search engine.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does email mean?",
+          "o": [
+            "Electronic mail",
+            "External mail only",
+            "Encoded message",
+            "Emergency link"
+          ],
+          "a": 0,
+          "e": "Email is electronic mail sent over a network.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which protocol is the foundation of web browsing?",
+          "o": [
+            "HTTP",
+            "FTP",
+            "SMTP",
+            "POP3"
+          ],
+          "a": 0,
+          "e": "Web browsers use HTTP to request and receive web resources.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does HTTPS add to HTTP?",
+          "o": [
+            "Encryption and server authentication through TLS",
+            "Faster printers",
+            "Free storage",
+            "Offline access"
+          ],
+          "a": 0,
+          "e": "HTTPS protects web traffic with TLS.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which language defines the structure of a web page?",
+          "o": [
+            "HTML",
+            "SQL",
+            "Python",
+            "Bash"
+          ],
+          "a": 0,
+          "e": "HTML is the markup language used to structure web pages.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does an ISP provide?",
+          "o": [
+            "Internet access",
+            "Free CPUs",
+            "Operating systems only",
+            "Keyboard drivers"
+          ],
+          "a": 0,
+          "e": "An Internet Service Provider provides internet connectivity.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does downloading mean?",
+          "o": [
+            "Receiving a file from another system",
+            "Sending a file to another system only",
+            "Deleting a file",
+            "Printing a file"
+          ],
+          "a": 0,
+          "e": "Downloading copies data from a remote system to your device.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which URL part usually identifies the website domain?",
+          "o": [
+            "example.com",
+            "https",
+            "/home",
+            "?id=1"
+          ],
+          "a": 0,
+          "e": "In https://example.com/home, example.com is the domain.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What are browser cookies mainly used for?",
+          "o": [
+            "Storing small pieces of site data in the browser",
+            "Cleaning the CPU",
+            "Blocking all ads",
+            "Increasing RAM"
+          ],
+          "a": 0,
+          "e": "Cookies let websites store state such as login sessions or preferences.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Why does a browser use cache?",
+          "o": [
+            "To reuse downloaded resources and load pages faster",
+            "To delete passwords",
+            "To connect Bluetooth",
+            "To format disks"
+          ],
+          "a": 0,
+          "e": "Caching keeps copies of images and other resources so repeat visits are faster.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which service lets people use names instead of IP addresses on the web?",
+          "o": [
+            "DNS",
+            "DHCP",
+            "NAT",
+            "FTP"
+          ],
+          "a": 0,
+          "e": "DNS maps domain names to IP addresses.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is phishing?",
+          "o": [
+            "Fraudulent messages that try to steal information",
+            "A backup method",
+            "A type of monitor",
+            "A fast network cable"
+          ],
+          "a": 0,
+          "e": "Phishing uses fake messages or sites to trick people into revealing information.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "office",
+      "title": "MS Office & Productivity",
+      "desc": "Word, Excel, PowerPoint, and common shortcuts.",
+      "questions": [
+        {
+          "q": "Which Office app is mainly for documents?",
+          "o": [
+            "Microsoft Word",
+            "Microsoft Excel",
+            "PowerPoint",
+            "Paint"
+          ],
+          "a": 0,
+          "e": "Microsoft Word is used for documents.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Office app is mainly for spreadsheets?",
+          "o": [
+            "Microsoft Excel",
+            "Microsoft Word",
+            "PowerPoint",
+            "Outlook"
+          ],
+          "a": 0,
+          "e": "Excel is a spreadsheet application.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Office app is mainly for presentations?",
+          "o": [
+            "PowerPoint",
+            "Word",
+            "Excel",
+            "Notepad"
+          ],
+          "a": 0,
+          "e": "PowerPoint creates slide presentations.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which shortcut saves a file?",
+          "o": [
+            "Ctrl+S",
+            "Ctrl+P",
+            "Ctrl+Z",
+            "Ctrl+F"
+          ],
+          "a": 0,
+          "e": "Ctrl+S saves the current file.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which shortcut opens print options?",
+          "o": [
+            "Ctrl+P",
+            "Ctrl+C",
+            "Ctrl+A",
+            "Ctrl+N"
+          ],
+          "a": 0,
+          "e": "Ctrl+P opens printing in most applications.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "How does a formula usually begin in Excel?",
+          "o": [
+            "With =",
+            "With #",
+            "With @",
+            "With !"
+          ],
+          "a": 0,
+          "e": "Excel formulas begin with an equals sign.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which Excel function adds values?",
+          "o": [
+            "SUM",
+            "IF",
+            "COUNT",
+            "MAX"
+          ],
+          "a": 0,
+          "e": "SUM adds numbers in a range.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is Mail Merge used for in Word?",
+          "o": [
+            "Creating personalised letters or labels for many recipients",
+            "Editing photos",
+            "Playing videos",
+            "Formatting disks"
+          ],
+          "a": 0,
+          "e": "Mail Merge combines a document with a data source to create personalised copies.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is a transition in PowerPoint?",
+          "o": [
+            "The effect between slides",
+            "A chart formula",
+            "A file password",
+            "A printer setting"
+          ],
+          "a": 0,
+          "e": "A transition controls how one slide changes to the next.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is a cell in Excel?",
+          "o": [
+            "The intersection of a row and a column",
+            "A slide animation",
+            "A Word page",
+            "An email folder"
+          ],
+          "a": 0,
+          "e": "A cell is where a row and column meet in a worksheet.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which Excel reference stays fixed when copied?",
+          "o": [
+            "$A$1",
+            "A1",
+            "A$",
+            "$"
+          ],
+          "a": 0,
+          "e": "$A$1 is an absolute reference; both column and row stay fixed.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does VLOOKUP search?",
+          "o": [
+            "The first column of a table and returns a value from another column",
+            "Only hidden sheets",
+            "Only charts",
+            "Only printer settings"
+          ],
+          "a": 0,
+          "e": "VLOOKUP looks down the first column and returns a matching value from a chosen column.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which Excel function makes a decision based on a condition?",
+          "o": [
+            "IF",
+            "SUM",
+            "ROUND",
+            "NOW"
+          ],
+          "a": 0,
+          "e": "IF returns one value when a condition is true and another when it is false.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does Presenter View in PowerPoint show the presenter?",
+          "o": [
+            "Current slide, next slide, and speaker notes",
+            "Only the audience screen",
+            "Only file properties",
+            "Only print preview"
+          ],
+          "a": 0,
+          "e": "Presenter View gives the speaker controls, notes, and the next slide while the audience sees the current slide.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Why would you use a section break in Word?",
+          "o": [
+            "To apply different layout or formatting to different parts of a document",
+            "To delete a table",
+            "To start a video",
+            "To change keyboard language"
+          ],
+          "a": 0,
+          "e": "Section breaks let one document use different headers, margins, columns, or page numbering.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Computer Security",
+      "desc": "Passwords, malware, encryption, backups, and safe habits.",
+      "questions": [
+        {
+          "q": "What should a password be?",
+          "o": [
+            "Secret and hard to guess",
+            "Shared with everyone",
+            "Written on the monitor",
+            "Always your name"
+          ],
+          "a": 0,
+          "e": "A password should be private and difficult for others to guess.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is antivirus software used for?",
+          "o": [
+            "Detecting and removing malware",
+            "Printing files",
+            "Increasing screen size",
+            "Making spreadsheets"
+          ],
+          "a": 0,
+          "e": "Antivirus software helps detect, block, and remove malicious software.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What is a phishing message trying to do?",
+          "o": [
+            "Trick you into revealing information",
+            "Speed up the computer",
+            "Back up files",
+            "Install a printer"
+          ],
+          "a": 0,
+          "e": "Phishing messages pretend to be trustworthy to steal credentials or information.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Why should you keep a backup?",
+          "o": [
+            "To recover data if the original is lost",
+            "To make the CPU faster",
+            "To share passwords",
+            "To delete updates"
+          ],
+          "a": 0,
+          "e": "Backups let you restore files after deletion, damage, or device failure.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Why are software updates important?",
+          "o": [
+            "They fix bugs and security holes",
+            "They always slow the computer",
+            "They delete files",
+            "They remove the operating system"
+          ],
+          "a": 0,
+          "e": "Updates patch vulnerabilities and improve reliability.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does 2FA add to a password?",
+          "o": [
+            "A second proof of identity",
+            "A second monitor",
+            "A larger keyboard",
+            "A faster printer"
+          ],
+          "a": 0,
+          "e": "Two-factor authentication requires another factor, such as a code or device.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does a firewall do?",
+          "o": [
+            "Filters network traffic based on rules",
+            "Deletes all files",
+            "Creates spreadsheets",
+            "Cools the CPU"
+          ],
+          "a": 0,
+          "e": "A firewall allows or blocks traffic according to configured rules.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is malware?",
+          "o": [
+            "Malicious software",
+            "A backup disk",
+            "A word processor",
+            "A network cable"
+          ],
+          "a": 0,
+          "e": "Malware is software designed to harm, spy, steal, or disrupt.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which is the strongest password habit?",
+          "o": [
+            "Use long unique passwords for important accounts",
+            "Reuse one password everywhere",
+            "Use your birth date",
+            "Share passwords in chat"
+          ],
+          "a": 0,
+          "e": "Long, unique passwords reduce the damage if one account is exposed.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does encryption do?",
+          "o": [
+            "Turns readable data into protected data that needs a key",
+            "Deletes data permanently",
+            "Prints data",
+            "Compresses images only"
+          ],
+          "a": 0,
+          "e": "Encryption protects confidentiality by requiring a key to read the data.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does ransomware do?",
+          "o": [
+            "Encrypts files and demands payment",
+            "Only cleans temporary files",
+            "Creates websites",
+            "Repairs drivers"
+          ],
+          "a": 0,
+          "e": "Ransomware locks or steals data and demands payment.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is social engineering?",
+          "o": [
+            "Manipulating people into breaking security",
+            "Designing social media posts",
+            "Building network cables",
+            "Writing compiler code"
+          ],
+          "a": 0,
+          "e": "Social engineering attacks human trust instead of only technical systems.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is the main property of a cryptographic hash?",
+          "o": [
+            "It is designed to be one-way",
+            "It always compresses files",
+            "It stores passwords as plain text",
+            "It creates IP addresses"
+          ],
+          "a": 0,
+          "e": "A cryptographic hash should be impractical to reverse.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does the principle of least privilege mean?",
+          "o": [
+            "Give only the access needed for the task",
+            "Give every user admin rights",
+            "Disable all passwords",
+            "Share one account"
+          ],
+          "a": 0,
+          "e": "Least privilege limits damage by giving users and programs only required access.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is the main idea of Zero Trust security?",
+          "o": [
+            "Never trust automatically; verify explicitly",
+            "Trust every internal device",
+            "Disable logging",
+            "Allow every connection"
+          ],
+          "a": 0,
+          "e": "Zero Trust verifies users, devices, and requests instead of trusting a network location by default.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "title": "Troubleshooting & IT Essentials",
+      "desc": "Safe diagnosis and common fixes for everyday computer problems.",
+      "questions": [
+        {
+          "q": "What is a safe first step for many temporary computer problems?",
+          "o": [
+            "Restart the computer",
+            "Delete Windows",
+            "Remove the CPU",
+            "Format the disk"
+          ],
+          "a": 0,
+          "e": "A restart clears many temporary software states and is a safe first step.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "If a monitor shows nothing, what should you check first?",
+          "o": [
+            "Power and display cable",
+            "Font size",
+            "Excel formula",
+            "Email password"
+          ],
+          "a": 0,
+          "e": "A loose power or display cable is a common cause of no display.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Windows tool can end an unresponsive app?",
+          "o": [
+            "Task Manager",
+            "Paint",
+            "Notepad",
+            "WordPad"
+          ],
+          "a": 0,
+          "e": "Task Manager shows running apps and can end a frozen process.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What does Safe Mode do?",
+          "o": [
+            "Starts the system with minimal drivers and services",
+            "Deletes every file",
+            "Overclocks the CPU",
+            "Blocks the keyboard"
+          ],
+          "a": 0,
+          "e": "Safe Mode starts a minimal environment for troubleshooting.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What should you do before a risky repair?",
+          "o": [
+            "Take a backup",
+            "Delete all drivers",
+            "Remove all cables",
+            "Change every password"
+          ],
+          "a": 0,
+          "e": "A backup protects data before making major changes.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "What can cause a Windows blue screen error?",
+          "o": [
+            "Faulty drivers, hardware, or system files",
+            "Only dark wallpapers",
+            "Too many icons",
+            "A small monitor"
+          ],
+          "a": 0,
+          "e": "Blue screens often come from driver, hardware, or low-level system faults.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "If a PC becomes slow at startup, what should you check?",
+          "o": [
+            "Startup programs",
+            "Monitor brightness",
+            "Keyboard layout",
+            "Screen saver"
+          ],
+          "a": 0,
+          "e": "Too many startup programs can slow boot and sign-in.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is a sensible first check when internet stops working?",
+          "o": [
+            "Restart or check the router and connection",
+            "Reinstall Office",
+            "Change the font",
+            "Empty the recycle bin"
+          ],
+          "a": 0,
+          "e": "Router and connection checks quickly rule out common network problems.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "If a printer is offline, what should you check first?",
+          "o": [
+            "Power, connection, and print queue",
+            "Screen resolution",
+            "Browser history",
+            "Excel formula"
+          ],
+          "a": 0,
+          "e": "Printer offline problems often come from power, cable/network, or stuck jobs.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What can you safely do when a disk is almost full?",
+          "o": [
+            "Remove unneeded files or uninstall unused apps",
+            "Delete system32",
+            "Disable backups",
+            "Remove the CPU fan"
+          ],
+          "a": 0,
+          "e": "Freeing space by removing unneeded files or apps is safe and reversible compared with deleting system files.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What does the Windows SFC tool do?",
+          "o": [
+            "Scans and repairs protected system files",
+            "Creates slides",
+            "Checks spelling",
+            "Measures Wi-Fi signal"
+          ],
+          "a": 0,
+          "e": "System File Checker scans protected Windows system files and can repair corrupted copies.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does the ping command test?",
+          "o": [
+            "Whether another network host responds",
+            "Printer ink",
+            "Disk health only",
+            "Screen brightness"
+          ],
+          "a": 0,
+          "e": "Ping sends ICMP echo requests to check basic reachability and delay.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Where does Windows record many system and application events?",
+          "o": [
+            "Event Viewer",
+            "Paint",
+            "Excel",
+            "Control Panel printers only"
+          ],
+          "a": 0,
+          "e": "Event Viewer shows Windows and application logs useful for diagnosis.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What is a clean boot used for?",
+          "o": [
+            "Starting Windows with minimal services and startup apps to isolate conflicts",
+            "Formatting the disk",
+            "Cleaning the keyboard",
+            "Blocking all users"
+          ],
+          "a": 0,
+          "e": "A clean boot disables non-Microsoft services and startup items to find software conflicts.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "What does System Restore do?",
+          "o": [
+            "Rolls system settings and files back to an earlier restore point",
+            "Deletes all personal files",
+            "Creates email accounts",
+            "Overclocks the GPU"
+          ],
+          "a": 0,
+          "e": "System Restore can return Windows system state to a previous point without being a full backup replacement.",
+          "difficulty": "Hard"
+        }
+      ]
+    }
+  ]
+}
