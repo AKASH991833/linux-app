@@ -128,7 +128,25 @@ def main():
         nodes, xml = wait_node(20, contains='Lesson 1 of')
         check('lesson opens with body', bool(nodes) and bool(find_all(xml, contains='KERNEL')))
         check('diagram rendered', bool(find_all(xml, contains='HARDWARE')))
+        check('real-life scenario shown', bool(find_all(xml, contains="Where you'd use it")))
         shot('03_lesson')
+        # The lesson is scrollable. Drive the quick check and verify progress is earned only on a correct answer.
+        nodes = []
+        for _ in range(5):
+            run(['adb', 'shell', 'input', 'swipe', '480', '1600', '480', '250', '450'])
+            nodes, xml = wait_node(2, contains='Quick check')
+            if nodes and find_all(xml, text='Linux kernel', clazz='Button'):
+                break
+        check('lesson quick check visible', bool(nodes))
+        shot('03b_quick_check')
+        q_answer = find_all(xml, text='Linux kernel', clazz='Button')
+        if q_answer:
+            tap_node(q_answer[0])
+            nodes, xml = wait_node(12, contains='You got it!')
+            check('correct quick check gives feedback', bool(nodes))
+            shot('03c_check_passed')
+        else:
+            check('correct quick check gives feedback', False, 'answer option not found')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
         nodes, xml = wait_node(15, contains='Start Quiz')
