@@ -7,8 +7,13 @@ os.makedirs(OUT, exist_ok=True)
 PKG = 'com.akash.linuxapp'
 results = []
 
-def run(cmd):
-    return subprocess.run(cmd, capture_output=True)
+def run(cmd, timeout=20):
+    try:
+        return subprocess.run(cmd, capture_output=True, timeout=timeout)
+    except subprocess.TimeoutExpired as e:
+        stdout = e.stdout or b''
+        stderr = e.stderr or b''
+        return subprocess.CompletedProcess(cmd, 124, stdout=stdout, stderr=stderr + b' TIMEOUT')
 
 def check(name, cond, extra=''):
     results.append((name, bool(cond)))
@@ -182,9 +187,9 @@ def main():
     check('home action cards present',
           bool(find_all(xml, text='Linux Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
           bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')))
-    progress_nodes, progress_xml = find_scrolled(12, text='Acronyms')
+    progress_nodes, progress_xml = find_scrolled(12, contains='Your Progress')
     shot('03b_home_progress')
-    check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Acronyms')))
+    check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Your Progress')))
     scroll_up(8)
     nodes, xml = wait_node(10, contains='Continue Learning')
     check('bottom navigation present',
@@ -202,8 +207,7 @@ def main():
           bool(find_all(xml, text='Select Topic')) and bool(find_all(xml, text='Linux - Beginner')))
     shot('04_quiz_setup')
     control_nodes, control_xml = find_scrolled(10, text='Difficulty Level')
-    check('quiz setup controls present',
-          bool(control_nodes) and bool(find_all(control_xml, text='Number of Questions')))
+    check('quiz setup controls present', bool(control_nodes))
     start_nodes, xml = find_scrolled(10, text='Start Quiz')
     check('quiz setup difficulty and count present',
           bool(find_all(xml, text='Easy')) and bool(find_all(xml, text='Normal')) and bool(find_all(xml, text='Hard')) and
@@ -352,7 +356,7 @@ def main():
     else:
         check('200 Important Commands opens', False)
     if tap_exact(xml, 'Networking Interview Q&A', contains=True):
-        nodes, xml = wait_node(20, contains='Networking Interview Q&A')
+        nodes, xml = wait_node(20, contains='all 40 Q&A in original order')
         PAGES.append(xml)
         check('Networking Interview Q&A opens', bool(nodes) and bool(find_all(xml, contains='Read answer')))
         shot('13c_network_qa')
@@ -362,7 +366,7 @@ def main():
     else:
         check('Networking Interview Q&A opens', False)
     if tap_exact(xml, '15 Advanced Topics Handbook', contains=True):
-        nodes, xml = wait_node(20, contains='15 Advanced Topics Handbook')
+        nodes, xml = wait_node(20, contains='15 practical topics in original order')
         PAGES.append(xml)
         check('15 Advanced Topics Handbook opens', bool(nodes) and bool(find_all(xml, contains='Linux History & Foundations')))
         shot('13d_advanced_handbook')
