@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -20,6 +21,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.net.Uri;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,6 +89,9 @@ public class MainActivity extends Activity {
     static class FullFormGroup {
         String title; List<FullForm> items = new ArrayList<>();
     }
+    static class DefinitionItem {
+        String category, term, definition, sourceTitle, sourceUrl;
+    }
     static class QuizTrack {
         String title; int level = -1; Chapter computer;
     }
@@ -113,6 +118,7 @@ public class MainActivity extends Activity {
     private final List<SourceCommand> commands200 = new ArrayList<>();
     private final List<SourceQ> networkSource = new ArrayList<>();
     private final List<FullFormGroup> fullForms = new ArrayList<>();
+    private final List<DefinitionItem> definitions = new ArrayList<>();
     private int fullFormCount;
     private boolean interviewOpenedFromHandbook;
     private int mode = MODE_BEGINNER;
@@ -578,6 +584,29 @@ public class MainActivity extends Activity {
             }
         } catch(Exception ignored){ }
         try {
+            InputStream in = getAssets().open("definitions.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray groups = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("groups");
+            for(int i=0;i<groups.length();i++){
+                JSONObject gj = groups.getJSONObject(i);
+                String category = gj.getString("title");
+                JSONArray items = gj.getJSONArray("items");
+                for(int j=0;j<items.length();j++){
+                    JSONObject ij = items.getJSONObject(j);
+                    DefinitionItem item = new DefinitionItem();
+                    item.category = category;
+                    item.term = ij.getString("term");
+                    item.definition = ij.getString("definition");
+                    item.sourceTitle = ij.getString("sourceTitle");
+                    item.sourceUrl = ij.getString("sourceUrl");
+                    definitions.add(item);
+                }
+            }
+        } catch(Exception ignored){ }
+        try {
             InputStream in = getAssets().open("computer_questions.json");
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buf = new byte[8192]; int n;
@@ -773,6 +802,8 @@ public class MainActivity extends Activity {
         LinearLayout spacer2 = new LinearLayout(this); row2.addView(spacer2, new LinearLayout.LayoutParams(dp(10), 1));
         row2.addView(homeAction("Interview Questions", "4 named sections", R.drawable.ic_interview, ORANGE, v -> showInterviewTopics()), new LinearLayout.LayoutParams(0, -2, 1));
         col.addView(row2, margins(0, 5));
+        col.addView(actionCard("Definitions", definitions.size() + " sourced Linux & Computer meanings", GREEN, "Open",
+                v -> showDefinitions()), margins(0, 6));
 
         col.addView(actionCard("Daily Challenge", "10 questions - new set every day", BLUE,
                 prefs.getString("lastDaily", "").equals(today()) ? "Done" : "Start",
@@ -831,6 +862,7 @@ public class MainActivity extends Activity {
         col.addView(topicCard("", "Linux Quiz Setup", "Beginner, Intermediate, Advanced", BLUE, "Open", v -> showQuizSetup()), margins(0, 5));
         col.addView(topicCard("", "Computer Quiz", computerQuestionCount() + " computer fundamentals questions", BLUE, "Open", v -> showComputerQuizChapters()), margins(0, 5));
         col.addView(topicCard("", "Full Forms", fullFormCount + " searchable technical abbreviations", PURPLE, "Open", v -> showFullForms()), margins(0, 5));
+        col.addView(topicCard("", "Definitions", definitions.size() + " online-sourced Linux and Computer definitions", GREEN, "Open", v -> showDefinitions()), margins(0, 5));
         col.addView(topicCard("", "Interview Questions", "Your 4 named sections plus topic-wise revision", ORANGE, "Open", v -> showInterviewTopics()), margins(0, 5));
         col.addView(topicCard("", "Daily Challenge", "10 mixed questions every day", GREEN, "Start", v -> startDaily()), margins(0, 5));
         switchScreen(scroll);
@@ -1112,6 +1144,146 @@ public class MainActivity extends Activity {
             results.addView(empty);
         }
         matchCount.setText(matches + " of " + fullFormCount + " shown");
+    }
+
+    private void showDefinitions(){
+        cancelTimer();
+        chrome(true);
+        setNav(0);
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(screenTopBar("Definitions", () -> showHome()));
+
+        LinearLayout head = new LinearLayout(this);
+        head.setOrientation(LinearLayout.HORIZONTAL);
+        head.setGravity(Gravity.CENTER_VERTICAL);
+        head.setBackground(bg(CARD, 20));
+        head.setPadding(dp(14), dp(14), dp(14), dp(14));
+        head.addView(iconBadge(R.drawable.ic_definitions, GREEN, 0xff07111f, 48, 24));
+        LinearLayout headText = new LinearLayout(this);
+        headText.setOrientation(LinearLayout.VERTICAL);
+        headText.setPadding(dp(12), 0, 0, 0);
+        headText.addView(bold("Online-sourced definitions", 16, TEXT));
+        headText.addView(text(definitions.size() + " Linux and Computer meanings with a source link on every card.", 11, DIM));
+        head.addView(headText, new LinearLayout.LayoutParams(0, -2, 1));
+        col.addView(head, margins(0, 7));
+
+        EditText search = new EditText(this);
+        search.setHint("Search kernel, CPU, software...");
+        search.setSingleLine(true);
+        search.setTextColor(TEXT);
+        search.setHintTextColor(DIM);
+        search.setTextSize(14);
+        search.setBackground(bg(CARD, 18));
+        search.setPadding(dp(14), 0, dp(14), 0);
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(-1, dp(48));
+        searchParams.setMargins(0, dp(4), 0, dp(6));
+        col.addView(search, searchParams);
+
+        final String[] filter = {"All"};
+        LinearLayout filters = new LinearLayout(this);
+        filters.setOrientation(LinearLayout.HORIZONTAL);
+        col.addView(filters, margins(0, 2));
+        TextView matchCount = text("", 12, DIM);
+        matchCount.setPadding(dp(2), 0, 0, dp(4));
+        col.addView(matchCount);
+        LinearLayout results = new LinearLayout(this);
+        results.setOrientation(LinearLayout.VERTICAL);
+        col.addView(results);
+
+        View.OnClickListener filterClick = v -> {
+            filter[0] = (String) v.getTag();
+            for(int i=0;i<filters.getChildCount();i++){
+                Button b=(Button) filters.getChildAt(i);
+                boolean selected = filter[0].equals(b.getTag());
+                b.setTextColor(selected ? 0xff07111f : TEXT);
+                b.setTypeface(null, selected ? Typeface.BOLD : Typeface.NORMAL);
+                GradientDrawable d = bg(selected ? GREEN : CARD, 18);
+                if(!selected) d.setStroke(dp(1), SOFT);
+                b.setBackground(d);
+            }
+            populateDefinitions(results, matchCount, search.getText().toString(), filter[0]);
+        };
+        String[] names = {"All", "Linux", "Computer"};
+        for(int i=0;i<names.length;i++){
+            Button b = chip(names[i], i == 0, GREEN, filterClick);
+            b.setTag(names[i]);
+            LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(0, dp(42), 1);
+            if(i > 0) fp.leftMargin = dp(7);
+            filters.addView(b, fp);
+        }
+        populateDefinitions(results, matchCount, "", "All");
+        search.addTextChangedListener(new TextWatcher(){
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after){ }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count){ }
+            @Override public void afterTextChanged(Editable s){ populateDefinitions(results, matchCount, s.toString(), filter[0]); }
+        });
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void populateDefinitions(LinearLayout results, TextView matchCount, String query, String filter){
+        results.removeAllViews();
+        String needle = query == null ? "" : query.trim().toLowerCase(Locale.US);
+        int matches = 0;
+        String lastCategory = "";
+        for(final DefinitionItem item : definitions){
+            if(!"All".equals(filter) && !filter.equals(item.category)) continue;
+            String haystack = (item.term + " " + item.definition + " " + item.sourceTitle).toLowerCase(Locale.US);
+            if(!needle.isEmpty() && !haystack.contains(needle)) continue;
+            if(!item.category.equals(lastCategory)){
+                lastCategory = item.category;
+                TextView head = bold(item.category + " Definitions", 16, GREEN);
+                head.setPadding(0, dp(9), 0, dp(2));
+                results.addView(head);
+            }
+            matches++;
+            LinearLayout card = new LinearLayout(this);
+            card.setOrientation(LinearLayout.VERTICAL);
+            card.setBackground(bg(CARD, 16));
+            card.setPadding(dp(14), dp(11), dp(12), dp(11));
+            TextView category = bold(item.category.toUpperCase(Locale.US), 10, GREEN);
+            card.addView(category);
+            TextView term = bold(item.term, 15, TEXT);
+            term.setPadding(0, dp(2), 0, dp(2));
+            card.addView(term);
+            TextView definition = text(item.definition, 12, DIM);
+            definition.setLineSpacing(0, 1.16f);
+            card.addView(definition);
+            TextView source = text("Source: " + item.sourceTitle, 10, DIM);
+            source.setPadding(0, dp(5), 0, 0);
+            card.addView(source);
+            LinearLayout buttons = new LinearLayout(this);
+            buttons.setOrientation(LinearLayout.HORIZONTAL);
+            buttons.setPadding(0, dp(8), 0, 0);
+            Button speak = new Button(this);
+            speak.setText("Speak"); speak.setAllCaps(false); speak.setTextColor(TEXT); speak.setTextSize(12);
+            speak.setBackground(bg(SOFT, 16));
+            final List<String> speech = singleSpeech(item.term + ". " + item.definition);
+            speak.setOnClickListener(v -> toggleSpeech(speak, "Speak", speech));
+            buttons.addView(speak, new LinearLayout.LayoutParams(0, dp(38), 1));
+            Button open = new Button(this);
+            open.setText("Source"); open.setAllCaps(false); open.setTextColor(0xff07111f); open.setTextSize(12);
+            open.setTypeface(null, Typeface.BOLD);
+            open.setBackground(bg(GREEN, 16));
+            open.setOnClickListener(v -> {
+                try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.sourceUrl))); } catch(Exception ignored){ }
+            });
+            LinearLayout.LayoutParams op = new LinearLayout.LayoutParams(0, dp(38), 1);
+            op.leftMargin = dp(8);
+            buttons.addView(open, op);
+            card.addView(buttons);
+            results.addView(card, margins(0, 4));
+        }
+        if(matches == 0){
+            TextView empty = text("No definitions found. Try another search.", 13, DIM);
+            empty.setPadding(0, dp(14), 0, dp(8));
+            results.addView(empty);
+        }
+        matchCount.setText(matches + " of " + definitions.size() + " sourced definitions shown");
     }
 
     private void showInterviewTopics(){

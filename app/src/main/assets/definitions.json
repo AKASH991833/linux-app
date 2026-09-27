@@ -1,0 +1,1225 @@
+{
+  "groups": [
+    {
+      "title": "Linux",
+      "items": [
+        {
+          "category": "Linux",
+          "term": "Absolute vs relative path",
+          "definition": "Full address from / versus directions from where you stand.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Bash",
+          "definition": "The default shell on most Linux distributions.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Cron",
+          "definition": "The scheduler that runs commands at fixed times.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Daemon",
+          "definition": "A background process providing a service, usually started at boot.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Distribution (distro)",
+          "definition": "The kernel plus everything else, packaged as a usable system.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "DNS",
+          "definition": "The system that translates names into IP addresses.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Environment variable",
+          "definition": "A named value processes inherit when they start.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Exit code",
+          "definition": "The number a command returns: 0 means success.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "File permissions",
+          "definition": "Who may read, write and execute — nine bits per file.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Filesystem hierarchy",
+          "definition": "The standard layout of directories under /.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Glob (wildcard)",
+          "definition": "Patterns like *.txt, expanded by the shell before the command runs.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Hard link",
+          "definition": "A second, equally real name for the same file.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Inode",
+          "definition": "The structure that IS a file — metadata plus pointers to its data.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Kernel",
+          "definition": "The core of the operating system, managing hardware and processes.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Mount",
+          "definition": "Attaching a filesystem to a directory in the tree.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Package manager",
+          "definition": "The tool that installs, updates and removes software.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "PATH",
+          "definition": "The ordered list of directories the shell searches for commands.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "PID (Process ID)",
+          "definition": "The number that identifies a running process.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Pipe (|)",
+          "definition": "Connects one program's output to the next one's input.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Port",
+          "definition": "A number identifying a specific service on a machine.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Process",
+          "definition": "A running program, with its own ID, memory and environment.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Redirection (> and >>)",
+          "definition": "Sending a program's streams to files instead of the screen.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Regular expression",
+          "definition": "A pattern language for matching text, used by grep, sed and awk.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Root",
+          "definition": "The administrator account with unrestricted privileges.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Shebang (#!)",
+          "definition": "The first line telling the system which interpreter runs a script.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Shell",
+          "definition": "The program that reads your commands and runs them.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Signal",
+          "definition": "An asynchronous message sent to a process, like SIGTERM or SIGKILL.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "SSH key",
+          "definition": "A key pair that replaces passwords for remote login.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "stderr (standard error)",
+          "definition": "Stream 2 — the separate channel for errors and diagnostics.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "stdin (standard input)",
+          "definition": "Stream 0 — where a program reads its input from.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "stdout (standard output)",
+          "definition": "Stream 1 — where a program writes its normal results.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "sudo",
+          "definition": "Running a single command with administrator privileges.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Symbolic link (symlink)",
+          "definition": "A small file containing a path, resolved on every access.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "System call",
+          "definition": "How a program asks the kernel to do something.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "systemd",
+          "definition": "The init system that starts and supervises services on modern Linux.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Terminal",
+          "definition": "The window that displays a shell session.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "TTY",
+          "definition": "The terminal device a process is attached to — or is not.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "umask",
+          "definition": "The permission bits automatically removed from new files.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        },
+        {
+          "category": "Linux",
+          "term": "Working directory",
+          "definition": "The folder your shell is currently \"standing\" in.",
+          "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
+          "sourceUrl": "https://shelltrainer.com/glossary/"
+        }
+      ]
+    },
+    {
+      "title": "Computer",
+      "items": [
+        {
+          "category": "Computer",
+          "term": "application program (or application software)",
+          "definition": "a computer program that provides users with tools to accomplish a specific task.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "artificial intelligence (AI)",
+          "definition": "an area of computer science that deals with the simulation and creation of intelligent machines or intelligent behave in computers (they think, learn, work, and react like humans).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "basic file management",
+          "definition": "a way to name, save, backup, organize, and keep track of files and folders on a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Bcc (blind carbon copy)",
+          "definition": "Bcc is similar to that of Cc except that the email address is invisible to the people in the “To” or “Cc” fields. Use Bcc if you don't want the other people to see who else has received a copy of the email.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "bit",
+          "definition": "the smallest, most basic unit of measurement for computer data storage, represented as either a 0 or a 1. One byte is equal to 8 bits.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "blog",
+          "definition": "a personal website or webpage that is like an online diary/journal.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "bold",
+          "definition": "a typeface that makes a character thicker than the regular one. Boldfacing is often used for emphasis, headings, subheads, highlight keywords, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "bookmark (or favourite)",
+          "definition": "a collection of links (a saved shortcut) to web pages that is stored in a web browser.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "bookmark bar",
+          "definition": "a row of all bookmarks that shows on the top of a browser window (under the address bar).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "browser",
+          "definition": "a software program that allows users to access and display websites or web pages (documents, images, video, music, etc.) on the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "bullet",
+          "definition": "a dot, a small circle, diamond, or other symbol that is found before the text in a list (a phrase, sentence or paragraph, etc.) to help organize information, make it easier to read, or differentiate between the different points.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "byte",
+          "definition": "a unit of measurement for data storage. One byte is equal to 8 bits.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Cc (carbon copy or courtesy copy)",
+          "definition": "entering a person's email address in the “Cc” field means that person will receive a copy of the email (for their information).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "center-justification",
+          "definition": "text is aligned to neither the left side nor right.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "chat room",
+          "definition": "an online service that allows people to communicate by typing messages to each other in real time.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "computer monitor",
+          "definition": "a display screen used to display information (text, image, video, etc.) processed by a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "computer system",
+          "definition": "a complete computer that includes a system unit along with all its software (such as Office 2016, Windows 10, etc.) and peripheral devices (such as a mouse, keyboard, monitor, printer, etc.) connected to it.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "computer virus",
+          "definition": "a specific type of malware that is designed to replicate (copy) and spread from one computer to another.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "cookie",
+          "definition": "A small text file stored in a user's computer by a website that the user has visited so that it can remember something about the user at a later time.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "copy",
+          "definition": "make a duplicate of the selected items (text, symbol, table, image, etc.) and place it in another location.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "CPU (central processing unit)",
+          "definition": "The brain or engine of a computer, where most of the processing and operations take place.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "cut",
+          "definition": "removes the selected item from its original position.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "database program",
+          "definition": "a program that is designed for creating, editing, updating, and maintaining databases and managing organized information stored in them.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "deleted items",
+          "definition": "an email folder that saves all emails that have been deleted.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "desktop computer",
+          "definition": "a personal computer that is designed to stay at one location and fits on or under a desk. It typically has a monitor, keyboard, mouse, and a tower (system unit).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "device driver",
+          "definition": "a software program that is designed to control a particular hardware device that is attached to a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "disk drive",
+          "definition": "a computer device that stores and retrieves information, data, files, programs, etc., from a disk.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "double-click",
+          "definition": "quickly click the left mouse button twice on any folder, file, or program to open it.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "drafts",
+          "definition": "an email folder that automatically saves unfinished emails.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "drag and drop",
+          "definition": "press and hold the left mouse button to grab an object (such as an icon on the desktop) and place it to a different location.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Editing a document",
+          "definition": "making revisions to a document, focusing on correcting errors, improving the accuracy of language, rearranging, making words and sentences clearer, more effective, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "email",
+          "definition": "an Internet service that allows users who have an email account (or address) to send and receive messages anywhere in the world.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "external hardware devices (peripherals)",
+          "definition": "any hardware device that is located outside the computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "file",
+          "definition": "a storage unit on a computer that stores information, data, etc. (such as a document, an image, etc.).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "filename",
+          "definition": "a unique name given to a file to identify it.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "files hierarchy",
+          "definition": "a file system that organizes folders and files in a top-to-bottom structure.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "firewall",
+          "definition": "a network security device designed to prevent unauthorized access to or from a network.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "folder (or directory)",
+          "definition": "a virtual storage space used to store and organize computer files.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "footer",
+          "definition": "a section of information that appears at the bottom margin of each page of a document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "formatting",
+          "definition": "the appearance of a document. It is the shape, size, form, style, typeface, general arrangement etc. of a document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "FTP (File Transfer Protocol)",
+          "definition": "a set of rules (a protocol) for transferring files between computers over the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "hacker",
+          "definition": "a person who can gain unauthorized access to (break into) a computer or a network to commit crimes.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "hard disk drive",
+          "definition": "the main data storage device in a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "hardware",
+          "definition": "any physical device or equipment used in or with a computer system (anything you can see and touch).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "header",
+          "definition": "a section of information that appears at the top margin of each page of a document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "help menu / button",
+          "definition": "the user can click help button in Word to initiate a search, display the help resources, and aid the user in his / her task.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "horizontal scroll bar",
+          "definition": "a horizontal bar on the bottom of a window or screen that allows the user to scroll the window viewing area to the left or right.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "horizontal scrolling",
+          "definition": "sliding content left or right on a computer screen using a horizontal scroll bar.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "HTTP",
+          "definition": "short for Hypertext Transfer Protocol. A set of rules (a protocol) for transferring and accessing data using the web.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "inbox",
+          "definition": "an email folder where incoming emails are received and stored.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "input device",
+          "definition": "a piece of hardware device which is used to enter information to a computer for processing.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "integrated circuit (IC)",
+          "definition": "a small electronic circuit printed on a chip (usually made of silicon) that contains many its own circuit elements (e.g. transistors, diodes, resistors, etc.).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "internal hardware devices (or internal hardware components)",
+          "definition": "any piece of hardware device that is located inside the computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Internet",
+          "definition": "a globally connected massive computer network system.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "IP (Internet Protocol)",
+          "definition": "a set of rules (a protocol) for sending data from one computer to another on the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "ISP (Internet service provider)",
+          "definition": "a company that provides Internet service to customers.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "italics",
+          "definition": "a type style with characters that slope to the right. Italic is often used to emphasize a particular word, sentence, or particular part of a document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "junk email",
+          "definition": "the Junk Email Filter feature moves suspected incoming emails (spams) to the Junk Email folder (a place used to store spam emails).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "justify (full justification)",
+          "definition": "align text along the both left and right sides.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "keyboard",
+          "definition": "an input device that allows a user to enter characters (letters, numbers, symbols, etc.) and commands into a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "keyboarding skills",
+          "definition": "the ability to input information through a keyboard smoothly while typing.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "laptop computer",
+          "definition": "a portable personal computer that is small enough to rest on the user's lap and can be powered by a battery. It includes a flip down screen and a keyboard with a touchpad. Also known as a notebook.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "left-click",
+          "definition": "press the left mouse button on the left side of the mouse. Left-click is often referred to as “regular-click” and it is used for many common computer tasks, such as selecting objects, closing windows, opening hyperlinks, double-clicking, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "left-justification (flush left)",
+          "definition": "align text along the left side (ragged on the right).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "line spacing",
+          "definition": "the space between lines of text in a paragraph / document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "link",
+          "definition": "a word, phrase, image, etc., within a file or web page that a user can click on to jump to another document, section of the same document, or web page. Also known as a hyperlink.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Mac",
+          "definition": "a type of personal computer made by Apple Inc. Short for Macintosh.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "machine language",
+          "definition": "a low-level programming language comprised of a collection of binary digits (ones and zeros) that the computer can read and understand.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "magnetic core",
+          "definition": "uses arrays of small rings of magnetized material called cores to store information.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "magnetic drum",
+          "definition": "a cylinder coated with magnetic material, on which data and programs can be stored.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "mainframe computer",
+          "definition": "a high-performance computer used for large information processing jobs.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "malware",
+          "definition": "a software that is designed to damage, disrupt, or infect computers.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "memory",
+          "definition": "a physical device that is used to store data, information, and programs in a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "microprocessor",
+          "definition": "an electronic component held on an integrated circuit that contains a computer's central processing unit (CPU) and other associated circuits.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Microsoft Office",
+          "definition": "a group of productivity software applications developed by Microsoft Corporation. Microsoft Office 2016 includes such programs as Microsoft Word, Microsoft Excel, Microsoft PowerPoint, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "minicomputer",
+          "definition": "a mid-range computer that is intermediate in size, power, speed, storage capacity, etc., between a mainframe and a microcomputer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "motherboard",
+          "definition": "the main circuit board of a computer; also known as the mainboard.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "mouse",
+          "definition": "a hand-held pointing device that can control the position of a cursor on a display screen.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "moving",
+          "definition": "move the original files or folder from one place to another (change the destination).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "online communication",
+          "definition": "the sharing of information or communication over a computer network.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "operating system (OS)",
+          "definition": "a software that controls and coordinates the computer hardware devices and runs other software and applications on a computer. It is the main part of system software and a computer will not function without it.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "output device",
+          "definition": "a piece of hardware device that receives information from a computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "page break",
+          "definition": "a page break marks the end of a page that indicates where the printer will start a new page.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "page layout",
+          "definition": "the arrangement of text, graphics, pictures, and other elements on a page. It describes how each page of a document will appear when it is printed.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "page numbers",
+          "definition": "Word supports automatically adding page numbers in a multi-page document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "personal computer",
+          "definition": "a small computer designed for use by a single user at a time. Also known as a PC or a microcomputer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "phishing",
+          "definition": "when an Internet scammer uses deceptive emails or websites to try to obtain valuable personal information from people.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "point and click",
+          "definition": "point an object on the screen and then press a button on the mouse to select objects / commands, open menus / hyperlinks (links), or close windows.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "pointing device",
+          "definition": "a device used to control the movement of the pointer (cursor) on the screen.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "presentation program",
+          "definition": "a program that is designed to present information in the form of a slideshow, using multimedia formats such as pictures, sounds, videos, and text.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "printer",
+          "definition": "an output device linked to a computer that transfers the information (text, images, etc.) to paper.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "RAM (random-access memory)",
+          "definition": "a type of data storage (memory element) used in computers that temporarily stores programs and data. RAM is a kind of volatile memory, meaning its contents are lost when the computer is turned off.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "reboot",
+          "definition": "to shut down and restart a computer, allowing its operating system and programs to be reloaded.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "ribbon",
+          "definition": "a group of buttons and icons (tabs) at the top of the window that allows users to access the commands that they need to complete a task.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "right-click",
+          "definition": "press the right mouse button on the right side of the mouse to display a popup menu showing commands for a selected item.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "right-justification (flush right)",
+          "definition": "align text along the right side (ragged on the left).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "ROM (read-only memory)",
+          "definition": "a type of data storage used in computers that permanently stores data and programs. ROM is a kind of non-volatile memory, meaning its contents are retained even when the computer is turned off.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "router",
+          "definition": "a device that transfers data between computer networks to provide access to the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "ScreenTip (ToolTip)",
+          "definition": "a small text box (a hint) appears when the mouse point rest on a command, icon, button, etc. It displays the name of the item and sometimes a brief description of its function and the shortcut key for the command.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "scrolling",
+          "definition": "sliding content (text, images, etc.) vertically or horizontally on a computer screen and allowing the user to view different parts of information in a window.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "search engine",
+          "definition": "a web-based tool that is designed to search the content of web pages and find particular information on the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "section break",
+          "definition": "a section break splits a page into sections that can have a different format or layout within the same page in the document.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "sent",
+          "definition": "an email folder that saves copies of emails that you have sent.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "server",
+          "definition": "a central computer that provides information to other computers.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "smartphone",
+          "definition": "a mobile phone that performs many of the functions of a personal computer.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "social networking",
+          "definition": "the use of websites and other Internet services to communicate with other people.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "software",
+          "definition": "a set of instructions or programs that tells a computer what to do or how to perform a specific task (computer software runs on hardware).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "spreadsheet",
+          "definition": "a program that organizes data into rows and columns, also known as tabular form. This data can then be arranged, sorted, calculated (using formulas and functions), analyzed, or illustrated using graphical representations.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "spyware",
+          "definition": "a software that secretly monitors (spies) a user’s online behaviour and gets sensitive information about a person or organization without the user’s knowledge.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "supercomputer",
+          "definition": "a powerful computer that can process large amounts of data and do a great amount of computation very quickly.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "system software",
+          "definition": "it is designed to run a computer's hardware and application software, and make the computer system available for use. It serves as the interface between hardware, application software, and the user.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "system unit",
+          "definition": "the main part of a desktop computer (the case) that contains all of the main electronic components.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "tab selector (tab indicator)",
+          "definition": "a small button located in the left corner of the horizontal ruler that supplies the user with a variety of tab marker (tab stop) options (left, right, center, etc.).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "tab stop",
+          "definition": "a location where the cursor (insertion point) would stop when the Tab key is pressed.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "table",
+          "definition": "information arranged in a condensed form of columns and rows. It is a more effective way to present information.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "tablet",
+          "definition": "a wireless touchscreen PC that is slightly smaller and weighs less than the average laptop.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "text justification / alignment",
+          "definition": "refers to how the left and right edges of a paragraph align on a page.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "touch typing",
+          "definition": "a method of typing (with all the available fingers) without looking at the keyboard.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "trackpad",
+          "definition": "a small, flat surface on a laptop or other computer that does the same things as a mouse.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "transistor",
+          "definition": "an electronic component that can be used as an amplifier or as a switch. It is used to control the flow of electricity in radios, televisions, computers, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "Trojan horse",
+          "definition": "(or Trojan) a type of malware that looks harmless but can cause harm to a computer system.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "underline",
+          "definition": "add a line underneath the text, in order to show its importance and draw attention to the text.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "URL",
+          "definition": "Short for Uniform Resource Locator. A web address of a specific web page or file on the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "USB drive",
+          "definition": "a small, portable storage device used to store or transfer data for computers; often used for the storage, data backup, and transfer of computer files.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "utility software",
+          "definition": "a type of system software that helps set up, analyze, configure, strengthen, maintain a computer and performs a very specific task (e.g. antivirus software, backup software, memory tester, screen saver, etc.).",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "vacuum tube",
+          "definition": "an electronic device that controls the flow of electrons in a vacuum. It used as a switch, amplifier, or display screen in many older model radios, televisions, computers, etc.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "vertical scroll bar",
+          "definition": "a vertical bar on the right side of a window or screen that allows the user to scroll the window viewing area up or down.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "vertical scrolling",
+          "definition": "sliding content up or down on a computer screen using a vertical scroll bar.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "video conferencing",
+          "definition": "a live video-based meeting between two or more users in different locations conducted by transmitting audio and video data in real time.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "VoIP",
+          "definition": "a telephone connection over the Internet.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "word processing",
+          "definition": "the use of a program (software application) running on a computer to create, edit, format, and store documents.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "word processor",
+          "definition": "a program that allows users to create, save, edit, format, print, and retrieve documents.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "World Wide Web",
+          "definition": "a system of Internet servers that is made from millions of interlinked websites and web pages. Abbreviated as WWW or the web.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        },
+        {
+          "category": "Computer",
+          "term": "worm",
+          "definition": "a type of virus designed to quickly self-replicate and spread copies of itself from one computer to another.",
+          "sourceTitle": "Glossary - Key Concepts of Computer Studies",
+          "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+        }
+      ]
+    }
+  ]
+}

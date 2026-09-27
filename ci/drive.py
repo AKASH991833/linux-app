@@ -277,6 +277,26 @@ def main():
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(1)
 
+    # Sourced Linux and Computer definitions.
+    nodes, xml = wait_node(15, text='Definitions')
+    PAGES.append(xml)
+    check('definitions card present', tap_exact(xml, 'Definitions'))
+    nodes, xml = wait_node(20, contains='Online-sourced definitions')
+    PAGES.append(xml)
+    check('definitions screen opens', bool(nodes) and bool(find_all(xml, text='Linux')) and bool(find_all(xml, text='Computer')))
+    check('definitions source labels present', bool(find_all(xml, contains='Source:')))
+    search = find_all(xml, clazz='EditText')
+    check('definitions search box present', bool(search))
+    if search:
+        tap_node(search[0])
+        run(['adb', 'shell', 'input', 'text', 'Kernel'])
+        nodes, xml = wait_node(10, text='Kernel')
+        PAGES.append(xml)
+        check('definitions search finds Kernel', bool(nodes) and bool(find_all(xml, contains='Linux Glossary')))
+        shot('12b_definitions')
+    run(['adb', 'shell', 'input', 'keyevent', '4'])
+    time.sleep(1)
+
     # Interview source sections and book-style question screen.
     nodes, xml = wait_node(15, text='Interview Questions')
     PAGES.append(xml)
