@@ -1240,15 +1240,30 @@ public class MainActivity extends Activity {
         switchScreen(scroll);
     }
 
+    private int definitionCategoryRank(String category){
+        return "Computer".equals(category) ? 1 : 0;
+    }
+
     private void populateDefinitions(LinearLayout results, TextView matchCount, String query, String filter){
         results.removeAllViews();
-        String needle = query == null ? "" : query.trim().toLowerCase(Locale.US);
-        int matches = 0;
-        String lastCategory = "";
+        final String needle = query == null ? "" : query.trim().toLowerCase(Locale.US);
+        List<DefinitionItem> filtered = new ArrayList<>();
         for(final DefinitionItem item : definitions){
             if(!"All".equals(filter) && !filter.equals(item.category)) continue;
             String haystack = (item.term + " " + item.definition + " " + item.sourceTitle).toLowerCase(Locale.US);
             if(!needle.isEmpty() && !haystack.contains(needle)) continue;
+            filtered.add(item);
+        }
+        if(!needle.isEmpty()){
+            Collections.sort(filtered, (a, b) -> {
+                int ra = definitionCategoryRank(a.category) * 2 + (a.term.toLowerCase(Locale.US).contains(needle) ? 0 : 1);
+                int rb = definitionCategoryRank(b.category) * 2 + (b.term.toLowerCase(Locale.US).contains(needle) ? 0 : 1);
+                return ra - rb;
+            });
+        }
+        int matches = 0;
+        String lastCategory = "";
+        for(final DefinitionItem item : filtered){
             if(!item.category.equals(lastCategory)){
                 lastCategory = item.category;
                 TextView head = bold(item.category + " Definitions", 16, GREEN);
@@ -1263,14 +1278,14 @@ public class MainActivity extends Activity {
             TextView category = bold(item.category.toUpperCase(Locale.US), 10, GREEN);
             card.addView(category);
             TextView term = bold(item.term, 18, TEXT);
-            term.setPadding(0, dp(2), 0, dp(2));
+            term.setPadding(0, dp(2), 0, dp(1));
             card.addView(term);
+            TextView source = text("Source: " + item.sourceTitle, 11, DIM);
+            source.setPadding(0, 0, 0, dp(4));
+            card.addView(source);
             TextView definition = text(item.definition, 15, TEXT);
             definition.setLineSpacing(0, 1.22f);
             card.addView(definition);
-            TextView source = text("Source: " + item.sourceTitle, 11, DIM);
-            source.setPadding(0, dp(5), 0, 0);
-            card.addView(source);
             LinearLayout buttons = new LinearLayout(this);
             buttons.setOrientation(LinearLayout.HORIZONTAL);
             buttons.setPadding(0, dp(8), 0, 0);
