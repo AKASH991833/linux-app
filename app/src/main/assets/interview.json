@@ -2136,6 +2136,971 @@
       ]
     },
     {
+      "id": "backup",
+      "title": "Backup & Restore",
+      "questions": [
+        {
+          "q": "What is the difference between backup and synchronization?",
+          "a": "A backup is a recoverable copy with a separate destination, retention and restore testing. Synchronization mirrors changes, and a mirrored copy can also mirror accidental deletion. Use rsync or tar carefully, verify checksums and test restores."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Backup & Restore Commands",
+          "items": [
+            {
+              "command": "rsync -av",
+              "example": "rsync -av /data/ /backup/data/",
+              "use": "Synchronize directories while preserving common attributes."
+            },
+            {
+              "command": "rsync -avz",
+              "example": "rsync -avz /data/ backup@10.0.0.20:/backup/data/",
+              "use": "Efficient remote sync over SSH."
+            },
+            {
+              "command": "rsync --dry-run",
+              "example": "rsync -av --dry-run /data/ /backup/data/",
+              "use": "Preview changes before modifying the destination."
+            },
+            {
+              "command": "rsync --delete",
+              "example": "rsync -av --delete /data/ /backup/data/",
+              "use": "Mirror source to destination; can delete destination files, so verify carefully."
+            },
+            {
+              "command": "tar -tzf",
+              "example": "tar -tzf app-backup.tar.gz",
+              "use": "Inspect archive contents without extracting."
+            },
+            {
+              "command": "sha256sum",
+              "example": "sha256sum app-backup.tar.gz",
+              "use": "Verify backup integrity with a checksum."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ubuntu-packages",
+      "title": "Ubuntu Package Management",
+      "questions": [
+        {
+          "q": "What is the difference between apt and dpkg?",
+          "a": "apt works with repositories and resolves dependencies, so it is normally the right tool for installing and upgrading packages on Ubuntu/Debian. dpkg is the lower-level tool for installing or inspecting individual .deb files. Use apt first when possible."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Ubuntu Package Management Commands",
+          "items": [
+            {
+              "command": "apt update",
+              "example": "sudo apt update",
+              "use": "Refresh package repository metadata."
+            },
+            {
+              "command": "apt upgrade",
+              "example": "sudo apt upgrade",
+              "use": "Upgrade installed packages."
+            },
+            {
+              "command": "apt install",
+              "example": "sudo apt install nginx",
+              "use": "Install a package and dependencies."
+            },
+            {
+              "command": "apt remove",
+              "example": "sudo apt remove nginx",
+              "use": "Remove a package."
+            },
+            {
+              "command": "apt purge",
+              "example": "sudo apt purge nginx",
+              "use": "Remove package and its configuration where applicable."
+            },
+            {
+              "command": "apt search",
+              "example": "apt search nginx",
+              "use": "Search available packages."
+            },
+            {
+              "command": "apt show",
+              "example": "apt show nginx",
+              "use": "Display package details."
+            },
+            {
+              "command": "apt policy",
+              "example": "apt policy nginx",
+              "use": "See installed/candidate versions and repositories."
+            },
+            {
+              "command": "apt autoremove",
+              "example": "sudo apt autoremove",
+              "use": "Remove no-longer-needed dependencies."
+            },
+            {
+              "command": "dpkg -i",
+              "example": "sudo dpkg -i app.deb",
+              "use": "Install a local .deb package."
+            },
+            {
+              "command": "dpkg -l",
+              "example": "dpkg -l | grep nginx",
+              "use": "List/check installed packages."
+            },
+            {
+              "command": "dpkg -S",
+              "example": "dpkg -S /usr/sbin/nginx",
+              "use": "Find which package owns a file."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-storage",
+      "title": "Advanced Storage & Shares",
+      "questions": [
+        {
+          "q": "What are RAID, NFS, Samba and swap used for?",
+          "a": "RAID combines disks for redundancy or performance depending on the level, but it does not replace backups. NFS is common for Linux network shares, Samba provides SMB/CIFS shares for Windows clients, and swap is disk-backed memory overflow. Monitor swap as a sign of memory pressure."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Advanced Storage & Shares Commands",
+          "items": [
+            {
+              "command": "mdadm --create",
+              "example": "sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1",
+              "use": "Create software RAID1 in a lab."
+            },
+            {
+              "command": "cat /proc/mdstat",
+              "example": "cat /proc/mdstat",
+              "use": "Check RAID status/rebuild progress."
+            },
+            {
+              "command": "mdadm --detail",
+              "example": "sudo mdadm --detail /dev/md0",
+              "use": "Detailed software RAID status."
+            },
+            {
+              "command": "showmount -e",
+              "example": "showmount -e 10.0.0.20",
+              "use": "List NFS exports."
+            },
+            {
+              "command": "mount -t nfs",
+              "example": "sudo mount -t nfs 10.0.0.20:/share /mnt/share",
+              "use": "Mount an NFS share."
+            },
+            {
+              "command": "smbclient -L",
+              "example": "smbclient -L //10.0.0.20 -U user",
+              "use": "List SMB shares."
+            },
+            {
+              "command": "mount -t cifs",
+              "example": "sudo mount -t cifs //server/share /mnt/share -o username=user",
+              "use": "Mount an SMB/CIFS share."
+            },
+            {
+              "command": "mkswap",
+              "example": "sudo mkswap /dev/sdb2",
+              "use": "Prepare a partition as swap."
+            },
+            {
+              "command": "swapon",
+              "example": "sudo swapon /dev/sdb2",
+              "use": "Activate swap."
+            },
+            {
+              "command": "swapoff",
+              "example": "sudo swapoff /dev/sdb2",
+              "use": "Deactivate swap."
+            },
+            {
+              "command": "swapon --show",
+              "example": "swapon --show",
+              "use": "Show active swap."
+            },
+            {
+              "command": "free -h",
+              "example": "free -h",
+              "use": "Check RAM and swap usage."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boot-recovery",
+      "title": "Boot Recovery",
+      "questions": [
+        {
+          "q": "Why can a bad /etc/fstab entry stop Linux from booting normally?",
+          "a": "During boot, systemd mounts filesystems from /etc/fstab. A missing disk, wrong UUID or bad mount option can make boot drop into emergency mode. Check lsblk -f and blkid, fix the entry, then test with mount -a before rebooting."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Boot Recovery Commands",
+          "items": [
+            {
+              "command": "lsblk -f",
+              "example": "lsblk -f",
+              "use": "See disks, UUIDs, filesystems and mount points."
+            },
+            {
+              "command": "mount -a",
+              "example": "sudo mount -a",
+              "use": "Test fstab mounts without rebooting."
+            },
+            {
+              "command": "journalctl -b -1",
+              "example": "journalctl -b -1",
+              "use": "Read previous boot logs."
+            },
+            {
+              "command": "grub2-mkconfig",
+              "example": "sudo grub2-mkconfig -o /boot/grub2/grub.cfg",
+              "use": "Regenerate GRUB config on many RHEL-family systems."
+            },
+            {
+              "command": "grub-mkconfig",
+              "example": "sudo grub-mkconfig -o /boot/grub/grub.cfg",
+              "use": "Regenerate GRUB config on many Debian/Ubuntu systems."
+            },
+            {
+              "command": "grubby",
+              "example": "sudo grubby --default-kernel",
+              "use": "Inspect default kernel on supported RHEL-family systems."
+            },
+            {
+              "command": "systemctl rescue",
+              "example": "sudo systemctl rescue",
+              "use": "Enter rescue target when recovery requires it."
+            },
+            {
+              "command": "systemctl emergency",
+              "example": "sudo systemctl emergency",
+              "use": "Enter emergency mode for severe recovery."
+            },
+            {
+              "command": "fsck",
+              "example": "sudo fsck /dev/sdb1",
+              "use": "Check/repair an unmounted filesystem when appropriate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "title": "Performance Troubleshooting",
+      "questions": [
+        {
+          "q": "How do you troubleshoot a slow Linux server?",
+          "a": "Start with evidence instead of killing processes blindly. Check load and CPU with uptime/top, memory and swap with free -h, disk I/O with iostat or pidstat, then correlate with application logs. Identify the responsible process and follow the change procedure."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Performance Troubleshooting Commands",
+          "items": [
+            {
+              "command": "uptime",
+              "example": "uptime",
+              "use": "Check load average and uptime."
+            },
+            {
+              "command": "ps --sort CPU",
+              "example": "ps aux --sort=-%cpu | head",
+              "use": "Find high-CPU processes."
+            },
+            {
+              "command": "ps --sort RAM",
+              "example": "ps aux --sort=-%mem | head",
+              "use": "Find high-memory processes."
+            },
+            {
+              "command": "pidstat",
+              "example": "pidstat -d 1 5",
+              "use": "Identify per-process I/O activity."
+            },
+            {
+              "command": "du -xhd1",
+              "example": "du -xhd1 /var",
+              "use": "Find large directories."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logging",
+      "title": "Logging & Log Rotation",
+      "questions": [
+        {
+          "q": "What is the difference between rsyslog and logrotate?",
+          "a": "rsyslog collects, filters and forwards log messages. logrotate rotates, compresses and retains old logs so they do not fill the filesystem. Use journalctl or the right /var/log file to investigate, and logrotate -d to preview rotation safely."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Logging & Log Rotation Commands",
+          "items": [
+            {
+              "command": "systemctl status rsyslog",
+              "example": "systemctl status rsyslog",
+              "use": "Check rsyslog service."
+            },
+            {
+              "command": "tail -f /var/log/messages",
+              "example": "tail -f /var/log/messages",
+              "use": "Monitor common RHEL-family logs."
+            },
+            {
+              "command": "tail -f /var/log/syslog",
+              "example": "tail -f /var/log/syslog",
+              "use": "Monitor common Debian-family logs."
+            },
+            {
+              "command": "rsyslog.conf",
+              "example": "sudo vi /etc/rsyslog.conf",
+              "use": "Main rsyslog configuration."
+            },
+            {
+              "command": "rsyslog.d",
+              "example": "ls /etc/rsyslog.d/",
+              "use": "Application-specific logging rules."
+            },
+            {
+              "command": "logrotate -d",
+              "example": "sudo logrotate -d /etc/logrotate.conf",
+              "use": "Dry-run rotation."
+            },
+            {
+              "command": "logrotate -f",
+              "example": "sudo logrotate -f /etc/logrotate.conf",
+              "use": "Force rotation for testing/maintenance."
+            },
+            {
+              "command": "logrotate.conf",
+              "example": "sudo vi /etc/logrotate.conf",
+              "use": "Global rotation settings."
+            },
+            {
+              "command": "logrotate.d",
+              "example": "ls /etc/logrotate.d/",
+              "use": "Per-application rotation policies."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "web-servers",
+      "title": "Web Servers",
+      "questions": [
+        {
+          "q": "How do you troubleshoot a 502 from Nginx or Apache?",
+          "a": "Validate the web server config, check the service, confirm the upstream application is listening, and read the error log. Useful checks are nginx -t or apachectl -t, systemctl status, ss -tuln, curl and the site error logs."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Web Servers Commands",
+          "items": [
+            {
+              "command": "apachectl -t",
+              "example": "sudo apachectl -t",
+              "use": "Validate Apache configuration."
+            },
+            {
+              "command": "httpd -t",
+              "example": "sudo httpd -t",
+              "use": "Validate Apache config on RHEL-family systems."
+            },
+            {
+              "command": "apachectl -S",
+              "example": "sudo apachectl -S",
+              "use": "Inspect Apache virtual hosts."
+            },
+            {
+              "command": "systemctl status httpd",
+              "example": "systemctl status httpd",
+              "use": "Apache service on many RHEL systems."
+            },
+            {
+              "command": "systemctl status apache2",
+              "example": "systemctl status apache2",
+              "use": "Apache service on Ubuntu/Debian."
+            },
+            {
+              "command": "nginx -t",
+              "example": "sudo nginx -t",
+              "use": "Validate Nginx configuration."
+            },
+            {
+              "command": "systemctl status nginx",
+              "example": "systemctl status nginx",
+              "use": "Check Nginx service."
+            },
+            {
+              "command": "curl -I",
+              "example": "curl -I http://localhost",
+              "use": "Test HTTP response and headers."
+            },
+            {
+              "command": "tail -f access.log",
+              "example": "tail -f /var/log/nginx/access.log",
+              "use": "Watch incoming requests."
+            },
+            {
+              "command": "tail -f error.log",
+              "example": "tail -f /var/log/nginx/error.log",
+              "use": "Investigate Nginx errors."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mysql",
+      "title": "MySQL Administration",
+      "questions": [
+        {
+          "q": "An application cannot connect to MySQL. What do you check?",
+          "a": "Check the MySQL service, listening address and port, credentials, database name, user privileges and database logs before changing application code. For backup and restore practice, use mysqldump and a separate test database. Never expose production passwords in commands or docs."
+        }
+      ],
+      "commands": [
+        {
+          "title": "MySQL Administration Commands",
+          "items": [
+            {
+              "command": "systemctl status mysql",
+              "example": "systemctl status mysql",
+              "use": "Check MySQL service on many Ubuntu/Debian systems."
+            },
+            {
+              "command": "systemctl status mysqld",
+              "example": "systemctl status mysqld",
+              "use": "Check MySQL/MariaDB service on many RHEL-family systems."
+            },
+            {
+              "command": "mysql",
+              "example": "mysql -u root -p",
+              "use": "Connect to MySQL."
+            },
+            {
+              "command": "SHOW DATABASES",
+              "example": "SHOW DATABASES;",
+              "use": "List databases."
+            },
+            {
+              "command": "USE",
+              "example": "USE appdb;",
+              "use": "Select a database."
+            },
+            {
+              "command": "SHOW TABLES",
+              "example": "SHOW TABLES;",
+              "use": "List tables."
+            },
+            {
+              "command": "CREATE USER",
+              "example": "CREATE USER 'app'@'localhost' IDENTIFIED BY '...';",
+              "use": "Create an application account; use secure credential handling."
+            },
+            {
+              "command": "GRANT",
+              "example": "GRANT SELECT,INSERT,UPDATE,DELETE ON appdb.* TO 'app'@'localhost';",
+              "use": "Grant least-required privileges."
+            },
+            {
+              "command": "SHOW GRANTS",
+              "example": "SHOW GRANTS FOR 'app'@'localhost';",
+              "use": "Review privileges."
+            },
+            {
+              "command": "mysqldump",
+              "example": "mysqldump -u app -p appdb > appdb.sql",
+              "use": "Create logical backup."
+            },
+            {
+              "command": "mysql restore",
+              "example": "mysql -u app -p appdb < appdb.sql",
+              "use": "Restore SQL dump."
+            },
+            {
+              "command": "mysqladmin ping",
+              "example": "mysqladmin -u root -p ping",
+              "use": "Check whether MySQL responds."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-security",
+      "title": "Advanced Security",
+      "questions": [
+        {
+          "q": "chmod looks correct but a web app still gets Permission denied. What do you check?",
+          "a": "Check SELinux context and AVC denials before changing broad permissions or disabling SELinux. Use ls -Z, restorecon, semanage fcontext where appropriate, and ausearch -m AVC. Also review ACLs, sudo rules and fail2ban status when relevant."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Advanced Security Commands",
+          "items": [
+            {
+              "command": "ls -Z",
+              "example": "ls -Z /var/www/html",
+              "use": "View SELinux contexts."
+            },
+            {
+              "command": "restorecon",
+              "example": "sudo restorecon -Rv /var/www/html",
+              "use": "Restore expected SELinux contexts."
+            },
+            {
+              "command": "semanage fcontext",
+              "example": "sudo semanage fcontext -a -t httpd_sys_content_t '/web(/.*)?'",
+              "use": "Create persistent file-context rule when appropriate."
+            },
+            {
+              "command": "ausearch",
+              "example": "sudo ausearch -m AVC -ts recent",
+              "use": "Find SELinux AVC denials."
+            },
+            {
+              "command": "sudo -l",
+              "example": "sudo -l -U user",
+              "use": "See a user's sudo privileges."
+            },
+            {
+              "command": "fail2ban-client status",
+              "example": "sudo fail2ban-client status",
+              "use": "View fail2ban status."
+            },
+            {
+              "command": "fail2ban-client status sshd",
+              "example": "sudo fail2ban-client status sshd",
+              "use": "Inspect SSH protection jail."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "title": "Enterprise Identity",
+      "questions": [
+        {
+          "q": "What is the difference between local Linux accounts and LDAP/Active Directory accounts?",
+          "a": "Local accounts exist only on one machine, while LDAP or Active Directory provides centrally managed identity. Linux can integrate through SSSD and realmd, often using Kerberos for authentication. Use id, getent, klist and SSSD tools when troubleshooting."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Enterprise Identity Commands",
+          "items": [
+            {
+              "command": "ldapsearch",
+              "example": "ldapsearch -x -H ldap://ldap.example.com -b 'dc=example,dc=com' '(uid=rahul)'",
+              "use": "Query an LDAP directory in a lab/approved environment."
+            },
+            {
+              "command": "getent passwd",
+              "example": "getent passwd rahul",
+              "use": "Check directory user resolution through NSS."
+            },
+            {
+              "command": "id",
+              "example": "id rahul",
+              "use": "Check UID/GID/groups."
+            },
+            {
+              "command": "realm discover",
+              "example": "realm discover example.com",
+              "use": "Discover an AD/domain realm."
+            },
+            {
+              "command": "realm list",
+              "example": "realm list",
+              "use": "Show configured realms."
+            },
+            {
+              "command": "realm join",
+              "example": "sudo realm join example.com",
+              "use": "Join a supported Linux host to a domain."
+            },
+            {
+              "command": "klist",
+              "example": "klist",
+              "use": "Show Kerberos tickets."
+            },
+            {
+              "command": "kinit",
+              "example": "kinit user@EXAMPLE.COM",
+              "use": "Request a Kerberos ticket for testing."
+            },
+            {
+              "command": "sssctl domain-status",
+              "example": "sssctl domain-status example.com",
+              "use": "Check SSSD domain status."
+            },
+            {
+              "command": "getent group",
+              "example": "getent group 'domain users'",
+              "use": "Resolve directory groups."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitoring",
+      "title": "Monitoring & Alerting",
+      "questions": [
+        {
+          "q": "What is the difference between monitoring and troubleshooting?",
+          "a": "Monitoring collects metrics, checks availability, shows trends and sends alerts. Troubleshooting finds the reason behind the alert using Linux tools such as top, vmstat, iostat, pidstat and logs. Zabbix, Grafana and Nagios help detect change; they do not replace diagnosis."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Monitoring & Alerting Commands",
+          "items": [
+            {
+              "command": "systemctl status zabbix-agent",
+              "example": "systemctl status zabbix-agent",
+              "use": "Check Zabbix agent service."
+            },
+            {
+              "command": "zabbix_get",
+              "example": "zabbix_get -s 10.0.0.10 -k system.cpu.load[all,avg1]",
+              "use": "Test a Zabbix item from an authorized monitoring host."
+            },
+            {
+              "command": "zabbix_agentd -t",
+              "example": "zabbix_agentd -t system.hostname",
+              "use": "Test an agent item where supported."
+            },
+            {
+              "command": "check_http",
+              "example": "/usr/lib/nagios/plugins/check_http -H example.com",
+              "use": "Check HTTP using Nagios plugin."
+            },
+            {
+              "command": "check_ping",
+              "example": "/usr/lib/nagios/plugins/check_ping -H 10.0.0.10",
+              "use": "Check host reachability."
+            },
+            {
+              "command": "curl Grafana",
+              "example": "curl -I http://grafana:3000",
+              "use": "Check Grafana endpoint."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ansible",
+      "title": "Ansible Automation",
+      "questions": [
+        {
+          "q": "What are inventory, modules and playbooks in Ansible?",
+          "a": "Inventory lists the managed hosts, modules perform actions, and YAML playbooks describe the desired state. Good playbooks are repeatable and preferably idempotent, so running them again does not make unnecessary changes."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Ansible Automation Commands",
+          "items": [
+            {
+              "command": "ansible --version",
+              "example": "ansible --version",
+              "use": "Check Ansible version."
+            },
+            {
+              "command": "ansible-inventory",
+              "example": "ansible-inventory --graph",
+              "use": "Inspect inventory."
+            },
+            {
+              "command": "ansible all -m ping",
+              "example": "ansible all -m ping",
+              "use": "Test connectivity."
+            },
+            {
+              "command": "ansible all -m setup",
+              "example": "ansible all -m setup",
+              "use": "Collect host facts."
+            },
+            {
+              "command": "ansible all -m command",
+              "example": "ansible all -m command -a 'uname -r'",
+              "use": "Run a command module."
+            },
+            {
+              "command": "ansible all -m package",
+              "example": "ansible all -m package -a 'name=vim state=present'",
+              "use": "Ensure package is installed."
+            },
+            {
+              "command": "ansible all -m service",
+              "example": "ansible all -m service -a 'name=nginx state=started enabled=yes'",
+              "use": "Ensure service state."
+            },
+            {
+              "command": "ansible-playbook --check",
+              "example": "ansible-playbook -i inventory site.yml --check",
+              "use": "Preview supported changes."
+            },
+            {
+              "command": "ansible-playbook",
+              "example": "ansible-playbook -i inventory site.yml",
+              "use": "Apply playbook."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "virtualization",
+      "title": "Containers & KVM",
+      "questions": [
+        {
+          "q": "What is the difference between a Docker container and a KVM virtual machine?",
+          "a": "A Docker container packages an application and shares the host kernel, while KVM runs a full guest operating system using Linux kernel virtualization. Containers are lighter for application deployment; VMs provide a separate OS and stronger isolation boundary."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Containers & KVM Commands",
+          "items": [
+            {
+              "command": "docker ps",
+              "example": "docker ps",
+              "use": "List running containers."
+            },
+            {
+              "command": "docker ps -a",
+              "example": "docker ps -a",
+              "use": "List all containers."
+            },
+            {
+              "command": "docker images",
+              "example": "docker images",
+              "use": "List local images."
+            },
+            {
+              "command": "docker pull",
+              "example": "docker pull nginx:latest",
+              "use": "Download an image."
+            },
+            {
+              "command": "docker run",
+              "example": "docker run -d --name web -p 8080:80 nginx",
+              "use": "Run a container and publish a port."
+            },
+            {
+              "command": "docker logs",
+              "example": "docker logs -f web",
+              "use": "Follow container logs."
+            },
+            {
+              "command": "docker exec",
+              "example": "docker exec -it web sh",
+              "use": "Execute a command inside a running container."
+            },
+            {
+              "command": "docker stop",
+              "example": "docker stop web",
+              "use": "Stop a container."
+            },
+            {
+              "command": "docker rm",
+              "example": "docker rm web",
+              "use": "Remove a stopped container."
+            },
+            {
+              "command": "docker inspect",
+              "example": "docker inspect web",
+              "use": "Inspect configuration/network details."
+            },
+            {
+              "command": "virsh list",
+              "example": "sudo virsh list --all",
+              "use": "List KVM/libvirt VMs."
+            },
+            {
+              "command": "virsh start",
+              "example": "sudo virsh start vm1",
+              "use": "Start a VM."
+            },
+            {
+              "command": "virsh shutdown",
+              "example": "sudo virsh shutdown vm1",
+              "use": "Gracefully shut down a VM."
+            },
+            {
+              "command": "virsh console",
+              "example": "sudo virsh console vm1",
+              "use": "Connect to a VM console when configured."
+            },
+            {
+              "command": "virt-install",
+              "example": "sudo virt-install --name vm1 --memory 2048 --vcpus 2 --disk size=20 --cdrom /iso/linux.iso",
+              "use": "Create a VM in a lab/environment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "title": "Time Synchronization",
+      "questions": [
+        {
+          "q": "Why is time synchronization important on Linux servers?",
+          "a": "Accurate time is required for Kerberos/Active Directory, TLS certificate validation, useful logs and distributed systems. Chrony is a common NTP implementation. Check time with timedatectl and synchronization with chronyc tracking or sources."
+        }
+      ],
+      "commands": [
+        {
+          "title": "Time Synchronization Commands",
+          "items": [
+            {
+              "command": "timedatectl",
+              "example": "timedatectl",
+              "use": "Check time, timezone and synchronization."
+            },
+            {
+              "command": "timedatectl set-timezone",
+              "example": "sudo timedatectl set-timezone Asia/Kolkata",
+              "use": "Set timezone."
+            },
+            {
+              "command": "systemctl status chronyd",
+              "example": "systemctl status chronyd",
+              "use": "Check chrony daemon on many RHEL-family systems."
+            },
+            {
+              "command": "systemctl restart chronyd",
+              "example": "sudo systemctl restart chronyd",
+              "use": "Restart chrony after approved configuration changes."
+            },
+            {
+              "command": "chronyc tracking",
+              "example": "chronyc tracking",
+              "use": "Show synchronization/offset information."
+            },
+            {
+              "command": "chronyc sources -v",
+              "example": "chronyc sources -v",
+              "use": "Show NTP sources and states."
+            },
+            {
+              "command": "chronyc sourcestats -v",
+              "example": "chronyc sourcestats -v",
+              "use": "Show source statistics."
+            },
+            {
+              "command": "chronyc activity",
+              "example": "chronyc activity",
+              "use": "Show source activity."
+            },
+            {
+              "command": "chronyc makestep",
+              "example": "sudo chronyc makestep",
+              "use": "Correct a significant offset when appropriate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "title": "AWS Cloud Basics",
+      "questions": [
+        {
+          "q": "Which AWS services should a Linux administrator know first?",
+          "a": "Start with EC2 for virtual servers, EBS for disks, VPC/subnets/route tables for networking, security groups for traffic control, IAM for permissions, S3 for object storage and CloudWatch for monitoring. Know how these map to normal Linux admin work."
+        }
+      ],
+      "commands": [
+        {
+          "title": "AWS Cloud Basics Commands",
+          "items": [
+            {
+              "command": "aws --version",
+              "example": "aws --version",
+              "use": "Check AWS CLI installation."
+            },
+            {
+              "command": "aws configure",
+              "example": "aws configure",
+              "use": "Configure a CLI profile; prefer roles/SSO for production where possible."
+            },
+            {
+              "command": "aws sts get-caller-identity",
+              "example": "aws sts get-caller-identity",
+              "use": "Verify current AWS identity."
+            },
+            {
+              "command": "aws ec2 describe-instances",
+              "example": "aws ec2 describe-instances",
+              "use": "Inspect EC2 instances."
+            },
+            {
+              "command": "aws ec2 describe-volumes",
+              "example": "aws ec2 describe-volumes",
+              "use": "Inspect EBS volumes."
+            },
+            {
+              "command": "aws ec2 describe-security-groups",
+              "example": "aws ec2 describe-security-groups",
+              "use": "Inspect security-group rules."
+            },
+            {
+              "command": "aws ec2 describe-vpcs",
+              "example": "aws ec2 describe-vpcs",
+              "use": "Inspect VPCs."
+            },
+            {
+              "command": "aws s3 ls",
+              "example": "aws s3 ls",
+              "use": "List accessible S3 resources."
+            },
+            {
+              "command": "aws s3 cp",
+              "example": "aws s3 cp backup.tar.gz s3://my-backup-bucket/",
+              "use": "Upload/download an object."
+            },
+            {
+              "command": "aws s3 sync",
+              "example": "aws s3 sync /backup s3://my-backup-bucket/server1/",
+              "use": "Synchronize backup data to S3."
+            },
+            {
+              "command": "aws cloudwatch list-metrics",
+              "example": "aws cloudwatch list-metrics",
+              "use": "Inspect available CloudWatch metrics."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "hr",
       "title": "HR & Closing Round",
       "questions": [

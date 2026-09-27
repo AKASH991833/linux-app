@@ -376,7 +376,8 @@ public class MainActivity extends Activity {
     }
 
     private String interviewCardSub(InterviewChapter ch){
-        String base = ch.qs.size() + ("hr".equals(ch.id) ? " questions with sample answers" : " questions with verified answers");
+        String noun = ch.qs.size() == 1 ? " question" : " questions";
+        String base = ch.qs.size() + noun + ("hr".equals(ch.id) ? " with sample answers" : " with verified answers");
         int commands = commandCount(ch);
         return commands > 0 ? base + "  \u2022  " + commands + " command examples" : base;
     }
@@ -702,7 +703,7 @@ public class MainActivity extends Activity {
         head.addView(text("\uD83D\uDCBC", 28, TEXT));
         head.addView(bold(ch.title + " Interview Questions", 19, TEXT));
         int commands = commandCount(ch);
-        TextView sub = text(ch.qs.size() + " questions" + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer to reveal", 13, DIM);
+        TextView sub = text(ch.qs.size() + (ch.qs.size() == 1 ? " question" : " questions") + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer to reveal", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         head.addView(sub);
         col.addView(head, margins(0, 6));

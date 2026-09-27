@@ -13,7 +13,7 @@ and security.
   sample output. Read ticks track your progress
 - **12 chapters, 300 quiz questions** - 25 hand-written MCQs per chapter (4
   options, one correct, short explanation for every answer)
-- **237 interview Q&A + 204 command examples** - real interview questions per
+- **252 interview Q&A + 346 command examples** - real interview questions per
   topic area with exact, verified answers, plus practical command/example/use
   reference tables and an HR & closing-round set
   (`app/src/main/assets/interview.json`)
@@ -23,7 +23,10 @@ and security.
 - **Interview Questions section - topic-wise** - every topic area has its own
   set of real interview questions with verified answers; tap to reveal. Each
   matching topic also groups practical commands once, in clean
-  command/example/use rows. No quiz here
+  command/example/use rows. No quiz here. Advanced interview-only topics cover
+  backup, Ubuntu packages, RAID/NFS/Samba, boot recovery, performance,
+  logging, web servers, MySQL, SELinux/sudoers/ACL/fail2ban, LDAP/AD,
+  monitoring, Ansible, Docker/KVM, chrony and AWS basics
 - **Instant feedback** - right/wrong highlighting plus an explanation card
 - **Score & progress** - best score per chapter, animated progress bars
 - **Revise mistakes** - wrong answers are collected automatically; answer them
