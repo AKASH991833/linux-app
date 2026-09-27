@@ -104,24 +104,111 @@ def wait_node(timeout=30, **kw):
         time.sleep(1)
     return [], xml
 
+PAGES = []
+
+def scroll_down(n=1):
+    for _ in range(n):
+        run(['adb', 'shell', 'input', 'swipe', '480', '1600', '480', '500', '400'])
+        time.sleep(0.7)
+
+def scroll_up(n=1):
+    for _ in range(n):
+        run(['adb', 'shell', 'input', 'swipe', '480', '500', '480', '1600', '400'])
+        time.sleep(0.7)
+
+def find_scrolled(max_swipes=16, **kw):
+    """Scroll down the current screen until nodes match; records every page seen."""
+    nodes, xml = wait_node(2, **kw)
+    PAGES.append(xml)
+    swipes = 0
+    while not nodes and swipes < max_swipes:
+        scroll_down()
+        nodes, xml = wait_node(2, **kw)
+        PAGES.append(xml)
+        swipes += 1
+    return nodes, xml
+
 def main():
     r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'])
     out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
     check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
     run(['adb', 'shell', 'monkey', '-p', PKG, '-c', 'android.intent.category.LAUNCHER', '1'])
     nodes, xml = wait_node(45, contains='Linux App')
+    PAGES.append(xml)
     check('home screen shows app title', bool(nodes))
     if not nodes:
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
-    check('chapter list present', bool(find_all(xml, contains='Linux History')))
     shot('01_home')
-    chap = find_all(xml, contains='Linux History')
+
+    # Quiz section: only quizzes, one card per topic area
+    nodes, xml = find_scrolled(contains='Quiz - Topic-wise')
+    check('quiz section header present', bool(nodes))
+    check('beginner and intermediate modes present',
+          bool(find_all(xml, text='Beginner')) and bool(find_all(xml, text='Intermediate')))
+    check('no interview timer mode button', not find_all(xml, text='Interview'))
+    shot('02_quiz_section')
+
+    nodes, xml = find_scrolled(contains='Linux History & Foundations Quiz')
+    check('topic quiz card present', bool(nodes))
+    if nodes:
+        tap_node(nodes[0])
+        nodes, xml = wait_node(20, contains='Question 1 of')
+        check('topic quiz opens at question 1', bool(nodes))
+        check('topic quiz shows its area name', bool(find_all(xml, contains='Linux History & Foundations Quiz')))
+        shot('03_topic_quiz')
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Linux App')
+        PAGES.append(xml)
+        check('back from quiz returns home', bool(nodes))
+
+    # Interview Questions section: only Q&A, one card per topic area
+    nodes, xml = find_scrolled(contains='Interview Questions - Topic-wise')
+    check('interview section header present', bool(nodes))
+    shot('04_interview_section')
+
+    nodes, xml = find_scrolled(contains='Networking Essentials Interview Questions')
+    check('topic interview card present', bool(nodes))
+    if nodes:
+        tap_node(nodes[0])
+        nodes, xml = wait_node(20, contains='tap a question')
+        check('interview topic opens', bool(nodes))
+        check('interview topic shows its area name', bool(find_all(xml, contains='Networking Essentials Interview Questions')))
+        shot('05_interview_list')
+        btns = find_all(xml, text='Show answer', clazz='Button')
+        check('show answer button present', bool(btns))
+        if btns:
+            tap_node(btns[0])
+            nodes, xml = wait_node(8, contains='ip addr')
+            check('answer reveals on tap', bool(nodes))
+            shot('06_interview_answer')
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Linux App')
+        PAGES.append(xml)
+
+    # HR & Closing Round is the last interview topic card
+    nodes, xml = find_scrolled(contains='HR & Closing Round Interview Questions')
+    check('HR & closing interview card present', bool(nodes))
+
+    # Learn section: chapter cards with lessons
+    nodes, xml = find_scrolled(contains='Learn - Lessons by Chapter')
+    check('learn section header present', bool(nodes))
+    chap, xml = find_scrolled(text='Linux History & Foundations')
+    check('chapter list present', bool(chap))
+
+    # The old mixed "Interview Mode" quiz card must be gone from every home page we saw
+    check("no 'Interview Mode' quiz card anywhere on home",
+          all('Interview Mode' not in page for page in PAGES))
+
+    if not chap:
+        die('chapter card not found')
     tap_node(chap[0])
     nodes, xml = wait_node(20, contains='Start Quiz')
     check('chapter page opens with Start Quiz', bool(nodes))
     check('lessons listed', bool(find_all(xml, contains='short lessons')))
-    shot('02_chapter')
+    shot('07_chapter')
     les = find_all(xml, contains='What is Linux, really?')
     if les:
         tap_node(les[0])
@@ -129,8 +216,7 @@ def main():
         check('lesson opens with body', bool(nodes) and bool(find_all(xml, contains='KERNEL')))
         check('diagram rendered', bool(find_all(xml, contains='HARDWARE')))
         check('real-life scenario shown', bool(find_all(xml, contains="Where you'd use it")))
-        shot('03_lesson')
-        # The lesson is scrollable. Drive the quick check and verify progress is earned only on a correct answer.
+        shot('08_lesson')
         nodes = []
         for _ in range(5):
             run(['adb', 'shell', 'input', 'swipe', '480', '1600', '480', '250', '450'])
@@ -138,7 +224,7 @@ def main():
             if nodes and find_all(xml, text='Linux kernel', clazz='Button'):
                 break
         check('lesson quick check visible', bool(nodes))
-        shot('03b_quick_check')
+        shot('08b_quick_check')
         q_answer = find_all(xml, text='Linux kernel', clazz='Button')
         if q_answer:
             tap_node(q_answer[0])
@@ -147,7 +233,7 @@ def main():
                 run(['adb', 'shell', 'input', 'swipe', '480', '1450', '480', '450', '450'])
                 nodes, xml = wait_node(8, contains='You got it!')
             check('correct quick check gives feedback', bool(nodes))
-            shot('03c_check_passed')
+            shot('08c_check_passed')
         else:
             check('correct quick check gives feedback', False, 'answer option not found')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
@@ -166,19 +252,19 @@ def main():
     check('quiz opens at question 1', bool(nodes))
     opts = [n for n in find_all(xml, clazz='Button') if (n.get('text') or '').strip() and n.get('text') not in ('Next', 'See results')]
     check('4 options shown', len(opts) == 4, 'found %d' % len(opts))
-    shot('04_question')
+    shot('09_question')
     if not opts:
         die('no option buttons')
     tap_node(opts[0])
     nodes, xml = wait_node(15, regex=r'^(Next|See results)$')
     check('answer feedback + explanation shown', bool(nodes) and bool(find_all(xml, contains='Correct') + find_all(xml, contains='Not quite')))
-    shot('05_feedback')
+    shot('10_feedback')
     nxt = find_all(xml, regex=r'^(Next|See results)$')
     if nxt:
         tap_node(nxt[0])
         nodes, xml = wait_node(15, contains='Question 2 of')
         check('next advances to question 2', bool(nodes))
-        shot('06_question2')
+        shot('11_question2')
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(1)
     xml = dump()

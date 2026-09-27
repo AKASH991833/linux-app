@@ -1,8 +1,9 @@
 # Linux App
 
-Master Linux, one quiz at a time. A fully offline Android quiz app covering the
-complete Linux system administrator syllabus - from history and navigation to
-systemd, storage and security.
+Master Linux, step by step. A fully offline Android app covering the complete
+Linux system administrator syllabus - beginner lessons, topic-wise quizzes and
+topic-wise interview questions, from history and navigation to systemd, storage
+and security.
 
 ## Features
 
@@ -10,18 +11,25 @@ systemd, storage and security.
   day-one language, ASCII diagrams (filesystem tree, rwx permissions, process
   tree, boot flow, LVM stack, cron fields...) and real command examples with
   sample output. Read ticks track your progress
-- **12 chapters, 300 questions** - 25 hand-written MCQs per chapter (4 options,
-  one correct, short explanation for every answer)
+- **12 chapters, 300 quiz questions** - 25 hand-written MCQs per chapter (4
+  options, one correct, short explanation for every answer)
+- **213 interview Q&A** - real interview questions per topic area with exact,
+  verified answers, plus an HR & closing-round set
+  (`app/src/main/assets/interview.json`)
 - **Chapter-wise practice** - Basic to advanced, one concept area at a time
-- **Levels** - Beginner (untimed), Intermediate (30s per question), Interview
-  mode (15 mixed questions, 20s each)
+- **Quiz section - topic-wise** - every topic area has its own clearly labelled
+  quiz (Beginner untimed, Intermediate 30s per question). Only quizzes here
+- **Interview Questions section - topic-wise** - every topic area has its own
+  set of real interview questions with verified answers; tap to reveal. Only
+  questions and answers here, no quiz
 - **Instant feedback** - right/wrong highlighting plus an explanation card
 - **Score & progress** - best score per chapter, animated progress bars
 - **Revise mistakes** - wrong answers are collected automatically; answer them
   right to clear the list
 - **Daily challenge + streak** - 10 fresh questions every day, keep the streak alive
 - **Fully offline** - lessons + quiz, no internet, no account, no ads
-- **Dark UI** with smooth transitions and micro-animations
+- **Polished dark UI** - colour-coded sections (quiz, interview, learn),
+  gradient cards, icon chips, smooth transitions and micro-animations
 
 ## Chapters
 
