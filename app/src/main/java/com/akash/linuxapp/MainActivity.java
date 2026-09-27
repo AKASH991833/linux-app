@@ -1,12 +1,17 @@
 package com.akash.linuxapp;
 
 import android.animation.ValueAnimator;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +24,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -29,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -38,8 +45,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class MainActivity extends Activity {
-    private static final int BG=0xff101827, CARD=0xff1c2940, SOFT=0xff293954, TEXT=0xffedf3fa;
-    private static final int DIM=0xffa7b8cc, BLUE=0xff5199ff, GREEN=0xff48df99, ORANGE=0xffffbc60, RED=0xffe75b67, PURPLE=0xff9d7bff;
+    private static final int BG=0xff07111f, CARD=0xff101c2d, SOFT=0xff18283c, TEXT=0xffedf3fa;
+    private static final int DIM=0xff8ea2b8, BLUE=0xff2f8cff, GREEN=0xff31d69b, ORANGE=0xffffb545, RED=0xffe85666, PURPLE=0xff9a6cff;
     private static final int MODE_BEGINNER=0, MODE_INTERMEDIATE=1, MODE_ADVANCED=2;
     private static final int DIFF_EASY=0, DIFF_NORMAL=1, DIFF_HARD=2;
 
@@ -80,9 +87,15 @@ public class MainActivity extends Activity {
     static class FullFormGroup {
         String title; List<FullForm> items = new ArrayList<>();
     }
+    static class QuizTrack {
+        String title; int level = -1; Chapter computer;
+    }
 
     private FrameLayout container;
+    private LinearLayout header;
+    private LinearLayout bottomNav;
     private TextView streakChip;
+    private int currentNav = 0;
     private SharedPreferences prefs;
     private TextToSpeech tts;
     private boolean ttsReady;
@@ -104,6 +117,9 @@ public class MainActivity extends Activity {
     private boolean interviewOpenedFromHandbook;
     private int mode = MODE_BEGINNER;
     private int quizDifficulty = -1;
+    private int setupTrackIndex = 0;
+    private int setupDifficulty = DIFF_EASY;
+    private int setupCount = 10;
 
     // quiz state
     private List<Q> quiz;
@@ -111,10 +127,12 @@ public class MainActivity extends Activity {
     private String quizTitle, bestKey;
     private boolean daily, revise;
     private Runnable restart;
+    private final List<Q> currentWrong = new ArrayList<>();
     private CountDownTimer timer;
     private TextView counterText, timerText, questionText, explainText, explainTitle;
     private ProgressBar quizBar;
     private LinearLayout optionsBox;
+    private LinearLayout explainOptions;
     private View explainCard;
     private Button nextBtn, quizSpeakBtn;
 
@@ -123,6 +141,198 @@ public class MainActivity extends Activity {
     private GradientDrawable bg(int color, int radiusDp){ GradientDrawable d=new GradientDrawable(); d.setColor(color); d.setCornerRadius(dp(radiusDp)); return d; }
     private TextView text(String s, int size, int color){ TextView t=new TextView(this); t.setText(s); t.setTextSize(size); t.setTextColor(color); return t; }
     private TextView bold(String s, int size, int color){ TextView t=text(s,size,color); t.setTypeface(null,Typeface.BOLD); return t; }
+
+    private ImageView icon(int res, int color, int sizeDp){
+        ImageView iv = new ImageView(this);
+        iv.setImageResource(res);
+        iv.setColorFilter(color);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(sizeDp), dp(sizeDp));
+        iv.setLayoutParams(p);
+        return iv;
+    }
+
+    private View iconBadge(int res, int bgColor, int iconColor, int boxDp, int iconDp){
+        FrameLayout box = new FrameLayout(this);
+        box.setBackground(bg(bgColor, Math.max(8, boxDp / 3)));
+        ImageView iv = icon(res, iconColor, iconDp);
+        box.addView(iv, new FrameLayout.LayoutParams(dp(iconDp), dp(iconDp), Gravity.CENTER));
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(boxDp), dp(boxDp));
+        box.setLayoutParams(p);
+        return box;
+    }
+
+    private int iconForLabel(String label){
+        String k = label == null ? "" : label.toLowerCase(Locale.US);
+        if(k.contains("computer") || k.contains("hardware") || k.contains("software") || k.contains("ms office")) return R.drawable.ic_computer;
+        if(k.contains("network") || k.contains("internet") || k.contains("web")) return R.drawable.ic_network;
+        if(k.contains("command") || k.contains("terminal")) return R.drawable.ic_command;
+        if(k.contains("full form") || k.contains("acronym")) return R.drawable.ic_acronym;
+        if(k.contains("interview") || k.contains("hr") || k.contains("question")) return R.drawable.ic_interview;
+        if(k.contains("quiz") || k.contains("practice") || k.contains("challenge")) return R.drawable.ic_quiz;
+        if(k.contains("search")) return R.drawable.ic_search;
+        if(k.contains("home")) return R.drawable.ic_home;
+        if(k.contains("more")) return R.drawable.ic_more;
+        return R.drawable.ic_topics;
+    }
+
+    private LinearLayout navItem(final int index, int iconRes, String label, final Runnable action){
+        LinearLayout item = new LinearLayout(this);
+        item.setOrientation(LinearLayout.VERTICAL);
+        item.setGravity(Gravity.CENTER);
+        item.setPadding(0, dp(4), 0, dp(3));
+        item.addView(icon(iconRes, DIM, 22));
+        TextView t = text(label, 10, DIM);
+        t.setGravity(Gravity.CENTER);
+        t.setPadding(0, dp(2), 0, 0);
+        item.addView(t);
+        item.setOnClickListener(v -> action.run());
+        press(item);
+        return item;
+    }
+
+    private void setNav(int index){
+        currentNav = index;
+        if(bottomNav == null) return;
+        for(int i=0;i<bottomNav.getChildCount();i++){
+            View child = bottomNav.getChildAt(i);
+            boolean selected = i == index;
+            child.setBackground(selected ? bg(SOFT, 18) : null);
+            if(child instanceof LinearLayout){
+                LinearLayout item = (LinearLayout) child;
+                if(item.getChildCount() >= 2){
+                    ((ImageView)item.getChildAt(0)).setColorFilter(selected ? GREEN : DIM);
+                    ((TextView)item.getChildAt(1)).setTextColor(selected ? GREEN : DIM);
+                }
+            }
+        }
+    }
+
+    private void chrome(boolean visible){
+        if(header != null) header.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if(bottomNav != null) bottomNav.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private View screenTopBar(String title, final Runnable back){
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(2), 0, dp(8));
+        if(back != null){
+            ImageView b = icon(R.drawable.ic_back, TEXT, 23);
+            b.setOnClickListener(v -> back.run());
+            press(b);
+            row.addView(b, new LinearLayout.LayoutParams(dp(38), dp(38)));
+        } else {
+            row.addView(new View(this), new LinearLayout.LayoutParams(dp(38), dp(38)));
+        }
+        TextView t = bold(title, 18, TEXT);
+        t.setGravity(Gravity.CENTER);
+        row.addView(t, new LinearLayout.LayoutParams(0, -2, 1));
+        row.addView(new View(this), new LinearLayout.LayoutParams(dp(38), dp(38)));
+        return row;
+    }
+
+    private View featureRow(int iconRes, String label, int color){
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(5), 0, dp(5));
+        row.addView(iconBadge(iconRes, SOFT, color, 34, 18));
+        TextView t = text(label, 14, TEXT);
+        t.setPadding(dp(12), 0, 0, 0);
+        row.addView(t);
+        return row;
+    }
+
+    private Button primaryButton(String label, int color, View.OnClickListener click){
+        Button b = new Button(this);
+        b.setText(label); b.setAllCaps(false); b.setTextColor(0xff07111f); b.setTextSize(15);
+        b.setTypeface(null, Typeface.BOLD);
+        b.setBackground(bg(color, 24));
+        b.setOnClickListener(click);
+        press(b);
+        return b;
+    }
+
+    private Button chip(String label, boolean selected, int color, View.OnClickListener click){
+        Button b = new Button(this);
+        b.setText(label); b.setAllCaps(false); b.setTextSize(13);
+        b.setTypeface(null, selected ? Typeface.BOLD : Typeface.NORMAL);
+        b.setTextColor(selected ? 0xff07111f : TEXT);
+        GradientDrawable d = bg(selected ? color : CARD, 18);
+        if(!selected) d.setStroke(dp(1), SOFT);
+        b.setBackground(d);
+        b.setOnClickListener(click);
+        press(b);
+        return b;
+    }
+
+    private View homeAction(String title, String sub, int iconRes, int color, View.OnClickListener click){
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setBackground(bg(CARD, 20));
+        card.setPadding(dp(14), dp(14), dp(14), dp(14));
+        card.addView(iconBadge(iconRes, color, 0xff07111f, 42, 22));
+        TextView t = bold(title, 14, TEXT);
+        t.setPadding(0, dp(10), 0, dp(2));
+        card.addView(t);
+        card.addView(text(sub, 11, DIM));
+        card.setOnClickListener(click);
+        press(card);
+        return card;
+    }
+
+    private View statLine(String label, String value, int color){
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(4), 0, dp(4));
+        View dot = new View(this);
+        dot.setBackground(bg(color, 5));
+        row.addView(dot, new LinearLayout.LayoutParams(dp(9), dp(9)));
+        TextView l = text("  " + label, 12, DIM);
+        row.addView(l, new LinearLayout.LayoutParams(0, -2, 1));
+        row.addView(bold(value, 12, TEXT));
+        return row;
+    }
+
+    private static class RingView extends View {
+        private int percent;
+        private final Paint track = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final RectF rect = new RectF();
+        RingView(android.content.Context context, int color, int percent){
+            super(context);
+            this.percent = percent;
+            track.setStyle(Paint.Style.STROKE); track.setStrokeCap(Paint.Cap.ROUND); track.setColor(0xff24344a);
+            fill.setStyle(Paint.Style.STROKE); fill.setStrokeCap(Paint.Cap.ROUND); fill.setColor(color);
+        }
+        void setPercent(int value){ percent = value; invalidate(); }
+        @Override protected void onDraw(Canvas canvas){
+            super.onDraw(canvas);
+            float stroke = getWidth() * 0.10f;
+            track.setStrokeWidth(stroke); fill.setStrokeWidth(stroke);
+            float pad = stroke / 2f + dpStatic(2);
+            rect.set(pad, pad, getWidth()-pad, getHeight()-pad);
+            canvas.drawArc(rect, 0, 360, false, track);
+            canvas.drawArc(rect, -90, percent * 3.6f, false, fill);
+        }
+        private float dpStatic(int n){ return n * getResources().getDisplayMetrics().density; }
+    }
+
+    private View progressRing(int percent, int color, int sizeDp){
+        FrameLayout wrap = new FrameLayout(this);
+        final RingView ring = new RingView(this, color, 0);
+        wrap.addView(ring, new FrameLayout.LayoutParams(dp(sizeDp), dp(sizeDp), Gravity.CENTER));
+        TextView label = bold("0%", 18, color);
+        label.setGravity(Gravity.CENTER);
+        wrap.addView(label, new FrameLayout.LayoutParams(-1, -1));
+        ValueAnimator anim = ValueAnimator.ofInt(0, Math.max(0, Math.min(100, percent)));
+        anim.setDuration(700);
+        anim.addUpdateListener(a -> { int v=(Integer)a.getAnimatedValue(); ring.setPercent(v); label.setText(v + "%"); });
+        anim.start();
+        return wrap;
+    }
     private void press(final View v){
         v.setOnTouchListener((view, ev) -> {
             if(ev.getAction()==MotionEvent.ACTION_DOWN) view.animate().scaleX(0.97f).scaleY(0.97f).setDuration(90).start();
@@ -149,25 +359,51 @@ public class MainActivity extends Activity {
         prefs = getSharedPreferences("linuxapp", 0);
         initSpeech();
         loadData();
+
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(BG);
-        LinearLayout header = new LinearLayout(this);
+
+        header = new LinearLayout(this);
         header.setOrientation(LinearLayout.HORIZONTAL);
         header.setGravity(Gravity.CENTER_VERTICAL);
-        header.setPadding(dp(16), dp(12), dp(16), dp(6));
+        header.setPadding(dp(16), dp(12), dp(16), dp(8));
+        ImageView menu = icon(R.drawable.ic_menu, DIM, 24);
+        menu.setOnClickListener(v -> showMore());
+        press(menu);
+        header.addView(menu, new LinearLayout.LayoutParams(dp(36), dp(36)));
         TextView brand = bold("Linux App", 18, TEXT);
+        brand.setGravity(Gravity.CENTER);
         header.addView(brand, new LinearLayout.LayoutParams(0, -2, 1));
-        streakChip = text("", 13, ORANGE);
+        FrameLayout bellWrap = new FrameLayout(this);
+        ImageView bell = icon(R.drawable.ic_bell, DIM, 22);
+        FrameLayout.LayoutParams bp = new FrameLayout.LayoutParams(dp(28), dp(28), Gravity.CENTER);
+        bellWrap.addView(bell, bp);
+        streakChip = text("", 10, 0xffffffff);
         streakChip.setTypeface(null, Typeface.BOLD);
-        streakChip.setBackground(bg(SOFT, 20));
-        streakChip.setPadding(dp(12), dp(6), dp(12), dp(6));
-        header.addView(streakChip);
+        streakChip.setGravity(Gravity.CENTER);
+        streakChip.setBackground(bg(RED, 10));
+        FrameLayout.LayoutParams sp = new FrameLayout.LayoutParams(dp(18), dp(18), Gravity.TOP | Gravity.RIGHT);
+        bellWrap.addView(streakChip, sp);
+        header.addView(bellWrap, new LinearLayout.LayoutParams(dp(36), dp(36)));
         root.addView(header);
+
         container = new FrameLayout(this);
         root.addView(container, new LinearLayout.LayoutParams(-1, 0, 1));
+
+        bottomNav = new LinearLayout(this);
+        bottomNav.setOrientation(LinearLayout.HORIZONTAL);
+        bottomNav.setGravity(Gravity.CENTER);
+        bottomNav.setPadding(dp(4), dp(6), dp(4), dp(8));
+        bottomNav.setBackground(bg(0xff0b1726, 0));
+        bottomNav.addView(navItem(0, R.drawable.ic_home, "Home", () -> showHome()), new LinearLayout.LayoutParams(0, -1, 1));
+        bottomNav.addView(navItem(1, R.drawable.ic_topics, "Topics", () -> showLearnTopics()), new LinearLayout.LayoutParams(0, -1, 1));
+        bottomNav.addView(navItem(2, R.drawable.ic_quiz, "Quiz", () -> showQuizSetup()), new LinearLayout.LayoutParams(0, -1, 1));
+        bottomNav.addView(navItem(3, R.drawable.ic_interview, "Interview", () -> showInterviewTopics()), new LinearLayout.LayoutParams(0, -1, 1));
+        bottomNav.addView(navItem(4, R.drawable.ic_more, "More", () -> showMore()), new LinearLayout.LayoutParams(0, -1, 1));
+        root.addView(bottomNav, new LinearLayout.LayoutParams(-1, dp(64)));
         setContentView(root);
-        showHome();
+        showSplash();
     }
 
     private void loadData(){
@@ -384,77 +620,220 @@ public class MainActivity extends Activity {
 
     private void updateStreakChip(){
         int s = streak();
-        streakChip.setText(s > 0 ? "\uD83D\uDD25 " + s + " day streak" : "\uD83D\uDD25 Start a streak");
+        streakChip.setText(s > 0 ? String.valueOf(Math.min(99, s)) : "");
+        streakChip.setVisibility(s > 0 ? View.VISIBLE : View.GONE);
     }
 
-    // ---------------- HOME DASHBOARD ----------------
+    // ---------------- SPLASH, WELCOME + HOME DASHBOARD ----------------
+    private void showSplash(){
+        chrome(false);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setGravity(Gravity.CENTER);
+        col.setPadding(dp(32), dp(24), dp(32), dp(24));
+        col.addView(iconBadge(R.drawable.ic_logo, SOFT, GREEN, 112, 58), new LinearLayout.LayoutParams(dp(112), dp(112)));
+        TextView name = bold("Linux App", 32, TEXT);
+        name.setGravity(Gravity.CENTER);
+        name.setPadding(0, dp(22), 0, dp(4));
+        col.addView(name, new LinearLayout.LayoutParams(-1, -2));
+        TextView tag = text("Learn  •  Practice  •  Master", 15, DIM);
+        tag.setGravity(Gravity.CENTER);
+        col.addView(tag, new LinearLayout.LayoutParams(-1, -2));
+        TextView loading = text("Loading your learning journey...", 12, DIM);
+        loading.setGravity(Gravity.CENTER);
+        loading.setPadding(0, dp(42), 0, 0);
+        col.addView(loading, new LinearLayout.LayoutParams(-1, -2));
+        switchScreen(col);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if(prefs.getBoolean("welcome_seen", false)) showHome(); else showWelcome();
+        }, 1100);
+    }
+
+    private void showWelcome(){
+        chrome(false);
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setGravity(Gravity.CENTER);
+        col.setPadding(dp(28), dp(28), dp(28), dp(28));
+        scroll.addView(col);
+        col.addView(iconBadge(R.drawable.ic_logo, SOFT, GREEN, 92, 48), new LinearLayout.LayoutParams(dp(92), dp(92)));
+        TextView title = bold("Welcome to\nLinux App", 30, TEXT);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(0, dp(20), 0, dp(8));
+        col.addView(title, new LinearLayout.LayoutParams(-1, -2));
+        TextView sub = text("Learn, practice and master Linux with quizzes, interview questions and real-world examples.", 15, DIM);
+        sub.setGravity(Gravity.CENTER);
+        sub.setLineSpacing(0, 1.18f);
+        col.addView(sub, new LinearLayout.LayoutParams(-1, -2));
+        LinearLayout features = new LinearLayout(this);
+        features.setOrientation(LinearLayout.VERTICAL);
+        features.setPadding(0, dp(24), 0, dp(24));
+        features.addView(featureRow(R.drawable.ic_topics, "All Topics (Basic to Advanced)", GREEN));
+        features.addView(featureRow(R.drawable.ic_quiz, "MCQ Quizzes with Explanations", BLUE));
+        features.addView(featureRow(R.drawable.ic_interview, "Real Interview Questions", PURPLE));
+        features.addView(featureRow(R.drawable.ic_acronym, "Commands, Full Forms and Progress", ORANGE));
+        col.addView(features, new LinearLayout.LayoutParams(-1, -2));
+        Button start = primaryButton("Get Started", BLUE, v -> {
+            prefs.edit().putBoolean("welcome_seen", true).apply();
+            showHome();
+        });
+        col.addView(start, new LinearLayout.LayoutParams(-1, dp(56)));
+        switchScreen(scroll);
+    }
+
+    private String greeting(){
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if(hour < 12) return "Good Morning, Akash!";
+        if(hour < 17) return "Good Afternoon, Akash!";
+        return "Good Evening, Akash!";
+    }
+
+    private int totalLessonCount(){
+        int total = 0;
+        for(List<Lesson> list : lessons.values()) total += list.size();
+        return total;
+    }
+
+    private int readLessonCount(){
+        int count = 0;
+        for(Chapter ch : chapters){
+            List<Lesson> ls = lessons.get(ch.id);
+            if(ls != null) for(int i=0;i<ls.size();i++) if(prefs.getBoolean("read_" + ch.id + "_" + i, false)) count++;
+        }
+        return count;
+    }
+
+    private Chapter continueChapter(){
+        for(Chapter ch : chapters){
+            List<Lesson> ls = lessons.get(ch.id);
+            if(ls != null){
+                for(int i=0;i<ls.size();i++) if(!prefs.getBoolean("read_" + ch.id + "_" + i, false)) return ch;
+            }
+        }
+        return chapters.isEmpty() ? null : chapters.get(0);
+    }
+
     private void showHome(){
         cancelTimer();
+        chrome(true);
+        setNav(0);
         updateStreakChip();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(22));
+        scroll.addView(col);
+
+        TextView greet = bold(greeting(), 23, TEXT);
+        col.addView(greet, margins(0, 4));
+        TextView journey = text("Continue your Linux journey", 13, DIM);
+        col.addView(journey, margins(0, 0));
+
+        final Chapter current = continueChapter();
+        if(current != null){
+            LinearLayout cont = new LinearLayout(this);
+            cont.setOrientation(LinearLayout.HORIZONTAL);
+            cont.setGravity(Gravity.CENTER_VERTICAL);
+            cont.setBackground(bg(CARD, 20));
+            cont.setPadding(dp(14), dp(14), dp(14), dp(14));
+            cont.addView(iconBadge(R.drawable.ic_topics, GREEN, 0xff07111f, 48, 24));
+            LinearLayout texts = new LinearLayout(this);
+            texts.setOrientation(LinearLayout.VERTICAL);
+            texts.setPadding(dp(12), 0, dp(10), 0);
+            texts.addView(bold("Continue Learning", 13, GREEN));
+            texts.addView(bold(current.title, 16, TEXT));
+            texts.addView(text(current.desc, 11, DIM));
+            int lessonTotal = lessons.containsKey(current.id) ? lessons.get(current.id).size() : 0;
+            int read = 0;
+            if(lessonTotal > 0) for(int i=0;i<lessonTotal;i++) if(prefs.getBoolean("read_" + current.id + "_" + i, false)) read++;
+            int pct = lessonTotal == 0 ? 0 : read * 100 / lessonTotal;
+            ProgressBar bar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+            bar.setMax(100); bar.setProgress(Math.max(4, pct));
+            texts.addView(bar, new LinearLayout.LayoutParams(-1, -2));
+            cont.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
+            Button open = primaryButton(pct + "%", GREEN, v -> showChapter(current));
+            cont.addView(open, new LinearLayout.LayoutParams(dp(66), dp(44)));
+            cont.setOnClickListener(v -> showChapter(current));
+            press(cont);
+            col.addView(cont, margins(0, 8));
+        }
+
+        LinearLayout row1 = new LinearLayout(this);
+        row1.setOrientation(LinearLayout.HORIZONTAL);
+        row1.addView(homeAction("Linux Quiz", "Levels + difficulty", R.drawable.ic_quiz, GREEN, v -> showQuizSetup()), new LinearLayout.LayoutParams(0, -2, 1));
+        LinearLayout spacer1 = new LinearLayout(this); row1.addView(spacer1, new LinearLayout.LayoutParams(dp(10), 1));
+        row1.addView(homeAction("Computer Quiz", computerChapters.size() + " chapters", R.drawable.ic_computer, BLUE, v -> showComputerQuizChapters()), new LinearLayout.LayoutParams(0, -2, 1));
+        col.addView(row1, margins(0, 5));
+
+        LinearLayout row2 = new LinearLayout(this);
+        row2.setOrientation(LinearLayout.HORIZONTAL);
+        row2.addView(homeAction("Full Forms", fullFormCount + " searchable terms", R.drawable.ic_acronym, PURPLE, v -> showFullForms()), new LinearLayout.LayoutParams(0, -2, 1));
+        LinearLayout spacer2 = new LinearLayout(this); row2.addView(spacer2, new LinearLayout.LayoutParams(dp(10), 1));
+        row2.addView(homeAction("Interview Questions", "4 named sections", R.drawable.ic_interview, ORANGE, v -> showInterviewTopics()), new LinearLayout.LayoutParams(0, -2, 1));
+        col.addView(row2, margins(0, 5));
+
+        col.addView(actionCard("Daily Challenge", "10 questions - new set every day", BLUE,
+                prefs.getString("lastDaily", "").equals(today()) ? "Done" : "Start",
+                v -> startDaily()), margins(0, 6));
+        int wrong = wrongSet().size();
+        if(wrong > 0)
+            col.addView(actionCard("Revise Mistakes", wrong + " question" + (wrong==1?"":"s") + " you got wrong", ORANGE, "Revise",
+                    v -> startRevise()), margins(0, 6));
+
+        LinearLayout progress = new LinearLayout(this);
+        progress.setOrientation(LinearLayout.HORIZONTAL);
+        progress.setGravity(Gravity.CENTER_VERTICAL);
+        progress.setBackground(bg(CARD, 20));
+        progress.setPadding(dp(16), dp(16), dp(16), dp(16));
+        int totalLessons = totalLessonCount();
+        int readLessons = readLessonCount();
+        int percent = totalLessons == 0 ? 0 : readLessons * 100 / totalLessons;
+        progress.addView(progressRing(percent, GREEN, 112), new LinearLayout.LayoutParams(dp(112), dp(112)));
+        LinearLayout stats = new LinearLayout(this);
+        stats.setOrientation(LinearLayout.VERTICAL);
+        stats.setPadding(dp(18), 0, 0, 0);
+        stats.addView(bold("Your Progress", 16, TEXT));
+        stats.addView(statLine("Concepts", readLessons + " / " + totalLessons, BLUE));
+        stats.addView(statLine("Quizzes", String.valueOf(allQuestions().size() + computerQuestionCount()), GREEN));
+        stats.addView(statLine("Interview Q&A", String.valueOf(totalInterviewQuestions()), PURPLE));
+        stats.addView(statLine("Commands", String.valueOf(totalCommandItems()), ORANGE));
+        stats.addView(statLine("Acronyms", String.valueOf(fullFormCount), RED));
+        progress.addView(stats, new LinearLayout.LayoutParams(0, -2, 1));
+        col.addView(progress, margins(0, 8));
+        switchScreen(scroll);
+    }
+
+    private int totalInterviewQuestions(){
+        int total = 0;
+        for(InterviewChapter ch : interviewChapters) total += ch.qs.size();
+        return total;
+    }
+
+    private int totalCommandItems(){
+        int total = 0;
+        for(InterviewChapter ch : interviewChapters) total += commandCount(ch);
+        return total;
+    }
+
+    private void showMore(){
+        cancelTimer();
+        chrome(true);
+        setNav(4);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
-
-        LinearLayout hero = new LinearLayout(this);
-        hero.setOrientation(LinearLayout.VERTICAL);
-        GradientDrawable heroBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{0xff1d3260, 0xff3a2456});
-        heroBg.setCornerRadius(dp(20));
-        hero.setBackground(heroBg);
-        hero.setPadding(dp(18), dp(18), dp(18), dp(18));
-        hero.addView(text("🐧", 38, TEXT));
-        hero.addView(bold("Choose what to study", 21, TEXT));
-        TextView sub = text("One simple dashboard. Open a tile, then choose a topic or chapter.", 13, DIM);
-        sub.setPadding(0, dp(4), 0, 0);
-        hero.addView(sub);
-        TextView version = text("v1.5.0  •  " + allQuestions().size() + " Linux Qs  •  " + computerQuestionCount() + " computer Qs  •  " + fullFormCount + " full forms", 12, ORANGE);
-        version.setTypeface(null, Typeface.BOLD);
-        version.setPadding(0, dp(8), 0, 0);
-        hero.addView(version);
-        col.addView(hero, margins(0, 8));
-
-        col.addView(actionCard("⚡ Daily Challenge", "10 questions - new set every day", BLUE,
-                prefs.getString("lastDaily", "").equals(today()) ? "Done today ✓" : "Start",
-                v -> startDaily()), margins(0, 6));
-        int wrong = wrongSet().size();
-        if(wrong > 0)
-            col.addView(actionCard("🔁 Revise Mistakes", wrong + " question" + (wrong==1?"":"s") + " you got wrong", ORANGE, "Revise",
-                    v -> startRevise()), margins(0, 6));
-
-        col.addView(sectionHead("🎯", "Home Dashboard", "Big entry tiles only - topics open after you tap.", GREEN), margins(0, 8));
-        col.addView(dashboardTile("📝", "Quiz", "Linux levels  •  Easy / Normal / Hard", BLUE,
-                v -> showQuizLevels()), margins(0, 6));
-        col.addView(dashboardTile("💻", "Computer Quiz", computerChapters.size() + " chapters  •  Easy / Normal / Hard", GREEN,
-                v -> showComputerQuizChapters()), margins(0, 6));
-        col.addView(dashboardTile("🔠", "Full Forms", fullFormCount + " technical abbreviations  •  searchable list", ORANGE,
-                v -> showFullForms()), margins(0, 6));
-        col.addView(dashboardTile("💼", "Interview Questions", "Your questions, PDFs + topic-wise chapters", PURPLE,
-                v -> showInterviewTopics()), margins(0, 6));
-        col.addView(dashboardTile("📖", "Learn Chapters", "48 short lessons  •  Listen + quick checks", GREEN,
-                v -> showLearnTopics()), margins(0, 6));
+        col.addView(screenTopBar("More", null));
+        col.addView(topicCard("", "Learn Chapters", totalLessonCount() + " short lessons with quick checks", GREEN, "Open", v -> showLearnTopics()), margins(0, 5));
+        col.addView(topicCard("", "Linux Quiz Setup", "Beginner, Intermediate, Advanced", BLUE, "Open", v -> showQuizSetup()), margins(0, 5));
+        col.addView(topicCard("", "Computer Quiz", computerQuestionCount() + " computer fundamentals questions", BLUE, "Open", v -> showComputerQuizChapters()), margins(0, 5));
+        col.addView(topicCard("", "Full Forms", fullFormCount + " searchable technical abbreviations", PURPLE, "Open", v -> showFullForms()), margins(0, 5));
+        col.addView(topicCard("", "Interview Questions", "Your 4 named sections plus topic-wise revision", ORANGE, "Open", v -> showInterviewTopics()), margins(0, 5));
+        col.addView(topicCard("", "Daily Challenge", "10 mixed questions every day", GREEN, "Start", v -> startDaily()), margins(0, 5));
         switchScreen(scroll);
-    }
-
-    private View dashboardTile(String emoji, String title, String sub, int color, View.OnClickListener click){
-        LinearLayout card = new LinearLayout(this);
-        card.setOrientation(LinearLayout.VERTICAL);
-        card.setBackground(bg(CARD, 22));
-        card.setPadding(dp(18), dp(18), dp(18), dp(18));
-        TextView icon = text(emoji, 30, TEXT);
-        icon.setGravity(Gravity.CENTER);
-        icon.setBackground(bg(color, 18));
-        LinearLayout.LayoutParams ip = new LinearLayout.LayoutParams(dp(58), dp(58));
-        ip.bottomMargin = dp(12);
-        card.addView(icon, ip);
-        card.addView(bold(title, 20, TEXT));
-        TextView s = text(sub, 13, DIM);
-        s.setPadding(0, dp(4), 0, dp(8));
-        card.addView(s);
-        card.addView(bold("Open →", 13, color));
-        card.setOnClickListener(click);
-        press(card);
-        return card;
     }
 
     private Button listBackButton(String label, View.OnClickListener click){
@@ -466,52 +845,154 @@ public class MainActivity extends Activity {
         return b;
     }
 
+    private List<QuizTrack> quizTracks(){
+        List<QuizTrack> tracks = new ArrayList<>();
+        for(int level=MODE_BEGINNER; level<=MODE_ADVANCED; level++){
+            QuizTrack t = new QuizTrack();
+            t.level = level;
+            t.title = "Linux - " + levelName(level);
+            tracks.add(t);
+        }
+        for(Chapter ch : computerChapters){
+            QuizTrack t = new QuizTrack();
+            t.computer = ch;
+            t.title = "Computer - " + ch.title;
+            tracks.add(t);
+        }
+        return tracks;
+    }
+
+    private int trackQuestionCount(QuizTrack track, int difficulty){
+        return track.computer == null ? questionCountFor(track.level, difficulty) : computerQuestionCountFor(track.computer, difficulty);
+    }
+
+    private List<Q> trackQuestions(QuizTrack track, int difficulty){
+        return track.computer == null ? questionsFor(track.level, difficulty) : computerQuestionsFor(track.computer, difficulty);
+    }
+
+    private String trackBestKey(QuizTrack track){
+        return track.computer == null ? "best_quiz_" + track.level + "_" + setupDifficulty : "best_computer_" + track.computer.id + "_" + setupDifficulty;
+    }
+
     private void showQuizLevels(){
+        showQuizSetup();
+    }
+
+    private void showQuizSetup(){
         cancelTimer();
+        chrome(true);
+        setNav(2);
+        final List<QuizTrack> tracks = quizTracks();
+        if(tracks.isEmpty()) return;
+        if(setupTrackIndex < 0 || setupTrackIndex >= tracks.size()) setupTrackIndex = 0;
+        final QuizTrack selected = tracks.get(setupTrackIndex);
+        int maxCount = trackQuestionCount(selected, setupDifficulty);
+        int[] counts = selected.computer == null ? new int[]{10, 20, 30} : new int[]{5, 10, 15};
+        boolean countAllowed = false;
+        for(int c : counts) if(setupCount == c) countAllowed = true;
+        if(!countAllowed) setupCount = counts[0];
+        if(setupCount > maxCount) setupCount = Math.max(1, Math.min(counts[0], maxCount));
+
         ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
+        col.setGravity(Gravity.CENTER_HORIZONTAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
-        col.addView(sectionHead("📝", "Quiz Levels", "Choose your level first, then Easy, Normal, or Hard.", BLUE), margins(0, 7));
-        for(int level=MODE_BEGINNER; level<=MODE_ADVANCED; level++){
-            final int selectedLevel = level;
-            int count = questionCountForLevel(level);
-            col.addView(topicCard(levelIcon(level), levelName(level) + " Quiz",
-                    count + " questions  •  Easy / Normal / Hard" + bestLevelSuffix(level), levelColor(level), "Open",
-                    v -> showQuizDifficulties(selectedLevel)), margins(0, 5));
+        col.addView(screenTopBar("Create Quiz", () -> showHome()));
+
+        LinearLayout setupCard = new LinearLayout(this);
+        setupCard.setOrientation(LinearLayout.VERTICAL);
+        setupCard.setBackground(bg(CARD, 22));
+        setupCard.setPadding(dp(16), dp(16), dp(16), dp(16));
+        setupCard.addView(bold("Select Topic", 13, DIM));
+        for(int i=0;i<tracks.size();i++){
+            final int idx = i;
+            QuizTrack t = tracks.get(i);
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            GradientDrawable rowBg = bg(idx == setupTrackIndex ? SOFT : 0xff0d1828, 14);
+            if(idx == setupTrackIndex) rowBg.setStroke(dp(1), GREEN);
+            row.setBackground(rowBg);
+            row.setPadding(dp(10), dp(8), dp(10), dp(8));
+            row.addView(iconBadge(t.computer == null ? R.drawable.ic_quiz : R.drawable.ic_computer,
+                    idx == setupTrackIndex ? GREEN : SOFT, idx == setupTrackIndex ? 0xff07111f : DIM, 34, 18));
+            TextView title = bold(t.title, 13, TEXT);
+            title.setPadding(dp(10), 0, 0, 0);
+            row.addView(title, new LinearLayout.LayoutParams(0, -2, 1));
+            if(idx == setupTrackIndex) row.addView(icon(R.drawable.ic_check, GREEN, 18));
+            row.setOnClickListener(v -> { setupTrackIndex = idx; setupCount = tracks.get(idx).computer == null ? 10 : 5; showQuizSetup(); });
+            press(row);
+            setupCard.addView(row, margins(0, 3));
         }
-        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+
+        TextView diffLabel = bold("Difficulty Level", 13, DIM);
+        diffLabel.setPadding(0, dp(12), 0, dp(2));
+        setupCard.addView(diffLabel);
+        LinearLayout diffs = new LinearLayout(this);
+        diffs.setOrientation(LinearLayout.HORIZONTAL);
+        for(int d=DIFF_EASY; d<=DIFF_HARD; d++){
+            final int choice = d;
+            Button chip = chip(difficultyName(d), setupDifficulty == d, d == DIFF_EASY ? GREEN : d == DIFF_NORMAL ? ORANGE : RED,
+                    v -> { setupDifficulty = choice; showQuizSetup(); });
+            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(0, dp(42), 1);
+            if(d > 0) cp.leftMargin = dp(7);
+            diffs.addView(chip, cp);
+        }
+        setupCard.addView(diffs);
+
+        TextView countLabel = bold("Number of Questions", 13, DIM);
+        countLabel.setPadding(0, dp(12), 0, dp(2));
+        setupCard.addView(countLabel);
+        LinearLayout countRow = new LinearLayout(this);
+        countRow.setOrientation(LinearLayout.HORIZONTAL);
+        for(int i=0;i<counts.length;i++){
+            final int choice = counts[i];
+            Button chip = chip(String.valueOf(choice), setupCount == choice, BLUE, v -> { setupCount = choice; showQuizSetup(); });
+            LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(0, dp(42), 1);
+            if(i > 0) cp.leftMargin = dp(7);
+            countRow.addView(chip, cp);
+        }
+        setupCard.addView(countRow);
+        TextView available = text(maxCount + " verified questions available in this set", 11, DIM);
+        available.setPadding(0, dp(8), 0, 0);
+        setupCard.addView(available);
+        col.addView(setupCard, margins(0, 8));
+
+        Button start = primaryButton("Start Quiz", BLUE, v -> startTrackQuiz(selected));
+        col.addView(start, new LinearLayout.LayoutParams(-1, dp(54)));
         switchScreen(scroll);
     }
 
+    private void startTrackQuiz(final QuizTrack track){
+        List<Q> source = trackQuestions(track, setupDifficulty);
+        Collections.shuffle(source);
+        int count = Math.max(1, Math.min(setupCount, source.size()));
+        List<Q> pick = new ArrayList<>(source.subList(0, count));
+        quizDifficulty = setupDifficulty;
+        String title = track.title + " • " + difficultyName(setupDifficulty);
+        int timerMode = track.computer == null ? track.level : MODE_BEGINNER;
+        startQuiz(pick, title, timerMode, trackBestKey(track), false, false, () -> startTrackQuiz(track));
+    }
+
     private void showQuizDifficulties(final int level){
-        cancelTimer();
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout col = new LinearLayout(this);
-        col.setOrientation(LinearLayout.VERTICAL);
-        col.setPadding(dp(16), dp(6), dp(16), dp(24));
-        scroll.addView(col);
-        col.addView(sectionHead(levelIcon(level), levelName(level) + " Quiz", "Choose a difficulty. Each round has 10 mixed questions.", levelColor(level)), margins(0, 7));
-        for(int difficulty=DIFF_EASY; difficulty<=DIFF_HARD; difficulty++){
-            final int selectedDifficulty = difficulty;
-            int count = questionCountFor(level, difficulty);
-            col.addView(topicCard(difficulty == DIFF_EASY ? "🟢" : difficulty == DIFF_NORMAL ? "🟠" : "🔴",
-                    difficultyName(difficulty),
-                    count + " questions  •  " + timerLabel(level, difficulty) + bestQuizSuffix(level, difficulty), levelColor(level), "Start",
-                    v -> startComboQuiz(level, selectedDifficulty)), margins(0, 5));
-        }
-        col.addView(listBackButton("Back to Quiz Levels", v -> showQuizLevels()), margins(0, 10));
-        switchScreen(scroll);
+        setupTrackIndex = level;
+        setupCount = 10;
+        showQuizSetup();
     }
 
     private void showComputerQuizChapters(){
         cancelTimer();
+        chrome(true);
+        setNav(2);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
+        col.addView(screenTopBar("Computer Quiz", () -> showHome()));
         col.addView(sectionHead("💻", "Computer Quiz Chapters", "Choose a computer fundamentals chapter, then Easy, Normal, or Hard.", GREEN), margins(0, 7));
         for(final Chapter ch : computerChapters){
             col.addView(topicCard("💻", ch.title,
@@ -524,11 +1005,14 @@ public class MainActivity extends Activity {
 
     private void showComputerQuizDifficulties(final Chapter ch){
         cancelTimer();
+        chrome(true);
+        setNav(2);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
+        col.addView(screenTopBar(ch.title, () -> showComputerQuizChapters()));
         col.addView(sectionHead("💻", ch.title, ch.desc + " Choose a difficulty for a 5-question round.", GREEN), margins(0, 7));
         for(int difficulty=DIFF_EASY; difficulty<=DIFF_HARD; difficulty++){
             final int selectedDifficulty = difficulty;
@@ -544,11 +1028,14 @@ public class MainActivity extends Activity {
 
     private void showFullForms(){
         cancelTimer();
+        chrome(true);
+        setNav(4);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
+        col.addView(screenTopBar("Full Forms", () -> showHome()));
         col.addView(sectionHead("🔠", "Full Forms", fullFormCount + " commonly used technical abbreviations, grouped by concept.", ORANGE), margins(0, 7));
 
         EditText search = new EditText(this);
@@ -629,12 +1116,14 @@ public class MainActivity extends Activity {
 
     private void showInterviewTopics(){
         cancelTimer();
+        chrome(true);
+        setNav(3);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
-
+        col.addView(screenTopBar("Interview", () -> showHome()));
         col.addView(sectionHead("⭐", "Your Questions & PDFs", "The exact material you sent, each under its own name.", ORANGE), margins(0, 7));
         col.addView(topicCard("📖", "My Interview Questions",
                 myQuestions.size() + " Q&A  •  in the order you sent", ORANGE, "Open",
@@ -660,11 +1149,14 @@ public class MainActivity extends Activity {
 
     private void showLearnTopics(){
         cancelTimer();
+        chrome(true);
+        setNav(1);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
+        col.addView(screenTopBar("All Topics", () -> showHome()));
         col.addView(sectionHead("📖", "Learn Chapters", "Choose one chapter, read short lessons, then take its quiz.", GREEN), margins(0, 7));
         int delay = 0;
         for(final Chapter ch : chapters){
@@ -822,12 +1314,15 @@ public class MainActivity extends Activity {
 
     private void showQaReader(String section, final List<ReaderPage> pages, final int index, int color, final Runnable back){
         cancelTimer();
+        chrome(true);
+        setNav(3);
         final ReaderPage page = pages.get(index);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(18), dp(8), dp(18), dp(26));
         scroll.addView(col);
+        col.addView(screenTopBar("Interview Question", () -> back.run()));
         col.addView(bold(section + "  •  " + (index+1) + " of " + pages.size(), 12, DIM), margins(0, 3));
         TextView label = bold(page.label, 13, color);
         label.setPadding(0, dp(8), 0, dp(2));
@@ -837,10 +1332,10 @@ public class MainActivity extends Activity {
         col.addView(title, margins(0, 3));
 
         Button speak = new Button(this);
-        speak.setText("🔊 Speak answer"); speak.setAllCaps(false); speak.setTextColor(color); speak.setTextSize(12);
+        speak.setText("Speak answer"); speak.setAllCaps(false); speak.setTextColor(color); speak.setTextSize(12);
         speak.setTypeface(null, Typeface.BOLD);
         speak.setBackground(bg(SOFT, 20));
-        speak.setOnClickListener(v -> toggleSpeech(speak, "🔊 Speak answer", singleSpeech("Question. " + page.title + ". Answer. " + answerSpeechBody(page.body))));
+        speak.setOnClickListener(v -> toggleSpeech(speak, "Speak answer", singleSpeech("Question. " + page.title + ". Answer. " + answerSpeechBody(page.body))));
         press(speak);
         LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(-2, dp(38));
         sp.setMargins(0, dp(8), 0, dp(4));
@@ -1058,21 +1553,18 @@ public class MainActivity extends Activity {
 
     private View sectionHead(String emoji, String title, String sub, int accent){
         LinearLayout box = new LinearLayout(this);
-        box.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        View bar = new View(this);
-        bar.setBackground(bg(accent, 3));
-        LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(dp(4), dp(22));
-        bp.rightMargin = dp(10);
-        row.addView(bar, bp);
-        row.addView(text(emoji, 17, TEXT));
-        row.addView(bold("  " + title, 17, TEXT));
-        box.addView(row);
+        box.setOrientation(LinearLayout.HORIZONTAL);
+        box.setGravity(Gravity.CENTER_VERTICAL);
+        box.setPadding(0, dp(5), 0, dp(5));
+        box.addView(iconBadge(iconForLabel(title), accent, 0xff07111f, 42, 22));
+        LinearLayout texts = new LinearLayout(this);
+        texts.setOrientation(LinearLayout.VERTICAL);
+        texts.setPadding(dp(12), 0, 0, 0);
+        texts.addView(bold(title, 17, TEXT));
         TextView s = text(sub, 12, DIM);
-        s.setPadding(dp(14), dp(3), 0, 0);
-        box.addView(s);
+        s.setPadding(0, dp(2), 0, 0);
+        texts.addView(s);
+        box.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
         return box;
     }
 
@@ -1082,21 +1574,17 @@ public class MainActivity extends Activity {
         card.setGravity(Gravity.CENTER_VERTICAL);
         card.setBackground(bg(CARD, 18));
         card.setPadding(dp(12), dp(10), dp(10), dp(10));
-        TextView ic = text(emoji, 16, TEXT);
-        ic.setGravity(Gravity.CENTER);
-        ic.setBackground(bg(SOFT, 14));
-        LinearLayout.LayoutParams ip = new LinearLayout.LayoutParams(dp(44), dp(44));
-        ip.rightMargin = dp(12);
-        card.addView(ic, ip);
+        card.addView(iconBadge(iconForLabel(title), color, 0xff07111f, 46, 23));
         LinearLayout texts = new LinearLayout(this);
         texts.setOrientation(LinearLayout.VERTICAL);
+        texts.setPadding(dp(12), 0, dp(8), 0);
         texts.addView(bold(title, 14, TEXT));
         TextView s = text(sub, 11, DIM);
         s.setPadding(0, dp(2), 0, 0);
         texts.addView(s);
         card.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
         Button b = new Button(this);
-        b.setText(cta); b.setAllCaps(false); b.setTextColor(0xff101827); b.setTextSize(12); b.setTypeface(null, Typeface.BOLD);
+        b.setText(cta); b.setAllCaps(false); b.setTextColor(0xff07111f); b.setTextSize(12); b.setTypeface(null, Typeface.BOLD);
         b.setBackground(bg(color, 22));
         card.addView(b, new LinearLayout.LayoutParams(-2, dp(40)));
         card.setOnClickListener(click);
@@ -1160,71 +1648,99 @@ public class MainActivity extends Activity {
 
     private void showChapter(final Chapter ch){
         cancelTimer();
+        chrome(true);
+        setNav(1);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
-
-        LinearLayout head = new LinearLayout(this);
-        head.setOrientation(LinearLayout.VERTICAL);
-        head.setBackground(bg(CARD, 20));
-        head.setPadding(dp(18), dp(16), dp(18), dp(16));
-        head.addView(bold(ch.title, 19, TEXT));
-        TextView sub = text(ch.desc, 13, DIM);
-        sub.setPadding(0, dp(4), 0, 0);
-        head.addView(sub);
-        col.addView(head, margins(0, 6));
-
-        Button quiz = new Button(this);
-        quiz.setText("\u25B6  Start Quiz (" + ch.qs.size() + " questions)");
-        quiz.setAllCaps(false); quiz.setTextColor(0xff101827); quiz.setTextSize(14);
-        quiz.setTypeface(null, Typeface.BOLD);
-        quiz.setBackground(bg(BLUE, 22));
-        quiz.setOnClickListener(v -> startChapterQuiz(ch));
-        press(quiz);
-        col.addView(quiz, margins(0, 6));
+        col.addView(screenTopBar(ch.title, () -> showLearnTopics()));
 
         final List<Lesson> ls = lessons.get(ch.id);
-        if(ls != null && !ls.isEmpty()){
-            TextView lh = bold("Learn first - " + ls.size() + " short lessons", 15, TEXT);
-            lh.setPadding(0, dp(10), 0, dp(2));
-            col.addView(lh);
+        int lessonTotal = ls == null ? 0 : ls.size();
+        int readCount = 0;
+        for(int i=0;i<lessonTotal;i++) if(prefs.getBoolean("read_" + ch.id + "_" + i, false)) readCount++;
+        int percent = lessonTotal == 0 ? 0 : readCount * 100 / lessonTotal;
+
+        LinearLayout hero = new LinearLayout(this);
+        hero.setOrientation(LinearLayout.VERTICAL);
+        hero.setBackground(bg(CARD, 22));
+        hero.setPadding(dp(18), dp(18), dp(18), dp(18));
+        hero.addView(iconBadge(iconForLabel(ch.title), GREEN, 0xff07111f, 54, 28));
+        TextView title = bold(ch.title, 21, TEXT);
+        title.setPadding(0, dp(12), 0, dp(3));
+        hero.addView(title);
+        hero.addView(text(ch.desc, 13, DIM));
+        TextView done = bold(readCount + " / " + lessonTotal + " lessons completed        " + percent + "%", 12, GREEN);
+        done.setPadding(0, dp(12), 0, dp(4));
+        hero.addView(done);
+        ProgressBar bar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        bar.setMax(100); bar.setProgress(Math.max(3, percent));
+        hero.addView(bar);
+        col.addView(hero, margins(0, 8));
+
+        col.addView(topicCard("", "Concepts & Notes", lessonTotal + " short lessons with quick checks", GREEN, "Open", v -> showLessonsList(ch)), margins(0, 5));
+        col.addView(topicCard("", "Practice Quiz", ch.qs.size() + " Easy, Normal and Hard MCQs", BLUE, "Start", v -> startChapterQuiz(ch)), margins(0, 5));
+        final InterviewChapter related = findInterviewChapter(ch.id);
+        if(related != null){
+            col.addView(topicCard("", "Interview Questions", interviewCardSub(related), PURPLE, "Open", v -> { interviewOpenedFromHandbook=false; showInterviewTopic(related); }), margins(0, 5));
+            int commands = commandCount(related);
+            if(commands > 0)
+                col.addView(topicCard("", "Important Commands", commands + " frequently used chapter commands", ORANGE, "Open", v -> { interviewOpenedFromHandbook=false; showInterviewTopic(related); }), margins(0, 5));
+        }
+        col.addView(topicCard("", "Acronyms", "Related technical full forms in the searchable list", PURPLE, "Open", v -> showFullForms()), margins(0, 5));
+        switchScreen(scroll);
+    }
+
+    private void showLessonsList(final Chapter ch){
+        cancelTimer();
+        chrome(true);
+        setNav(1);
+        final List<Lesson> ls = lessons.get(ch.id);
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(screenTopBar(ch.title + " Concepts", () -> showChapter(ch)));
+        if(ls == null || ls.isEmpty()){
+            col.addView(text("No lessons found for this chapter.", 14, DIM), margins(0, 10));
+        } else {
             for(int i=0;i<ls.size();i++){
                 final int idx = i;
-                final Lesson l = ls.get(i);
+                Lesson l = ls.get(i);
+                boolean read = prefs.getBoolean("read_" + ch.id + "_" + i, false);
+                boolean checked = prefs.getBoolean("check_" + ch.id + "_" + i, false);
                 LinearLayout row = new LinearLayout(this);
                 row.setOrientation(LinearLayout.HORIZONTAL);
                 row.setGravity(Gravity.CENTER_VERTICAL);
-                row.setBackground(bg(CARD, 16));
-                row.setPadding(dp(14), dp(12), dp(14), dp(12));
-                TextView num = bold((i+1) + "", 14, BLUE);
-                num.setMinWidth(dp(28));
-                row.addView(num);
-                row.addView(text(l.title, 14, TEXT), new LinearLayout.LayoutParams(0, -2, 1));
-                boolean read = prefs.getBoolean("read_" + ch.id + "_" + i, false);
-                boolean checked = prefs.getBoolean("check_" + ch.id + "_" + i, false);
-                TextView tick = text(checked ? "✓" : read ? "◐" : "○", 15, checked ? GREEN : read ? ORANGE : DIM);
-                row.addView(tick);
+                row.setBackground(bg(checked ? 0xff12382d : CARD, 16));
+                if(idx == 0 && !checked) row.setBackground(bg(0xff17365b, 16));
+                row.setPadding(dp(12), dp(10), dp(12), dp(10));
+                TextView num = bold(String.valueOf(i+1), 14, checked ? GREEN : BLUE);
+                num.setGravity(Gravity.CENTER);
+                num.setBackground(bg(checked ? 0xff1b5643 : 0xff21476f, 14));
+                row.addView(num, new LinearLayout.LayoutParams(dp(36), dp(36)));
+                LinearLayout texts = new LinearLayout(this);
+                texts.setOrientation(LinearLayout.VERTICAL);
+                texts.setPadding(dp(12), 0, dp(8), 0);
+                texts.addView(bold(l.title, 14, TEXT));
+                texts.addView(text("5 min", 10, DIM));
+                row.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
+                row.addView(icon(checked ? R.drawable.ic_check : read ? R.drawable.ic_play : R.drawable.ic_lock, checked ? GREEN : read ? ORANGE : DIM, 20));
                 row.setOnClickListener(v -> showLesson(ch, idx));
                 press(row);
                 col.addView(row, margins(0, 4));
-                popIn(row, 50 * i);
             }
         }
-        Button home = new Button(this);
-        home.setText("Back to Learn Chapters"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);
-        home.setBackground(bg(SOFT, 22));
-        home.setOnClickListener(v -> showLearnTopics());
-        press(home);
-        LinearLayout.LayoutParams hp = new LinearLayout.LayoutParams(-1, dp(46));
-        hp.setMargins(0, dp(10), 0, 0);
-        col.addView(home, hp);
         switchScreen(scroll);
     }
 
     private void showLesson(final Chapter ch, final int idx){
         cancelTimer();
+        chrome(true);
+        setNav(1);
         final List<Lesson> ls = lessons.get(ch.id);
         final Lesson l = ls.get(idx);
         prefs.edit().putBoolean("read_"+ch.id+"_"+idx,true).apply();
@@ -1360,6 +1876,8 @@ public class MainActivity extends Activity {
     // ---------------- INTERVIEW QUESTIONS ----------------
     private void showInterviewTopic(final InterviewChapter ch){
         cancelTimer();
+        chrome(true);
+        setNav(3);
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
@@ -1518,42 +2036,53 @@ public class MainActivity extends Activity {
     // ---------------- QUIZ ----------------
     private void startQuiz(List<Q> qs, String title, int m, String best, boolean isDaily, boolean isRevise, Runnable again){
         cancelTimer();
+        chrome(false);
         quiz = qs; quizTitle = title; bestKey = best; daily = isDaily; revise = isRevise;
         qi = 0; correctCount = 0; restart = again;
+        currentWrong.clear();
         timerSecs = quizTimer(m, quizDifficulty);
 
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
-        col.setPadding(dp(16), dp(4), dp(16), dp(16));
+        col.setGravity(Gravity.CENTER);
+        col.setPadding(dp(16), dp(10), dp(16), dp(18));
 
         LinearLayout topRow = new LinearLayout(this);
         topRow.setOrientation(LinearLayout.HORIZONTAL);
         topRow.setGravity(Gravity.CENTER_VERTICAL);
-        counterText = bold("", 14, DIM);
+        ImageView back = icon(R.drawable.ic_back, TEXT, 23);
+        back.setOnClickListener(v -> showQuizSetup());
+        press(back);
+        topRow.addView(back, new LinearLayout.LayoutParams(dp(38), dp(38)));
+        counterText = bold("", 13, DIM);
+        counterText.setGravity(Gravity.CENTER);
         topRow.addView(counterText, new LinearLayout.LayoutParams(0, -2, 1));
-        timerText = bold("", 16, ORANGE);
+        timerText = bold("", 14, ORANGE);
         topRow.addView(timerText);
         col.addView(topRow, margins(0, 4));
 
         quizBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         quizBar.setMax(qs.size());
-        col.addView(quizBar, margins(0, 4));
+        quizBar.setProgress(0);
+        col.addView(quizBar, margins(0, 5));
 
         LinearLayout qCard = new LinearLayout(this);
         qCard.setOrientation(LinearLayout.VERTICAL);
-        qCard.setBackground(bg(CARD, 18));
-        qCard.setPadding(dp(16), dp(16), dp(16), dp(16));
-        questionText = bold("", 17, TEXT);
-        questionText.setLineSpacing(0, 1.15f);
+        qCard.setBackground(bg(CARD, 22));
+        qCard.setPadding(dp(18), dp(18), dp(18), dp(18));
+        questionText = bold("", 19, TEXT);
+        questionText.setGravity(Gravity.CENTER);
+        questionText.setLineSpacing(0, 1.18f);
         qCard.addView(questionText);
         quizSpeakBtn = new Button(this);
-        quizSpeakBtn.setText("\uD83D\uDD0A Speak question"); quizSpeakBtn.setAllCaps(false); quizSpeakBtn.setTextColor(BLUE); quizSpeakBtn.setTextSize(12);
+        quizSpeakBtn.setText("Speak question"); quizSpeakBtn.setAllCaps(false); quizSpeakBtn.setTextColor(BLUE); quizSpeakBtn.setTextSize(12);
         quizSpeakBtn.setTypeface(null, Typeface.BOLD);
         quizSpeakBtn.setBackground(bg(SOFT, 20));
-        quizSpeakBtn.setOnClickListener(v -> toggleSpeech(quizSpeakBtn, "\uD83D\uDD0A Speak question", quizSpeechParts()));
+        quizSpeakBtn.setOnClickListener(v -> toggleSpeech(quizSpeakBtn, "Speak question", quizSpeechParts()));
         press(quizSpeakBtn);
         LinearLayout.LayoutParams qsp = new LinearLayout.LayoutParams(-2, dp(38));
-        qsp.setMargins(0, dp(10), 0, 0);
+        qsp.gravity = Gravity.CENTER_HORIZONTAL;
+        qsp.setMargins(0, dp(12), 0, 0);
         qCard.addView(quizSpeakBtn, qsp);
         col.addView(qCard, margins(0, 8));
 
@@ -1564,17 +2093,20 @@ public class MainActivity extends Activity {
         explainCard = new LinearLayout(this);
         ((LinearLayout)explainCard).setOrientation(LinearLayout.VERTICAL);
         explainCard.setBackground(bg(SOFT, 18));
-        explainCard.setPadding(dp(16), dp(12), dp(16), dp(12));
-        explainTitle = bold("", 14, GREEN);
+        explainCard.setPadding(dp(16), dp(14), dp(16), dp(14));
+        explainTitle = bold("", 15, GREEN);
         explainText = text("", 13, TEXT);
-        explainText.setLineSpacing(0, 1.1f);
+        explainText.setLineSpacing(0, 1.14f);
+        explainOptions = new LinearLayout(this);
+        explainOptions.setOrientation(LinearLayout.VERTICAL);
         ((LinearLayout)explainCard).addView(explainTitle);
-        ((LinearLayout)explainCard).addView(explainText);
+        ((LinearLayout)explainCard).addView(explainText, margins(0, 3));
+        ((LinearLayout)explainCard).addView(explainOptions, margins(0, 4));
         explainCard.setVisibility(View.GONE);
         col.addView(explainCard, margins(0, 6));
 
         nextBtn = new Button(this);
-        nextBtn.setAllCaps(false); nextBtn.setTextColor(0xff101827); nextBtn.setTextSize(15);
+        nextBtn.setAllCaps(false); nextBtn.setTextColor(0xff07111f); nextBtn.setTextSize(15);
         nextBtn.setTypeface(null, Typeface.BOLD);
         nextBtn.setBackground(bg(BLUE, 24));
         nextBtn.setVisibility(View.GONE);
@@ -1584,40 +2116,52 @@ public class MainActivity extends Activity {
         np.setMargins(0, dp(6), 0, 0);
         col.addView(nextBtn, np);
 
-        ScrollView quizScroll=new ScrollView(this);
+        ScrollView quizScroll = new ScrollView(this);
         quizScroll.setFillViewport(true);
         quizScroll.addView(col);
         switchScreen(quizScroll);
         renderQuestion();
     }
 
+    private View optionView(String letter, String label){
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setBackground(bg(CARD, 16));
+        row.setPadding(dp(10), dp(8), dp(12), dp(8));
+        TextView badge = bold(letter, 13, BLUE);
+        badge.setGravity(Gravity.CENTER);
+        badge.setBackground(bg(SOFT, 14));
+        row.addView(badge, new LinearLayout.LayoutParams(dp(34), dp(34)));
+        TextView option = text(label, 14, TEXT);
+        option.setPadding(dp(12), 0, 0, 0);
+        option.setLineSpacing(0, 1.1f);
+        row.addView(option, new LinearLayout.LayoutParams(0, -2, 1));
+        return row;
+    }
+
     private void renderQuestion(){
         stopSpeech();
         final Q q = quiz.get(qi);
-        counterText.setText("Question " + (qi+1) + " of " + quiz.size() + "  \u2022  " + quizTitle);
+        counterText.setText(quizTitle + "   " + (qi+1) + "/" + quiz.size());
         quizBar.setProgress(qi);
         questionText.setText(q.q);
         optionsBox.removeAllViews();
         explainCard.setVisibility(View.GONE);
+        explainOptions.removeAllViews();
         nextBtn.setVisibility(View.GONE);
-        if(quizSpeakBtn != null) quizSpeakBtn.setText("\uD83D\uDD0A Speak question");
+        if(quizSpeakBtn != null) quizSpeakBtn.setText("Speak question");
+        String[] letters = {"A", "B", "C", "D", "E", "F"};
         for(int i=0;i<q.o.length;i++){
             final int idx = i;
-            Button b = new Button(this);
-            b.setText(q.o[i]);
-            b.setAllCaps(false);
-            b.setTextSize(14);
-            b.setTextColor(TEXT);
-            b.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-            b.setPadding(dp(14), 0, dp(14), 0);
-            b.setBackground(bg(CARD, 16));
-            b.setOnClickListener(v -> answer(idx, b));
-            press(b);
-            b.setMinHeight(dp(56));
+            LinearLayout row = (LinearLayout) optionView(letters[i], q.o[i]);
+            row.setOnClickListener(v -> answer(idx, null));
+            press(row);
+            row.setMinimumHeight(dp(56));
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
             p.setMargins(0, dp(5), 0, dp(5));
-            optionsBox.addView(b, p);
-            popIn(b, 60 * i);
+            optionsBox.addView(row, p);
+            popIn(row, 60 * i);
         }
         startTimerIfNeeded();
     }
@@ -1643,6 +2187,162 @@ public class MainActivity extends Activity {
         }.start();
     }
     private void cancelTimer(){ if(timer != null){ timer.cancel(); timer = null; } }
+
+    private View optionReviewRow(String letter, String option, boolean correct, String reason){
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.TOP);
+        row.setBackground(bg(correct ? 0xff12382d : 0xff3a1e28, 12));
+        row.setPadding(dp(10), dp(8), dp(10), dp(8));
+        TextView badge = bold(letter, 12, correct ? GREEN : RED);
+        badge.setGravity(Gravity.CENTER);
+        badge.setBackground(bg(correct ? 0xff1b5643 : 0xff5a2633, 12));
+        row.addView(badge, new LinearLayout.LayoutParams(dp(30), dp(30)));
+        LinearLayout texts = new LinearLayout(this);
+        texts.setOrientation(LinearLayout.VERTICAL);
+        texts.setPadding(dp(10), 0, 0, 0);
+        texts.addView(bold(option, 12, TEXT));
+        TextView why = text(reason, 11, DIM);
+        why.setPadding(0, dp(2), 0, 0);
+        texts.addView(why);
+        row.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
+        return row;
+    }
+
+    private void answer(int chosen, Button chosenBtn){
+        cancelTimer();
+        final Q q = quiz.get(qi);
+        Set<String> wrong = wrongSet();
+        String[] letters = {"A", "B", "C", "D", "E", "F"};
+        for(int i=0;i<optionsBox.getChildCount();i++){
+            View child = optionsBox.getChildAt(i);
+            child.setEnabled(false);
+            if(i == q.a){
+                child.setBackground(bg(0xff12382d, 16));
+                child.animate().scaleX(1.02f).scaleY(1.02f).setDuration(140).withEndAction(() ->
+                        child.animate().scaleX(1f).scaleY(1f).setDuration(140).start()).start();
+            } else if(i == chosen){
+                child.setBackground(bg(0xff4a1f2d, 16));
+            } else {
+                child.setAlpha(0.55f);
+            }
+        }
+        boolean correct = chosen == q.a;
+        if(correct){
+            correctCount++;
+            wrong.remove(q.id());
+            explainTitle.setText("Correct");
+            explainTitle.setTextColor(GREEN);
+        } else {
+            wrong.add(q.id());
+            if(!currentWrong.contains(q)) currentWrong.add(q);
+            explainTitle.setText(chosen < 0 ? "Time up" : "Incorrect");
+            explainTitle.setTextColor(RED);
+        }
+        saveWrong(wrong);
+        String selected = chosen >= 0 && chosen < q.o.length ? q.o[chosen] : "No answer selected";
+        explainText.setText((correct ? "You selected: " : "You selected: " + selected + "
+Correct answer: ") + (correct ? q.o[q.a] : q.o[q.a]) + "
+" + q.e);
+        explainOptions.removeAllViews();
+        TextView head = bold("Explanation of all options", 12, DIM);
+        head.setPadding(0, dp(8), 0, dp(2));
+        explainOptions.addView(head);
+        for(int i=0;i<q.o.length;i++){
+            boolean ok = i == q.a;
+            String reason = ok ? q.e : "This is not the verified answer for this question.";
+            explainOptions.addView(optionReviewRow(letters[i], q.o[i], ok, reason), margins(0, 3));
+        }
+        explainCard.setBackground(bg(correct ? 0xff102e28 : 0xff351c28, 18));
+        explainCard.setVisibility(View.VISIBLE);
+        explainCard.setAlpha(0f);
+        explainCard.setTranslationY(dp(20));
+        explainCard.animate().alpha(1f).translationY(0).setDuration(260).start();
+        nextBtn.setText(qi == quiz.size()-1 ? "See Results" : "Next Question");
+        nextBtn.setVisibility(View.VISIBLE);
+        nextBtn.setAlpha(0f);
+        nextBtn.animate().alpha(1f).setStartDelay(150).setDuration(200).start();
+    }
+
+    private void next(){
+        qi++;
+        if(qi >= quiz.size()) finishQuiz();
+        else renderQuestion();
+    }
+
+    private void finishQuiz(){
+        cancelTimer();
+        chrome(false);
+        int total = quiz.size();
+        final int percent = total == 0 ? 0 : correctCount * 100 / total;
+        if(daily){
+            String last = prefs.getString("lastDaily", "");
+            if(!today().equals(last)){
+                int s = yesterday().equals(last) ? streak() + 1 : 1;
+                prefs.edit().putInt("streak", s).putString("lastDaily", today()).apply();
+            }
+        }
+        if(bestKey != null && percent > prefs.getInt(bestKey, -1))
+            prefs.edit().putInt(bestKey, percent).apply();
+
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setGravity(Gravity.CENTER);
+        col.setPadding(dp(24), dp(30), dp(24), dp(24));
+
+        TextView trophy = bold("Quiz Result", 16, DIM);
+        col.addView(trophy);
+        TextView msg = bold(percent >= 70 ? "Great Job!" : "Keep Practicing!", 25, TEXT);
+        msg.setPadding(0, dp(8), 0, dp(2));
+        col.addView(msg);
+        TextView scoreLine = text("You scored " + correctCount + " out of " + total, 14, DIM);
+        col.addView(scoreLine);
+        col.addView(progressRing(percent, percent >= 70 ? GREEN : percent >= 50 ? ORANGE : RED, 142), new LinearLayout.LayoutParams(dp(142), dp(142)));
+
+        LinearLayout stats = new LinearLayout(this);
+        stats.setOrientation(LinearLayout.HORIZONTAL);
+        stats.setGravity(Gravity.CENTER);
+        stats.setPadding(0, dp(12), 0, dp(12));
+        stats.addView(resultStat("Correct", String.valueOf(correctCount), GREEN), new LinearLayout.LayoutParams(0, -2, 1));
+        stats.addView(resultStat("Incorrect", String.valueOf(total - correctCount), RED), new LinearLayout.LayoutParams(0, -2, 1));
+        stats.addView(resultStat("Topic", quizTitle.split(" • ")[0], BLUE), new LinearLayout.LayoutParams(0, -2, 1));
+        col.addView(stats, new LinearLayout.LayoutParams(-1, -2));
+
+        final List<Q> wrongNow = new ArrayList<>(currentWrong);
+        if(!wrongNow.isEmpty()){
+            Button review = primaryButton("Review Mistakes", BLUE, v -> startQuiz(new ArrayList<>(wrongNow), "Review Mistakes", MODE_BEGINNER, null, false, true,
+                    () -> startQuiz(new ArrayList<>(wrongNow), "Review Mistakes", MODE_BEGINNER, null, false, true, null)));
+            col.addView(review, new LinearLayout.LayoutParams(-1, dp(52)));
+        }
+        if(restart != null){
+            Button retry = primaryButton("Retry Quiz", GREEN, v -> restart.run());
+            LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(-1, dp(52));
+            rp.setMargins(0, dp(8), 0, 0);
+            col.addView(retry, rp);
+        }
+        Button home = new Button(this);
+        home.setText("Back to Home"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(14);
+        home.setBackground(bg(SOFT, 22));
+        home.setOnClickListener(v -> showHome());
+        press(home);
+        LinearLayout.LayoutParams hp = new LinearLayout.LayoutParams(-1, dp(52));
+        hp.setMargins(0, dp(8), 0, 0);
+        col.addView(home, hp);
+        switchScreen(col);
+    }
+
+    private View resultStat(String label, String value, int color){
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setGravity(Gravity.CENTER);
+        box.setBackground(bg(CARD, 16));
+        box.setPadding(dp(8), dp(10), dp(8), dp(10));
+        box.addView(bold(value, 15, color));
+        TextView l = text(label, 10, DIM);
+        l.setGravity(Gravity.CENTER);
+        box.addView(l);
+        return box;
+    }
 
     // ---------------- OFFLINE SPEECH ----------------
     private void initSpeech(){
