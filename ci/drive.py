@@ -163,8 +163,21 @@ def current_question(xml):
                     return q
     return None
 
+def restart_app():
+    run(['adb', 'shell', 'am', 'force-stop', PKG], timeout=10)
+    run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'], timeout=10)
+    return wait_node(35, contains='Continue Learning')
+
+def open_interview_sections():
+    nodes, xml = restart_app()
+    if not nodes:
+        return nodes, xml
+    if not tap_exact(xml, 'Interview Questions'):
+        return [], xml
+    return wait_node(20, contains='Your Questions & PDFs')
+
 def main():
-    r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'])
+    r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'], timeout=120)
     out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
     check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
     run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'])
@@ -350,9 +363,8 @@ def main():
         PAGES.append(xml)
         check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
         shot('13b_commands_200')
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+        nodes, xml = open_interview_sections()
+        PAGES.append(xml)
     else:
         check('200 Important Commands opens', False)
     if tap_exact(xml, 'Networking Interview Q&A', contains=True):
@@ -360,9 +372,8 @@ def main():
         PAGES.append(xml)
         check('Networking Interview Q&A opens', bool(nodes) and bool(find_all(xml, contains='Read answer')))
         shot('13c_network_qa')
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+        nodes, xml = open_interview_sections()
+        PAGES.append(xml)
     else:
         check('Networking Interview Q&A opens', False)
     if tap_exact(xml, '15 Advanced Topics Handbook', contains=True):
@@ -370,9 +381,8 @@ def main():
         PAGES.append(xml)
         check('15 Advanced Topics Handbook opens', bool(nodes) and bool(find_all(xml, contains='Linux History & Foundations')))
         shot('13d_advanced_handbook')
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+        nodes, xml = open_interview_sections()
+        PAGES.append(xml)
     else:
         check('15 Advanced Topics Handbook opens', False)
     nodes, xml = find_scrolled(contains='My Interview Questions')
@@ -388,10 +398,7 @@ def main():
             PAGES.append(xml)
             check('interview question screen opens', bool(nodes) and bool(find_all(xml, text='Speak answer', clazz='Button')))
             shot('15_interview_question')
-    run(['adb', 'shell', 'input', 'keyevent', '4'])
-    time.sleep(1)
-    run(['adb', 'shell', 'input', 'keyevent', '4'])
-    time.sleep(1)
+    restart_app()
 
     # Topics -> chapter home -> lesson list -> lesson.
     nodes, xml = wait_node(15, text='Topics')
