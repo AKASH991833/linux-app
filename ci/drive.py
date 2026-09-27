@@ -1,4 +1,4 @@
-import os, re, subprocess, sys, time
+import json, os, re, subprocess, sys, time
 import xml.etree.ElementTree as ET
 
 API = int(sys.argv[1])
@@ -147,12 +147,23 @@ def tap_exact(xml, label, contains=False):
         return True
     return False
 
+def current_question(xml):
+    texts = {n.get('text') or '' for n in find_all(xml)}
+    for asset in ('questions.json', 'computer_questions.json'):
+        with open(os.path.join('app', 'src', 'main', 'assets', asset)) as f:
+            data = json.load(f)
+        for chapter in data.get('chapters', []):
+            for q in chapter.get('questions', []):
+                if q.get('q') in texts:
+                    return q
+    return None
+
 def main():
     r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'])
     out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
     check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
     run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'])
-    time.sleep(1.0)
+    wait_node(15, contains='Loading your learning journey...')
     shot('01_splash')
     check('splash screen captured', os.path.exists(os.path.join(OUT, '01_splash.png')))
 
@@ -172,8 +183,8 @@ def main():
           bool(find_all(xml, text='Linux Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
           bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')))
     progress_nodes, progress_xml = find_scrolled(12, text='Acronyms')
-    check('progress card present', os.path.exists(os.path.join(OUT, '03b_home_progress.png')))
     shot('03b_home_progress')
+    check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Acronyms')))
     scroll_up(8)
     nodes, xml = wait_node(10, contains='Continue Learning')
     check('bottom navigation present',
@@ -193,10 +204,10 @@ def main():
     control_nodes, control_xml = find_scrolled(10, text='Difficulty Level')
     check('quiz setup controls present',
           bool(control_nodes) and bool(find_all(control_xml, text='Number of Questions')))
-    check('quiz setup difficulty and count present',
-          bool(find_all(control_xml, text='Easy')) and bool(find_all(control_xml, text='Normal')) and bool(find_all(control_xml, text='Hard')) and
-          bool(find_all(control_xml, text='10')) and bool(find_all(control_xml, text='20')) and bool(find_all(control_xml, text='30')))
     start_nodes, xml = find_scrolled(10, text='Start Quiz')
+    check('quiz setup difficulty and count present',
+          bool(find_all(xml, text='Easy')) and bool(find_all(xml, text='Normal')) and bool(find_all(xml, text='Hard')) and
+          bool(find_all(xml, text='10')) and bool(find_all(xml, text='20')) and bool(find_all(xml, text='30')))
     shot('04b_quiz_setup_controls')
     if not start_nodes:
         die('start quiz button not found')
@@ -205,13 +216,29 @@ def main():
     PAGES.append(xml)
     check('quiz question opens centered flow', bool(nodes) and bool(find_all(xml, text='Speak question', clazz='Button')))
     shot('05_quiz_question')
-    check('answer option tappable', tap_option(xml, 0))
+    q = current_question(xml)
+    wrong_index = 0 if q and q['a'] != 0 else 1
+    check('answer option tappable', tap_option(xml, wrong_index))
     time.sleep(1)
-    nodes, xml = wait_node(10, contains='Explanation of all options')
+    nodes, xml = find_scrolled(8, contains='Explanation of all options')
     PAGES.append(xml)
     check('answer review explains every option', bool(nodes))
     check('answer review marks correct option', bool(find_all(xml, contains='Correct answer:')) or bool(find_all(xml, text='Correct')))
-    shot('06_answer_review')
+    shot('06_answer_review_wrong_pick')
+    next_nodes, xml = find_scrolled(8, text='Next Question')
+    if not next_nodes:
+        die('next question button not found after wrong pick')
+    tap_node(next_nodes[0])
+    nodes, xml = wait_node(20, contains='/10')
+    q = current_question(xml)
+    if not q:
+        die('could not match second quiz question to local question data')
+    check('correct answer option tappable', tap_option(xml, q['a']))
+    time.sleep(1)
+    nodes, xml = find_scrolled(8, contains='Explanation of all options')
+    PAGES.append(xml)
+    check('correct pick review shows only correct state', bool(find_all(xml, text='Correct')) and bool(nodes))
+    shot('06b_answer_review_correct_pick')
 
     # Computer chapter quiz, through a full 5-question round to the result screen.
     run(['adb', 'shell', 'input', 'keyevent', '4'])
@@ -269,6 +296,7 @@ def main():
         tap_node(search[0])
         run(['adb', 'shell', 'input', 'text', 'DNS'])
         time.sleep(1.6)
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
         nodes, xml = wait_node(25, contains='Domain Name System')
         PAGES.append(xml)
         check('full form search finds DNS', bool(nodes))
@@ -292,6 +320,7 @@ def main():
         tap_node(search[0])
         run(['adb', 'shell', 'input', 'text', 'Kernel'])
         time.sleep(1.6)
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
         nodes, xml = wait_node(25, contains='The core of the operating system, managing hardware and processes.')
         PAGES.append(xml)
         check('definitions search finds Kernel', bool(nodes) and bool(find_all(xml, contains='Linux Glossary')))
@@ -312,6 +341,36 @@ def main():
           bool(find_all(xml, contains='My Interview Questions')) and bool(find_all(xml, contains='200 Important Commands')) and
           bool(find_all(xml, contains='Networking Interview Q&A')) and bool(find_all(xml, contains='15 Advanced Topics Handbook')))
     shot('13_interview_sections')
+    if tap_exact(xml, '200 Important Commands', contains=True):
+        nodes, xml = wait_node(20, contains='all 200 rows in original order')
+        PAGES.append(xml)
+        check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
+        shot('13b_commands_200')
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+    else:
+        check('200 Important Commands opens', False)
+    if tap_exact(xml, 'Networking Interview Q&A', contains=True):
+        nodes, xml = wait_node(20, contains='Networking Interview Q&A')
+        PAGES.append(xml)
+        check('Networking Interview Q&A opens', bool(nodes) and bool(find_all(xml, contains='Read answer')))
+        shot('13c_network_qa')
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+    else:
+        check('Networking Interview Q&A opens', False)
+    if tap_exact(xml, '15 Advanced Topics Handbook', contains=True):
+        nodes, xml = wait_node(20, contains='15 Advanced Topics Handbook')
+        PAGES.append(xml)
+        check('15 Advanced Topics Handbook opens', bool(nodes) and bool(find_all(xml, contains='Linux History & Foundations')))
+        shot('13d_advanced_handbook')
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Your Questions & PDFs')
+    else:
+        check('15 Advanced Topics Handbook opens', False)
     nodes, xml = find_scrolled(contains='My Interview Questions')
     if nodes:
         tap_node(nodes[0])
@@ -360,6 +419,12 @@ def main():
     check('lesson reader opens with quick check', bool(nodes))
     check('lesson speak remains available', bool(speak_nodes))
     shot('19b_lesson_quick_check')
+    if not tap_exact(xml, 'Linux kernel'):
+        die('lesson quick-check correct option not found')
+    nodes, xml = wait_node(15, contains='You got it!')
+    PAGES.append(xml)
+    check('quick check correct pick state opens', bool(nodes))
+    shot('19c_lesson_quick_check_correct')
 
     failed = [n for n, ok in results if not ok]
     finish(1 if failed else 0)
