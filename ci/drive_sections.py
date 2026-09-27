@@ -79,6 +79,23 @@ def tap_exact(xml, label, contains=False):
         return True
     return False
 
+def yrange(n):
+    m = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', n.get('bounds'))
+    return int(m.group(2)), int(m.group(4))
+
+def tap_open_near(xml, label):
+    titles = find_all(xml, contains=label)
+    if not titles:
+        return False
+    ty1, ty2 = yrange(titles[0])
+    for b in find_all(xml, text='Open', clazz='Button'):
+        by1, by2 = yrange(b)
+        if by1 < ty2 and by2 > ty1:
+            tap_node(b)
+            return True
+    tap_node(titles[0])
+    return True
+
 def wait_node(timeout=30, **kw):
     end = time.time() + timeout
     xml = ''
@@ -159,7 +176,7 @@ else:
 
 for attempt in range(3):
     nodes, xml = open_interview_sections()
-    if tap_exact(xml, '200 Important Commands', contains=True):
+    if tap_open_near(xml, '200 Important Commands'):
         nodes, xml = wait_node(25, contains='all 200 rows in original order')
         if nodes and find_all(xml, contains='#1'):
             break
