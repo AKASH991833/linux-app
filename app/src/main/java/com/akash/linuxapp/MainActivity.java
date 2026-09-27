@@ -500,6 +500,7 @@ public class MainActivity extends Activity {
                     boolean ok=choice==l.checkAnswer;
                     feedback.setText((ok ? "You got it! ✓ " : "Try again. ") + l.checkE);
                     feedback.setTextColor(ok ? GREEN : ORANGE);
+                    scroll.post(() -> scroll.smoothScrollTo(0, Math.max(0, checkCard.getBottom() - scroll.getHeight() + dp(42))));
                     if(ok){
                         prefs.edit().putBoolean("check_"+ch.id+"_"+idx,true)
                             .putBoolean("read_"+ch.id+"_"+idx,true).apply();
