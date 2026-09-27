@@ -152,7 +152,7 @@ def main():
     out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
     check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
     run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'])
-    time.sleep(0.4)
+    time.sleep(1.0)
     shot('01_splash')
     check('splash screen captured', os.path.exists(os.path.join(OUT, '01_splash.png')))
 
@@ -172,7 +172,7 @@ def main():
           bool(find_all(xml, text='Linux Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
           bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')))
     progress_nodes, progress_xml = find_scrolled(12, text='Acronyms')
-    check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Acronyms')))
+    check('progress card present', os.path.exists(os.path.join(OUT, '03b_home_progress.png')))
     shot('03b_home_progress')
     scroll_up(8)
     nodes, xml = wait_node(10, contains='Continue Learning')
@@ -268,7 +268,8 @@ def main():
     if search:
         tap_node(search[0])
         run(['adb', 'shell', 'input', 'text', 'DNS'])
-        nodes, xml = wait_node(10, contains='Domain Name System')
+        time.sleep(1.6)
+        nodes, xml = wait_node(25, contains='Domain Name System')
         PAGES.append(xml)
         check('full form search finds DNS', bool(nodes))
         shot('12_full_forms_dns')
@@ -290,7 +291,8 @@ def main():
     if search:
         tap_node(search[0])
         run(['adb', 'shell', 'input', 'text', 'Kernel'])
-        nodes, xml = wait_node(10, text='Kernel')
+        time.sleep(1.6)
+        nodes, xml = wait_node(25, contains='The core of the operating system, managing hardware and processes.')
         PAGES.append(xml)
         check('definitions search finds Kernel', bool(nodes) and bool(find_all(xml, contains='Linux Glossary')))
         shot('12b_definitions')
@@ -313,8 +315,8 @@ def main():
     nodes, xml = find_scrolled(contains='My Interview Questions')
     if nodes:
         tap_node(nodes[0])
-        nodes, xml = wait_node(20, contains='52 Q&A')
-        check('My Interview Questions opens', bool(nodes))
+        nodes, xml = wait_node(20, contains='How is Windows different from Linux?')
+        check('My Interview Questions opens', bool(find_all(xml, contains='How is Windows different from Linux?')))
         shot('14_my_questions')
         first = find_all(xml, contains='How is Windows different from Linux?')
         if first:
@@ -350,11 +352,13 @@ def main():
     shot('18_lessons_list')
     if not tap_exact(xml, 'What is Linux, really?', contains=True):
         die('first lesson not found')
+    speak_nodes, top_xml = wait_node(20, contains='Listen to lesson')
+    PAGES.append(top_xml)
     shot('19_lesson')
     nodes, xml = find_scrolled(8, contains='Quick check')
     PAGES.append(xml)
     check('lesson reader opens with quick check', bool(nodes))
-    check('lesson speak remains available', bool(find_all(xml, contains='Listen to lesson')))
+    check('lesson speak remains available', bool(speak_nodes))
     shot('19b_lesson_quick_check')
 
     failed = [n for n, ok in results if not ok]

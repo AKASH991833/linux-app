@@ -1098,7 +1098,7 @@ public class MainActivity extends Activity {
                 if(pendingFullFormSearch[0] != null) fullFormSearchHandler.removeCallbacks(pendingFullFormSearch[0]);
                 final String query = s.toString();
                 pendingFullFormSearch[0] = () -> populateFullForms(results, matchCount, query);
-                fullFormSearchHandler.postDelayed(pendingFullFormSearch[0], 350);
+                fullFormSearchHandler.postDelayed(pendingFullFormSearch[0], 1200);
             }
         });
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
@@ -1232,7 +1232,7 @@ public class MainActivity extends Activity {
                 if(pendingDefinitionSearch[0] != null) definitionSearchHandler.removeCallbacks(pendingDefinitionSearch[0]);
                 final String query = s.toString();
                 pendingDefinitionSearch[0] = () -> populateDefinitions(results, matchCount, query, filter[0]);
-                definitionSearchHandler.postDelayed(pendingDefinitionSearch[0], 350);
+                definitionSearchHandler.postDelayed(pendingDefinitionSearch[0], 1200);
             }
         });
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
