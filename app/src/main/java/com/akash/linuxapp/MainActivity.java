@@ -646,7 +646,7 @@ public class MainActivity extends Activity {
         switchScreen(col);
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             if(prefs.getBoolean("welcome_seen", false)) showHome(); else showWelcome();
-        }, 1100);
+        }, 2400);
     }
 
     private void showWelcome(){

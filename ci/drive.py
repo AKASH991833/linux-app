@@ -173,7 +173,11 @@ def main():
     check('home action cards present',
           bool(find_all(xml, text='Linux Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
           bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')))
-    check('progress card present', bool(find_all(xml, text='Your Progress')) and bool(find_all(xml, contains='Interview Q&A')) and bool(find_all(xml, contains='Acronyms')))
+    progress_nodes, progress_xml = find_scrolled(8, text='Your Progress')
+    check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Interview Q&A')) and bool(find_all(progress_xml, contains='Acronyms')))
+    shot('03b_home_progress')
+    scroll_up(8)
+    nodes, xml = wait_node(10, contains='Continue Learning')
     check('bottom navigation present',
           bool(find_all(xml, text='Home')) and bool(find_all(xml, text='Topics')) and bool(find_all(xml, text='Quiz')) and
           bool(find_all(xml, text='Interview')) and bool(find_all(xml, text='More')))
@@ -185,15 +189,20 @@ def main():
     nodes, xml = wait_node(20, contains='Create Quiz')
     PAGES.append(xml)
     check('quiz setup opens', bool(nodes))
-    check('quiz setup controls present',
-          bool(find_all(xml, text='Select Topic')) and bool(find_all(xml, text='Difficulty Level')) and
-          bool(find_all(xml, text='Number of Questions')) and bool(find_all(xml, text='Linux - Beginner')))
-    check('quiz setup difficulty and count present',
-          bool(find_all(xml, text='Easy')) and bool(find_all(xml, text='Normal')) and bool(find_all(xml, text='Hard')) and
-          bool(find_all(xml, text='10')) and bool(find_all(xml, text='20')) and bool(find_all(xml, text='30')))
+    check('quiz setup topic controls present',
+          bool(find_all(xml, text='Select Topic')) and bool(find_all(xml, text='Linux - Beginner')))
     shot('04_quiz_setup')
-    if not tap_exact(xml, 'Start Quiz'):
+    control_nodes, control_xml = find_scrolled(10, text='Difficulty Level')
+    check('quiz setup controls present',
+          bool(control_nodes) and bool(find_all(control_xml, text='Number of Questions')))
+    check('quiz setup difficulty and count present',
+          bool(find_all(control_xml, text='Easy')) and bool(find_all(control_xml, text='Normal')) and bool(find_all(control_xml, text='Hard')) and
+          bool(find_all(control_xml, text='10')) and bool(find_all(control_xml, text='20')) and bool(find_all(control_xml, text='30')))
+    start_nodes, xml = find_scrolled(10, text='Start Quiz')
+    shot('04b_quiz_setup_controls')
+    if not start_nodes:
         die('start quiz button not found')
+    tap_node(start_nodes[0])
     nodes, xml = wait_node(20, contains='/10')
     PAGES.append(xml)
     check('quiz question opens centered flow', bool(nodes) and bool(find_all(xml, text='Speak question', clazz='Button')))
