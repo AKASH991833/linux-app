@@ -2142,6 +2142,26 @@
         {
           "q": "What is the difference between backup and synchronization?",
           "a": "A backup is a recoverable copy with a separate destination, retention and restore testing. Synchronization mirrors changes, and a mirrored copy can also mirror accidental deletion. Use rsync or tar carefully, verify checksums and test restores."
+        },
+        {
+          "q": "What is the difference between rsync and cp?",
+          "a": "cp copies files each time, while rsync compares source and destination and transfers only the changes. rsync is better for repeated backups and remote synchronization. It can also preserve permissions and show a dry run first."
+        },
+        {
+          "q": "Why is rsync --dry-run important?",
+          "a": "--dry-run shows what rsync would change without changing the destination. It is especially useful before using --delete, which can remove files from the destination. Always preview destructive sync jobs."
+        },
+        {
+          "q": "How do you create, list and extract a tar backup?",
+          "a": "Create a compressed archive with tar -czf backup.tar.gz /path. List contents with tar -tzf backup.tar.gz. Extract into a restore directory with tar -xzf backup.tar.gz -C /restore/."
+        },
+        {
+          "q": "Why should backups have checksums?",
+          "a": "A checksum such as sha256sum proves that the backup file was not corrupted during copy or storage. Verify the checksum before relying on the backup for a restore."
+        },
+        {
+          "q": "What makes a backup plan production-ready?",
+          "a": "A production backup plan needs retention, a separate destination, monitoring and regular restore testing. A backup that has never been restored is not fully trusted."
         }
       ],
       "commands": [
@@ -2189,6 +2209,26 @@
         {
           "q": "What is the difference between apt and dpkg?",
           "a": "apt works with repositories and resolves dependencies, so it is normally the right tool for installing and upgrading packages on Ubuntu/Debian. dpkg is the lower-level tool for installing or inspecting individual .deb files. Use apt first when possible."
+        },
+        {
+          "q": "What is the difference between apt update and apt upgrade?",
+          "a": "apt update refreshes the package index from repositories. apt upgrade installs available upgrades for installed packages. Update tells apt what is available; upgrade applies the changes."
+        },
+        {
+          "q": "What is the difference between apt remove, purge and autoremove?",
+          "a": "remove uninstalls a package but can leave configuration files. purge removes the package and its configuration where applicable. autoremove removes dependencies that are no longer needed."
+        },
+        {
+          "q": "How do you inspect a package before installing it?",
+          "a": "Use apt search to find packages, apt show for details, and apt policy to see installed and candidate versions plus repositories. These commands do not install anything."
+        },
+        {
+          "q": "How do you inspect installed .deb packages with dpkg?",
+          "a": "Use dpkg -l to list installed packages, dpkg -L package to list files from a package, and dpkg -S /path/file to find which package owns a file."
+        },
+        {
+          "q": "Why is apt usually preferred over dpkg -i?",
+          "a": "dpkg -i installs a local .deb but does not resolve repository dependencies by itself. apt understands repositories and dependencies, so it is safer for normal package installation."
         }
       ],
       "commands": [
@@ -2266,6 +2306,26 @@
         {
           "q": "What are RAID, NFS, Samba and swap used for?",
           "a": "RAID combines disks for redundancy or performance depending on the level, but it does not replace backups. NFS is common for Linux network shares, Samba provides SMB/CIFS shares for Windows clients, and swap is disk-backed memory overflow. Monitor swap as a sign of memory pressure."
+        },
+        {
+          "q": "What are common RAID levels?",
+          "a": "RAID 0 stripes data for performance without redundancy. RAID 1 mirrors disks. RAID 5 uses distributed parity and needs at least three disks. RAID 6 uses double parity, and RAID 10 combines mirroring and striping."
+        },
+        {
+          "q": "How do you check Linux software RAID status?",
+          "a": "Check /proc/mdstat for a quick status and rebuild progress. Use mdadm --detail /dev/md0 for detailed information about the array and member disks."
+        },
+        {
+          "q": "What is the difference between NFS and Samba?",
+          "a": "NFS is commonly used for Linux and Unix network file shares. Samba provides SMB/CIFS shares, commonly for Windows clients. Both share files over the network, but they use different protocols."
+        },
+        {
+          "q": "What is swap and when is it a warning sign?",
+          "a": "Swap is disk-backed virtual memory used when RAM is under pressure. Some swap use can be normal, but constant heavy swapping usually means the server needs more RAM or a memory-heavy process needs attention."
+        },
+        {
+          "q": "How do you mount an NFS or SMB share?",
+          "a": "For NFS, use mount -t nfs server:/share /mnt/share. For SMB/CIFS, use mount -t cifs //server/share /mnt/share with the required username option. Verify the mount with df -h."
         }
       ],
       "commands": [
@@ -2343,6 +2403,26 @@
         {
           "q": "Why can a bad /etc/fstab entry stop Linux from booting normally?",
           "a": "During boot, systemd mounts filesystems from /etc/fstab. A missing disk, wrong UUID or bad mount option can make boot drop into emergency mode. Check lsblk -f and blkid, fix the entry, then test with mount -a before rebooting."
+        },
+        {
+          "q": "What is the normal Linux boot sequence?",
+          "a": "The broad sequence is BIOS or UEFI, GRUB, kernel and initramfs, systemd, then services and login. Knowing this order helps isolate whether the problem is firmware, bootloader, kernel, filesystem or service related."
+        },
+        {
+          "q": "How do you reset a forgotten root password on many RHEL-family systems?",
+          "a": "Interrupt GRUB, add rd.break to the kernel line, boot, remount /sysroot read-write with mount -o remount,rw /sysroot, chroot into /sysroot, run passwd, then touch /.autorelabel so SELinux relabels on reboot. Exit cleanly and reboot. Use this only on systems you are authorized to administer."
+        },
+        {
+          "q": "What is the difference between rescue and emergency mode?",
+          "a": "Rescue mode starts more of the system and usually mounts filesystems, while emergency mode starts a very minimal environment for severe recovery. Use emergency mode when normal rescue mode cannot mount or start required pieces."
+        },
+        {
+          "q": "How do you test fstab changes before rebooting?",
+          "a": "After editing /etc/fstab, run mount -a as root. This tries the configured mounts without rebooting and catches many wrong UUID, filesystem or mount-point problems early."
+        },
+        {
+          "q": "When should you use fsck?",
+          "a": "Use fsck to check or repair a filesystem only when it is unmounted and the procedure is appropriate for that filesystem. Do not run fsck on a mounted filesystem; boot from rescue media if the root filesystem needs repair."
         }
       ],
       "commands": [
@@ -2405,6 +2485,26 @@
         {
           "q": "How do you troubleshoot a slow Linux server?",
           "a": "Start with evidence instead of killing processes blindly. Check load and CPU with uptime/top, memory and swap with free -h, disk I/O with iostat or pidstat, then correlate with application logs. Identify the responsible process and follow the change procedure."
+        },
+        {
+          "q": "What does load average mean?",
+          "a": "Load average shows how many tasks are running or waiting, averaged over 1, 5 and 15 minutes. Compare it with the number of CPU cores; a high sustained load means the system may be overloaded or waiting on I/O."
+        },
+        {
+          "q": "How do you find a high-CPU process?",
+          "a": "Use top for a live view, or ps aux --sort=-%cpu | head for a quick list. Identify what the process is and why it is busy before stopping it."
+        },
+        {
+          "q": "How do you check memory pressure?",
+          "a": "Use free -h to see RAM and swap usage. If available memory is low and swap is heavily used, find the memory-heavy process with top or ps aux --sort=-%mem | head."
+        },
+        {
+          "q": "How do you investigate disk I/O problems?",
+          "a": "Use iostat -xz to see device utilization and latency, and pidstat -d to identify per-process I/O. High await or utilization can explain slow applications."
+        },
+        {
+          "q": "What do you check when a filesystem is full?",
+          "a": "Use df -h to find the full filesystem and df -i to check inode exhaustion. Then use du -xhd1 on the filesystem to find large directories before deleting anything."
         }
       ],
       "commands": [
@@ -2447,6 +2547,26 @@
         {
           "q": "What is the difference between rsyslog and logrotate?",
           "a": "rsyslog collects, filters and forwards log messages. logrotate rotates, compresses and retains old logs so they do not fill the filesystem. Use journalctl or the right /var/log file to investigate, and logrotate -d to preview rotation safely."
+        },
+        {
+          "q": "Where are common Linux logs stored?",
+          "a": "Systemd systems use the journal, read with journalctl. Traditional logs often live under /var/log, such as /var/log/messages on RHEL-family systems and /var/log/syslog on Debian-family systems."
+        },
+        {
+          "q": "How do you read logs for one service?",
+          "a": "Use journalctl -u service-name. Add -f to follow live logs or --since '1 hour ago' to limit the time range. Example: journalctl -u nginx -f."
+        },
+        {
+          "q": "How do you create a test log message?",
+          "a": "Use logger 'message'. It writes a test message through the system logging path, which helps verify rsyslog or journal configuration."
+        },
+        {
+          "q": "How do you test logrotate safely?",
+          "a": "Use logrotate -d /etc/logrotate.conf for a dry run. It shows what would rotate without changing files. Force rotation only when you understand the impact."
+        },
+        {
+          "q": "How can logs fill a disk and how do you prevent it?",
+          "a": "High-volume application or system logs can consume all space in /var or /var/log. logrotate retention, compression and correct application log levels help prevent it. Check space with df -h and large directories with du."
         }
       ],
       "commands": [
@@ -2509,6 +2629,26 @@
         {
           "q": "How do you troubleshoot a 502 from Nginx or Apache?",
           "a": "Validate the web server config, check the service, confirm the upstream application is listening, and read the error log. Useful checks are nginx -t or apachectl -t, systemctl status, ss -tuln, curl and the site error logs."
+        },
+        {
+          "q": "What is the difference between Apache and Nginx?",
+          "a": "Both can serve web content and act as reverse proxies. Nginx is often used as a lightweight reverse proxy and static web server, while Apache is a mature web server with flexible modules. The right choice depends on the application and team standards."
+        },
+        {
+          "q": "Why should you test web server config before reload?",
+          "a": "A syntax error can stop the service during reload or restart. Use nginx -t for Nginx and apachectl -t or httpd -t for Apache before applying configuration."
+        },
+        {
+          "q": "What is a virtual host or server block?",
+          "a": "It is the configuration that maps a site name, port and document root or proxy target to a website or application. Apache calls it a virtual host; Nginx commonly calls it a server block."
+        },
+        {
+          "q": "How do you check whether web ports are listening?",
+          "a": "Use ss -tuln on the server and look for ports 80 and 443. Then test locally with curl -I and remotely from another machine to separate service binding from firewall or routing problems."
+        },
+        {
+          "q": "What do common 4xx and 5xx HTTP errors mean?",
+          "a": "4xx errors are client-side or request-related, such as 403 forbidden or 404 not found. 5xx errors are server-side or upstream-related, such as 500, 502 and 503. Check logs to find the exact cause."
         }
       ],
       "commands": [
@@ -2576,6 +2716,26 @@
         {
           "q": "An application cannot connect to MySQL. What do you check?",
           "a": "Check the MySQL service, listening address and port, credentials, database name, user privileges and database logs before changing application code. For backup and restore practice, use mysqldump and a separate test database. Never expose production passwords in commands or docs."
+        },
+        {
+          "q": "Why might MySQL be called mysql or mysqld in systemctl?",
+          "a": "The service name depends on the distribution and package. Ubuntu/Debian often use mysql, while many RHEL-family packages use mysqld or mariadb. Check installed services with systemctl status mysql, mysqld or mariadb."
+        },
+        {
+          "q": "How should you create a MySQL application user?",
+          "a": "Create a user for the required host and grant only the privileges the application needs. Avoid using root for applications, and never place production passwords in shared docs or command history."
+        },
+        {
+          "q": "How do you list databases and tables?",
+          "a": "Connect with mysql -u user -p, then use SHOW DATABASES, USE database_name and SHOW TABLES. These commands help confirm that the expected database exists."
+        },
+        {
+          "q": "How do you back up and restore a MySQL database?",
+          "a": "Use mysqldump -u user -p database_name > backup.sql for a logical backup. Restore into a test database with mysql -u user -p database_name < backup.sql. Test restores regularly."
+        },
+        {
+          "q": "How do you check whether MySQL is responding?",
+          "a": "Use systemctl status for the service, ss -lntp for the listener, and mysqladmin ping with valid credentials. Also review the database error log if the service will not start."
         }
       ],
       "commands": [
@@ -2653,6 +2813,30 @@
         {
           "q": "chmod looks correct but a web app still gets Permission denied. What do you check?",
           "a": "Check SELinux context and AVC denials before changing broad permissions or disabling SELinux. Use ls -Z, restorecon, semanage fcontext where appropriate, and ausearch -m AVC. Also review ACLs, sudo rules and fail2ban status when relevant."
+        },
+        {
+          "q": "What are SELinux enforcing, permissive and disabled modes?",
+          "a": "Enforcing applies SELinux policy and logs denials. Permissive logs what would be denied but does not block it. Disabled turns SELinux off. Prefer fixing contexts or policy instead of disabling SELinux."
+        },
+        {
+          "q": "What is an SELinux context?",
+          "a": "An SELinux context labels files, processes and ports with security information. A web server can be denied even when Unix permissions look correct. Use ls -Z to view contexts and restorecon to restore expected labels."
+        },
+        {
+          "q": "How do you find SELinux denials?",
+          "a": "Use ausearch -m AVC -ts recent or check audit logs. AVC messages show what was denied and help you choose a targeted fix instead of disabling SELinux."
+        },
+        {
+          "q": "Why should sudoers be edited with visudo?",
+          "a": "visudo checks sudoers syntax before saving, reducing the chance of locking yourself out of sudo. Grant least privilege instead of broad ALL rules."
+        },
+        {
+          "q": "What are ACLs in Linux?",
+          "a": "ACLs extend normal owner/group/other permissions by allowing specific users or groups to have their own permissions. Use getfacl to view ACLs and setfacl to change them."
+        },
+        {
+          "q": "What does fail2ban do?",
+          "a": "fail2ban watches logs for repeated authentication failures and can temporarily block offending sources using firewall rules. Check jail status with fail2ban-client status sshd."
         }
       ],
       "commands": [
@@ -2705,6 +2889,26 @@
         {
           "q": "What is the difference between local Linux accounts and LDAP/Active Directory accounts?",
           "a": "Local accounts exist only on one machine, while LDAP or Active Directory provides centrally managed identity. Linux can integrate through SSSD and realmd, often using Kerberos for authentication. Use id, getent, klist and SSSD tools when troubleshooting."
+        },
+        {
+          "q": "What is the difference between LDAP and Active Directory?",
+          "a": "LDAP is a directory access protocol. Active Directory is Microsoft's directory service and commonly uses LDAP plus Kerberos and other services. Linux can authenticate against either with the right integration."
+        },
+        {
+          "q": "What is Kerberos used for?",
+          "a": "Kerberos provides ticket-based authentication, commonly in Active Directory environments. Commands like kinit request a ticket and klist shows current tickets."
+        },
+        {
+          "q": "What are SSSD and realmd?",
+          "a": "SSSD connects Linux authentication and identity lookup to directory services such as LDAP or AD. realmd helps discover and join supported domains. Together they allow centralized logins on Linux."
+        },
+        {
+          "q": "How do you test whether a directory user resolves on Linux?",
+          "a": "Use id username and getent passwd username. If the user does not resolve, check SSSD, domain join status, DNS and network connectivity."
+        },
+        {
+          "q": "Why is time important for AD or Kerberos login?",
+          "a": "Kerberos is sensitive to clock skew. If the Linux server clock is too far from the domain controller, authentication can fail. Check timedatectl and chrony synchronization."
         }
       ],
       "commands": [
@@ -2772,6 +2976,26 @@
         {
           "q": "What is the difference between monitoring and troubleshooting?",
           "a": "Monitoring collects metrics, checks availability, shows trends and sends alerts. Troubleshooting finds the reason behind the alert using Linux tools such as top, vmstat, iostat, pidstat and logs. Zabbix, Grafana and Nagios help detect change; they do not replace diagnosis."
+        },
+        {
+          "q": "What are Zabbix, Grafana and Nagios used for?",
+          "a": "Zabbix collects metrics and sends alerts, Grafana builds dashboards and visualizations, and Nagios runs host/service checks with plugins. They can work together or separately depending on the environment."
+        },
+        {
+          "q": "What is the difference between metrics, logs and alerts?",
+          "a": "Metrics are numeric measurements over time, logs are event records, and alerts notify when a rule or threshold is triggered. Good troubleshooting uses all three together."
+        },
+        {
+          "q": "How do you check a monitoring agent?",
+          "a": "Check the agent service, such as systemctl status zabbix-agent, then inspect its logs with journalctl -u zabbix-agent. Also verify the monitoring server is allowed to reach the agent port."
+        },
+        {
+          "q": "What is a Nagios plugin?",
+          "a": "A Nagios plugin is a small check program that tests a host or service, such as check_ping or check_http. It returns a status that Nagios can alert on."
+        },
+        {
+          "q": "Why should monitoring ports be checked?",
+          "a": "Dashboards and agents listen on network ports. If the web UI or agent is unreachable, use ss -tuln on the server and a remote curl or nc test to separate service, firewall and routing issues."
         }
       ],
       "commands": [
@@ -2819,6 +3043,26 @@
         {
           "q": "What are inventory, modules and playbooks in Ansible?",
           "a": "Inventory lists the managed hosts, modules perform actions, and YAML playbooks describe the desired state. Good playbooks are repeatable and preferably idempotent, so running them again does not make unnecessary changes."
+        },
+        {
+          "q": "Why is Ansible called agentless?",
+          "a": "Ansible normally manages hosts over SSH and does not require a permanent agent on each managed Linux server. The control node runs modules against hosts from inventory."
+        },
+        {
+          "q": "What is the difference between an ad-hoc command and a playbook?",
+          "a": "An ad-hoc command runs one module against selected hosts, such as ansible all -m ping. A playbook is a YAML file that describes an ordered set of tasks and desired state."
+        },
+        {
+          "q": "What does idempotent mean in Ansible?",
+          "a": "An idempotent playbook can be run repeatedly and only makes changes when the system is not already in the desired state. This is important for safe automation."
+        },
+        {
+          "q": "What does ansible-playbook --check do?",
+          "a": "--check previews what the playbook would change where supported, without applying the changes. It is useful for review, although not every module supports full check-mode prediction."
+        },
+        {
+          "q": "How can Ansible install a package and start a service?",
+          "a": "Use the package module to ensure the package is present and the service module to ensure the service is started and enabled. A playbook can apply the same state to many servers."
         }
       ],
       "commands": [
@@ -2881,6 +3125,26 @@
         {
           "q": "What is the difference between a Docker container and a KVM virtual machine?",
           "a": "A Docker container packages an application and shares the host kernel, while KVM runs a full guest operating system using Linux kernel virtualization. Containers are lighter for application deployment; VMs provide a separate OS and stronger isolation boundary."
+        },
+        {
+          "q": "What is the difference between a Docker image and a container?",
+          "a": "An image is the packaged application template. A container is a running instance created from an image. One image can create many containers."
+        },
+        {
+          "q": "How do you publish a Docker container port?",
+          "a": "Use docker run -p hostPort:containerPort. For example, docker run -d --name web -p 8080:80 nginx maps host port 8080 to container port 80."
+        },
+        {
+          "q": "How do you debug a running container?",
+          "a": "Use docker logs -f name to follow logs and docker exec -it name sh to open a shell when the image includes one. Also inspect ports and configuration with docker inspect."
+        },
+        {
+          "q": "How do you stop and remove a container?",
+          "a": "Use docker stop name for a graceful stop and docker rm name to remove a stopped container. Use docker ps -a to see stopped containers."
+        },
+        {
+          "q": "How do you manage KVM virtual machines with virsh?",
+          "a": "Use virsh list --all to list VMs, virsh start name to start one, virsh shutdown name for a graceful shutdown, and virsh console name for console access when configured."
         }
       ],
       "commands": [
@@ -2973,6 +3237,26 @@
         {
           "q": "Why is time synchronization important on Linux servers?",
           "a": "Accurate time is required for Kerberos/Active Directory, TLS certificate validation, useful logs and distributed systems. Chrony is a common NTP implementation. Check time with timedatectl and synchronization with chronyc tracking or sources."
+        },
+        {
+          "q": "How do you check Linux time and timezone?",
+          "a": "Use timedatectl. It shows current time, timezone and whether network time synchronization is enabled."
+        },
+        {
+          "q": "How do you set the Linux timezone?",
+          "a": "Use timedatectl set-timezone with an IANA timezone, such as sudo timedatectl set-timezone Asia/Kolkata. Verify with timedatectl afterward."
+        },
+        {
+          "q": "What is chronyd?",
+          "a": "chronyd is the daemon for the Chrony NTP implementation. It keeps the system clock synchronized with configured time sources."
+        },
+        {
+          "q": "How do you check chrony synchronization?",
+          "a": "Use chronyc tracking for offset and synchronization status, and chronyc sources -v for the state of configured time sources."
+        },
+        {
+          "q": "When would you use chronyc makestep?",
+          "a": "chronyc makestep steps the clock when there is a significant offset and the administrator decides an immediate correction is appropriate. Use caution because time jumps can affect applications and logs."
         }
       ],
       "commands": [
@@ -3035,6 +3319,26 @@
         {
           "q": "Which AWS services should a Linux administrator know first?",
           "a": "Start with EC2 for virtual servers, EBS for disks, VPC/subnets/route tables for networking, security groups for traffic control, IAM for permissions, S3 for object storage and CloudWatch for monitoring. Know how these map to normal Linux admin work."
+        },
+        {
+          "q": "What is EC2?",
+          "a": "EC2 is AWS's virtual server service. A Linux admin can choose an instance, attach storage, configure networking and connect with SSH, subject to security groups and key access."
+        },
+        {
+          "q": "What is the difference between EBS and S3?",
+          "a": "EBS provides block storage volumes that attach to EC2 instances like disks. S3 is object storage for files and backups, accessed through APIs or tools such as aws s3 cp and sync."
+        },
+        {
+          "q": "What is a security group?",
+          "a": "A security group is a virtual firewall attached to AWS resources such as EC2 instances. It controls allowed inbound and outbound traffic by protocol, port and source or destination."
+        },
+        {
+          "q": "What is IAM and why are roles preferred for EC2?",
+          "a": "IAM controls AWS identity and permissions. An EC2 instance role lets the instance call approved AWS APIs without storing long-term access keys on the server."
+        },
+        {
+          "q": "What is CloudWatch used for?",
+          "a": "CloudWatch collects AWS metrics, logs and alarms. A Linux admin can use it to monitor EC2 health, EBS performance, logs and alert thresholds."
         }
       ],
       "commands": [

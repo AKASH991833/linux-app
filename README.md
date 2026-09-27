@@ -13,7 +13,7 @@ and security.
   sample output. Read ticks track your progress
 - **12 chapters, 300 quiz questions** - 25 hand-written MCQs per chapter (4
   options, one correct, short explanation for every answer)
-- **252 interview Q&A + 346 command examples** - real interview questions per
+- **328 interview Q&A + 346 command examples** - real interview questions per
   topic area with exact, verified answers, plus practical command/example/use
   reference tables and an HR & closing-round set
   (`app/src/main/assets/interview.json`)
