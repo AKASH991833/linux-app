@@ -1,0 +1,244 @@
+{
+  "items": [
+    {
+      "n": 1,
+      "topic": "Networking Basics",
+      "q": "What is a network?",
+      "a": "Answer: A network is a group of connected devices that communicate and share data or resources.\n\nExample: Office PCs, a printer and a server can be connected on the same LAN.\n\nLAN = Local Area Network (small/local area), MAN = Metropolitan Area Network (city-level), WAN = Wide Area Network (large geographical area)."
+    },
+    {
+      "n": 2,
+      "topic": "OSI Model",
+      "q": "What are the 7 OSI layers?",
+      "a": "Answer: Physical, Data Link, Network, Transport, Session, Presentation, Application.\n\nMnemonic: Please Do Not Throw Sausage Pizza Away.\n\nInterview tip: Switch is mainly associated with Layer 2; router with Layer 3; TCP/UDP with Layer 4."
+    },
+    {
+      "n": 3,
+      "topic": "TCP/IP Model",
+      "q": "What is the TCP/IP model and how is it different from OSI?",
+      "a": "Answer: TCP/IP commonly uses four layers: Link, Internet, Transport, Application. OSI is a seven-layer reference model.\n\nMapping: OSI Physical+Data Link -> TCP/IP Link; OSI Network -> Internet; OSI Transport -> Transport; OSI Session+Presentation+Application -> Application."
+    },
+    {
+      "n": 4,
+      "topic": "IP Address",
+      "q": "What is an IP address? IPv4 vs IPv6?",
+      "a": "Answer: An IP address is a logical network-layer address used to identify an interface and enable IP communication.\n\nIPv4 has limited address space; IPv6 provides a much larger address space and supports modern addressing features."
+    },
+    {
+      "n": 5,
+      "topic": "Subnetting",
+      "q": "What are subnet mask and CIDR?",
+      "a": "Answer: A subnet mask separates network and host bits. CIDR writes the prefix length, such as /24.\n\nCommon masks: /24 = 255.255.255.0; /16 = 255.255.0.0; /30 = 255.255.255.252.\n\nInterview tip: Always distinguish network address, usable host range, and broadcast address."
+    },
+    {
+      "n": 6,
+      "topic": "Private/Public IP",
+      "q": "What is the difference between private and public IP?",
+      "a": "Answer: Private IPv4 addresses are intended for internal networks and are not normally routed directly on the public Internet. Public IPs are Internet-routable addresses.\n\nPrivate IPv4 ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16."
+    },
+    {
+      "n": 7,
+      "topic": "MAC Address",
+      "q": "What is a MAC address? IP vs MAC?",
+      "a": "Answer: A MAC address is a Layer-2 link-layer identifier for a network interface.\n\nExample MAC: 00:1A:2B:3C:4D:5E. IP can change; MAC identification is associated with the interface, though software can change/spoof it."
+    },
+    {
+      "n": 8,
+      "topic": "ARP",
+      "q": "What is ARP?",
+      "a": "Answer: ARP maps an IPv4 address to a MAC address on the local network.\n\nCommands: ip neigh; older systems may also have arp."
+    },
+    {
+      "n": 9,
+      "topic": "Ethernet",
+      "q": "What is Ethernet and what is a frame?",
+      "a": "Answer: Ethernet is a common LAN technology. A frame is a Layer-2 data unit containing fields such as source/destination MAC addresses and payload."
+    },
+    {
+      "n": 10,
+      "topic": "Switch",
+      "q": "How does a switch work?",
+      "a": "Answer: A switch learns source MAC addresses on ports and forwards frames based on its MAC address table."
+    },
+    {
+      "n": 11,
+      "topic": "Router",
+      "q": "How does a router forward packets?",
+      "a": "Answer: A router examines the destination IP, consults its routing table, selects the best matching route, and forwards the packet to the next hop/interface."
+    },
+    {
+      "n": 12,
+      "topic": "Gateway",
+      "q": "What is a default gateway?",
+      "a": "Answer: A default gateway is the next-hop router used when a destination does not match a more specific local route.\n\nCheck: ip route. Example: default via 192.168.1.1 dev ens33."
+    },
+    {
+      "n": 13,
+      "topic": "DNS",
+      "q": "What is DNS and how does resolution work?",
+      "a": "Answer: DNS translates domain names into IP addresses and can also provide other records.\n\nUseful records: A (IPv4), AAAA (IPv6), CNAME, MX, NS, TXT."
+    },
+    {
+      "n": 14,
+      "topic": "DHCP",
+      "q": "What is DHCP? Explain DORA.",
+      "a": "Answer: DHCP automatically provides network configuration to clients. DORA = Discover, Offer, Request, Acknowledgement.\n\nDHCP commonly supplies IP address, subnet mask/prefix, default gateway, DNS and lease information."
+    },
+    {
+      "n": 15,
+      "topic": "NAT",
+      "q": "What are NAT and PAT?",
+      "a": "Answer: NAT translates IP addressing between network domains. PAT (often called NAT overload) lets many private hosts share a public IPv4 address using different source ports.\n\nNAT and firewall are different concepts, although routers often implement both."
+    },
+    {
+      "n": 16,
+      "topic": "TCP/UDP",
+      "q": "TCP vs UDP?",
+      "a": "Answer: TCP is connection-oriented and provides reliable, ordered byte-stream delivery. UDP is connectionless and provides datagrams without TCP-style delivery guarantees.\n\nExamples: SSH uses TCP; DNS commonly uses UDP and can also use TCP when required; many real-time applications use UDP."
+    },
+    {
+      "n": 17,
+      "topic": "Ports",
+      "q": "What is a port? Name common ports.",
+      "a": "Answer: A transport-layer port identifies an application/service endpoint on a host.\n\n22 SSH; 53 DNS; 80 HTTP; 443 HTTPS; 25 SMTP; 110 POP3; 143 IMAP; 3306 MySQL; 5432 PostgreSQL."
+    },
+    {
+      "n": 18,
+      "topic": "TCP 3-Way Handshake",
+      "q": "Explain SYN, SYN-ACK, ACK.",
+      "a": "Answer: Client sends SYN, server replies SYN-ACK, and client sends ACK. This establishes TCP connection state before application data is exchanged."
+    },
+    {
+      "n": 19,
+      "topic": "Firewall",
+      "q": "What is a firewall?",
+      "a": "Answer: A firewall enforces traffic-control rules, allowing or blocking traffic based on criteria such as addresses, ports, protocols, interfaces and connection state."
+    },
+    {
+      "n": 20,
+      "topic": "Linux Firewall",
+      "q": "firewalld, nftables and iptables?",
+      "a": "Answer: nftables is the modern Linux packet-filtering framework. firewalld is a firewall management service that commonly uses nftables on modern distributions. iptables is the older command interface/framework still encountered on many systems.\n\nCommands: firewall-cmd --state; firewall-cmd --list-all; nft list ruleset."
+    },
+    {
+      "n": 21,
+      "topic": "Routing",
+      "q": "What is a routing table? Static vs default route?",
+      "a": "Answer: A routing table contains routes that tell the kernel where to send packets. A static route is manually configured; a default route is used when no more specific route matches.\n\nImportant: A route can exist without the remote destination actually being reachable; next-hop/interface must also be valid."
+    },
+    {
+      "n": 22,
+      "topic": "Linux Interfaces",
+      "q": "What are eth0, ens33, enp0s3 and lo?",
+      "a": "Answer: These are interface names. eth0 is a traditional predictable-name example; ens33/enp0s3 are predictable naming examples; lo is the loopback interface.\n\nlo commonly uses 127.0.0.1/8 for IPv4 loopback."
+    },
+    {
+      "n": 23,
+      "topic": "Linux Commands",
+      "q": "Which commands are commonly used for networking?",
+      "a": "Answer: ip a = addresses/interfaces; ip link = link state; ip route = routes; ping = basic IP reachability; ss = sockets/listening ports; traceroute = path diagnostics; dig/nslookup = DNS queries; curl = application-level HTTP testing.\n\nExamples: ip a; ip route; ss -tulnp; ping 8.8.8.8; dig example.com."
+    },
+    {
+      "n": 24,
+      "topic": "Network Configuration",
+      "q": "How do you configure IP, gateway and DNS?",
+      "a": "Answer: Configuration depends on the distribution and network manager. On NetworkManager systems, nmcli is commonly used; persistent configuration should be made through the system's network configuration mechanism.\n\nExample inspection: nmcli device show; nmcli connection show."
+    },
+    {
+      "n": 25,
+      "topic": "NetworkManager",
+      "q": "What are nmcli and nmtui?",
+      "a": "Answer: NetworkManager manages network connections. nmcli is its command-line interface; nmtui is its terminal user interface.\n\nExamples: nmcli device status; nmcli connection show."
+    },
+    {
+      "n": 26,
+      "topic": "SSH",
+      "q": "How does SSH work?",
+      "a": "Answer: SSH provides encrypted remote login and secure transport. It normally listens on TCP port 22, unless configured otherwise.\n\nCommand: ssh user@server-ip. Key-based authentication is common in production administration."
+    },
+    {
+      "n": 27,
+      "topic": "Network Troubleshooting",
+      "q": "A Linux server has no network. What do you check?",
+      "a": "Answer: Use a layered approach: interface/link, IP configuration, local route, gateway, remote IP, DNS, service/port, firewall and logs.\n\nTypical sequence: ip a -> ip route -> ping gateway -> ping 8.8.8.8 -> dig example.com -> ss -tulnp -> firewall/logs."
+    },
+    {
+      "n": 28,
+      "topic": "HTTP/HTTPS",
+      "q": "HTTP vs HTTPS?",
+      "a": "Answer: HTTP is application-layer web protocol. HTTPS is HTTP carried over TLS, providing encryption and server authentication (subject to certificate validation).\n\nTest: curl -I https://example.com"
+    },
+    {
+      "n": 29,
+      "topic": "Proxy",
+      "q": "What is a proxy server?",
+      "a": "Answer: A proxy acts as an intermediary between a client and a destination service. It can provide access control, caching, logging, filtering or application-level routing.\n\nForward proxy commonly represents clients; reverse proxy commonly represents backend servers."
+    },
+    {
+      "n": 30,
+      "topic": "VLAN",
+      "q": "What is a VLAN?",
+      "a": "Answer: A VLAN logically separates Layer-2 networks on VLAN-aware switches, creating separate broadcast domains.\n\nAccess port usually carries one VLAN; trunk links can carry multiple tagged VLANs."
+    },
+    {
+      "n": 31,
+      "topic": "VPN",
+      "q": "What is a VPN?",
+      "a": "Answer: A VPN creates an authenticated/encrypted tunnel over another network, commonly the Internet, to provide secure connectivity between users or networks.\n\nCommon concepts: remote-access VPN and site-to-site VPN."
+    },
+    {
+      "n": 32,
+      "topic": "Bonding/Teaming",
+      "q": "What is NIC bonding/teaming?",
+      "a": "Answer: It combines multiple network interfaces into one logical connection for redundancy, load distribution or both, depending on the mode and switch configuration.\n\nCommon Linux bonding modes include active-backup and LACP (802.3ad) where supported."
+    },
+    {
+      "n": 33,
+      "topic": "Bridge",
+      "q": "What is a Linux bridge?",
+      "a": "Answer: A bridge connects Layer-2 segments and forwards Ethernet frames based on MAC learning. A Linux bridge can connect physical/virtual interfaces.\n\nA switch can be viewed conceptually as a multiport bridge."
+    },
+    {
+      "n": 34,
+      "topic": "IPv6",
+      "q": "What are basic IPv6 address types?",
+      "a": "Answer: Common categories include global unicast, link-local (fe80::/10), unique local addresses (fc00::/7), multicast (ff00::/8), and loopback ::1.\n\nExample: 2001:db8::1 is documentation prefix, not a real public address."
+    },
+    {
+      "n": 35,
+      "topic": "DNS Troubleshooting",
+      "q": "How do you troubleshoot DNS?",
+      "a": "Answer: First separate IP connectivity from name resolution. Test a known IP, then query DNS directly with dig/nslookup, inspect resolver configuration and verify reachability to the DNS server.\n\nAlso verify search domains, DNS server availability, firewall and application-specific resolver behavior."
+    },
+    {
+      "n": 36,
+      "topic": "DHCP Troubleshooting",
+      "q": "DHCP is not assigning an IP. What do you check?",
+      "a": "Answer: Check link/interface state, DHCP client status, VLAN/switch path, DHCP server availability, relay configuration for routed networks, firewall and DHCP logs.\n\nUseful checks depend on distro; inspect NetworkManager/systemd logs and DHCP client events."
+    },
+    {
+      "n": 37,
+      "topic": "Logs",
+      "q": "How do you check networking logs in Linux?",
+      "a": "Answer: On systemd systems, journalctl is commonly used. NetworkManager also provides service-specific logs.\n\nExample: journalctl -u NetworkManager --since '10 min ago'"
+    },
+    {
+      "n": 38,
+      "topic": "Services",
+      "q": "How do you troubleshoot a network service?",
+      "a": "Answer: Confirm the service is running, listening on the expected address/port, reachable through the network, and allowed by firewall/SELinux or other access controls.\n\nExample: systemctl status ssh; ss -lntp | grep :22."
+    },
+    {
+      "n": 39,
+      "topic": "Ports Troubleshooting",
+      "q": "How do you verify whether a port is listening?",
+      "a": "Answer: Use ss on the server; then test remotely using an appropriate client such as nc or curl depending on the protocol.\n\nImportant distinction: listening locally does not guarantee remote reachability; firewall, routing and security controls can still block it."
+    },
+    {
+      "n": 40,
+      "topic": "Real Scenarios",
+      "q": "Ping works but SSH does not. What would you check?",
+      "a": "Answer: Ping tests ICMP, while SSH uses TCP. Check whether sshd is running, TCP/22 is listening, firewall rules allow it, SSH is bound to the correct address, routing/ACLs allow TCP/22, and authentication/configuration is valid.\n\nCommands: systemctl status ssh/sshd; ss -lntp | grep :22; firewall-cmd --list-all; ssh -v user@server."
+    }
+  ]
+}

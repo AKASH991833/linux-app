@@ -155,7 +155,7 @@
             {
               "command": "ls",
               "example": "ls -la",
-              "use": "Files, hidden files, permissions dekhna"
+              "use": "View files, hidden files and permissions"
             },
             {
               "command": "cd",

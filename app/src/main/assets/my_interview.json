@@ -1,0 +1,316 @@
+{
+  "questions": [
+    {
+      "n": 1,
+      "q": "How is Windows different from Linux?",
+      "a": "Windows is a commercial operating system made by Microsoft. Linux is an open-source operating system. Linux is more secure, stable, and widely used for servers.",
+      "note": ""
+    },
+    {
+      "n": 2,
+      "q": "Difference between Unix and Linux?",
+      "a": "Unix is the original operating system. Linux is a Unix-like operating system that is free and open source.",
+      "note": ""
+    },
+    {
+      "n": 3,
+      "q": "One feature Linux has but Windows doesn't?",
+      "a": "Linux allows full system customization because its source code is open.",
+      "note": ""
+    },
+    {
+      "n": 4,
+      "q": "How to mount and unmount a directory?",
+      "a": "Mount means attaching a storage device to the file system. Unmount means safely removing it from the file system.",
+      "note": ""
+    },
+    {
+      "n": 5,
+      "q": "Difference between /etc/resolv.conf and /etc/hosts?",
+      "a": "/etc/resolv.conf stores DNS server information. /etc/hosts maps IP addresses to hostnames locally.",
+      "note": ""
+    },
+    {
+      "n": 6,
+      "q": "How to host a web server?",
+      "a": "Install a web server like Apache or Nginx, place website files in the web directory, and start the service.",
+      "note": ""
+    },
+    {
+      "n": 7,
+      "q": "How to check listening ports?",
+      "a": "Use commands like: ss -tuln netstat -tuln",
+      "note": ""
+    },
+    {
+      "n": 8,
+      "q": "Main work of /etc/hosts?",
+      "a": "It maps hostnames to IP addresses without using DNS.",
+      "note": ""
+    },
+    {
+      "n": 9,
+      "q": "How to add a user?",
+      "a": "Use: useradd username",
+      "note": ""
+    },
+    {
+      "n": 10,
+      "q": "How to add a user to a group?",
+      "a": "Use: usermod -aG groupname username",
+      "note": ""
+    },
+    {
+      "n": 11,
+      "q": "How can you give permission?",
+      "a": "Permissions are given using the chmod command.",
+      "note": ""
+    },
+    {
+      "n": 12,
+      "q": "Give Read and Write permission only?",
+      "a": "Use: chmod 600 filename",
+      "note": ""
+    },
+    {
+      "n": 13,
+      "q": "Difference between iptables and Firewall?",
+      "a": "iptables is a firewall tool. Firewall is the security system that controls network traffic.",
+      "note": ""
+    },
+    {
+      "n": 14,
+      "q": "How to add an iptables rule?",
+      "a": "Use: iptables -A to add a rule.",
+      "note": "Example: iptables -A INPUT -p tcp --dport 22 -j ACCEPT allows SSH traffic."
+    },
+    {
+      "n": 15,
+      "q": "Which Linux distribution do you like?",
+      "a": "RHEL because it is stable, secure, and used in enterprise environments.",
+      "note": ""
+    },
+    {
+      "n": 16,
+      "q": "Difference between RHEL and Ubuntu?",
+      "a": "RHEL uses RPM packages and yum/dnf. Ubuntu uses DEB packages and apt.",
+      "note": ""
+    },
+    {
+      "n": 17,
+      "q": "Where are logs stored?",
+      "a": "Most logs are stored in: /var/log",
+      "note": ""
+    },
+    {
+      "n": 18,
+      "q": "How to configure Apache?",
+      "a": "Install Apache, edit its configuration file, place website files, and restart the service.",
+      "note": ""
+    },
+    {
+      "n": 19,
+      "q": "Difference between MySQL and MariaDB?",
+      "a": "MariaDB is a faster, open-source replacement for MySQL with more community features.",
+      "note": ""
+    },
+    {
+      "n": 20,
+      "q": "How to take remote access?",
+      "a": "Using SSH.",
+      "note": ""
+    },
+    {
+      "n": 21,
+      "q": "Difference between SSH and SSHD?",
+      "a": "SSH is the client. SSHD is the server service.",
+      "note": ""
+    },
+    {
+      "n": 22,
+      "q": "How to transfer files securely?",
+      "a": "Using SCP or SFTP.",
+      "note": ""
+    },
+    {
+      "n": 23,
+      "q": "How do you install a service?",
+      "a": "Use the package manager (yum, dnf, or apt) and then start the service.",
+      "note": ""
+    },
+    {
+      "n": 24,
+      "q": "How to increase disk partition?",
+      "a": "Increase disk size, resize the partition, and then expand the filesystem.",
+      "note": ""
+    },
+    {
+      "n": 25,
+      "q": "Commands for LVM?",
+      "a": "pvcreate, vgcreate, lvcreate, lvextend, lvreduce.",
+      "note": ""
+    },
+    {
+      "n": 26,
+      "q": "Linux equivalent of .exe?",
+      "a": "Executable files (with execute permission) or shell scripts (.sh).",
+      "note": ""
+    },
+    {
+      "n": 27,
+      "q": "Have you explored the Linux kernel?",
+      "a": "Yes. The kernel manages hardware, memory, processes, and device drivers.",
+      "note": ""
+    },
+    {
+      "n": 28,
+      "q": "Difference between CentOS and RHEL?",
+      "a": "RHEL is paid with official support. CentOS is free.",
+      "note": ""
+    },
+    {
+      "n": 29,
+      "q": "Command for LVM extend?",
+      "a": "lvextend",
+      "note": ""
+    },
+    {
+      "n": 30,
+      "q": "What is a file system?",
+      "a": "A file system is the method used to store and organize files on a disk.",
+      "note": ""
+    },
+    {
+      "n": 31,
+      "q": "Which file system is used in RHEL 7?",
+      "a": "XFS (default).",
+      "note": ""
+    },
+    {
+      "n": 32,
+      "q": "How to configure a switch?",
+      "a": "Assign hostname, IP address, VLANs, and enable required ports.",
+      "note": ""
+    },
+    {
+      "n": 33,
+      "q": "What is VLAN?",
+      "a": "A VLAN divides one physical network into multiple logical networks.",
+      "note": ""
+    },
+    {
+      "n": 34,
+      "q": "Classes of IP?",
+      "a": "Class A, B, C, D, and E.",
+      "note": "Modern networks mostly use CIDR instead of classful addressing."
+    },
+    {
+      "n": 35,
+      "q": "Network ID of 72.59.120.10/25?",
+      "a": "Network ID: 72.59.120.0",
+      "note": "Subnet mask: 255.255.255.128 (/25)."
+    },
+    {
+      "n": 36,
+      "q": "What is RIP?",
+      "a": "RIP is a routing protocol that uses hop count to find the best path.",
+      "note": ""
+    },
+    {
+      "n": 37,
+      "q": "What are OSPF and IGRP?",
+      "a": "OSPF is a link-state routing protocol. IGRP is Cisco's distance-vector routing protocol.",
+      "note": ""
+    },
+    {
+      "n": 38,
+      "q": "DNS configuration file?",
+      "a": "/etc/named.conf",
+      "note": ""
+    },
+    {
+      "n": 39,
+      "q": "Why do we need DHCP?",
+      "a": "DHCP automatically assigns IP addresses to devices.",
+      "note": ""
+    },
+    {
+      "n": 40,
+      "q": "How to schedule a task?",
+      "a": "Using Cron (crontab).",
+      "note": ""
+    },
+    {
+      "n": 41,
+      "q": "Linux infected by malware. What will you do?",
+      "a": "Disconnect the system, scan for malware, remove infected files, update the system, and restore from backup if needed.",
+      "note": ""
+    },
+    {
+      "n": 42,
+      "q": "OSI Model layers?",
+      "a": "1. Physical 2. Data Link 3. Network 4. Transport 5. Session 6. Presentation 7. Application",
+      "note": ""
+    },
+    {
+      "n": 43,
+      "q": "Port Numbers?",
+      "a": "SSH → 22\nFTP → 21\nDNS → 53\nRDP → 3389\nHTTP → 80\nSNMP → 161\nHTTPS → 443\nNFS → 2049",
+      "note": ""
+    },
+    {
+      "n": 44,
+      "q": "Port 143 is used for?",
+      "a": "IMAP (Email).",
+      "note": ""
+    },
+    {
+      "n": 45,
+      "q": "How to configure Firewall?",
+      "a": "Add required rules, allow necessary ports, reload the firewall, and verify the configuration.",
+      "note": ""
+    },
+    {
+      "n": 46,
+      "q": "/home directory is for?",
+      "a": "It stores personal files and data of users.",
+      "note": ""
+    },
+    {
+      "n": 47,
+      "q": "How do you take backup?",
+      "a": "Using tools like tar, rsync, or backup software.",
+      "note": ""
+    },
+    {
+      "n": 48,
+      "q": "Why is grep used?",
+      "a": "To search for specific text or patterns inside files.",
+      "note": ""
+    },
+    {
+      "n": 49,
+      "q": "What is Pipe (|)?",
+      "a": "A pipe sends the output of one command as input to another command.",
+      "note": ""
+    },
+    {
+      "n": 50,
+      "q": "Why do we need subnetting?",
+      "a": "Subnetting divides a network into smaller networks for better management, security, and efficient IP usage.",
+      "note": ""
+    },
+    {
+      "n": 51,
+      "q": "What is Active Directory?",
+      "a": "Active Directory is Microsoft's directory service used to manage users, computers, groups, and permissions in a network.",
+      "note": ""
+    },
+    {
+      "n": 52,
+      "q": "Server is down. How will you troubleshoot?",
+      "a": "1. Check power and network. 2. Check if the server is reachable. 3. Check running services. 4. Check logs. 5. Check disk space, CPU, and memory. 6. Restart the failed service if needed. 7. Verify that the application is working.",
+      "note": ""
+    }
+  ]
+}

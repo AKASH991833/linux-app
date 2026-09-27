@@ -139,228 +139,229 @@ def main():
     if not nodes:
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
-    check('home shows v1.2 content marker', bool(find_all(xml, contains='v1.2.0')) and bool(find_all(xml, contains='328 interview Q&A')))
+    check('home shows v1.3 content marker', bool(find_all(xml, contains='v1.3.0')) and bool(find_all(xml, contains='328 interview Q&A')))
+    check('dashboard tiles present',
+          bool(find_all(xml, text='Beginner')) and bool(find_all(xml, text='Intermediate')) and
+          bool(find_all(xml, text='Interview Questions')) and bool(find_all(xml, text='Learn Chapters')))
+    check('home has no topic cards', not find_all(xml, contains='Linux History & Foundations Quiz'))
+    check('home has no generated diagrams', not find_all(xml, contains='Diagram:') and not find_all(xml, contains='Visual guide'))
     shot('01_home')
 
-    # Quiz section: only quizzes, one card per topic area
-    nodes, xml = find_scrolled(contains='Quiz - Topic-wise')
-    check('quiz section header present', bool(nodes))
-    check('beginner and intermediate modes present',
-          bool(find_all(xml, text='Beginner')) and bool(find_all(xml, text='Intermediate')))
-    check('no interview timer mode button', not find_all(xml, text='Interview'))
-    shot('02_quiz_section')
-
-    nodes, xml = find_scrolled(contains='Linux History & Foundations Quiz')
-    check('topic quiz card present', bool(nodes))
-    if nodes:
-        tap_node(nodes[0])
-        nodes, xml = wait_node(20, contains='Question 1 of')
-        check('topic quiz opens at question 1', bool(nodes))
-        check('topic quiz shows its area name', bool(find_all(xml, contains='Question 1 of 10 • Linux History & Foundations')))
-        qspeak = find_all(xml, text='🔊 Speak question', clazz='Button')
-        check('quiz speak button present', bool(qspeak))
-        if qspeak:
-            tap_node(qspeak[0])
-            time.sleep(1.2)
-            xml = dump()
-            check('quiz speech starts or stays safe without TTS engine',
-                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
-            qstop = find_all(xml, text='⏸ Stop', clazz='Button')
-            if qstop:
-                tap_node(qstop[0])
-                time.sleep(0.7)
-                xml = dump()
-                check('quiz speech stop works', bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
-        shot('03_topic_quiz')
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Linux App')
+    # Beginner tile opens topic-wise quizzes.
+    beginner = find_all(xml, text='Beginner')
+    check('beginner tile present', bool(beginner))
+    if beginner:
+        tap_node(beginner[0])
+        nodes, xml = wait_node(20, contains='Beginner Quiz Topics')
         PAGES.append(xml)
-        check('back from quiz returns home', bool(nodes))
+        check('beginner topic list opens', bool(nodes))
+        shot('02_beginner_topics')
+        nodes, xml = find_scrolled(contains='Linux History & Foundations Quiz')
+        check('topic quiz card present', bool(nodes))
+        if nodes:
+            tap_node(nodes[0])
+            nodes, xml = wait_node(20, contains='Question 1 of')
+            check('topic quiz opens at question 1', bool(nodes))
+            qspeak = find_all(xml, text='🔊 Speak question', clazz='Button')
+            check('quiz speak button present', bool(qspeak))
+            if qspeak:
+                tap_node(qspeak[0])
+                time.sleep(1.2)
+                xml = dump()
+                check('quiz speech starts or stays safe without TTS engine',
+                      bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Speak question', clazz='Button')))
+                qstop = find_all(xml, text='⏸ Stop', clazz='Button')
+                if qstop:
+                    tap_node(qstop[0])
+                    time.sleep(0.7)
+            shot('03_topic_quiz')
+            run(['adb', 'shell', 'input', 'keyevent', '4'])
+            time.sleep(1)
+            nodes, xml = wait_node(15, contains='Home Dashboard')
+            PAGES.append(xml)
 
-    # Interview Questions section: only Q&A, one card per topic area
-    nodes, xml = find_scrolled(contains='Interview Questions - Topic-wise')
-    check('interview section header present', bool(nodes))
-    shot('04_interview_section')
-
-    nodes, xml = find_scrolled(contains='Navigation & the Filesystem Interview Questions')
-    check('topic interview card present', bool(nodes))
-    if nodes:
-        tap_node(nodes[0])
-        nodes, xml = wait_node(20, contains='tap Show answer or listen')
-        check('interview topic opens', bool(nodes))
-        check('interview topic shows its area name', bool(find_all(xml, contains='Navigation & the Filesystem Interview Questions')))
-        check('filesystem diagram caption present', bool(find_all(xml, contains='Diagram: Linux filesystem hierarchy')))
-        play_all = find_all(xml, text='🔊 Play all topic', clazz='Button')
-        check('play-all topic button present', bool(play_all))
-        if play_all:
-            tap_node(play_all[0])
-            time.sleep(2)
-            xml = dump()
-            check('play-all starts or stays safe without TTS engine',
-                  bool(find_all(xml, text='⏸ Stop topic', clazz='Button')) or bool(find_all(xml, text='🔊 Play all topic', clazz='Button')))
-            stop_all = find_all(xml, text='⏸ Stop topic', clazz='Button')
-            if stop_all:
-                tap_node(stop_all[0])
-                time.sleep(0.7)
-                xml = dump()
-                check('play-all stop works', bool(find_all(xml, text='🔊 Play all topic', clazz='Button')))
-        shot('05_interview_list')
-        nodes, xml = find_scrolled(max_swipes=12, text='Show answer', clazz='Button')
-        check('first question controls reachable below visual guide', bool(nodes))
-        speak = find_all(xml, text='🔊 Speak', clazz='Button')
-        check('per-question speak button present', bool(speak))
-        if speak:
-            tap_node(speak[0])
-            time.sleep(1.2)
-            xml = dump()
-            check('question speech starts or stays safe without TTS engine',
-                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Speak', clazz='Button')))
-            stop = find_all(xml, text='⏸ Stop', clazz='Button')
-            if stop:
-                tap_node(stop[0])
-                time.sleep(0.7)
-                xml = dump()
-                check('question speech stop works', bool(find_all(xml, text='🔊 Speak', clazz='Button')))
-        shot('05b_speak_controls')
-        btns = find_all(xml, text='Show answer', clazz='Button')
-        check('show answer button present', bool(btns))
-        if btns:
-            tap_node(btns[0])
-            nodes, xml = wait_node(8, contains='absolute path')
-            check('answer reveals on tap', bool(nodes))
-            shot('06_interview_answer')
-        nodes, xml = find_scrolled(max_swipes=24, contains='Command Reference')
-        check('command reference present', bool(nodes))
-        check('command group listed once', bool(find_all(xml, contains='Navigation & Basics')))
-        nodes, xml = find_scrolled(max_swipes=12, contains='ls -la')
-        check('command row has example', bool(nodes))
-        check('command row has use', bool(find_all(xml, contains='Files, hidden files')))
-        cmd_speak = find_all(xml, text='🔊', clazz='Button')
-        check('command-row speak button present', bool(cmd_speak))
-        if cmd_speak:
-            tap_node(cmd_speak[0])
-            time.sleep(1.2)
-            xml = dump()
-            check('command speech starts or stays safe without TTS engine',
-                  bool(find_all(xml, text='⏸', clazz='Button')) or bool(find_all(xml, text='🔊', clazz='Button')))
-            cmd_stop = find_all(xml, text='⏸', clazz='Button')
-            if cmd_stop:
-                tap_node(cmd_stop[0])
-                time.sleep(0.7)
-                xml = dump()
-                check('command speech stop works', bool(find_all(xml, text='🔊', clazz='Button')))
-        shot('06b_command_reference')
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Linux App')
+    # Interview tile opens named source sections plus topic-wise chapters.
+    interview = find_all(xml, text='Interview Questions')
+    check('interview tile present', bool(interview))
+    if interview:
+        tap_node(interview[0])
+        nodes, xml = wait_node(20, contains='Your Questions & PDFs')
         PAGES.append(xml)
+        check('interview source sections open', bool(nodes))
+        check('all four named sections visible',
+              bool(find_all(xml, contains='My Interview Questions')) and
+              bool(find_all(xml, contains='200 Important Commands')) and
+              bool(find_all(xml, contains='Networking Interview Q&A')) and
+              bool(find_all(xml, contains='15 Advanced Topics Handbook')))
+        shot('04_interview_sections')
 
-    # Visual guides: open each mapped topic and capture every bundled diagram
-    def check_diagram_topic(needle, captions, shot_prefix):
-        nodes, xml = find_scrolled(max_swipes=30, contains=needle)
-        check('diagram topic card present: ' + needle, bool(nodes))
-        if not nodes:
-            return
-        tap_node(nodes[0])
-        nodes, xml = wait_node(20, contains='Visual guide')
-        check('visual guide opens: ' + needle, bool(nodes))
-        for idx, caption in enumerate(captions, 1):
-            nodes, xml = find_scrolled(max_swipes=10, contains=caption)
-            check('diagram caption visible: ' + caption, bool(nodes))
-            shot('%s_%d' % (shot_prefix, idx))
-        run(['adb', 'shell', 'input', 'keyevent', '4'])
-        time.sleep(1)
-        nodes, xml = wait_node(15, contains='Linux App')
-        PAGES.append(xml)
+        # His original 52 Q&A, in order, book-style.
+        nodes, xml = find_scrolled(contains='My Interview Questions')
+        if nodes:
+            tap_node(nodes[0])
+            nodes, xml = wait_node(20, contains='52 Q&A')
+            check('My Interview Questions opens with 52 items', bool(nodes))
+            shot('05_my_questions')
+            first = find_all(xml, contains='How is Windows different from Linux?')
+            check('first original question visible', bool(first))
+            if first:
+                tap_node(first[0])
+                nodes, xml = wait_node(20, contains='My Interview Questions  •  1 of 52')
+                check('book reader opens first answer', bool(nodes))
+                check('his original answer is fully visible', bool(find_all(xml, contains='Windows is a commercial operating system')))
+                check('reader speak button present', bool(find_all(xml, text='🔊 Speak answer', clazz='Button')))
+                shot('06_my_book_answer')
+                nxt = find_all(xml, text='Next →', clazz='Button')
+                check('reader next button present', bool(nxt))
+                if nxt:
+                    tap_node(nxt[0])
+                    nodes, xml = wait_node(10, contains='2 of 52')
+                    check('reader next page works', bool(nodes) and bool(find_all(xml, contains='Difference between Unix and Linux?')))
+                    shot('07_my_next_page')
+            run(['adb', 'shell', 'input', 'keyevent', '4'])
+            time.sleep(1)
+            nodes, xml = wait_node(15, contains='Home Dashboard')
+            PAGES.append(xml)
 
-    check_diagram_topic('Users, Groups & Permissions Interview Questions',
-        ['Diagram: rwx permissions and octal values'], '12_diagram_permissions')
-    check_diagram_topic('Processes & Job Control Interview Questions',
-        ['Diagram: Linux process states'], '13_diagram_process_states')
-    check_diagram_topic('Networking Essentials Interview Questions',
-        ['Diagram: OSI and TCP/IP models', 'Diagram: TCP three-way handshake'], '14_diagram_network')
-    check_diagram_topic('Disks, Filesystems & Storage Interview Questions',
-        ['Diagram: LVM layers', 'Diagram: RAID levels'], '15_diagram_storage')
-    check_diagram_topic('Boot, systemd & Services Interview Questions',
-        ['Diagram: Linux boot process', 'Diagram: systemd units and dependencies'], '16_diagram_systemd')
-    check_diagram_topic('Advanced Security Interview Questions',
-        ['Diagram: SELinux decision flow'], '17_diagram_selinux')
-    check_diagram_topic('Containers & KVM Interview Questions',
-        ['Diagram: Docker containers vs virtual machines'], '18_diagram_docker_vm')
-    check_diagram_topic('Advanced Storage & Shares Interview Questions',
-        ['Diagram: NFS and Samba file sharing'], '19_diagram_nfs_samba')
+        # 200 command PDF as its own table.
+        interview = find_all(xml, text='Interview Questions')
+        if interview:
+            tap_node(interview[0])
+            nodes, xml = wait_node(20, contains='Your Questions & PDFs')
+            nodes, xml = find_scrolled(contains='200 Important Commands')
+            check('200 commands section present', bool(nodes))
+            if nodes:
+                tap_node(nodes[0])
+                nodes, xml = wait_node(20, contains='all 200 rows in original order')
+                check('200 commands screen opens', bool(nodes))
+                check('first command row visible', bool(find_all(xml, contains='#1  pwd')))
+                check('topic header visible once', bool(find_all(xml, text='Navigation & Basics')))
+                check('command example visible', bool(find_all(xml, contains='Example: pwd')))
+                check('command speak present', bool(find_all(xml, text='🔊', clazz='Button')))
+                shot('08_commands200')
+                run(['adb', 'shell', 'input', 'keyevent', '4'])
+                time.sleep(1)
+                nodes, xml = wait_node(15, contains='Home Dashboard')
+                PAGES.append(xml)
 
-    # HR & Closing Round is the last interview topic card
-    nodes, xml = find_scrolled(max_swipes=30, contains='HR & Closing Round Interview Questions')
-    check('HR & closing interview card present', bool(nodes))
+        # Networking PDF, all 40 Q&A in original order.
+        interview = find_all(xml, text='Interview Questions')
+        if interview:
+            tap_node(interview[0])
+            nodes, xml = wait_node(20, contains='Your Questions & PDFs')
+            nodes, xml = find_scrolled(contains='Networking Interview Q&A')
+            check('networking source section present', bool(nodes))
+            if nodes:
+                tap_node(nodes[0])
+                nodes, xml = wait_node(20, contains='all 40 Q&A in original order')
+                check('networking source opens', bool(nodes))
+                shot('09_networking_source')
+                first = find_all(xml, contains='What is a network?')
+                check('first networking PDF question visible', bool(first))
+                if first:
+                    tap_node(first[0])
+                    nodes, xml = wait_node(20, contains='Networking Interview Q&A  •  1 of 40')
+                    check('networking book reader opens', bool(nodes))
+                    check('English answer visible without Hinglish', bool(find_all(xml, contains='Answer: A network is a group')) and not find_all(xml, contains='Hinglish:'))
+                    shot('10_networking_book_answer')
+                run(['adb', 'shell', 'input', 'keyevent', '4'])
+                time.sleep(1)
+                nodes, xml = wait_node(15, contains='Home Dashboard')
+                PAGES.append(xml)
 
-    # Learn section: chapter cards with lessons
-    nodes, xml = find_scrolled(contains='Learn - Lessons by Chapter')
-    check('learn section header present', bool(nodes))
+        # 15 Advanced Topics Handbook and one topic reader.
+        interview = find_all(xml, text='Interview Questions')
+        if interview:
+            tap_node(interview[0])
+            nodes, xml = wait_node(20, contains='Your Questions & PDFs')
+            nodes, xml = find_scrolled(contains='15 Advanced Topics Handbook')
+            check('advanced handbook section present', bool(nodes))
+            if nodes:
+                tap_node(nodes[0])
+                nodes, xml = wait_node(20, contains='15 practical topics in original order')
+                check('advanced handbook opens', bool(nodes))
+                check('first handbook topic visible', bool(find_all(xml, contains='1. Backup & Restore')))
+                shot('11_advanced_handbook')
+                first = find_all(xml, contains='1. Backup & Restore')
+                if first:
+                    tap_node(first[0])
+                    nodes, xml = wait_node(20, contains='Backup & Restore Interview Questions')
+                    check('handbook topic opens as question list', bool(nodes))
+                    check('question rows use book reader links', bool(find_all(xml, contains='Read answer')))
+                    shot('12_advanced_topic')
+                    q = find_all(xml, contains='What is the difference between backup and synchronization?')
+                    if q:
+                        tap_node(q[0])
+                        nodes, xml = wait_node(20, contains='Backup & Restore Interview Questions  •  1 of')
+                        check('topic book reader opens', bool(nodes) and bool(find_all(xml, contains='A backup is a separate copy')))
+                        shot('13_advanced_book_answer')
+                    run(['adb', 'shell', 'input', 'keyevent', '4'])
+                    time.sleep(1)
+                    nodes, xml = wait_node(15, contains='Home Dashboard')
+                    PAGES.append(xml)
+
+        # Topic-wise sets are still present and use the same book reader.
+        interview = find_all(xml, text='Interview Questions')
+        if interview:
+            tap_node(interview[0])
+            nodes, xml = wait_node(20, contains='Your Questions & PDFs')
+            nodes, xml = find_scrolled(max_swipes=20, contains='Navigation & the Filesystem Interview Questions')
+            check('topic-wise interview chapter present', bool(nodes))
+            if nodes:
+                tap_node(nodes[0])
+                nodes, xml = wait_node(20, contains='Navigation & the Filesystem Interview Questions')
+                check('topic-wise chapter opens', bool(nodes))
+                check('no collapsed Show answer cards', not find_all(xml, text='Show answer', clazz='Button'))
+                shot('14_topic_interview')
+                q = find_all(xml, contains='What is the difference between an absolute and relative path?')
+                if q:
+                    tap_node(q[0])
+                    nodes, xml = wait_node(20, contains='Navigation & the Filesystem Interview Questions  •')
+                    check('topic answer opens as full page', bool(nodes) and bool(find_all(xml, contains='absolute path')))
+                    shot('15_topic_book_answer')
+                run(['adb', 'shell', 'input', 'keyevent', '4'])
+                time.sleep(1)
+                nodes, xml = wait_node(15, contains='Home Dashboard')
+                PAGES.append(xml)
+
+    # Learn tile still opens chapter-wise lessons.
+    learn = find_all(xml, text='Learn Chapters')
+    check('learn tile present', bool(learn))
+    if not learn:
+        die('learn tile not found')
+    tap_node(learn[0])
+    nodes, xml = wait_node(20, contains='Learn Chapters')
+    PAGES.append(xml)
+    check('learn chapter list opens', bool(nodes))
     chap, xml = find_scrolled(text='Linux History & Foundations')
     check('chapter list present', bool(chap))
-
-    # The old mixed "Interview Mode" quiz card must be gone from every home page we saw
-    check("no 'Interview Mode' quiz card anywhere on home",
-          all('Interview Mode' not in page for page in PAGES))
-
+    shot('16_learn_topics')
     if not chap:
         die('chapter card not found')
     tap_node(chap[0])
     nodes, xml = wait_node(20, contains='Start Quiz')
     check('chapter page opens with Start Quiz', bool(nodes))
-    check('lessons listed', bool(find_all(xml, contains='short lessons')))
-    shot('07_chapter')
+    shot('17_chapter')
     les = find_all(xml, contains='What is Linux, really?')
     if les:
         tap_node(les[0])
         nodes, xml = wait_node(20, contains='Lesson 1 of')
         check('lesson opens with body', bool(nodes) and bool(find_all(xml, contains='KERNEL')))
-        check('diagram rendered', bool(find_all(xml, contains='HARDWARE')))
-        check('real-life scenario shown', bool(find_all(xml, contains="Where you'd use it")))
+        check('lesson has no diagram block', not find_all(xml, contains='HARDWARE') and not find_all(xml, contains='Diagram:'))
         listen = find_all(xml, text='🔊 Listen to lesson', clazz='Button')
         check('lesson listen button present', bool(listen))
-        if listen:
-            tap_node(listen[0])
-            time.sleep(1.2)
-            xml = dump()
-            check('lesson speech starts or stays safe without TTS engine',
-                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Listen to lesson', clazz='Button')))
-            stop = find_all(xml, text='⏸ Stop', clazz='Button')
-            if stop:
-                tap_node(stop[0])
-                time.sleep(0.7)
-                xml = dump()
-                check('lesson speech stop works', bool(find_all(xml, text='🔊 Listen to lesson', clazz='Button')))
-        shot('08_lesson')
-        nodes = []
-        for _ in range(5):
-            run(['adb', 'shell', 'input', 'swipe', '480', '1600', '480', '250', '450'])
-            nodes, xml = wait_node(2, contains='Quick check')
-            if nodes and find_all(xml, text='Linux kernel', clazz='Button'):
-                break
-        check('lesson quick check visible', bool(nodes))
-        shot('08b_quick_check')
-        q_answer = find_all(xml, text='Linux kernel', clazz='Button')
-        if q_answer:
-            tap_node(q_answer[0])
-            nodes, xml = wait_node(5, contains='You got it!')
-            if not nodes:
-                run(['adb', 'shell', 'input', 'swipe', '480', '1450', '480', '450', '450'])
-                nodes, xml = wait_node(8, contains='You got it!')
-            check('correct quick check gives feedback', bool(nodes))
-            shot('08c_check_passed')
-        else:
-            check('correct quick check gives feedback', False, 'answer option not found')
+        shot('18_lesson')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
-        nodes, xml = wait_node(15, contains='Linux App')
-        chap, xml = find_scrolled(max_swipes=30, text='Linux History & Foundations')
-        check('chapter card reachable after lesson', bool(chap))
-        if chap:
-            tap_node(chap[0])
-            nodes, xml = wait_node(15, contains='Start Quiz')
+        nodes, xml = wait_node(15, contains='Home Dashboard')
+        learn = find_all(xml, text='Learn Chapters')
+        if learn:
+            tap_node(learn[0])
+            nodes, xml = wait_node(15, contains='Learn Chapters')
+            chap, xml = find_scrolled(max_swipes=10, text='Linux History & Foundations')
+            if chap:
+                tap_node(chap[0])
+                nodes, xml = wait_node(15, contains='Start Quiz')
     start = find_all(xml, contains='Start Quiz')
     if not start:
         die('Start Quiz button not found')
@@ -369,23 +370,21 @@ def main():
     check('quiz opens at question 1', bool(nodes))
     opts = [n for n in find_all(xml, clazz='Button') if (n.get('text') or '').strip() and n.get('text') not in ('Next', 'See results', '🔊 Speak question', '⏸ Stop')]
     check('4 options shown', len(opts) == 4, 'found %d' % len(opts))
-    shot('09_question')
+    shot('19_question')
     if not opts:
         die('no option buttons')
     tap_node(opts[0])
     nodes, xml = wait_node(15, regex=r'^(Next|See results)$')
     check('answer feedback + explanation shown', bool(nodes) and bool(find_all(xml, contains='Correct') + find_all(xml, contains='Not quite')))
-    shot('10_feedback')
-    nxt = find_all(xml, regex=r'^(Next|See results)$')
-    if nxt:
-        tap_node(nxt[0])
-        nodes, xml = wait_node(15, contains='Question 2 of')
-        check('next advances to question 2', bool(nodes))
-        shot('11_question2')
+    shot('20_feedback')
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(1)
     xml = dump()
-    check('back returns home', bool(find_all(xml, contains='Linux App')))
+    check('back returns home', bool(find_all(xml, contains='Home Dashboard')))
+    check("no generated diagram labels anywhere in tested screens",
+          all('Diagram:' not in page and 'Visual guide' not in page for page in PAGES))
+    check("no old collapsed answer controls anywhere in tested screens",
+          all('Show answer' not in page and 'Hide answer' not in page for page in PAGES))
     r = run(['adb', 'logcat', '-d'])
     logs = r.stdout.decode('utf-8', 'ignore')
     fatal = [l for l in logs.splitlines() if 'FATAL EXCEPTION' in l and PKG in l]

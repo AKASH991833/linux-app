@@ -3,8 +3,6 @@ package com.akash.linuxapp;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -50,7 +47,7 @@ public class MainActivity extends Activity {
         String id, title, desc; List<Q> qs = new ArrayList<>();
     }
     static class Lesson {
-        String title, body, diagram, example, scenario, checkQ, checkE; String[] checkOptions; int checkAnswer;
+        String title, body, example, scenario, checkQ, checkE; String[] checkOptions; int checkAnswer;
     }
     static class InterviewQ {
         String q, a;
@@ -63,6 +60,15 @@ public class MainActivity extends Activity {
     }
     static class InterviewChapter {
         String id, title; List<InterviewQ> qs = new ArrayList<>(); List<CommandGroup> commands = new ArrayList<>();
+    }
+    static class SourceQ {
+        int n; String topic, q, a, note;
+    }
+    static class SourceCommand {
+        int n; String topic, command, example, use;
+    }
+    static class ReaderPage {
+        String label, title, body, note;
     }
 
     private FrameLayout container;
@@ -79,6 +85,10 @@ public class MainActivity extends Activity {
     private final List<Chapter> chapters = new ArrayList<>();
     private final java.util.Map<String, List<Lesson>> lessons = new java.util.HashMap<>();
     private final List<InterviewChapter> interviewChapters = new ArrayList<>();
+    private final List<SourceQ> myQuestions = new ArrayList<>();
+    private final List<SourceCommand> commands200 = new ArrayList<>();
+    private final List<SourceQ> networkSource = new ArrayList<>();
+    private boolean interviewOpenedFromHandbook;
     private int mode = MODE_BEGINNER;
 
     // quiz state
@@ -193,7 +203,6 @@ public class MainActivity extends Activity {
                     Lesson l = new Lesson();
                     l.title = lj.getString("title");
                     l.body = lj.getString("body");
-                    l.diagram = lj.optString("diagram", "");
                     l.example = lj.optString("example", "");
                     l.scenario = lj.optString("scenario", "");
                     JSONObject check = lj.optJSONObject("check");
@@ -252,6 +261,48 @@ public class MainActivity extends Activity {
                 interviewChapters.add(ic);
             }
         } catch(Exception ignored){ }
+        try {
+            InputStream in = getAssets().open("my_interview.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray arr = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("questions");
+            for(int i=0;i<arr.length();i++){
+                JSONObject o=arr.getJSONObject(i);
+                SourceQ q=new SourceQ();
+                q.n=o.getInt("n"); q.q=o.getString("q"); q.a=o.getString("a"); q.note=o.optString("note", "");
+                myQuestions.add(q);
+            }
+        } catch(Exception ignored){ }
+        try {
+            InputStream in = getAssets().open("commands200.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray arr = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("items");
+            for(int i=0;i<arr.length();i++){
+                JSONObject o=arr.getJSONObject(i);
+                SourceCommand c=new SourceCommand();
+                c.n=o.getInt("n"); c.topic=o.getString("topic"); c.command=o.getString("command"); c.example=o.getString("example"); c.use=o.getString("use");
+                commands200.add(c);
+            }
+        } catch(Exception ignored){ }
+        try {
+            InputStream in = getAssets().open("network_source.json");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf))>0) bos.write(buf,0,n);
+            in.close();
+            JSONArray arr = new JSONObject(new String(bos.toByteArray(), "UTF-8")).getJSONArray("items");
+            for(int i=0;i<arr.length();i++){
+                JSONObject o=arr.getJSONObject(i);
+                SourceQ q=new SourceQ();
+                q.n=o.getInt("n"); q.topic=o.getString("topic"); q.q=o.getString("q"); q.a=o.getString("a"); q.note="";
+                networkSource.add(q);
+            }
+        } catch(Exception ignored){ }
     }
 
     private Set<String> wrongSet(){ return new HashSet<>(prefs.getStringSet("wrong", new HashSet<String>())); }
@@ -273,7 +324,7 @@ public class MainActivity extends Activity {
         streakChip.setText(s > 0 ? "\uD83D\uDD25 " + s + " day streak" : "\uD83D\uDD25 Start a streak");
     }
 
-    // ---------------- HOME ----------------
+    // ---------------- HOME DASHBOARD ----------------
     private void showHome(){
         cancelTimer();
         updateStreakChip();
@@ -289,71 +340,374 @@ public class MainActivity extends Activity {
         heroBg.setCornerRadius(dp(20));
         hero.setBackground(heroBg);
         hero.setPadding(dp(18), dp(18), dp(18), dp(18));
-        TextView emoji = text("\uD83D\uDC27", 40, TEXT);
-        hero.addView(emoji);
-        hero.addView(bold("Master Linux, one quiz at a time", 20, TEXT));
-        TextView sub = text("Lessons, topic-wise quizzes and topic-wise interview questions - from history to systemd. Fully offline.", 13, DIM);
+        hero.addView(text("🐧", 38, TEXT));
+        hero.addView(bold("Choose what to study", 21, TEXT));
+        TextView sub = text("One simple dashboard. Open a tile, then choose a topic or chapter.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
-        TextView version = text("v1.2.0  •  328 interview Q&A  •  346 commands  •  Speak + diagrams", 12, ORANGE);
+        TextView version = text("v1.3.0  •  328 interview Q&A  •  346 commands  •  Speak built in", 12, ORANGE);
         version.setTypeface(null, Typeface.BOLD);
         version.setPadding(0, dp(8), 0, 0);
         hero.addView(version);
-        int passed=totalPassedChecks();
-        TextView guide=text(passed==0 ? "Start here: open a chapter, read a lesson, then answer its quick check. No Linux machine needed." :
-            "Quick checks: " + passed + "/48 passed. Next, open any chapter to continue.", 13, GREEN);
-        guide.setPadding(0, dp(10), 0, 0);
-        hero.addView(guide);
         col.addView(hero, margins(0, 8));
 
-        col.addView(actionCard("\u26A1 Daily Challenge", "10 questions - new set every day", BLUE,
-                prefs.getString("lastDaily", "").equals(today()) ? "Done today \u2713" : "Start",
+        col.addView(actionCard("⚡ Daily Challenge", "10 questions - new set every day", BLUE,
+                prefs.getString("lastDaily", "").equals(today()) ? "Done today ✓" : "Start",
                 v -> startDaily()), margins(0, 6));
         int wrong = wrongSet().size();
         if(wrong > 0)
-            col.addView(actionCard("\uD83D\uDD01 Revise Mistakes", wrong + " question" + (wrong==1?"":"s") + " you got wrong", ORANGE, "Revise",
+            col.addView(actionCard("🔁 Revise Mistakes", wrong + " question" + (wrong==1?"":"s") + " you got wrong", ORANGE, "Revise",
                     v -> startRevise()), margins(0, 6));
 
-        // QUIZ section - only quizzes, one per topic area
-        col.addView(sectionHead("\uD83D\uDCDD", "Quiz - Topic-wise", "Only quizzes - Beginner/Intermediate levels, with Speak on every question.", BLUE), margins(0, 8));
+        col.addView(sectionHead("🎯", "Home Dashboard", "Big entry tiles only - topics open after you tap.", GREEN), margins(0, 8));
+        col.addView(dashboardTile("🟢", "Beginner", "Topic-wise quizzes  •  no timer", BLUE,
+                v -> showQuizTopics(MODE_BEGINNER)), margins(0, 6));
+        col.addView(dashboardTile("🟠", "Intermediate", "Topic-wise quizzes  •  30 sec per question", ORANGE,
+                v -> showQuizTopics(MODE_INTERMEDIATE)), margins(0, 6));
+        col.addView(dashboardTile("💼", "Interview Questions", "Your questions, PDFs + topic-wise chapters", PURPLE,
+                v -> showInterviewTopics()), margins(0, 6));
+        col.addView(dashboardTile("📖", "Learn Chapters", "48 short lessons  •  Listen + quick checks", GREEN,
+                v -> showLearnTopics()), margins(0, 6));
+        switchScreen(scroll);
+    }
 
-        LinearLayout modesRow = new LinearLayout(this);
-        modesRow.setOrientation(LinearLayout.HORIZONTAL);
-        String[] names = {"Beginner", "Intermediate"};
-        for(int i=0;i<2;i++){
-            final int m = i;
-            Button b = new Button(this);
-            b.setText(names[i]); b.setAllCaps(false); b.setTextSize(13); b.setTextColor(TEXT);
-            b.setBackground(bg(mode==m ? BLUE : SOFT, 22));
-            b.setOnClickListener(v -> { mode = m; showHome(); });
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, dp(42), 1);
-            p.setMargins(dp(3), 0, dp(3), 0);
-            modesRow.addView(b, p);
-            press(b);
-        }
-        col.addView(modesRow, margins(0, 6));
-        TextView modeHelp=text("Beginner: no timer  •  Intermediate: 30s per question",12,DIM);
-        col.addView(modeHelp, margins(0, 2));
+    private View dashboardTile(String emoji, String title, String sub, int color, View.OnClickListener click){
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setBackground(bg(CARD, 22));
+        card.setPadding(dp(18), dp(18), dp(18), dp(18));
+        TextView icon = text(emoji, 30, TEXT);
+        icon.setGravity(Gravity.CENTER);
+        icon.setBackground(bg(color, 18));
+        LinearLayout.LayoutParams ip = new LinearLayout.LayoutParams(dp(58), dp(58));
+        ip.bottomMargin = dp(12);
+        card.addView(icon, ip);
+        card.addView(bold(title, 20, TEXT));
+        TextView s = text(sub, 13, DIM);
+        s.setPadding(0, dp(4), 0, dp(8));
+        card.addView(s);
+        card.addView(bold("Open →", 13, color));
+        card.setOnClickListener(click);
+        press(card);
+        return card;
+    }
+
+    private Button listBackButton(String label, View.OnClickListener click){
+        Button b = new Button(this);
+        b.setText(label); b.setAllCaps(false); b.setTextColor(TEXT); b.setTextSize(13);
+        b.setBackground(bg(SOFT, 22));
+        b.setOnClickListener(click);
+        press(b);
+        return b;
+    }
+
+    private void showQuizTopics(final int selectedMode){
+        mode = selectedMode;
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        boolean beginner = selectedMode == MODE_BEGINNER;
+        col.addView(sectionHead(beginner ? "🟢" : "🟠",
+                beginner ? "Beginner Quiz Topics" : "Intermediate Quiz Topics",
+                beginner ? "Choose one topic - no timer." : "Choose one topic - 30 seconds per question.",
+                beginner ? BLUE : ORANGE), margins(0, 7));
         for(final Chapter ch : chapters)
-            col.addView(topicCard("\uD83D\uDCDD", ch.title + " Quiz",
-                    "10 of " + ch.qs.size() + " questions per round" + bestSuffix(ch), BLUE, "Start",
+            col.addView(topicCard("📝", ch.title + " Quiz",
+                    "10 of " + ch.qs.size() + " questions per round" + bestSuffix(ch), beginner ? BLUE : ORANGE, "Start",
                     v -> startChapterQuiz(ch)), margins(0, 5));
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
 
-        // INTERVIEW QUESTIONS section - only questions with answers, one area per topic
-        col.addView(sectionHead("\uD83D\uDCBC", "Interview Questions - Topic-wise", "28 topic sets from your PDFs/questions, with Speak and Play all for revision.", PURPLE), margins(0, 8));
+    private void showInterviewTopics(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+
+        col.addView(sectionHead("⭐", "Your Questions & PDFs", "The exact material you sent, each under its own name.", ORANGE), margins(0, 7));
+        col.addView(topicCard("📖", "My Interview Questions",
+                myQuestions.size() + " Q&A  •  in the order you sent", ORANGE, "Open",
+                v -> showMyQuestions()), margins(0, 5));
+        col.addView(topicCard("⌨️", "200 Important Commands",
+                commands200.size() + " rows  •  from your command PDF", BLUE, "Open",
+                v -> showCommands200()), margins(0, 5));
+        col.addView(topicCard("🌐", "Networking Interview Q&A",
+                networkSource.size() + " Q&A  •  simple English answers", PURPLE, "Open",
+                v -> showNetworkSource()), margins(0, 5));
+        col.addView(topicCard("🚀", "15 Advanced Topics Handbook",
+                "15 topics  •  Part 2 practical handbook", GREEN, "Open",
+                v -> showAdvancedHandbook()), margins(0, 5));
+
+        col.addView(sectionHead("💼", "Topic-wise Interview Chapters", "The same content organised by subject for revision.", PURPLE), margins(0, 10));
         for(final InterviewChapter ic : interviewChapters)
-            col.addView(topicCard("\uD83D\uDCBC", ic.title + " Interview Questions",
+            col.addView(topicCard("💼", ic.title + " Interview Questions",
                     interviewCardSub(ic), PURPLE, "Open",
-                    v -> showInterviewTopic(ic)), margins(0, 5));
+                    v -> { interviewOpenedFromHandbook=false; showInterviewTopic(ic); }), margins(0, 5));
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
 
-        // LEARN section - lessons grouped by chapter
-        col.addView(sectionHead("\uD83D\uDCD6", "Learn - Lessons by Chapter", "Short beginner lessons with Listen, visual guides and quick checks.", GREEN), margins(0, 8));
+    private void showLearnTopics(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("📖", "Learn Chapters", "Choose one chapter, read short lessons, then take its quiz.", GREEN), margins(0, 7));
         int delay = 0;
         for(final Chapter ch : chapters){
             col.addView(chapterCard(ch, delay), margins(0, 6));
             delay += 60;
         }
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
         switchScreen(scroll);
+    }
+
+    private void showMyQuestions(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("📖", "My Interview Questions", "Your questions and answers in your original order. Tap one to read it like a book page.", ORANGE), margins(0, 7));
+        List<ReaderPage> pages = new ArrayList<>();
+        for(SourceQ q : myQuestions){
+            ReaderPage p = new ReaderPage();
+            p.label = "Question " + q.n; p.title = q.q; p.body = q.a; p.note = q.note;
+            pages.add(p);
+        }
+        for(int i=0;i<pages.size();i++){
+            final int idx=i;
+            col.addView(questionListRow(pages.get(i).label, pages.get(i).title, "Read answer →", ORANGE,
+                    v -> showQaReader("My Interview Questions", pages, idx, ORANGE, () -> showMyQuestions())), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Interview Sections", v -> showInterviewTopics()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showCommands200(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("⌨️", "200 Important Commands", "Your command PDF - all 200 rows in original order, grouped by topic.", BLUE), margins(0, 7));
+        String lastTopic = "";
+        for(final SourceCommand c : commands200){
+            if(!c.topic.equals(lastTopic)){
+                lastTopic = c.topic;
+                TextView head = bold(lastTopic, 16, BLUE);
+                head.setPadding(0, dp(10), 0, dp(2));
+                col.addView(head);
+            }
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.TOP);
+            row.setBackground(bg(CARD, 16));
+            row.setPadding(dp(14), dp(11), dp(10), dp(11));
+            LinearLayout texts = new LinearLayout(this);
+            texts.setOrientation(LinearLayout.VERTICAL);
+            TextView cmd = mono("#" + c.n + "  " + c.command, 13, BLUE);
+            cmd.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+            texts.addView(cmd);
+            TextView ex = mono("Example: " + c.example, 11, TEXT);
+            ex.setPadding(0, dp(4), 0, 0);
+            texts.addView(ex);
+            TextView use = text("Use: " + c.use, 11, DIM);
+            use.setPadding(0, dp(3), 0, 0);
+            texts.addView(use);
+            row.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
+            Button speak = new Button(this);
+            speak.setText("🔊"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(13);
+            speak.setBackground(bg(SOFT, 14)); speak.setMinWidth(0); speak.setMinimumWidth(0); speak.setPadding(0,0,0,0);
+            final List<String> speech = singleSpeech("Command " + c.command + ". Example. " + c.example + ". Use. " + c.use);
+            speak.setOnClickListener(v -> toggleSpeech(speak, "🔊", speech));
+            LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(dp(40), dp(36));
+            sp.leftMargin = dp(8);
+            row.addView(speak, sp);
+            col.addView(row, margins(0, 4));
+        }
+        col.addView(listBackButton("Back to Interview Sections", v -> showInterviewTopics()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showNetworkSource(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("🌐", "Networking Interview Q&A", "Your networking PDF - all 40 Q&A in original order.", PURPLE), margins(0, 7));
+        List<ReaderPage> pages = new ArrayList<>();
+        for(SourceQ q : networkSource){
+            ReaderPage p = new ReaderPage();
+            p.label = q.n + ". " + q.topic; p.title = q.q; p.body = q.a; p.note = "";
+            pages.add(p);
+        }
+        for(int i=0;i<pages.size();i++){
+            final int idx=i;
+            col.addView(questionListRow(pages.get(i).label, pages.get(i).title, "Read answer →", PURPLE,
+                    v -> showQaReader("Networking Interview Q&A", pages, idx, PURPLE, () -> showNetworkSource())), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Interview Sections", v -> showInterviewTopics()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showAdvancedHandbook(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("🚀", "15 Advanced Topics Handbook", "Your Part 2 PDF - 15 practical topics in original order.", GREEN), margins(0, 7));
+        String[] ids = {"backup", "ubuntu-packages", "advanced-storage", "boot-recovery", "performance", "logging", "web-servers", "mysql", "advanced-security", "identity", "monitoring", "ansible", "virtualization", "time", "aws"};
+        for(int i=0;i<ids.length;i++){
+            final InterviewChapter ic = findInterviewChapter(ids[i]);
+            if(ic == null) continue;
+            col.addView(topicCard("🚀", (i+1) + ". " + ic.title,
+                    interviewCardSub(ic), GREEN, "Open",
+                    v -> { interviewOpenedFromHandbook=true; showInterviewTopic(ic); }), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Interview Sections", v -> showInterviewTopics()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private InterviewChapter findInterviewChapter(String id){
+        for(InterviewChapter ic : interviewChapters) if(ic.id.equals(id)) return ic;
+        return null;
+    }
+
+    private View questionListRow(String label, String title, String cta, int color, View.OnClickListener click){
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setBackground(bg(CARD, 18));
+        card.setPadding(dp(16), dp(13), dp(16), dp(13));
+        card.addView(bold(label, 11, color));
+        TextView q = bold(title, 16, TEXT);
+        q.setLineSpacing(0, 1.12f);
+        q.setPadding(0, dp(4), 0, dp(6));
+        card.addView(q);
+        card.addView(bold(cta, 12, color));
+        card.setOnClickListener(click);
+        press(card);
+        return card;
+    }
+
+    private List<ReaderPage> interviewPages(InterviewChapter ch){
+        List<ReaderPage> pages = new ArrayList<>();
+        for(int i=0;i<ch.qs.size();i++){
+            InterviewQ q = ch.qs.get(i);
+            ReaderPage p = new ReaderPage();
+            p.label = "Question " + (i+1); p.title = q.q; p.body = q.a; p.note = "";
+            pages.add(p);
+        }
+        return pages;
+    }
+
+    private void showQaReader(String section, final List<ReaderPage> pages, final int index, int color, final Runnable back){
+        cancelTimer();
+        final ReaderPage page = pages.get(index);
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(18), dp(8), dp(18), dp(26));
+        scroll.addView(col);
+        col.addView(bold(section + "  •  " + (index+1) + " of " + pages.size(), 12, DIM), margins(0, 3));
+        TextView label = bold(page.label, 13, color);
+        label.setPadding(0, dp(8), 0, dp(2));
+        col.addView(label);
+        TextView title = bold(page.title, 22, TEXT);
+        title.setLineSpacing(0, 1.14f);
+        col.addView(title, margins(0, 3));
+
+        Button speak = new Button(this);
+        speak.setText("🔊 Speak answer"); speak.setAllCaps(false); speak.setTextColor(color); speak.setTextSize(12);
+        speak.setTypeface(null, Typeface.BOLD);
+        speak.setBackground(bg(SOFT, 20));
+        speak.setOnClickListener(v -> toggleSpeech(speak, "🔊 Speak answer", singleSpeech(page.title + ". " + page.body + (page.note == null || page.note.isEmpty() ? "" : ". Note. " + page.note))));
+        press(speak);
+        LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(-2, dp(38));
+        sp.setMargins(0, dp(8), 0, dp(4));
+        col.addView(speak, sp);
+
+        LinearLayout paper = new LinearLayout(this);
+        paper.setOrientation(LinearLayout.VERTICAL);
+        paper.setBackground(bg(CARD, 20));
+        paper.setPadding(dp(18), dp(16), dp(18), dp(18));
+        addBookAnswer(paper, page.body);
+        col.addView(paper, margins(0, 8));
+
+        if(page.note != null && !page.note.isEmpty()){
+            LinearLayout note = new LinearLayout(this);
+            note.setOrientation(LinearLayout.VERTICAL);
+            note.setBackground(bg(0xff3a2f1e, 16));
+            note.setPadding(dp(14), dp(12), dp(14), dp(12));
+            note.addView(bold("Note", 12, ORANGE));
+            TextView nt = text(page.note, 14, TEXT);
+            nt.setLineSpacing(0, 1.15f);
+            nt.setPadding(0, dp(4), 0, 0);
+            note.addView(nt);
+            col.addView(note, margins(0, 6));
+        }
+
+        LinearLayout nav = new LinearLayout(this);
+        nav.setOrientation(LinearLayout.HORIZONTAL);
+        nav.setPadding(0, dp(12), 0, 0);
+        if(index > 0){
+            Button prev = new Button(this);
+            prev.setText("← Previous"); prev.setAllCaps(false); prev.setTextColor(TEXT); prev.setTextSize(13);
+            prev.setBackground(bg(SOFT, 22));
+            prev.setOnClickListener(v -> showQaReader(section, pages, index-1, color, back));
+            press(prev);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, dp(46), 1);
+            p.rightMargin = dp(6);
+            nav.addView(prev, p);
+        }
+        Button next = new Button(this);
+        boolean last = index == pages.size()-1;
+        next.setText(last ? "Back to list" : "Next →");
+        next.setAllCaps(false); next.setTextColor(0xff101827); next.setTextSize(13); next.setTypeface(null, Typeface.BOLD);
+        next.setBackground(bg(color, 22));
+        next.setOnClickListener(v -> { if(last) back.run(); else showQaReader(section, pages, index+1, color, back); });
+        press(next);
+        nav.addView(next, new LinearLayout.LayoutParams(0, dp(46), 1));
+        col.addView(nav);
+        col.addView(listBackButton("Back to list", v -> back.run()), margins(0, 8));
+        switchScreen(scroll);
+    }
+
+    private void addBookAnswer(LinearLayout box, String body){
+        String[] paras = body.split("\\n\\n");
+        for(String raw : paras){
+            String para = raw.trim();
+            if(para.isEmpty()) continue;
+            boolean commandBlock = para.contains(" → ") || para.contains(";\n") || para.matches("(?s)(#?[a-zA-Z][a-zA-Z0-9_.-]*(\\s+[^\\n]+)?\\n?)+");
+            if(commandBlock && para.length() < 500){
+                LinearLayout code = new LinearLayout(this);
+                code.setBackground(bg(0xff0b1220, 12));
+                code.setPadding(dp(12), dp(10), dp(12), dp(10));
+                TextView t = mono(para, 13, 0xffc9d7ea);
+                t.setLineSpacing(0, 1.12f);
+                code.addView(t);
+                box.addView(code, margins(0, 5));
+            } else {
+                TextView t = text(para, 16, TEXT);
+                t.setLineSpacing(0, 1.24f);
+                t.setTextIsSelectable(true);
+                box.addView(t, margins(0, 5));
+            }
+        }
     }
 
     private LinearLayout.LayoutParams margins(int h, int v){
@@ -503,72 +857,6 @@ public class MainActivity extends Activity {
         return t;
     }
 
-    private String[] interviewDiagrams(String id){
-        if("navigation".equals(id)) return new String[]{"diagrams/filesystem_hierarchy.png"};
-        if("users".equals(id)) return new String[]{"diagrams/permissions_rwx_octal.png"};
-        if("processes".equals(id)) return new String[]{"diagrams/process_states.png"};
-        if("network".equals(id)) return new String[]{"diagrams/osi_tcpip.png", "diagrams/tcp_handshake.png"};
-        if("storage".equals(id)) return new String[]{"diagrams/lvm_layers.png", "diagrams/raid_levels.png"};
-        if("systemd".equals(id)) return new String[]{"diagrams/boot_process.png", "diagrams/systemd_units.png"};
-        if("advanced-security".equals(id)) return new String[]{"diagrams/selinux_flow.png"};
-        if("virtualization".equals(id)) return new String[]{"diagrams/docker_vs_vm.png"};
-        if("advanced-storage".equals(id)) return new String[]{"diagrams/nfs_samba.png"};
-        if("boot-recovery".equals(id)) return new String[]{"diagrams/boot_process.png"};
-        return new String[0];
-    }
-
-    private String lessonDiagram(String chapterId, String title){
-        if("navigation".equals(chapterId) && "One tree, one root".equals(title)) return "diagrams/filesystem_hierarchy.png";
-        if("users".equals(chapterId) && "Reading rwx like a book".equals(title)) return "diagrams/permissions_rwx_octal.png";
-        if("processes".equals(chapterId) && "What is a process?".equals(title)) return "diagrams/process_states.png";
-        if("network".equals(chapterId) && "ping, DNS and the /etc/hosts trick".equals(title)) return "diagrams/osi_tcpip.png";
-        if("storage".equals(chapterId) && "LVM: flexible storage".equals(title)) return "diagrams/lvm_layers.png";
-        if("storage".equals(chapterId) && "RAID and inodes".equals(title)) return "diagrams/raid_levels.png";
-        if("systemd".equals(chapterId) && "How a Linux machine boots".equals(title)) return "diagrams/boot_process.png";
-        return null;
-    }
-
-    private String diagramCaption(String path){
-        if(path.contains("boot_process")) return "Diagram: Linux boot process";
-        if(path.contains("filesystem_hierarchy")) return "Diagram: Linux filesystem hierarchy";
-        if(path.contains("permissions_rwx_octal")) return "Diagram: rwx permissions and octal values";
-        if(path.contains("osi_tcpip")) return "Diagram: OSI and TCP/IP models";
-        if(path.contains("tcp_handshake")) return "Diagram: TCP three-way handshake";
-        if(path.contains("lvm_layers")) return "Diagram: LVM layers";
-        if(path.contains("raid_levels")) return "Diagram: RAID levels";
-        if(path.contains("process_states")) return "Diagram: Linux process states";
-        if(path.contains("systemd_units")) return "Diagram: systemd units and dependencies";
-        if(path.contains("selinux_flow")) return "Diagram: SELinux decision flow";
-        if(path.contains("docker_vs_vm")) return "Diagram: Docker containers vs virtual machines";
-        if(path.contains("nfs_samba")) return "Diagram: NFS and Samba file sharing";
-        return "Diagram";
-    }
-
-    private View diagramImage(String path){
-        String caption = diagramCaption(path);
-        LinearLayout wrap = new LinearLayout(this);
-        wrap.setOrientation(LinearLayout.VERTICAL);
-        wrap.setBackground(bg(0xff0b1220, 16));
-        wrap.setPadding(dp(10), dp(10), dp(10), dp(12));
-        TextView label = bold(caption, 12, PURPLE);
-        label.setPadding(dp(4), 0, dp(4), dp(8));
-        wrap.addView(label);
-        try {
-            InputStream in = getAssets().open(path);
-            Bitmap bitmap = BitmapFactory.decodeStream(in);
-            in.close();
-            ImageView image = new ImageView(this);
-            image.setImageBitmap(bitmap);
-            image.setAdjustViewBounds(true);
-            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            image.setContentDescription(caption);
-            wrap.addView(image, new LinearLayout.LayoutParams(-1, -2));
-        } catch(Exception e){
-            wrap.addView(text("Diagram could not be loaded.", 12, RED));
-        }
-        return wrap;
-    }
-
     private void showChapter(final Chapter ch){
         cancelTimer();
         ScrollView scroll = new ScrollView(this);
@@ -624,9 +912,9 @@ public class MainActivity extends Activity {
             }
         }
         Button home = new Button(this);
-        home.setText("Back to Home"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);
+        home.setText("Back to Learn Chapters"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);
         home.setBackground(bg(SOFT, 22));
-        home.setOnClickListener(v -> showHome());
+        home.setOnClickListener(v -> showLearnTopics());
         press(home);
         LinearLayout.LayoutParams hp = new LinearLayout.LayoutParams(-1, dp(46));
         hp.setMargins(0, dp(10), 0, 0);
@@ -675,22 +963,6 @@ public class MainActivity extends Activity {
             scenario.addView(bold("Where you'd use it",13,ORANGE));
             scenario.addView(text(l.scenario,14,TEXT));
             col.addView(scenario,margins(0,6));
-        }
-        String lessonDiagramPath = lessonDiagram(ch.id, l.title);
-        if(lessonDiagramPath != null){
-            col.addView(diagramImage(lessonDiagramPath), margins(0, 6));
-        }
-        else if(!l.diagram.isEmpty()){
-            LinearLayout box = new LinearLayout(this);
-            box.setBackground(bg(0xff0b1220, 14));
-            box.setPadding(dp(12), dp(12), dp(12), dp(12));
-            android.widget.HorizontalScrollView hsv = new android.widget.HorizontalScrollView(this);
-            TextView dt = mono(l.diagram, 12, GREEN);
-            dt.setLineSpacing(0, 1.05f);
-            hsv.addView(dt);
-            box.addView(hsv);
-            col.addView(box, margins(0, 6));
-            popIn(box, 120);
         }
         if(!l.example.isEmpty()){
             TextView cap = bold("Walkthrough: commands and sample output", 13, ORANGE);
@@ -799,100 +1071,34 @@ public class MainActivity extends Activity {
         headBg.setCornerRadius(dp(20));
         head.setBackground(headBg);
         head.setPadding(dp(18), dp(16), dp(18), dp(16));
-        head.addView(text("\uD83D\uDCBC", 28, TEXT));
+        head.addView(text("💼", 28, TEXT));
         head.addView(bold(ch.title + " Interview Questions", 19, TEXT));
         int commands = commandCount(ch);
-        TextView sub = text(ch.qs.size() + (ch.qs.size() == 1 ? " question" : " questions") + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer or listen", 13, DIM);
+        TextView sub = text(ch.qs.size() + (ch.qs.size() == 1 ? " question" : " questions") + (commands > 0 ? "  •  " + commands + " command examples" : "") + "  •  tap a question to read its answer", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         head.addView(sub);
         Button playAll = new Button(this);
-        playAll.setText("\uD83D\uDD0A Play all topic"); playAll.setAllCaps(false); playAll.setTextColor(PURPLE); playAll.setTextSize(12);
+        playAll.setText("🔊 Play all topic"); playAll.setAllCaps(false); playAll.setTextColor(PURPLE); playAll.setTextSize(12);
         playAll.setTypeface(null, Typeface.BOLD);
         playAll.setBackground(bg(SOFT, 20));
-        playAll.setOnClickListener(v -> toggleSpeech(playAll, "\uD83D\uDD0A Play all topic", topicSpeechParts(ch)));
+        playAll.setOnClickListener(v -> toggleSpeech(playAll, "🔊 Play all topic", topicSpeechParts(ch)));
         press(playAll);
         LinearLayout.LayoutParams pp = new LinearLayout.LayoutParams(-2, dp(38));
         pp.setMargins(0, dp(10), 0, 0);
         head.addView(playAll, pp);
         col.addView(head, margins(0, 6));
 
-        String[] diagramPaths = interviewDiagrams(ch.id);
-        if(diagramPaths.length > 0){
-            col.addView(sectionHead("\uD83E\uDDE0", "Visual guide", "Accurate diagrams for concepts that are easier to see.", PURPLE), margins(0, 7));
-            for(String path : diagramPaths) col.addView(diagramImage(path), margins(0, 5));
-        }
-
         if(ch.qs.isEmpty()){
             col.addView(text("Interview questions for this topic are coming soon.", 13, DIM), margins(0, 6));
         }
-        for(int i=0;i<ch.qs.size();i++){
-            final InterviewQ item = ch.qs.get(i);
-            LinearLayout card = new LinearLayout(this);
-            card.setOrientation(LinearLayout.VERTICAL);
-            card.setBackground(bg(CARD, 16));
-            card.setPadding(dp(14), dp(12), dp(14), dp(12));
-            LinearLayout qRow = new LinearLayout(this);
-            qRow.setOrientation(LinearLayout.HORIZONTAL);
-            qRow.setGravity(Gravity.TOP);
-            TextView num = bold("Q" + (i+1), 12, 0xff101827);
-            num.setBackground(bg(PURPLE, 10));
-            num.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams npp = new LinearLayout.LayoutParams(dp(40), dp(26));
-            npp.rightMargin = dp(10);
-            qRow.addView(num, npp);
-            TextView qt = bold(item.q, 15, TEXT);
-            qt.setLineSpacing(0, 1.1f);
-            qRow.addView(qt, new LinearLayout.LayoutParams(0, -2, 1));
-            card.addView(qRow);
-
-            LinearLayout wrap = new LinearLayout(this);
-            wrap.setBackground(bg(PURPLE, 12));
-            wrap.setPadding(dp(3), 0, 0, 0);
-            LinearLayout ansBox = new LinearLayout(this);
-            ansBox.setOrientation(LinearLayout.VERTICAL);
-            ansBox.setBackground(bg(SOFT, 12));
-            ansBox.setPadding(dp(12), dp(10), dp(12), dp(10));
-            TextView at = text(item.a, 13, TEXT);
-            at.setLineSpacing(0, 1.15f);
-            at.setTextIsSelectable(true);
-            ansBox.addView(at);
-            wrap.addView(ansBox, new LinearLayout.LayoutParams(-1, -2));
-            wrap.setVisibility(View.GONE);
-            final LinearLayout ansWrap = wrap;
-            LinearLayout.LayoutParams ap = new LinearLayout.LayoutParams(-1, -2);
-            ap.setMargins(0, dp(8), 0, 0);
-            card.addView(wrap, ap);
-
-            LinearLayout actions = new LinearLayout(this);
-            actions.setOrientation(LinearLayout.HORIZONTAL);
-            final Button toggle = new Button(this);
-            toggle.setText("Show answer"); toggle.setAllCaps(false); toggle.setTextColor(PURPLE); toggle.setTextSize(12);
-            toggle.setTypeface(null, Typeface.BOLD);
-            toggle.setBackground(bg(SOFT, 20));
-            LinearLayout.LayoutParams tp = new LinearLayout.LayoutParams(0, dp(38), 1);
-            tp.setMargins(0, dp(8), dp(5), 0);
-            actions.addView(toggle, tp);
-            toggle.setOnClickListener(v -> {
-                boolean show = ansWrap.getVisibility() != View.VISIBLE;
-                ansWrap.setVisibility(show ? View.VISIBLE : View.GONE);
-                toggle.setText(show ? "Hide answer" : "Show answer");
-            });
-            Button speak = new Button(this);
-            speak.setText("\uD83D\uDD0A Speak"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(12);
-            speak.setTypeface(null, Typeface.BOLD);
-            speak.setBackground(bg(SOFT, 20));
-            final List<String> qaSpeech = new ArrayList<>();
-            qaSpeech.add("Question. " + item.q + " Answer. " + item.a);
-            speak.setOnClickListener(v -> toggleSpeech(speak, "\uD83D\uDD0A Speak", qaSpeech));
-            LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(0, dp(38), 1);
-            sp.setMargins(dp(5), dp(8), 0, 0);
-            actions.addView(speak, sp);
-            card.addView(actions);
-            col.addView(card, margins(0, 5));
-            popIn(card, 40 * i);
+        List<ReaderPage> pages = interviewPages(ch);
+        for(int i=0;i<pages.size();i++){
+            final int idx = i;
+            col.addView(questionListRow(pages.get(i).label, pages.get(i).title, "Read answer →", PURPLE,
+                    v -> showQaReader(ch.title + " Interview Questions", pages, idx, PURPLE, () -> showInterviewTopic(ch))), margins(0, 5));
         }
         if(!ch.commands.isEmpty()){
-            col.addView(sectionHead("\uD83D\uDCBB", "Command Reference", commands + " practical commands - each topic listed once, with one example per command.", PURPLE), margins(0, 8));
+            col.addView(sectionHead("💻", "Command Reference", commands + " practical commands - each topic listed once, with one example per command.", PURPLE), margins(0, 8));
             for(final CommandGroup group : ch.commands){
                 LinearLayout table = new LinearLayout(this);
                 table.setOrientation(LinearLayout.VERTICAL);
@@ -906,12 +1112,9 @@ public class MainActivity extends Activity {
                 LinearLayout labels = new LinearLayout(this);
                 labels.setOrientation(LinearLayout.HORIZONTAL);
                 labels.setPadding(0, 0, 0, dp(4));
-                TextView lc = bold("Command", 10, PURPLE);
-                TextView le = bold("Example", 10, PURPLE);
-                TextView lu = bold("Use", 10, PURPLE);
-                labels.addView(lc, new LinearLayout.LayoutParams(0, -2, .85f));
-                labels.addView(le, new LinearLayout.LayoutParams(0, -2, 1.15f));
-                labels.addView(lu, new LinearLayout.LayoutParams(0, -2, 1f));
+                labels.addView(bold("Command", 10, PURPLE), new LinearLayout.LayoutParams(0, -2, .85f));
+                labels.addView(bold("Example", 10, PURPLE), new LinearLayout.LayoutParams(0, -2, 1.15f));
+                labels.addView(bold("Use", 10, PURPLE), new LinearLayout.LayoutParams(0, -2, 1f));
                 table.addView(labels);
 
                 for(int r=0;r<group.items.size();r++){
@@ -931,11 +1134,11 @@ public class MainActivity extends Activity {
                     row.addView(e, ep);
                     row.addView(u, new LinearLayout.LayoutParams(0, -2, 1f));
                     Button speak = new Button(this);
-                    speak.setText("\uD83D\uDD0A"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(12);
+                    speak.setText("🔊"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(12);
                     speak.setBackground(bg(SOFT, 12));
                     speak.setMinWidth(0); speak.setMinimumWidth(0); speak.setPadding(0,0,0,0);
                     final List<String> commandSpeech = singleSpeech(commandSpeech(item));
-                    speak.setOnClickListener(v -> toggleSpeech(speak, "\uD83D\uDD0A", commandSpeech));
+                    speak.setOnClickListener(v -> toggleSpeech(speak, "🔊", commandSpeech));
                     LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(dp(36), dp(32));
                     sp.leftMargin = dp(6);
                     row.addView(speak, sp);
@@ -950,9 +1153,10 @@ public class MainActivity extends Activity {
             }
         }
         Button home = new Button(this);
-        home.setText("Back to Home"); home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);
+        home.setText(interviewOpenedFromHandbook ? "Back to 15 Advanced Topics" : "Back to Interview Chapters");
+        home.setAllCaps(false); home.setTextColor(TEXT); home.setTextSize(13);
         home.setBackground(bg(SOFT, 22));
-        home.setOnClickListener(v -> showHome());
+        home.setOnClickListener(v -> { if(interviewOpenedFromHandbook) showAdvancedHandbook(); else showInterviewTopics(); });
         press(home);
         LinearLayout.LayoutParams hp = new LinearLayout.LayoutParams(-1, dp(46));
         hp.setMargins(0, dp(10), 0, 0);

@@ -1,0 +1,1404 @@
+{
+  "items": [
+    {
+      "n": 1,
+      "topic": "Navigation & Basics",
+      "command": "pwd",
+      "example": "pwd",
+      "use": "Current directory check"
+    },
+    {
+      "n": 2,
+      "topic": "Navigation & Basics",
+      "command": "ls",
+      "example": "ls -la",
+      "use": "View files, hidden files and permissions"
+    },
+    {
+      "n": 3,
+      "topic": "Navigation & Basics",
+      "command": "cd",
+      "example": "cd /etc",
+      "use": "Directory change"
+    },
+    {
+      "n": 4,
+      "topic": "Navigation & Basics",
+      "command": "cd ..",
+      "example": "cd ..",
+      "use": "Parent directory"
+    },
+    {
+      "n": 5,
+      "topic": "Navigation & Basics",
+      "command": "cd -",
+      "example": "cd -",
+      "use": "Previous directory"
+    },
+    {
+      "n": 6,
+      "topic": "Navigation & Basics",
+      "command": "cd ~",
+      "example": "cd ~",
+      "use": "Home directory"
+    },
+    {
+      "n": 7,
+      "topic": "Navigation & Basics",
+      "command": "clear",
+      "example": "clear",
+      "use": "Terminal clean"
+    },
+    {
+      "n": 8,
+      "topic": "Navigation & Basics",
+      "command": "history",
+      "example": "history 20",
+      "use": "Recent commands"
+    },
+    {
+      "n": 9,
+      "topic": "Navigation & Basics",
+      "command": "whoami",
+      "example": "whoami",
+      "use": "Current user"
+    },
+    {
+      "n": 10,
+      "topic": "Navigation & Basics",
+      "command": "man",
+      "example": "man ls",
+      "use": "Command documentation"
+    },
+    {
+      "n": 11,
+      "topic": "Files & Directories",
+      "command": "touch",
+      "example": "touch test.txt",
+      "use": "Empty file create"
+    },
+    {
+      "n": 12,
+      "topic": "Files & Directories",
+      "command": "mkdir",
+      "example": "mkdir backup",
+      "use": "Directory create"
+    },
+    {
+      "n": 13,
+      "topic": "Files & Directories",
+      "command": "mkdir -p",
+      "example": "mkdir -p /data/app/logs",
+      "use": "Nested directories create"
+    },
+    {
+      "n": 14,
+      "topic": "Files & Directories",
+      "command": "cp",
+      "example": "cp app.conf app.conf.bak",
+      "use": "Config backup/copy"
+    },
+    {
+      "n": 15,
+      "topic": "Files & Directories",
+      "command": "cp -r",
+      "example": "cp -r app /backup/",
+      "use": "Directory copy"
+    },
+    {
+      "n": 16,
+      "topic": "Files & Directories",
+      "command": "mv",
+      "example": "mv old.log archive.log",
+      "use": "Move/rename"
+    },
+    {
+      "n": 17,
+      "topic": "Files & Directories",
+      "command": "rm",
+      "example": "rm test.txt",
+      "use": "File delete"
+    },
+    {
+      "n": 18,
+      "topic": "Files & Directories",
+      "command": "rm -r",
+      "example": "rm -r oldapp",
+      "use": "Directory delete"
+    },
+    {
+      "n": 19,
+      "topic": "Files & Directories",
+      "command": "rmdir",
+      "example": "rmdir emptydir",
+      "use": "Empty directory delete"
+    },
+    {
+      "n": 20,
+      "topic": "Files & Directories",
+      "command": "stat",
+      "example": "stat app.log",
+      "use": "Metadata/inode/timestamps"
+    },
+    {
+      "n": 21,
+      "topic": "Viewing & Text",
+      "command": "cat",
+      "example": "cat /etc/hosts",
+      "use": "Small file read"
+    },
+    {
+      "n": 22,
+      "topic": "Viewing & Text",
+      "command": "less",
+      "example": "less /var/log/messages",
+      "use": "Large file page-by-page"
+    },
+    {
+      "n": 23,
+      "topic": "Viewing & Text",
+      "command": "more",
+      "example": "more file.txt",
+      "use": "Paged viewing"
+    },
+    {
+      "n": 24,
+      "topic": "Viewing & Text",
+      "command": "head",
+      "example": "head -n 20 app.log",
+      "use": "First lines"
+    },
+    {
+      "n": 25,
+      "topic": "Viewing & Text",
+      "command": "tail",
+      "example": "tail -n 50 app.log",
+      "use": "Last lines"
+    },
+    {
+      "n": 26,
+      "topic": "Viewing & Text",
+      "command": "tail -f",
+      "example": "tail -f app.log",
+      "use": "Live log monitoring"
+    },
+    {
+      "n": 27,
+      "topic": "Viewing & Text",
+      "command": "wc",
+      "example": "wc app.log",
+      "use": "Lines/words/bytes"
+    },
+    {
+      "n": 28,
+      "topic": "Viewing & Text",
+      "command": "sort",
+      "example": "sort users.txt",
+      "use": "Sort data"
+    },
+    {
+      "n": 29,
+      "topic": "Viewing & Text",
+      "command": "uniq",
+      "example": "sort users.txt | uniq",
+      "use": "Duplicate handling"
+    },
+    {
+      "n": 30,
+      "topic": "Viewing & Text",
+      "command": "diff",
+      "example": "diff old.conf new.conf",
+      "use": "Compare files"
+    },
+    {
+      "n": 31,
+      "topic": "Search & Filtering",
+      "command": "grep",
+      "example": "grep 'error' app.log",
+      "use": "Search text"
+    },
+    {
+      "n": 32,
+      "topic": "Search & Filtering",
+      "command": "grep -i",
+      "example": "grep -i 'error' app.log",
+      "use": "Case-insensitive search"
+    },
+    {
+      "n": 33,
+      "topic": "Search & Filtering",
+      "command": "grep -n",
+      "example": "grep -n 'error' app.log",
+      "use": "Show line numbers"
+    },
+    {
+      "n": 34,
+      "topic": "Search & Filtering",
+      "command": "grep -v",
+      "example": "grep -v 'debug' app.log",
+      "use": "Exclude matches"
+    },
+    {
+      "n": 35,
+      "topic": "Search & Filtering",
+      "command": "grep -r",
+      "example": "grep -r 'DB_HOST' /etc/app",
+      "use": "Recursive search"
+    },
+    {
+      "n": 36,
+      "topic": "Search & Filtering",
+      "command": "grep -E",
+      "example": "grep -E 'error|failed' app.log",
+      "use": "Multiple patterns"
+    },
+    {
+      "n": 37,
+      "topic": "Search & Filtering",
+      "command": "find",
+      "example": "find /var -name '*.log'",
+      "use": "Find by name"
+    },
+    {
+      "n": 38,
+      "topic": "Search & Filtering",
+      "command": "find -size",
+      "example": "find /var -type f -size +500M",
+      "use": "Find large files"
+    },
+    {
+      "n": 39,
+      "topic": "Search & Filtering",
+      "command": "find -mtime",
+      "example": "find /backup -type f -mtime +30",
+      "use": "Find old files"
+    },
+    {
+      "n": 40,
+      "topic": "Search & Filtering",
+      "command": "locate",
+      "example": "locate httpd.conf",
+      "use": "Fast indexed search"
+    },
+    {
+      "n": 41,
+      "topic": "Users & Groups",
+      "command": "useradd",
+      "example": "useradd rahul",
+      "use": "Create user"
+    },
+    {
+      "n": 42,
+      "topic": "Users & Groups",
+      "command": "adduser",
+      "example": "adduser rahul",
+      "use": "Interactive user creation"
+    },
+    {
+      "n": 43,
+      "topic": "Users & Groups",
+      "command": "passwd",
+      "example": "passwd rahul",
+      "use": "Set/change password"
+    },
+    {
+      "n": 44,
+      "topic": "Users & Groups",
+      "command": "usermod",
+      "example": "usermod -s /bin/bash rahul",
+      "use": "Modify user"
+    },
+    {
+      "n": 45,
+      "topic": "Users & Groups",
+      "command": "usermod -aG",
+      "example": "usermod -aG developers rahul",
+      "use": "Add supplementary group"
+    },
+    {
+      "n": 46,
+      "topic": "Users & Groups",
+      "command": "userdel",
+      "example": "userdel rahul",
+      "use": "Delete user"
+    },
+    {
+      "n": 47,
+      "topic": "Users & Groups",
+      "command": "userdel -r",
+      "example": "userdel -r rahul",
+      "use": "Delete user + home"
+    },
+    {
+      "n": 48,
+      "topic": "Users & Groups",
+      "command": "groupadd",
+      "example": "groupadd developers",
+      "use": "Create group"
+    },
+    {
+      "n": 49,
+      "topic": "Users & Groups",
+      "command": "groupdel",
+      "example": "groupdel developers",
+      "use": "Delete group"
+    },
+    {
+      "n": 50,
+      "topic": "Users & Groups",
+      "command": "groups",
+      "example": "groups rahul",
+      "use": "Show user's groups"
+    },
+    {
+      "n": 51,
+      "topic": "Permissions & Ownership",
+      "command": "chmod",
+      "example": "chmod 644 app.conf",
+      "use": "Change permissions"
+    },
+    {
+      "n": 52,
+      "topic": "Permissions & Ownership",
+      "command": "chmod +x",
+      "example": "chmod +x backup.sh",
+      "use": "Make script executable"
+    },
+    {
+      "n": 53,
+      "topic": "Permissions & Ownership",
+      "command": "chown",
+      "example": "chown appuser app.conf",
+      "use": "Change owner"
+    },
+    {
+      "n": 54,
+      "topic": "Permissions & Ownership",
+      "command": "chown user:group",
+      "example": "chown app:app app.conf",
+      "use": "Change owner + group"
+    },
+    {
+      "n": 55,
+      "topic": "Permissions & Ownership",
+      "command": "chgrp",
+      "example": "chgrp developers project.txt",
+      "use": "Change group"
+    },
+    {
+      "n": 56,
+      "topic": "Permissions & Ownership",
+      "command": "umask",
+      "example": "umask 027",
+      "use": "Default permissions"
+    },
+    {
+      "n": 57,
+      "topic": "Permissions & Ownership",
+      "command": "getfacl",
+      "example": "getfacl report.txt",
+      "use": "View ACL"
+    },
+    {
+      "n": 58,
+      "topic": "Permissions & Ownership",
+      "command": "setfacl",
+      "example": "setfacl -m u:rahul:r report.txt",
+      "use": "Give ACL permission"
+    },
+    {
+      "n": 59,
+      "topic": "Permissions & Ownership",
+      "command": "lsattr",
+      "example": "lsattr important.conf",
+      "use": "View file attributes"
+    },
+    {
+      "n": 60,
+      "topic": "Permissions & Ownership",
+      "command": "chattr",
+      "example": "chattr +i important.conf",
+      "use": "Make file immutable"
+    },
+    {
+      "n": 61,
+      "topic": "Processes",
+      "command": "ps",
+      "example": "ps",
+      "use": "Current shell processes"
+    },
+    {
+      "n": 62,
+      "topic": "Processes",
+      "command": "ps aux",
+      "example": "ps aux",
+      "use": "All detailed processes"
+    },
+    {
+      "n": 63,
+      "topic": "Processes",
+      "command": "ps -ef",
+      "example": "ps -ef | grep nginx",
+      "use": "Find PID/process details"
+    },
+    {
+      "n": 64,
+      "topic": "Processes",
+      "command": "top",
+      "example": "top",
+      "use": "Live CPU/RAM monitoring"
+    },
+    {
+      "n": 65,
+      "topic": "Processes",
+      "command": "htop",
+      "example": "htop",
+      "use": "Interactive monitoring"
+    },
+    {
+      "n": 66,
+      "topic": "Processes",
+      "command": "pgrep",
+      "example": "pgrep nginx",
+      "use": "Find PID by name"
+    },
+    {
+      "n": 67,
+      "topic": "Processes",
+      "command": "pkill",
+      "example": "pkill nginx",
+      "use": "Terminate by name"
+    },
+    {
+      "n": 68,
+      "topic": "Processes",
+      "command": "kill",
+      "example": "kill 1234",
+      "use": "Graceful termination"
+    },
+    {
+      "n": 69,
+      "topic": "Processes",
+      "command": "kill -9",
+      "example": "kill -9 1234",
+      "use": "Force terminate"
+    },
+    {
+      "n": 70,
+      "topic": "Processes",
+      "command": "jobs",
+      "example": "jobs",
+      "use": "Background jobs"
+    },
+    {
+      "n": 71,
+      "topic": "Services & systemd",
+      "command": "systemctl status",
+      "example": "systemctl status sshd",
+      "use": "Service status"
+    },
+    {
+      "n": 72,
+      "topic": "Services & systemd",
+      "command": "systemctl start",
+      "example": "systemctl start nginx",
+      "use": "Start service"
+    },
+    {
+      "n": 73,
+      "topic": "Services & systemd",
+      "command": "systemctl stop",
+      "example": "systemctl stop nginx",
+      "use": "Stop service"
+    },
+    {
+      "n": 74,
+      "topic": "Services & systemd",
+      "command": "systemctl restart",
+      "example": "systemctl restart nginx",
+      "use": "Restart service"
+    },
+    {
+      "n": 75,
+      "topic": "Services & systemd",
+      "command": "systemctl reload",
+      "example": "systemctl reload nginx",
+      "use": "Reload config when supported"
+    },
+    {
+      "n": 76,
+      "topic": "Services & systemd",
+      "command": "systemctl enable",
+      "example": "systemctl enable nginx",
+      "use": "Start at boot"
+    },
+    {
+      "n": 77,
+      "topic": "Services & systemd",
+      "command": "systemctl disable",
+      "example": "systemctl disable nginx",
+      "use": "Disable boot start"
+    },
+    {
+      "n": 78,
+      "topic": "Services & systemd",
+      "command": "systemctl is-active",
+      "example": "systemctl is-active nginx",
+      "use": "Check active state"
+    },
+    {
+      "n": 79,
+      "topic": "Services & systemd",
+      "command": "systemctl is-enabled",
+      "example": "systemctl is-enabled nginx",
+      "use": "Check boot state"
+    },
+    {
+      "n": 80,
+      "topic": "Services & systemd",
+      "command": "systemctl list-units",
+      "example": "systemctl list-units --type=service",
+      "use": "List loaded services"
+    },
+    {
+      "n": 81,
+      "topic": "Networking Basics",
+      "command": "ip addr",
+      "example": "ip addr show",
+      "use": "IP/interface details"
+    },
+    {
+      "n": 82,
+      "topic": "Networking Basics",
+      "command": "ip link",
+      "example": "ip link show",
+      "use": "Interface state"
+    },
+    {
+      "n": 83,
+      "topic": "Networking Basics",
+      "command": "ip route",
+      "example": "ip route",
+      "use": "Routing/default gateway"
+    },
+    {
+      "n": 84,
+      "topic": "Networking Basics",
+      "command": "ip neigh",
+      "example": "ip neigh",
+      "use": "ARP/neighbor table"
+    },
+    {
+      "n": 85,
+      "topic": "Networking Basics",
+      "command": "ping",
+      "example": "ping -c 4 8.8.8.8",
+      "use": "Connectivity test"
+    },
+    {
+      "n": 86,
+      "topic": "Networking Basics",
+      "command": "ss -tuln",
+      "example": "ss -tuln",
+      "use": "Listening ports"
+    },
+    {
+      "n": 87,
+      "topic": "Networking Basics",
+      "command": "ss -tp",
+      "example": "ss -tp",
+      "use": "Connections + processes"
+    },
+    {
+      "n": 88,
+      "topic": "Networking Basics",
+      "command": "hostname",
+      "example": "hostname",
+      "use": "Server hostname"
+    },
+    {
+      "n": 89,
+      "topic": "Networking Basics",
+      "command": "hostnamectl",
+      "example": "hostnamectl",
+      "use": "Hostname/system details"
+    },
+    {
+      "n": 90,
+      "topic": "Networking Basics",
+      "command": "curl",
+      "example": "curl -I https://example.com",
+      "use": "HTTP connectivity test"
+    },
+    {
+      "n": 91,
+      "topic": "DNS & Network Tools",
+      "command": "nslookup",
+      "example": "nslookup example.com",
+      "use": "DNS resolution"
+    },
+    {
+      "n": 92,
+      "topic": "DNS & Network Tools",
+      "command": "dig",
+      "example": "dig example.com",
+      "use": "Detailed DNS query"
+    },
+    {
+      "n": 93,
+      "topic": "DNS & Network Tools",
+      "command": "host",
+      "example": "host example.com",
+      "use": "Simple DNS lookup"
+    },
+    {
+      "n": 94,
+      "topic": "DNS & Network Tools",
+      "command": "traceroute",
+      "example": "traceroute example.com",
+      "use": "Packet path"
+    },
+    {
+      "n": 95,
+      "topic": "DNS & Network Tools",
+      "command": "tracepath",
+      "example": "tracepath example.com",
+      "use": "Path/MTU troubleshooting"
+    },
+    {
+      "n": 96,
+      "topic": "DNS & Network Tools",
+      "command": "nmcli",
+      "example": "nmcli device status",
+      "use": "NetworkManager status"
+    },
+    {
+      "n": 97,
+      "topic": "DNS & Network Tools",
+      "command": "nmtui",
+      "example": "nmtui",
+      "use": "Text UI network config"
+    },
+    {
+      "n": 98,
+      "topic": "DNS & Network Tools",
+      "command": "ethtool",
+      "example": "ethtool eth0",
+      "use": "NIC link/speed info"
+    },
+    {
+      "n": 99,
+      "topic": "DNS & Network Tools",
+      "command": "tcpdump",
+      "example": "tcpdump -i eth0 port 443",
+      "use": "Packet troubleshooting"
+    },
+    {
+      "n": 100,
+      "topic": "DNS & Network Tools",
+      "command": "wget",
+      "example": "wget https://example.com/file.zip",
+      "use": "Download file"
+    },
+    {
+      "n": 101,
+      "topic": "Storage & Filesystems",
+      "command": "lsblk",
+      "example": "lsblk -f",
+      "use": "Disks/partitions/filesystems"
+    },
+    {
+      "n": 102,
+      "topic": "Storage & Filesystems",
+      "command": "blkid",
+      "example": "blkid /dev/sdb1",
+      "use": "UUID/filesystem type"
+    },
+    {
+      "n": 103,
+      "topic": "Storage & Filesystems",
+      "command": "fdisk",
+      "example": "fdisk -l",
+      "use": "Partition information"
+    },
+    {
+      "n": 104,
+      "topic": "Storage & Filesystems",
+      "command": "parted",
+      "example": "parted -l",
+      "use": "Partition table inspect"
+    },
+    {
+      "n": 105,
+      "topic": "Storage & Filesystems",
+      "command": "df -h",
+      "example": "df -h",
+      "use": "Filesystem space"
+    },
+    {
+      "n": 106,
+      "topic": "Storage & Filesystems",
+      "command": "df -i",
+      "example": "df -i",
+      "use": "Inode usage"
+    },
+    {
+      "n": 107,
+      "topic": "Storage & Filesystems",
+      "command": "du -sh",
+      "example": "du -sh /var/log",
+      "use": "Directory size"
+    },
+    {
+      "n": 108,
+      "topic": "Storage & Filesystems",
+      "command": "du -ah",
+      "example": "du -ah /var | sort -h",
+      "use": "Find large items"
+    },
+    {
+      "n": 109,
+      "topic": "Storage & Filesystems",
+      "command": "mount",
+      "example": "mount /dev/sdb1 /data",
+      "use": "Mount filesystem"
+    },
+    {
+      "n": 110,
+      "topic": "Storage & Filesystems",
+      "command": "umount",
+      "example": "umount /data",
+      "use": "Unmount filesystem"
+    },
+    {
+      "n": 111,
+      "topic": "LVM",
+      "command": "pvs",
+      "example": "pvs",
+      "use": "PV summary"
+    },
+    {
+      "n": 112,
+      "topic": "LVM",
+      "command": "pvdisplay",
+      "example": "pvdisplay",
+      "use": "Detailed PV"
+    },
+    {
+      "n": 113,
+      "topic": "LVM",
+      "command": "pvcreate",
+      "example": "pvcreate /dev/sdb1",
+      "use": "Create physical volume"
+    },
+    {
+      "n": 114,
+      "topic": "LVM",
+      "command": "vgs",
+      "example": "vgs",
+      "use": "VG summary"
+    },
+    {
+      "n": 115,
+      "topic": "LVM",
+      "command": "vgdisplay",
+      "example": "vgdisplay",
+      "use": "Detailed VG"
+    },
+    {
+      "n": 116,
+      "topic": "LVM",
+      "command": "vgcreate",
+      "example": "vgcreate vgdata /dev/sdb1",
+      "use": "Create volume group"
+    },
+    {
+      "n": 117,
+      "topic": "LVM",
+      "command": "vgextend",
+      "example": "vgextend vgdata /dev/sdc1",
+      "use": "Add PV to VG"
+    },
+    {
+      "n": 118,
+      "topic": "LVM",
+      "command": "lvs",
+      "example": "lvs",
+      "use": "LV summary"
+    },
+    {
+      "n": 119,
+      "topic": "LVM",
+      "command": "lvdisplay",
+      "example": "lvdisplay",
+      "use": "Detailed LV"
+    },
+    {
+      "n": 120,
+      "topic": "LVM",
+      "command": "lvcreate",
+      "example": "lvcreate -L 5G -n lvapp vgdata",
+      "use": "Create logical volume"
+    },
+    {
+      "n": 121,
+      "topic": "Package Management RHEL",
+      "command": "dnf install",
+      "example": "dnf install httpd",
+      "use": "Install package"
+    },
+    {
+      "n": 122,
+      "topic": "Package Management RHEL",
+      "command": "dnf remove",
+      "example": "dnf remove httpd",
+      "use": "Remove package"
+    },
+    {
+      "n": 123,
+      "topic": "Package Management RHEL",
+      "command": "dnf update",
+      "example": "dnf update",
+      "use": "Update packages"
+    },
+    {
+      "n": 124,
+      "topic": "Package Management RHEL",
+      "command": "dnf search",
+      "example": "dnf search nginx",
+      "use": "Search packages"
+    },
+    {
+      "n": 125,
+      "topic": "Package Management RHEL",
+      "command": "dnf info",
+      "example": "dnf info httpd",
+      "use": "Package details"
+    },
+    {
+      "n": 126,
+      "topic": "Package Management RHEL",
+      "command": "dnf history",
+      "example": "dnf history",
+      "use": "Transaction history"
+    },
+    {
+      "n": 127,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qa",
+      "example": "rpm -qa | grep httpd",
+      "use": "Installed RPMs"
+    },
+    {
+      "n": 128,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qi",
+      "example": "rpm -qi httpd",
+      "use": "RPM package info"
+    },
+    {
+      "n": 129,
+      "topic": "Package Management RHEL",
+      "command": "rpm -ql",
+      "example": "rpm -ql httpd",
+      "use": "Files installed by RPM"
+    },
+    {
+      "n": 130,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qf",
+      "example": "rpm -qf /usr/sbin/httpd",
+      "use": "Find owning package"
+    },
+    {
+      "n": 131,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl",
+      "example": "journalctl",
+      "use": "Systemd journal"
+    },
+    {
+      "n": 132,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -u",
+      "example": "journalctl -u nginx",
+      "use": "Service logs"
+    },
+    {
+      "n": 133,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -f",
+      "example": "journalctl -f",
+      "use": "Follow logs live"
+    },
+    {
+      "n": 134,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -b",
+      "example": "journalctl -b",
+      "use": "Current boot logs"
+    },
+    {
+      "n": 135,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl --since",
+      "example": "journalctl --since '1 hour ago'",
+      "use": "Recent logs"
+    },
+    {
+      "n": 136,
+      "topic": "Logs & Troubleshooting",
+      "command": "dmesg",
+      "example": "dmesg | tail",
+      "use": "Kernel/hardware messages"
+    },
+    {
+      "n": 137,
+      "topic": "Logs & Troubleshooting",
+      "command": "logger",
+      "example": "logger 'Backup completed'",
+      "use": "Write custom log message"
+    },
+    {
+      "n": 138,
+      "topic": "Logs & Troubleshooting",
+      "command": "last",
+      "example": "last",
+      "use": "Login/reboot history"
+    },
+    {
+      "n": 139,
+      "topic": "Logs & Troubleshooting",
+      "command": "lastb",
+      "example": "lastb",
+      "use": "Failed login attempts"
+    },
+    {
+      "n": 140,
+      "topic": "Logs & Troubleshooting",
+      "command": "tail -f",
+      "example": "tail -f /var/log/messages",
+      "use": "Live traditional log"
+    },
+    {
+      "n": 141,
+      "topic": "SSH & File Transfer",
+      "command": "ssh",
+      "example": "ssh user@192.168.1.10",
+      "use": "Remote login"
+    },
+    {
+      "n": 142,
+      "topic": "SSH & File Transfer",
+      "command": "ssh -p",
+      "example": "ssh -p 2222 user@server",
+      "use": "Connect on custom port"
+    },
+    {
+      "n": 143,
+      "topic": "SSH & File Transfer",
+      "command": "ssh -v",
+      "example": "ssh -v user@server",
+      "use": "Debug SSH connection"
+    },
+    {
+      "n": 144,
+      "topic": "SSH & File Transfer",
+      "command": "scp",
+      "example": "scp app.conf user@server:/tmp/",
+      "use": "Secure file copy"
+    },
+    {
+      "n": 145,
+      "topic": "SSH & File Transfer",
+      "command": "scp -r",
+      "example": "scp -r app/ user@server:/opt/",
+      "use": "Directory copy"
+    },
+    {
+      "n": 146,
+      "topic": "SSH & File Transfer",
+      "command": "sftp",
+      "example": "sftp user@server",
+      "use": "Interactive file transfer"
+    },
+    {
+      "n": 147,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-keygen",
+      "example": "ssh-keygen -t ed25519",
+      "use": "Generate SSH keys"
+    },
+    {
+      "n": 148,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-copy-id",
+      "example": "ssh-copy-id user@server",
+      "use": "Install public key"
+    },
+    {
+      "n": 149,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-keyscan",
+      "example": "ssh-keyscan server",
+      "use": "Get host key"
+    },
+    {
+      "n": 150,
+      "topic": "SSH & File Transfer",
+      "command": "sshd -t",
+      "example": "sshd -t",
+      "use": "Validate SSH config syntax"
+    },
+    {
+      "n": 151,
+      "topic": "Archive & Compression",
+      "command": "tar -cf",
+      "example": "tar -cf backup.tar /data",
+      "use": "Create tar archive"
+    },
+    {
+      "n": 152,
+      "topic": "Archive & Compression",
+      "command": "tar -xf",
+      "example": "tar -xf backup.tar",
+      "use": "Extract tar archive"
+    },
+    {
+      "n": 153,
+      "topic": "Archive & Compression",
+      "command": "tar -tf",
+      "example": "tar -tf backup.tar",
+      "use": "List archive contents"
+    },
+    {
+      "n": 154,
+      "topic": "Archive & Compression",
+      "command": "tar -czf",
+      "example": "tar -czf logs.tar.gz /var/log/app",
+      "use": "Create gzip tar archive"
+    },
+    {
+      "n": 155,
+      "topic": "Archive & Compression",
+      "command": "tar -xzf",
+      "example": "tar -xzf logs.tar.gz",
+      "use": "Extract gzip tar"
+    },
+    {
+      "n": 156,
+      "topic": "Archive & Compression",
+      "command": "gzip",
+      "example": "gzip app.log",
+      "use": "Compress file"
+    },
+    {
+      "n": 157,
+      "topic": "Archive & Compression",
+      "command": "gunzip",
+      "example": "gunzip app.log.gz",
+      "use": "Decompress gzip"
+    },
+    {
+      "n": 158,
+      "topic": "Archive & Compression",
+      "command": "zip",
+      "example": "zip backup.zip app.conf",
+      "use": "Create ZIP"
+    },
+    {
+      "n": 159,
+      "topic": "Archive & Compression",
+      "command": "unzip",
+      "example": "unzip backup.zip",
+      "use": "Extract ZIP"
+    },
+    {
+      "n": 160,
+      "topic": "Archive & Compression",
+      "command": "zcat",
+      "example": "zcat app.log.gz",
+      "use": "Read compressed log directly"
+    },
+    {
+      "n": 161,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -e",
+      "example": "crontab -e",
+      "use": "Edit user cron jobs"
+    },
+    {
+      "n": 162,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -l",
+      "example": "crontab -l",
+      "use": "List cron jobs"
+    },
+    {
+      "n": 163,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -r",
+      "example": "crontab -r",
+      "use": "Remove user cron jobs; caution"
+    },
+    {
+      "n": 164,
+      "topic": "Scheduling & Repetition",
+      "command": "at",
+      "example": "at 23:00",
+      "use": "One-time scheduled job"
+    },
+    {
+      "n": 165,
+      "topic": "Scheduling & Repetition",
+      "command": "atq",
+      "example": "atq",
+      "use": "List pending at jobs"
+    },
+    {
+      "n": 166,
+      "topic": "Scheduling & Repetition",
+      "command": "atrm",
+      "example": "atrm 5",
+      "use": "Remove at job"
+    },
+    {
+      "n": 167,
+      "topic": "Scheduling & Repetition",
+      "command": "systemctl list-timers",
+      "example": "systemctl list-timers",
+      "use": "List systemd timers"
+    },
+    {
+      "n": 168,
+      "topic": "Scheduling & Repetition",
+      "command": "watch",
+      "example": "watch -n 2 df -h",
+      "use": "Repeat command for monitoring"
+    },
+    {
+      "n": 169,
+      "topic": "Scheduling & Repetition",
+      "command": "sleep",
+      "example": "sleep 10",
+      "use": "Script delay"
+    },
+    {
+      "n": 170,
+      "topic": "Scheduling & Repetition",
+      "command": "timeout",
+      "example": "timeout 10s ping server",
+      "use": "Limit command duration"
+    },
+    {
+      "n": 171,
+      "topic": "Shell & Text Processing",
+      "command": "echo",
+      "example": "echo $PATH",
+      "use": "Print values"
+    },
+    {
+      "n": 172,
+      "topic": "Shell & Text Processing",
+      "command": "printf",
+      "example": "printf 'Server: %s\\n' \"$HOSTNAME\"",
+      "use": "Formatted output"
+    },
+    {
+      "n": 173,
+      "topic": "Shell & Text Processing",
+      "command": "env",
+      "example": "env",
+      "use": "Environment variables"
+    },
+    {
+      "n": 174,
+      "topic": "Shell & Text Processing",
+      "command": "printenv",
+      "example": "printenv HOME",
+      "use": "Specific environment variable"
+    },
+    {
+      "n": 175,
+      "topic": "Shell & Text Processing",
+      "command": "export",
+      "example": "export APP_ENV=prod",
+      "use": "Export variable"
+    },
+    {
+      "n": 176,
+      "topic": "Shell & Text Processing",
+      "command": "source",
+      "example": "source ~/.bashrc",
+      "use": "Reload shell config"
+    },
+    {
+      "n": 177,
+      "topic": "Shell & Text Processing",
+      "command": "alias",
+      "example": "alias ll='ls -lah'",
+      "use": "Create shortcut"
+    },
+    {
+      "n": 178,
+      "topic": "Shell & Text Processing",
+      "command": "unalias",
+      "example": "unalias ll",
+      "use": "Remove alias"
+    },
+    {
+      "n": 179,
+      "topic": "Shell & Text Processing",
+      "command": "awk",
+      "example": "awk '{print $1}' access.log",
+      "use": "Extract/process columns"
+    },
+    {
+      "n": 180,
+      "topic": "Shell & Text Processing",
+      "command": "sed",
+      "example": "sed 's/old/new/g' file.txt",
+      "use": "Replace text"
+    },
+    {
+      "n": 181,
+      "topic": "System Info & Monitoring",
+      "command": "uname -a",
+      "example": "uname -a",
+      "use": "System/kernel information"
+    },
+    {
+      "n": 182,
+      "topic": "System Info & Monitoring",
+      "command": "uname -r",
+      "example": "uname -r",
+      "use": "Kernel version"
+    },
+    {
+      "n": 183,
+      "topic": "System Info & Monitoring",
+      "command": "cat /etc/os-release",
+      "example": "cat /etc/os-release",
+      "use": "OS/version"
+    },
+    {
+      "n": 184,
+      "topic": "System Info & Monitoring",
+      "command": "lscpu",
+      "example": "lscpu",
+      "use": "CPU details"
+    },
+    {
+      "n": 185,
+      "topic": "System Info & Monitoring",
+      "command": "lsmem",
+      "example": "lsmem",
+      "use": "Memory layout"
+    },
+    {
+      "n": 186,
+      "topic": "System Info & Monitoring",
+      "command": "lsusb",
+      "example": "lsusb",
+      "use": "USB devices"
+    },
+    {
+      "n": 187,
+      "topic": "System Info & Monitoring",
+      "command": "lspci",
+      "example": "lspci",
+      "use": "PCI hardware"
+    },
+    {
+      "n": 188,
+      "topic": "System Info & Monitoring",
+      "command": "vmstat",
+      "example": "vmstat 1 5",
+      "use": "CPU/memory/IO stats"
+    },
+    {
+      "n": 189,
+      "topic": "System Info & Monitoring",
+      "command": "iostat",
+      "example": "iostat -xz 1 3",
+      "use": "Disk I/O stats"
+    },
+    {
+      "n": 190,
+      "topic": "System Info & Monitoring",
+      "command": "sar",
+      "example": "sar -u 1 5",
+      "use": "Performance statistics; sysstat required"
+    },
+    {
+      "n": 191,
+      "topic": "Security & Firewall",
+      "command": "sudo",
+      "example": "sudo systemctl restart nginx",
+      "use": "Run authorized admin command"
+    },
+    {
+      "n": 192,
+      "topic": "Security & Firewall",
+      "command": "su",
+      "example": "su - appuser",
+      "use": "Switch user"
+    },
+    {
+      "n": 193,
+      "topic": "Security & Firewall",
+      "command": "visudo",
+      "example": "visudo",
+      "use": "Safely edit sudoers"
+    },
+    {
+      "n": 194,
+      "topic": "Security & Firewall",
+      "command": "getenforce",
+      "example": "getenforce",
+      "use": "SELinux mode"
+    },
+    {
+      "n": 195,
+      "topic": "Security & Firewall",
+      "command": "sestatus",
+      "example": "sestatus",
+      "use": "SELinux details"
+    },
+    {
+      "n": 196,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --state",
+      "example": "firewall-cmd --state",
+      "use": "Firewalld state"
+    },
+    {
+      "n": 197,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --list-all",
+      "example": "firewall-cmd --list-all",
+      "use": "Current firewall rules"
+    },
+    {
+      "n": 198,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --add-service",
+      "example": "firewall-cmd --add-service=http --permanent",
+      "use": "Allow HTTP"
+    },
+    {
+      "n": 199,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --reload",
+      "example": "firewall-cmd --reload",
+      "use": "Apply permanent firewalld changes"
+    },
+    {
+      "n": 200,
+      "topic": "Security & Firewall",
+      "command": "openssl",
+      "example": "openssl s_client -connect example.com:443",
+      "use": "TLS/SSL troubleshooting"
+    }
+  ]
+}
