@@ -172,10 +172,42 @@ def main():
     check('topic interview card present', bool(nodes))
     if nodes:
         tap_node(nodes[0])
-        nodes, xml = wait_node(20, contains='tap Show answer to reveal')
+        nodes, xml = wait_node(20, contains='tap Show answer or listen')
         check('interview topic opens', bool(nodes))
         check('interview topic shows its area name', bool(find_all(xml, contains='Navigation & the Filesystem Interview Questions')))
+        check('filesystem diagram caption present', bool(find_all(xml, contains='Diagram: Linux filesystem hierarchy')))
+        play_all = find_all(xml, text='🔊 Play all topic', clazz='Button')
+        check('play-all topic button present', bool(play_all))
+        if play_all:
+            tap_node(play_all[0])
+            time.sleep(2)
+            xml = dump()
+            check('play-all starts or stays safe without TTS engine',
+                  bool(find_all(xml, text='⏸ Stop topic', clazz='Button')) or bool(find_all(xml, text='🔊 Play all topic', clazz='Button')))
+            stop_all = find_all(xml, text='⏸ Stop topic', clazz='Button')
+            if stop_all:
+                tap_node(stop_all[0])
+                time.sleep(0.7)
+                xml = dump()
+                check('play-all stop works', bool(find_all(xml, text='🔊 Play all topic', clazz='Button')))
         shot('05_interview_list')
+        nodes, xml = find_scrolled(max_swipes=8, contains='Show answer')
+        check('first question controls reachable below visual guide', bool(nodes))
+        speak = find_all(xml, text='🔊 Speak', clazz='Button')
+        check('per-question speak button present', bool(speak))
+        if speak:
+            tap_node(speak[0])
+            time.sleep(1.2)
+            xml = dump()
+            check('question speech starts or stays safe without TTS engine',
+                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Speak', clazz='Button')))
+            stop = find_all(xml, text='⏸ Stop', clazz='Button')
+            if stop:
+                tap_node(stop[0])
+                time.sleep(0.7)
+                xml = dump()
+                check('question speech stop works', bool(find_all(xml, text='🔊 Speak', clazz='Button')))
+        shot('05b_speak_controls')
         btns = find_all(xml, text='Show answer', clazz='Button')
         check('show answer button present', bool(btns))
         if btns:
@@ -188,14 +220,63 @@ def main():
         check('command group listed once', bool(find_all(xml, contains='Navigation & Basics')))
         check('command row has example', bool(find_all(xml, contains='ls -la')))
         check('command row has use', bool(find_all(xml, contains='Files, hidden files')))
+        cmd_speak = find_all(xml, text='🔊', clazz='Button')
+        check('command-row speak button present', bool(cmd_speak))
+        if cmd_speak:
+            tap_node(cmd_speak[0])
+            time.sleep(1.2)
+            xml = dump()
+            check('command speech starts or stays safe without TTS engine',
+                  bool(find_all(xml, text='⏸', clazz='Button')) or bool(find_all(xml, text='🔊', clazz='Button')))
+            cmd_stop = find_all(xml, text='⏸', clazz='Button')
+            if cmd_stop:
+                tap_node(cmd_stop[0])
+                time.sleep(0.7)
+                xml = dump()
+                check('command speech stop works', bool(find_all(xml, text='🔊', clazz='Button')))
         shot('06b_command_reference')
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
         nodes, xml = wait_node(15, contains='Linux App')
         PAGES.append(xml)
 
+    # Visual guides: open each mapped topic and capture every bundled diagram
+    def check_diagram_topic(needle, captions, shot_prefix):
+        nodes, xml = find_scrolled(max_swipes=30, contains=needle)
+        check('diagram topic card present: ' + needle, bool(nodes))
+        if not nodes:
+            return
+        tap_node(nodes[0])
+        nodes, xml = wait_node(20, contains='Visual guide')
+        check('visual guide opens: ' + needle, bool(nodes))
+        for idx, caption in enumerate(captions, 1):
+            nodes, xml = find_scrolled(max_swipes=10, contains=caption)
+            check('diagram caption visible: ' + caption, bool(nodes))
+            shot('%s_%d' % (shot_prefix, idx))
+        run(['adb', 'shell', 'input', 'keyevent', '4'])
+        time.sleep(1)
+        nodes, xml = wait_node(15, contains='Linux App')
+        PAGES.append(xml)
+
+    check_diagram_topic('Users, Groups & Permissions Interview Questions',
+        ['Diagram: rwx permissions and octal values'], '12_diagram_permissions')
+    check_diagram_topic('Processes & Job Control Interview Questions',
+        ['Diagram: Linux process states'], '13_diagram_process_states')
+    check_diagram_topic('Networking Essentials Interview Questions',
+        ['Diagram: OSI and TCP/IP models', 'Diagram: TCP three-way handshake'], '14_diagram_network')
+    check_diagram_topic('Disks, Filesystems & Storage Interview Questions',
+        ['Diagram: LVM layers', 'Diagram: RAID levels'], '15_diagram_storage')
+    check_diagram_topic('Boot, systemd & Services Interview Questions',
+        ['Diagram: Linux boot process', 'Diagram: systemd units and dependencies'], '16_diagram_systemd')
+    check_diagram_topic('Advanced Security Interview Questions',
+        ['Diagram: SELinux decision flow'], '17_diagram_selinux')
+    check_diagram_topic('Containers & KVM Interview Questions',
+        ['Diagram: Docker containers vs virtual machines'], '18_diagram_docker_vm')
+    check_diagram_topic('Advanced Storage & Shares Interview Questions',
+        ['Diagram: NFS and Samba file sharing'], '19_diagram_nfs_samba')
+
     # HR & Closing Round is the last interview topic card
-    nodes, xml = find_scrolled(contains='HR & Closing Round Interview Questions')
+    nodes, xml = find_scrolled(max_swipes=30, contains='HR & Closing Round Interview Questions')
     check('HR & closing interview card present', bool(nodes))
 
     # Learn section: chapter cards with lessons
@@ -222,6 +303,20 @@ def main():
         check('lesson opens with body', bool(nodes) and bool(find_all(xml, contains='KERNEL')))
         check('diagram rendered', bool(find_all(xml, contains='HARDWARE')))
         check('real-life scenario shown', bool(find_all(xml, contains="Where you'd use it")))
+        listen = find_all(xml, text='🔊 Listen to lesson', clazz='Button')
+        check('lesson listen button present', bool(listen))
+        if listen:
+            tap_node(listen[0])
+            time.sleep(1.2)
+            xml = dump()
+            check('lesson speech starts or stays safe without TTS engine',
+                  bool(find_all(xml, text='⏸ Stop', clazz='Button')) or bool(find_all(xml, text='🔊 Listen to lesson', clazz='Button')))
+            stop = find_all(xml, text='⏸ Stop', clazz='Button')
+            if stop:
+                tap_node(stop[0])
+                time.sleep(0.7)
+                xml = dump()
+                check('lesson speech stop works', bool(find_all(xml, text='🔊 Listen to lesson', clazz='Button')))
         shot('08_lesson')
         nodes = []
         for _ in range(5):

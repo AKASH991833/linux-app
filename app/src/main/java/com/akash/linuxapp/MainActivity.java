@@ -3,10 +3,14 @@ package com.akash.linuxapp;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -63,6 +68,14 @@ public class MainActivity extends Activity {
     private FrameLayout container;
     private TextView streakChip;
     private SharedPreferences prefs;
+    private TextToSpeech tts;
+    private boolean ttsReady;
+    private Button speakingButton;
+    private String speakingLabel = "\uD83D\uDD0A Speak";
+    private final List<String> speechQueue = new ArrayList<>();
+    private int speechIndex = -1;
+    private int utteranceSeq;
+    private boolean speechActive;
     private final List<Chapter> chapters = new ArrayList<>();
     private final java.util.Map<String, List<Lesson>> lessons = new java.util.HashMap<>();
     private final List<InterviewChapter> interviewChapters = new ArrayList<>();
@@ -98,6 +111,7 @@ public class MainActivity extends Activity {
         v.animate().alpha(1f).translationY(0).setStartDelay(delayMs).setDuration(300).setInterpolator(new DecelerateInterpolator()).start();
     }
     private void switchScreen(View v){
+        stopSpeech();
         container.removeAllViews();
         container.addView(v);
         v.setAlpha(0f); v.setTranslationY(dp(26));
@@ -109,6 +123,7 @@ public class MainActivity extends Activity {
         getWindow().setStatusBarColor(BG);
         getWindow().setNavigationBarColor(BG);
         prefs = getSharedPreferences("linuxapp", 0);
+        initSpeech();
         loadData();
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -484,6 +499,72 @@ public class MainActivity extends Activity {
         return t;
     }
 
+    private String[] interviewDiagrams(String id){
+        if("navigation".equals(id)) return new String[]{"diagrams/filesystem_hierarchy.png"};
+        if("users".equals(id)) return new String[]{"diagrams/permissions_rwx_octal.png"};
+        if("processes".equals(id)) return new String[]{"diagrams/process_states.png"};
+        if("network".equals(id)) return new String[]{"diagrams/osi_tcpip.png", "diagrams/tcp_handshake.png"};
+        if("storage".equals(id)) return new String[]{"diagrams/lvm_layers.png", "diagrams/raid_levels.png"};
+        if("systemd".equals(id)) return new String[]{"diagrams/boot_process.png", "diagrams/systemd_units.png"};
+        if("advanced-security".equals(id)) return new String[]{"diagrams/selinux_flow.png"};
+        if("virtualization".equals(id)) return new String[]{"diagrams/docker_vs_vm.png"};
+        if("advanced-storage".equals(id)) return new String[]{"diagrams/nfs_samba.png"};
+        if("boot-recovery".equals(id)) return new String[]{"diagrams/boot_process.png"};
+        return new String[0];
+    }
+
+    private String lessonDiagram(String chapterId, String title){
+        if("navigation".equals(chapterId) && "One tree, one root".equals(title)) return "diagrams/filesystem_hierarchy.png";
+        if("users".equals(chapterId) && "Reading rwx like a book".equals(title)) return "diagrams/permissions_rwx_octal.png";
+        if("processes".equals(chapterId) && "What is a process?".equals(title)) return "diagrams/process_states.png";
+        if("network".equals(chapterId) && "ping, DNS and the /etc/hosts trick".equals(title)) return "diagrams/osi_tcpip.png";
+        if("storage".equals(chapterId) && "LVM: flexible storage".equals(title)) return "diagrams/lvm_layers.png";
+        if("storage".equals(chapterId) && "RAID and inodes".equals(title)) return "diagrams/raid_levels.png";
+        if("systemd".equals(chapterId) && "How a Linux machine boots".equals(title)) return "diagrams/boot_process.png";
+        return null;
+    }
+
+    private String diagramCaption(String path){
+        if(path.contains("boot_process")) return "Diagram: Linux boot process";
+        if(path.contains("filesystem_hierarchy")) return "Diagram: Linux filesystem hierarchy";
+        if(path.contains("permissions_rwx_octal")) return "Diagram: rwx permissions and octal values";
+        if(path.contains("osi_tcpip")) return "Diagram: OSI and TCP/IP models";
+        if(path.contains("tcp_handshake")) return "Diagram: TCP three-way handshake";
+        if(path.contains("lvm_layers")) return "Diagram: LVM layers";
+        if(path.contains("raid_levels")) return "Diagram: RAID levels";
+        if(path.contains("process_states")) return "Diagram: Linux process states";
+        if(path.contains("systemd_units")) return "Diagram: systemd units and dependencies";
+        if(path.contains("selinux_flow")) return "Diagram: SELinux decision flow";
+        if(path.contains("docker_vs_vm")) return "Diagram: Docker containers vs virtual machines";
+        if(path.contains("nfs_samba")) return "Diagram: NFS and Samba file sharing";
+        return "Diagram";
+    }
+
+    private View diagramImage(String path){
+        String caption = diagramCaption(path);
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setBackground(bg(0xff0b1220, 16));
+        wrap.setPadding(dp(10), dp(10), dp(10), dp(12));
+        TextView label = bold(caption, 12, PURPLE);
+        label.setPadding(dp(4), 0, dp(4), dp(8));
+        wrap.addView(label);
+        try {
+            InputStream in = getAssets().open(path);
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            in.close();
+            ImageView image = new ImageView(this);
+            image.setImageBitmap(bitmap);
+            image.setAdjustViewBounds(true);
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            image.setContentDescription(caption);
+            wrap.addView(image, new LinearLayout.LayoutParams(-1, -2));
+        } catch(Exception e){
+            wrap.addView(text("Diagram could not be loaded.", 12, RED));
+        }
+        return wrap;
+    }
+
     private void showChapter(final Chapter ch){
         cancelTimer();
         ScrollView scroll = new ScrollView(this);
@@ -564,8 +645,18 @@ public class MainActivity extends Activity {
         TextView crumb = bold(ch.title + "  \u2022  Lesson " + (idx+1) + " of " + ls.size(), 13, DIM);
         col.addView(crumb, margins(0, 4));
         col.addView(bold(l.title, 19, TEXT), margins(0, 2));
-        TextView guide = text("Read → see an example → try the quick check below", 12, GREEN);
+        TextView guide = text("Read or listen → see an example → try the quick check below", 12, GREEN);
         col.addView(guide, margins(0, 2));
+
+        Button listen = new Button(this);
+        listen.setText("\uD83D\uDD0A Listen to lesson"); listen.setAllCaps(false); listen.setTextColor(BLUE); listen.setTextSize(12);
+        listen.setTypeface(null, Typeface.BOLD);
+        listen.setBackground(bg(SOFT, 20));
+        listen.setOnClickListener(v -> toggleSpeech(listen, "\uD83D\uDD0A Listen to lesson", lessonSpeechParts(l)));
+        press(listen);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, dp(38));
+        lp.setMargins(0, dp(6), 0, 0);
+        col.addView(listen, lp);
 
         for(String para : l.body.split("\n\n")){
             TextView t = text(para.trim(), 14, TEXT);
@@ -581,7 +672,11 @@ public class MainActivity extends Activity {
             scenario.addView(text(l.scenario,14,TEXT));
             col.addView(scenario,margins(0,6));
         }
-        if(!l.diagram.isEmpty()){
+        String lessonDiagramPath = lessonDiagram(ch.id, l.title);
+        if(lessonDiagramPath != null){
+            col.addView(diagramImage(lessonDiagramPath), margins(0, 6));
+        }
+        else if(!l.diagram.isEmpty()){
             LinearLayout box = new LinearLayout(this);
             box.setBackground(bg(0xff0b1220, 14));
             box.setPadding(dp(12), dp(12), dp(12), dp(12));
@@ -703,10 +798,25 @@ public class MainActivity extends Activity {
         head.addView(text("\uD83D\uDCBC", 28, TEXT));
         head.addView(bold(ch.title + " Interview Questions", 19, TEXT));
         int commands = commandCount(ch);
-        TextView sub = text(ch.qs.size() + (ch.qs.size() == 1 ? " question" : " questions") + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer to reveal", 13, DIM);
+        TextView sub = text(ch.qs.size() + (ch.qs.size() == 1 ? " question" : " questions") + (commands > 0 ? "  \u2022  " + commands + " command examples" : "") + "  \u2022  tap Show answer or listen", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         head.addView(sub);
+        Button playAll = new Button(this);
+        playAll.setText("\uD83D\uDD0A Play all topic"); playAll.setAllCaps(false); playAll.setTextColor(PURPLE); playAll.setTextSize(12);
+        playAll.setTypeface(null, Typeface.BOLD);
+        playAll.setBackground(bg(SOFT, 20));
+        playAll.setOnClickListener(v -> toggleSpeech(playAll, "\uD83D\uDD0A Play all topic", topicSpeechParts(ch)));
+        press(playAll);
+        LinearLayout.LayoutParams pp = new LinearLayout.LayoutParams(-2, dp(38));
+        pp.setMargins(0, dp(10), 0, 0);
+        head.addView(playAll, pp);
         col.addView(head, margins(0, 6));
+
+        String[] diagramPaths = interviewDiagrams(ch.id);
+        if(diagramPaths.length > 0){
+            col.addView(sectionHead("\uD83E\uDDE0", "Visual guide", "Accurate diagrams for concepts that are easier to see.", PURPLE), margins(0, 7));
+            for(String path : diagramPaths) col.addView(diagramImage(path), margins(0, 5));
+        }
 
         if(ch.qs.isEmpty()){
             col.addView(text("Interview questions for this topic are coming soon.", 13, DIM), margins(0, 6));
@@ -749,18 +859,31 @@ public class MainActivity extends Activity {
             ap.setMargins(0, dp(8), 0, 0);
             card.addView(wrap, ap);
 
+            LinearLayout actions = new LinearLayout(this);
+            actions.setOrientation(LinearLayout.HORIZONTAL);
             final Button toggle = new Button(this);
             toggle.setText("Show answer"); toggle.setAllCaps(false); toggle.setTextColor(PURPLE); toggle.setTextSize(12);
             toggle.setTypeface(null, Typeface.BOLD);
             toggle.setBackground(bg(SOFT, 20));
-            LinearLayout.LayoutParams tp = new LinearLayout.LayoutParams(-2, dp(38));
-            tp.setMargins(0, dp(8), 0, 0);
-            card.addView(toggle, tp);
+            LinearLayout.LayoutParams tp = new LinearLayout.LayoutParams(0, dp(38), 1);
+            tp.setMargins(0, dp(8), dp(5), 0);
+            actions.addView(toggle, tp);
             toggle.setOnClickListener(v -> {
                 boolean show = ansWrap.getVisibility() != View.VISIBLE;
                 ansWrap.setVisibility(show ? View.VISIBLE : View.GONE);
                 toggle.setText(show ? "Hide answer" : "Show answer");
             });
+            Button speak = new Button(this);
+            speak.setText("\uD83D\uDD0A Speak"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(12);
+            speak.setTypeface(null, Typeface.BOLD);
+            speak.setBackground(bg(SOFT, 20));
+            final List<String> qaSpeech = new ArrayList<>();
+            qaSpeech.add("Question. " + item.q + " Answer. " + item.a);
+            speak.setOnClickListener(v -> toggleSpeech(speak, "\uD83D\uDD0A Speak", qaSpeech));
+            LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(0, dp(38), 1);
+            sp.setMargins(dp(5), dp(8), 0, 0);
+            actions.addView(speak, sp);
+            card.addView(actions);
             col.addView(card, margins(0, 5));
             popIn(card, 40 * i);
         }
@@ -803,6 +926,15 @@ public class MainActivity extends Activity {
                     ep.leftMargin = dp(8); ep.rightMargin = dp(8);
                     row.addView(e, ep);
                     row.addView(u, new LinearLayout.LayoutParams(0, -2, 1f));
+                    Button speak = new Button(this);
+                    speak.setText("\uD83D\uDD0A"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(12);
+                    speak.setBackground(bg(SOFT, 12));
+                    speak.setMinWidth(0); speak.setMinimumWidth(0); speak.setPadding(0,0,0,0);
+                    final List<String> commandSpeech = singleSpeech(commandSpeech(item));
+                    speak.setOnClickListener(v -> toggleSpeech(speak, "\uD83D\uDD0A", commandSpeech));
+                    LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(dp(36), dp(32));
+                    sp.leftMargin = dp(6);
+                    row.addView(speak, sp);
                     table.addView(row);
                     if(r < group.items.size()-1){
                         View divider = new View(this);
@@ -961,6 +1093,151 @@ public class MainActivity extends Activity {
     }
     private void cancelTimer(){ if(timer != null){ timer.cancel(); timer = null; } }
 
+    // ---------------- OFFLINE SPEECH ----------------
+    private void initSpeech(){
+        try {
+            tts = new TextToSpeech(this, status -> {
+                ttsReady = status == TextToSpeech.SUCCESS;
+                if(ttsReady){
+                    int lang = tts.setLanguage(Locale.US);
+                    ttsReady = lang != TextToSpeech.LANG_MISSING_DATA && lang != TextToSpeech.LANG_NOT_SUPPORTED;
+                    if(ttsReady) tts.setSpeechRate(0.95f);
+                }
+            });
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener(){
+                @Override public void onStart(String utteranceId){ }
+                @Override public void onDone(String utteranceId){ advanceSpeech(utteranceId); }
+                @Override public void onError(String utteranceId){ advanceSpeech(utteranceId); }
+                @Override public void onError(String utteranceId, int errorCode){ advanceSpeech(utteranceId); }
+            });
+        } catch(Exception e){
+            tts = null;
+            ttsReady = false;
+        }
+    }
+
+    private String cleanSpeech(String s){
+        if(s == null) return "";
+        return s.replace("\u2192", " then ")
+                .replace("\u2022", " ")
+                .replace("\u2713", " correct ")
+                .replace("\u274C", " ")
+                .replace("\uD83D\uDD0A", " ")
+                .replace("\u23F8", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
+    }
+
+    private void toggleSpeech(final Button button, final String label, final List<String> parts){
+        if(button == null) return;
+        if(speechActive && speakingButton == button){
+            stopSpeech();
+            return;
+        }
+        speakParts(button, label, parts);
+    }
+
+    private void speakParts(final Button button, final String label, final List<String> parts){
+        stopSpeech();
+        if(button == null || parts == null || parts.isEmpty() || tts == null || !ttsReady){
+            if(button != null) button.setText(label);
+            return;
+        }
+        speakingButton = button;
+        speakingLabel = label;
+        speechQueue.clear();
+        for(String part : parts){
+            String clean = cleanSpeech(part);
+            if(!clean.isEmpty()) speechQueue.add(clean);
+        }
+        if(speechQueue.isEmpty()){
+            speakingButton = null;
+            button.setText(label);
+            return;
+        }
+        speechIndex = 0;
+        speechActive = true;
+        button.setText(label.startsWith("\uD83D\uDD0A Play all") ? "\u23F8 Stop topic" : (label.equals("\uD83D\uDD0A") ? "\u23F8" : "\u23F8 Stop"));
+        speakNext();
+    }
+
+    private void speakNext(){
+        if(tts == null || !speechActive || speechIndex < 0 || speechIndex >= speechQueue.size()){
+            finishSpeech();
+            return;
+        }
+        tts.speak(speechQueue.get(speechIndex), TextToSpeech.QUEUE_FLUSH, null, "linux-app-" + (++utteranceSeq));
+    }
+
+    private void advanceSpeech(String utteranceId){
+        if(utteranceId == null || !utteranceId.startsWith("linux-app-")) return;
+        runOnUiThread(() -> {
+            if(!speechActive) return;
+            speechIndex++;
+            if(speechIndex < speechQueue.size()) speakNext();
+            else finishSpeech();
+        });
+    }
+
+    private void finishSpeech(){
+        final Button old = speakingButton;
+        final String label = speakingLabel;
+        speakingButton = null;
+        speakingLabel = "\uD83D\uDD0A Speak";
+        speechQueue.clear();
+        speechIndex = -1;
+        speechActive = false;
+        if(old != null) runOnUiThread(() -> old.setText(label));
+    }
+
+    private void stopSpeech(){
+        if(tts != null){
+            try { tts.stop(); } catch(Exception ignored){ }
+        }
+        finishSpeech();
+    }
+
+    private List<String> singleSpeech(String text){
+        List<String> parts = new ArrayList<>();
+        parts.add(text);
+        return parts;
+    }
+
+    private List<String> lessonSpeechParts(Lesson l){
+        List<String> parts = new ArrayList<>();
+        parts.add(l.title);
+        for(String para : l.body.split("\n\n")) parts.add(para.trim());
+        if(!l.scenario.isEmpty()) parts.add("Where you would use it. " + l.scenario);
+        if(!l.example.isEmpty()) parts.add("Walkthrough example. " + l.example);
+        if(l.checkOptions != null){
+            parts.add("Quick check. " + l.checkQ);
+            for(int i=0;i<l.checkOptions.length;i++) parts.add("Option " + (i+1) + ". " + l.checkOptions[i]);
+            parts.add("Correct answer. " + l.checkOptions[l.checkAnswer] + ". " + l.checkE);
+        }
+        return parts;
+    }
+
+    private String commandSpeech(CommandItem item){
+        return "Command " + item.command + ". Example: " + item.example + ". Use: " + item.use + ".";
+    }
+
+    private List<String> topicSpeechParts(InterviewChapter ch){
+        List<String> parts = new ArrayList<>();
+        parts.add(ch.title + " interview questions.");
+        for(int i=0;i<ch.qs.size();i++){
+            InterviewQ item = ch.qs.get(i);
+            parts.add("Question " + (i+1) + ". " + item.q + " Answer. " + item.a);
+        }
+        if(!ch.commands.isEmpty()){
+            parts.add("Command reference for " + ch.title + ".");
+            for(CommandGroup group : ch.commands){
+                parts.add(group.title + ".");
+                for(CommandItem item : group.items) parts.add(commandSpeech(item));
+            }
+        }
+        return parts;
+    }
+
     private void answer(int chosen, Button chosenBtn){
         cancelTimer();
         final Q q = quiz.get(qi);
@@ -1087,6 +1364,11 @@ public class MainActivity extends Activity {
     }
     @Override protected void onDestroy(){
         cancelTimer();
+        stopSpeech();
+        if(tts != null){
+            try { tts.shutdown(); } catch(Exception ignored){ }
+            tts = null;
+        }
         super.onDestroy();
     }
 }

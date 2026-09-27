@@ -8,8 +8,8 @@ and security.
 ## Features
 
 - **Learn mode** - every chapter starts with 4 short beginner lessons: simple
-  day-one language, ASCII diagrams (filesystem tree, rwx permissions, process
-  tree, boot flow, LVM stack, cron fields...) and real command examples with
+  day-one language, accurate visual diagrams where they help most, remaining
+  ASCII sketches for quick terminal-style views, and real command examples with
   sample output. Read ticks track your progress
 - **12 chapters, 300 quiz questions** - 25 hand-written MCQs per chapter (4
   options, one correct, short explanation for every answer)
@@ -17,6 +17,12 @@ and security.
   topic area with exact, verified answers, plus practical command/example/use
   reference tables and an HR & closing-round set
   (`app/src/main/assets/interview.json`)
+- **12 accurate visual diagrams** - boot process, filesystem hierarchy,
+  permissions/octal, OSI vs TCP/IP, TCP handshake, LVM, RAID, process states,
+  systemd dependencies, SELinux, Docker vs VM and NFS/Samba
+- **Offline Speak mode** - listen to interview Q&A, full lessons, individual
+  command rows, or play a whole interview topic for revision; play/stop uses
+  Android TextToSpeech and needs no internet or new permission
 - **Chapter-wise practice** - Basic to advanced, one concept area at a time
 - **Quiz section - topic-wise** - every topic area has its own clearly labelled
   quiz (Beginner untimed, Intermediate 30s per question). Only quizzes here
@@ -66,7 +72,8 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 
 `emulator-test.yml` boots an Android 10 (API 29) emulator, installs the APK,
 drives the UI (open a chapter, answer a question, check feedback, navigate
-back) and publishes screenshots to the `emulator-shots-api29` branch.
+back), checks the Speak controls, captures every visual diagram, and publishes
+screenshots to the `emulator-shots-api29` branch.
 
 ## Tech
 
