@@ -345,7 +345,7 @@ public class MainActivity extends Activity {
         TextView sub = text("One simple dashboard. Open a tile, then choose a topic or chapter.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
-        TextView version = text("v1.3.0  •  328 interview Q&A  •  346 commands  •  Speak built in", 12, ORANGE);
+        TextView version = text("v1.3.1  •  328 interview Q&A  •  346 commands  •  Speak built in", 12, ORANGE);
         version.setTypeface(null, Typeface.BOLD);
         version.setPadding(0, dp(8), 0, 0);
         hero.addView(version);
@@ -529,7 +529,7 @@ public class MainActivity extends Activity {
             Button speak = new Button(this);
             speak.setText("🔊"); speak.setAllCaps(false); speak.setTextColor(BLUE); speak.setTextSize(13);
             speak.setBackground(bg(SOFT, 14)); speak.setMinWidth(0); speak.setMinimumWidth(0); speak.setPadding(0,0,0,0);
-            final List<String> speech = singleSpeech("Command " + c.command + ". Example. " + c.example + ". Use. " + c.use);
+            final List<String> speech = singleSpeech("Command " + c.command + ". Use. " + c.use);
             speak.setOnClickListener(v -> toggleSpeech(speak, "🔊", speech));
             LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(dp(40), dp(36));
             sp.leftMargin = dp(8);
@@ -635,7 +635,7 @@ public class MainActivity extends Activity {
         speak.setText("🔊 Speak answer"); speak.setAllCaps(false); speak.setTextColor(color); speak.setTextSize(12);
         speak.setTypeface(null, Typeface.BOLD);
         speak.setBackground(bg(SOFT, 20));
-        speak.setOnClickListener(v -> toggleSpeech(speak, "🔊 Speak answer", singleSpeech(page.title + ". " + page.body + (page.note == null || page.note.isEmpty() ? "" : ". Note. " + page.note))));
+        speak.setOnClickListener(v -> toggleSpeech(speak, "🔊 Speak answer", singleSpeech("Question. " + page.title + ". Answer. " + answerSpeechBody(page.body))));
         press(speak);
         LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(-2, dp(38));
         sp.setMargins(0, dp(8), 0, dp(4));
@@ -685,6 +685,17 @@ public class MainActivity extends Activity {
         col.addView(nav);
         col.addView(listBackButton("Back to list", v -> back.run()), margins(0, 8));
         switchScreen(scroll);
+    }
+
+    private String answerSpeechBody(String body){
+        if(body == null) return "";
+        String answer = body.trim();
+        int cut = answer.indexOf("\n\n");
+        if(cut >= 0) answer = answer.substring(0, cut).trim();
+        if(answer.startsWith("Answer:")) answer = answer.substring("Answer:".length()).trim();
+        if(answer.startsWith("English:")) answer = answer.substring("English:".length()).trim();
+        if(answer.startsWith("English/Hinglish:")) answer = answer.substring("English/Hinglish:".length()).trim();
+        return answer;
     }
 
     private void addBookAnswer(LinearLayout box, String body){
@@ -1305,10 +1316,9 @@ public class MainActivity extends Activity {
         List<String> parts = new ArrayList<>();
         if(quiz == null || qi < 0 || qi >= quiz.size()) return parts;
         Q q = quiz.get(qi);
-        parts.add("Question " + (qi+1) + ". " + q.q);
-        for(int i=0;i<q.o.length;i++) parts.add("Option " + (i+1) + ". " + q.o[i]);
+        parts.add("Question. " + q.q);
         if(explainCard != null && explainCard.getVisibility() == View.VISIBLE){
-            parts.add("Correct answer. " + q.o[q.a] + ". Explanation. " + q.e);
+            parts.add("Answer. " + q.o[q.a]);
         }
         return parts;
     }
@@ -1449,22 +1459,14 @@ public class MainActivity extends Activity {
     }
 
     private String commandSpeech(CommandItem item){
-        return "Command " + item.command + ". Example: " + item.example + ". Use: " + item.use + ".";
+        return "Command " + item.command + ". Use: " + item.use + ".";
     }
 
     private List<String> topicSpeechParts(InterviewChapter ch){
         List<String> parts = new ArrayList<>();
-        parts.add(ch.title + " interview questions.");
         for(int i=0;i<ch.qs.size();i++){
             InterviewQ item = ch.qs.get(i);
-            parts.add("Question " + (i+1) + ". " + item.q + " Answer. " + item.a);
-        }
-        if(!ch.commands.isEmpty()){
-            parts.add("Command reference for " + ch.title + ".");
-            for(CommandGroup group : ch.commands){
-                parts.add(group.title + ".");
-                for(CommandItem item : group.items) parts.add(commandSpeech(item));
-            }
+            parts.add("Question " + (i+1) + ". " + item.q + " Answer. " + answerSpeechBody(item.a));
         }
         return parts;
     }

@@ -139,7 +139,7 @@ def main():
     if not nodes:
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
-    check('home shows v1.3 content marker', bool(find_all(xml, contains='v1.3.0')) and bool(find_all(xml, contains='328 interview Q&A')))
+    check('home shows v1.3.1 content marker', bool(find_all(xml, contains='v1.3.1')) and bool(find_all(xml, contains='328 interview Q&A')))
     check('dashboard tiles present',
           bool(find_all(xml, text='Beginner')) and bool(find_all(xml, text='Intermediate')) and
           bool(find_all(xml, text='Interview Questions')) and bool(find_all(xml, text='Learn Chapters')))
