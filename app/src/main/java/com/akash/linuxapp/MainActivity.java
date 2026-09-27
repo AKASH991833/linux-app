@@ -2241,9 +2241,10 @@ public class MainActivity extends Activity {
         }
         saveWrong(wrong);
         String selected = chosen >= 0 && chosen < q.o.length ? q.o[chosen] : "No answer selected";
-        explainText.setText((correct ? "You selected: " : "You selected: " + selected + "
-Correct answer: ") + (correct ? q.o[q.a] : q.o[q.a]) + "
-" + q.e);
+        String summary;
+        if(correct) summary = "You selected: " + q.o[q.a] + "\n" + q.e;
+        else summary = "You selected: " + selected + "\nCorrect answer: " + q.o[q.a] + "\n" + q.e;
+        explainText.setText(summary);
         explainOptions.removeAllViews();
         TextView head = bold("Explanation of all options", 12, DIM);
         head.setPadding(0, dp(8), 0, dp(2));
