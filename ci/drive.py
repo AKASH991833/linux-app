@@ -142,7 +142,10 @@ def main():
         q_answer = find_all(xml, text='Linux kernel', clazz='Button')
         if q_answer:
             tap_node(q_answer[0])
-            nodes, xml = wait_node(12, contains='You got it!')
+            nodes, xml = wait_node(5, contains='You got it!')
+            if not nodes:
+                run(['adb', 'shell', 'input', 'swipe', '480', '1450', '480', '450', '450'])
+                nodes, xml = wait_node(8, contains='You got it!')
             check('correct quick check gives feedback', bool(nodes))
             shot('03c_check_passed')
         else:
