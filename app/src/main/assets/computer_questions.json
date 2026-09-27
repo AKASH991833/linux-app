@@ -184,6 +184,102 @@
           "a": 0,
           "e": "Firmware is software embedded in hardware, commonly stored in non-volatile memory.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "What does GUI stand for?",
+          "o": [
+            "General User Interaction",
+            "Graph Utility Interface",
+            "Global User Integration",
+            "Graphical User Interface"
+          ],
+          "a": 3,
+          "e": "GUI means Graphical User Interface: windows, icons, menus, and pointer controls.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which CPU part directs the interpretation and execution of instructions?",
+          "o": [
+            "Register",
+            "ALU",
+            "Control Unit",
+            "Bus Interface"
+          ],
+          "a": 2,
+          "e": "The Control Unit coordinates instruction decoding and tells the other CPU parts what to do.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Why does a CPU use an interrupt?",
+          "o": [
+            "Increase Storage",
+            "Reduce RAM",
+            "Handle urgent events",
+            "Compress Data"
+          ],
+          "a": 2,
+          "e": "An interrupt lets an urgent hardware or software event pause normal flow so the CPU can handle it.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which data structure follows Last In, First Out (LIFO)?",
+          "o": [
+            "Stack",
+            "Queue",
+            "Linked List",
+            "Tree"
+          ],
+          "a": 0,
+          "e": "A stack is LIFO: the last item pushed is the first one popped.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which access method lets RAM reach any location directly?",
+          "o": [
+            "Sequential Access",
+            "Indexed Access",
+            "Random Access",
+            "Serial Access"
+          ],
+          "a": 2,
+          "e": "RAM uses random access, so any memory location can be reached without reading the earlier locations first.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which license permits use, modification, and redistribution of source code?",
+          "o": [
+            "Open Source License",
+            "Proprietary License",
+            "OEM License",
+            "Trial License"
+          ],
+          "a": 0,
+          "e": "An open-source license gives users those source-code rights under the license terms.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which AI approach lets a system learn patterns from data?",
+          "o": [
+            "Multiprocessing",
+            "Virtual Memory",
+            "Machine Learning",
+            "Defragmentation"
+          ],
+          "a": 2,
+          "e": "Machine learning trains models from data instead of hard-coding every rule.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which addressing mode places the operand value directly inside the instruction?",
+          "o": [
+            "Direct Addressing",
+            "Indirect Addressing",
+            "Immediate Addressing",
+            "Indexed Addressing"
+          ],
+          "a": 2,
+          "e": "Immediate addressing embeds the value in the instruction itself.",
+          "difficulty": "Hard"
         }
       ]
     },
@@ -371,6 +467,90 @@
           "a": 0,
           "e": "NVMe is a storage protocol built for flash storage over PCI Express.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which device can scan a paper document into the computer?",
+          "o": [
+            "Monitor",
+            "Scanner",
+            "Speaker",
+            "Plotter"
+          ],
+          "a": 1,
+          "e": "A scanner converts a printed page or photo into a digital image.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which device changes digital computer signals for an analog communication line?",
+          "o": [
+            "Modem",
+            "Scanner",
+            "Plotter",
+            "Switch"
+          ],
+          "a": 0,
+          "e": "A modem modulates and demodulates signals between digital devices and analog lines.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which bus carries memory addresses from the processor?",
+          "o": [
+            "Control Bus",
+            "Address Bus",
+            "Data Bus",
+            "Expansion Bus"
+          ],
+          "a": 1,
+          "e": "The address bus identifies the memory location the processor wants to read or write.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which very small storage locations sit inside the CPU for immediate values?",
+          "o": [
+            "RAM",
+            "ROM",
+            "Registers",
+            "HDD"
+          ],
+          "a": 2,
+          "e": "Registers are the fastest CPU-internal storage used for current instructions and data.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which printer is a non-impact printer?",
+          "o": [
+            "Dot Matrix Printer",
+            "Daisy Wheel Printer",
+            "Laser Printer",
+            "Drum Printer"
+          ],
+          "a": 2,
+          "e": "A laser printer forms the image without striking an ink ribbon against the paper.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which storage medium reads data from pits and lands?",
+          "o": [
+            "SSD",
+            "RAM",
+            "Optical Disk",
+            "Cache"
+          ],
+          "a": 2,
+          "e": "Optical discs such as CDs and DVDs store bits as pits and lands read by a laser.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Where is BIOS or similar startup firmware normally stored?",
+          "o": [
+            "RAM",
+            "Cache",
+            "ROM",
+            "Register"
+          ],
+          "a": 2,
+          "e": "Startup firmware is kept in non-volatile ROM/flash so it remains available without power.",
+          "difficulty": "Normal"
         }
       ]
     },
@@ -558,6 +738,102 @@
           "a": 0,
           "e": "The CPU scheduler chooses the next process or thread to run.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which CPU scheduling method runs jobs in arrival order?",
+          "o": [
+            "Round Robin",
+            "Shortest Job First",
+            "Priority Scheduling",
+            "First Come First Serve"
+          ],
+          "a": 3,
+          "e": "First Come, First Serve schedules the earliest-arriving process first.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which scheduling method gives time slices in a cycle for time-sharing systems?",
+          "o": [
+            "FCFS",
+            "Round Robin",
+            "Shortest Job First",
+            "Priority Scheduling"
+          ],
+          "a": 1,
+          "e": "Round Robin gives each ready process a fixed quantum, then moves to the next.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which database property lets many users work at the same time safely?",
+          "o": [
+            "Redundancy",
+            "Concurrency",
+            "Virtualization",
+            "Compilation"
+          ],
+          "a": 1,
+          "e": "Concurrency control coordinates simultaneous access so transactions do not corrupt shared data.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which OS approach stops deadlocks before they can happen?",
+          "o": [
+            "Fragmentation",
+            "Spooling",
+            "Deadlock Prevention",
+            "Buffering"
+          ],
+          "a": 2,
+          "e": "Deadlock prevention designs resource allocation so one of the deadlock conditions cannot hold.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which test level checks one function, module, or program unit by itself?",
+          "o": [
+            "System Testing",
+            "Acceptance Testing",
+            "Unit Testing",
+            "Regression Testing"
+          ],
+          "a": 2,
+          "e": "Unit testing isolates a small piece of code before wider integration or system tests.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which technology lets several virtual machines share one physical server?",
+          "o": [
+            "Defragmentation",
+            "Multiprocessing",
+            "Virtualization",
+            "Pagination"
+          ],
+          "a": 2,
+          "e": "Virtualization uses a hypervisor to divide one machine into isolated virtual machines.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is the unauthorized copying or distribution of software called?",
+          "o": [
+            "Debugging",
+            "Software Piracy",
+            "Encryption",
+            "Authentication"
+          ],
+          "a": 1,
+          "e": "Software piracy is copying or distributing software without the required license rights.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which operating system is a well-known open-source example?",
+          "o": [
+            "Windows 11",
+            "MS-DOS",
+            "Linux",
+            "iOS"
+          ],
+          "a": 2,
+          "e": "Linux is distributed with source code under open-source licenses.",
+          "difficulty": "Easy"
         }
       ]
     },
@@ -745,6 +1021,90 @@
           "a": 0,
           "e": "Wear leveling distributes writes across flash cells so no small area wears out too quickly.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which memory keeps startup instructions when the computer is off?",
+          "o": [
+            "Cache Memory",
+            "RAM",
+            "ROM",
+            "Virtual Memory"
+          ],
+          "a": 2,
+          "e": "ROM is non-volatile, so firmware such as startup instructions remains stored without power.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which RAID level uses striping with distributed parity?",
+          "o": [
+            "RAID 0",
+            "RAID 1",
+            "RAID 5",
+            "RAID 10"
+          ],
+          "a": 2,
+          "e": "RAID 5 stripes data across disks and stores parity so one disk failure can be rebuilt.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which memory-management method divides memory into fixed-size pages?",
+          "o": [
+            "Segmentation",
+            "Swapping",
+            "Paging",
+            "Spooling"
+          ],
+          "a": 2,
+          "e": "Paging splits virtual and physical memory into fixed-size pages/frames for mapping.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which backup copies only files changed since the previous backup?",
+          "o": [
+            "Full Backup",
+            "Mirror Backup",
+            "Incremental Backup",
+            "Clone Backup"
+          ],
+          "a": 2,
+          "e": "An incremental backup stores changes since the last backup, saving time and space.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which file system is standard for modern Windows system drives?",
+          "o": [
+            "NTFS",
+            "FAT12",
+            "ext2",
+            "HFS+"
+          ],
+          "a": 0,
+          "e": "Windows commonly uses NTFS for permissions, journaling, large files, and recovery features.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which Windows maintenance process checks and repairs file-system errors?",
+          "o": [
+            "Defragmentation",
+            "Check Disk (chkdsk)",
+            "Disk Cleanup",
+            "System Restore"
+          ],
+          "a": 1,
+          "e": "Check Disk (chkdsk) scans a volume for file-system problems and can repair them.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which extension is commonly used for compressed archive files?",
+          "o": [
+            ".exe",
+            ".dll",
+            ".sys",
+            ".zip"
+          ],
+          "a": 3,
+          "e": "A .zip file packages and compresses files into one archive.",
+          "difficulty": "Easy"
         }
       ]
     },
@@ -1119,6 +1479,138 @@
           "a": 0,
           "e": "Network Address Translation lets many private devices share public address space.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which network topology connects nodes through a central device?",
+          "o": [
+            "Bus",
+            "Star",
+            "Ring",
+            "Mesh"
+          ],
+          "a": 1,
+          "e": "A star topology connects each node to a central switch or hub.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which technology is commonly used for short-range personal wireless networks?",
+          "o": [
+            "Ethernet",
+            "DSL",
+            "Bluetooth",
+            "Fiber Optics"
+          ],
+          "a": 2,
+          "e": "Bluetooth is designed for short-range links between personal devices.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which transmission mode sends data in both directions at the same time?",
+          "o": [
+            "Simplex",
+            "Half Duplex",
+            "Full Duplex",
+            "Analog Duplex"
+          ],
+          "a": 2,
+          "e": "Full-duplex communication allows simultaneous two-way transmission.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is the nominal maximum rate of Gigabit Ethernet?",
+          "o": [
+            "100 Mbps",
+            "10 Mbps",
+            "10 Gbps",
+            "1 Gbps"
+          ],
+          "a": 3,
+          "e": "Gigabit Ethernet is rated at 1 gigabit per second.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which topology gives the highest fault tolerance through many alternative paths?",
+          "o": [
+            "Bus",
+            "Ring",
+            "Star",
+            "Mesh"
+          ],
+          "a": 3,
+          "e": "A full mesh has redundant direct paths, so one link failure is less likely to isolate nodes.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which TCP/IP layer corresponds to the OSI transport layer?",
+          "o": [
+            "Internet Layer",
+            "Application Layer",
+            "Network Access Layer",
+            "Transport Layer"
+          ],
+          "a": 3,
+          "e": "The TCP/IP transport layer provides host-to-host transport, matching the OSI transport role.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which protocol reports network errors and diagnostic messages such as unreachable hosts?",
+          "o": [
+            "TCP",
+            "UDP",
+            "HTTP",
+            "ICMP"
+          ],
+          "a": 3,
+          "e": "ICMP carries error and diagnostic messages used by tools such as ping and traceroute.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which network type covers cities, countries, or other large areas?",
+          "o": [
+            "LAN",
+            "PAN",
+            "WAN",
+            "CAN"
+          ],
+          "a": 2,
+          "e": "A Wide Area Network (WAN) spans a large geographic area.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which topology connects all devices to one shared communication cable?",
+          "o": [
+            "Star",
+            "Bus",
+            "Mesh",
+            "Hybrid"
+          ],
+          "a": 1,
+          "e": "A bus topology uses one shared backbone cable.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which communication mode allows data in only one direction?",
+          "o": [
+            "Half Duplex",
+            "Full Duplex",
+            "Simplex",
+            "Multiplex"
+          ],
+          "a": 2,
+          "e": "Simplex communication is one-way, like a traditional broadcast signal.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which transmission sends bits one after another over one channel?",
+          "o": [
+            "Parallel Transmission",
+            "Serial Transmission",
+            "Duplex Transmission",
+            "Broadband Transmission"
+          ],
+          "a": 1,
+          "e": "Serial transmission sends one bit at a time in sequence.",
+          "difficulty": "Normal"
         }
       ]
     },
@@ -1306,6 +1798,90 @@
           "a": 0,
           "e": "Phishing uses fake messages or sites to trick people into revealing information.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "What does URL stand for?",
+          "o": [
+            "Universal Reference Link",
+            "Uniform Retrieval Locator",
+            "Uniform Resource Locator",
+            "Unified Resource Link"
+          ],
+          "a": 2,
+          "e": "URL means Uniform Resource Locator, the address used to locate a web resource.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which function key commonly refreshes a page in Windows browsers?",
+          "o": [
+            "F1",
+            "F2",
+            "F5",
+            "F12"
+          ],
+          "a": 2,
+          "e": "F5 is the standard refresh shortcut in many Windows browsers.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which protocol is mainly used to send email between mail servers?",
+          "o": [
+            "POP3",
+            "IMAP",
+            "SMTP",
+            "SSH"
+          ],
+          "a": 2,
+          "e": "SMTP is the standard protocol for sending email over the Internet.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which protocol gives encrypted remote terminal access?",
+          "o": [
+            "FTP",
+            "HTTP",
+            "Telnet",
+            "SSH"
+          ],
+          "a": 3,
+          "e": "SSH provides authenticated, encrypted remote login and command execution.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which protocol is traditionally used to upload and download files?",
+          "o": [
+            "FTP",
+            "SMTP",
+            "SNMP",
+            "DHCP"
+          ],
+          "a": 0,
+          "e": "FTP is the classic file-transfer protocol, though secure variants are preferred today.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which language controls the visual styling of a web page?",
+          "o": [
+            "CSS",
+            "SQL",
+            "Python",
+            "C++"
+          ],
+          "a": 0,
+          "e": "CSS controls colors, layout, fonts, spacing, and other presentation rules.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which cloud model supplies virtual machines, storage, and networks as a service?",
+          "o": [
+            "SaaS",
+            "PaaS",
+            "IaaS",
+            "DaaS"
+          ],
+          "a": 2,
+          "e": "IaaS provides infrastructure resources while the customer manages the OS and applications.",
+          "difficulty": "Normal"
         }
       ]
     },
@@ -1493,6 +2069,265 @@
           "a": 0,
           "e": "Section breaks let one document use different headers, margins, columns, or page numbering.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which extension is used by modern Microsoft Word documents?",
+          "o": [
+            ".txt",
+            ".xlsx",
+            ".pptx",
+            ".docx"
+          ],
+          "a": 3,
+          "e": "Modern Word documents normally use the .docx format.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Windows shortcut pastes copied content?",
+          "o": [
+            "Ctrl + X",
+            "Ctrl + C",
+            "Ctrl + V",
+            "Ctrl + A"
+          ],
+          "a": 2,
+          "e": "Ctrl+V pastes the current clipboard contents.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which extension belongs to a Microsoft Excel workbook?",
+          "o": [
+            ".pptx",
+            ".docx",
+            ".xlsx",
+            ".accdb"
+          ],
+          "a": 2,
+          "e": "Excel workbooks normally use the .xlsx extension.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Excel function counts cells that contain numbers?",
+          "o": [
+            "COUNTA",
+            "COUNT",
+            "SUM",
+            "AVERAGE"
+          ],
+          "a": 1,
+          "e": "COUNT returns the number of numeric cells in the selected range.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which Excel object displays data as a visual graph?",
+          "o": [
+            "Charts",
+            "Macros",
+            "Pivot Notes",
+            "Mail Merge"
+          ],
+          "a": 0,
+          "e": "Charts turn worksheet values into visual graphs such as bars, lines, and pies.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which SQL aggregate returns the largest value in a column?",
+          "o": [
+            "AVG",
+            "COUNT",
+            "MAX",
+            "SUM"
+          ],
+          "a": 2,
+          "e": "MAX returns the highest value from the selected rows.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which Word feature fixes common typing errors automatically?",
+          "o": [
+            "Mail Merge",
+            "Track Changes",
+            "WordArt",
+            "AutoCorrect"
+          ],
+          "a": 3,
+          "e": "AutoCorrect replaces configured mistakes, such as common typos, while you type.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Excel feature summarizes large data sets interactively?",
+          "o": [
+            "Mail Merge",
+            "WordArt",
+            "Pivot Table",
+            "Hyperlink"
+          ],
+          "a": 2,
+          "e": "A PivotTable groups, filters, totals, and rearranges large datasets interactively.",
+          "difficulty": "Hard"
+        }
+      ]
+    },
+    {
+      "id": "database-sql",
+      "title": "Database & SQL",
+      "desc": "Tables, keys, queries, relationships, and normal forms.",
+      "questions": [
+        {
+          "q": "What does SQL stand for?",
+          "o": [
+            "Sequential Query Logic",
+            "System Query Language",
+            "Structured Query Language",
+            "Standard Question Language"
+          ],
+          "a": 2,
+          "e": "SQL means Structured Query Language, used to define and query relational data.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which MS Access object retrieves selected records from tables?",
+          "o": [
+            "Form",
+            "Report",
+            "Query",
+            "Macro"
+          ],
+          "a": 2,
+          "e": "A query selects, filters, sorts, or calculates data from one or more tables.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which key uniquely identifies each row in a table?",
+          "o": [
+            "Foreign Key",
+            "Composite Key",
+            "Primary Key",
+            "Alternate Key"
+          ],
+          "a": 2,
+          "e": "A primary key has a unique, non-null value for every record.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which normal form removes transitive dependencies?",
+          "o": [
+            "First Normal Form",
+            "Boyce-Codd Normal Form",
+            "Third Normal Form",
+            "Second Normal Form"
+          ],
+          "a": 2,
+          "e": "Third Normal Form requires non-key attributes to depend on the key, not on another non-key attribute.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which SQL clause filters rows after grouping?",
+          "o": [
+            "WHERE",
+            "ORDER BY",
+            "HAVING",
+            "DISTINCT"
+          ],
+          "a": 2,
+          "e": "HAVING filters grouped results; WHERE filters rows before grouping.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which SQL operation combines related rows from multiple tables?",
+          "o": [
+            "UNION",
+            "GROUP BY",
+            "JOIN",
+            "ALTER"
+          ],
+          "a": 2,
+          "e": "A JOIN combines rows using a relationship such as matching key values.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which database model stores data in tables of rows and columns?",
+          "o": [
+            "Hierarchical Model",
+            "Network Model",
+            "Relational Model",
+            "Object Model"
+          ],
+          "a": 2,
+          "e": "The relational model represents data as relations, commonly shown as tables.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which rule keeps relationships between tables consistent?",
+          "o": [
+            "AutoFilter",
+            "Validation Rule",
+            "Input Mask",
+            "Referential Integrity"
+          ],
+          "a": 3,
+          "e": "Referential integrity prevents invalid references, such as a foreign key pointing to a missing record.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which SQL command removes a table structure and its data?",
+          "o": [
+            "DELETE",
+            "DROP",
+            "TRUNCATE",
+            "REMOVE"
+          ],
+          "a": 1,
+          "e": "DROP TABLE deletes the table definition and its contents from the database.",
+          "difficulty": "Hard"
+        },
+        {
+          "q": "Which SQL command retrieves data from a table?",
+          "o": [
+            "INSERT",
+            "UPDATE",
+            "ALTER",
+            "SELECT"
+          ],
+          "a": 3,
+          "e": "SELECT reads rows and columns from one or more tables.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which SQL command removes rows that match a condition but keeps the table?",
+          "o": [
+            "DROP",
+            "REMOVE",
+            "DELETE",
+            "MODIFY"
+          ],
+          "a": 2,
+          "e": "DELETE removes selected records while leaving the table structure in place.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which SQL keyword sorts query results?",
+          "o": [
+            "GROUP BY",
+            "ORDER BY",
+            "HAVING",
+            "FILTER"
+          ],
+          "a": 1,
+          "e": "ORDER BY sorts the result set in ascending or descending order.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which relationship lets one parent record relate to many child records?",
+          "o": [
+            "Many-to-Many",
+            "One-to-One",
+            "One-to-Many",
+            "Circular"
+          ],
+          "a": 2,
+          "e": "A one-to-many relationship links one row in the parent table to multiple related rows.",
+          "difficulty": "Normal"
         }
       ]
     },
@@ -1680,6 +2515,42 @@
           "a": 0,
           "e": "Zero Trust verifies users, devices, and requests instead of trusting a network location by default.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which malware type secretly records keystrokes or user activity?",
+          "o": [
+            "Worm",
+            "Trojan",
+            "Spyware",
+            "Compiler"
+          ],
+          "a": 2,
+          "e": "Spyware monitors a user and can capture keystrokes, credentials, and browsing activity.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which attack floods a service with traffic to make it unavailable?",
+          "o": [
+            "Phishing",
+            "Spoofing",
+            "Sniffing",
+            "DoS Attack"
+          ],
+          "a": 3,
+          "e": "A Denial-of-Service attack overwhelms a system so legitimate users cannot use it.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "What is unauthorized access to a computer system commonly called?",
+          "o": [
+            "Encryption",
+            "Formatting",
+            "Hacking",
+            "Defragmentation"
+          ],
+          "a": 2,
+          "e": "Hacking means gaining or attempting unauthorized access to systems or data.",
+          "difficulty": "Easy"
         }
       ]
     },
@@ -1867,6 +2738,42 @@
           "a": 0,
           "e": "System Restore can return Windows system state to a previous point without being a full backup replacement.",
           "difficulty": "Hard"
+        },
+        {
+          "q": "Which Windows utility removes temporary and unnecessary files?",
+          "o": [
+            "Device Manager",
+            "Task Scheduler",
+            "Disk Cleanup",
+            "Event Viewer"
+          ],
+          "a": 2,
+          "e": "Disk Cleanup frees space by removing temporary files and other unneeded data.",
+          "difficulty": "Easy"
+        },
+        {
+          "q": "Which Windows utility shows installed hardware and driver status?",
+          "o": [
+            "Disk Cleanup",
+            "Device Manager",
+            "Registry Editor",
+            "Paint"
+          ],
+          "a": 1,
+          "e": "Device Manager lists hardware devices and helps diagnose driver or device problems.",
+          "difficulty": "Normal"
+        },
+        {
+          "q": "Which keyboard shortcut opens Task Manager directly?",
+          "o": [
+            "Ctrl + Alt + Tab",
+            "Alt + F4",
+            "Ctrl + Shift + Esc",
+            "Ctrl + F1"
+          ],
+          "a": 2,
+          "e": "Ctrl+Shift+Esc opens Task Manager directly.",
+          "difficulty": "Normal"
         }
       ]
     }
