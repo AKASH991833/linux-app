@@ -818,4 +818,4 @@ public class MainActivity extends Activity {
         cancelTimer();
         super.onDestroy();
     }
-    }
+}
