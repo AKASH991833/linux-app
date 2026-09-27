@@ -14,6 +14,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.speech.tts.UtteranceProgressListener;
@@ -1126,10 +1127,10 @@ public class MainActivity extends Activity {
                 row.setGravity(Gravity.CENTER_VERTICAL);
                 row.setBackground(bg(CARD, 16));
                 row.setPadding(dp(14), dp(10), dp(8), dp(10));
-                TextView abbr = mono("#" + item.n + "  " + item.abbr, 13, BLUE);
+                TextView abbr = mono("#" + item.n + "  " + item.abbr, 14, BLUE);
                 abbr.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
                 row.addView(abbr, new LinearLayout.LayoutParams(0, -2, .9f));
-                TextView full = text(item.full, 13, TEXT);
+                TextView full = text(item.full, 14, TEXT);
                 full.setLineSpacing(0, 1.1f);
                 LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(0, -2, 1.5f);
                 fp.leftMargin = dp(10);
@@ -1261,13 +1262,13 @@ public class MainActivity extends Activity {
             card.setPadding(dp(14), dp(11), dp(12), dp(11));
             TextView category = bold(item.category.toUpperCase(Locale.US), 10, GREEN);
             card.addView(category);
-            TextView term = bold(item.term, 15, TEXT);
+            TextView term = bold(item.term, 16, TEXT);
             term.setPadding(0, dp(2), 0, dp(2));
             card.addView(term);
-            TextView definition = text(item.definition, 12, DIM);
+            TextView definition = text(item.definition, 13, DIM);
             definition.setLineSpacing(0, 1.16f);
             card.addView(definition);
-            TextView source = text("Source: " + item.sourceTitle, 10, DIM);
+            TextView source = text("Source: " + item.sourceTitle, 11, DIM);
             source.setPadding(0, dp(5), 0, 0);
             card.addView(source);
             LinearLayout buttons = new LinearLayout(this);
@@ -1476,12 +1477,12 @@ public class MainActivity extends Activity {
         card.setOrientation(LinearLayout.VERTICAL);
         card.setBackground(bg(CARD, 18));
         card.setPadding(dp(16), dp(13), dp(16), dp(13));
-        card.addView(bold(label, 11, color));
-        TextView q = bold(title, 16, TEXT);
+        card.addView(bold(label, 12, color));
+        TextView q = bold(title, 18, TEXT);
         q.setLineSpacing(0, 1.12f);
         q.setPadding(0, dp(4), 0, dp(6));
         card.addView(q);
-        card.addView(bold(cta, 12, color));
+        card.addView(bold(cta, 13, color));
         card.setOnClickListener(click);
         press(card);
         return card;
@@ -1513,7 +1514,7 @@ public class MainActivity extends Activity {
         TextView label = bold(page.label, 13, color);
         label.setPadding(0, dp(8), 0, dp(2));
         col.addView(label);
-        TextView title = bold(page.title, 22, TEXT);
+        TextView title = bold(page.title, 24, TEXT);
         title.setLineSpacing(0, 1.14f);
         col.addView(title, margins(0, 3));
 
@@ -1540,7 +1541,7 @@ public class MainActivity extends Activity {
             note.setBackground(bg(0xff3a2f1e, 16));
             note.setPadding(dp(14), dp(12), dp(14), dp(12));
             note.addView(bold("Note", 12, ORANGE));
-            TextView nt = text(page.note, 14, TEXT);
+            TextView nt = text(page.note, 15, TEXT);
             nt.setLineSpacing(0, 1.15f);
             nt.setPadding(0, dp(4), 0, 0);
             note.addView(nt);
@@ -1594,12 +1595,12 @@ public class MainActivity extends Activity {
                 LinearLayout code = new LinearLayout(this);
                 code.setBackground(bg(0xff0b1220, 12));
                 code.setPadding(dp(12), dp(10), dp(12), dp(10));
-                TextView t = mono(para, 13, 0xffc9d7ea);
+                TextView t = mono(para, 14, 0xffc9d7ea);
                 t.setLineSpacing(0, 1.12f);
                 code.addView(t);
                 box.addView(code, margins(0, 5));
             } else {
-                TextView t = text(para, 16, TEXT);
+                TextView t = text(para, 17, TEXT);
                 t.setLineSpacing(0, 1.24f);
                 t.setTextIsSelectable(true);
                 box.addView(t, margins(0, 5));
@@ -1954,7 +1955,7 @@ public class MainActivity extends Activity {
         col.addView(listen, lp);
 
         for(String para : l.body.split("\n\n")){
-            TextView t = text(para.trim(), 14, TEXT);
+            TextView t = text(para.trim(), 15, TEXT);
             t.setLineSpacing(0, 1.2f);
             col.addView(t, margins(0, 5));
         }
@@ -1990,13 +1991,13 @@ public class MainActivity extends Activity {
             checkCard.setPadding(dp(14),dp(14),dp(14),dp(14));
             checkCard.setBackground(bg(CARD,16));
             checkCard.addView(bold("Quick check  •  " + (idx+1) + "/" + ls.size(),14,GREEN));
-            checkCard.addView(bold(l.checkQ,15,TEXT),margins(0,5));
-            TextView feedback=text("Pick an answer to check your understanding.",13,DIM);
+            checkCard.addView(bold(l.checkQ,16,TEXT),margins(0,5));
+            TextView feedback=text("Pick an answer to check your understanding.",14,DIM);
             Button[] answers=new Button[l.checkOptions.length];
             for(int i=0;i<answers.length;i++){
                 final int choice=i;
                 Button b=new Button(this);
-                b.setAllCaps(false); b.setText(l.checkOptions[i]); b.setTextColor(TEXT); b.setTextSize(13);
+                b.setAllCaps(false); b.setText(l.checkOptions[i]); b.setTextColor(TEXT); b.setTextSize(14);
                 b.setBackground(bg(SOFT,13));
                 LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);
                 ap.setMargins(0,dp(5),0,0);
@@ -2011,12 +2012,17 @@ public class MainActivity extends Activity {
                     boolean ok=choice==l.checkAnswer;
                     feedback.setText((ok ? "You got it! ✓ " : "Try again. ") + l.checkE);
                     feedback.setTextColor(ok ? GREEN : ORANGE);
+                    for(int j=0;j<answers.length;j++){
+                        if(j == choice && ok) answers[j].setBackground(bg(GREEN,13));
+                        else if(j == choice) answers[j].setBackground(bg(0xff4a1f2d,13));
+                        else if(j == l.checkAnswer && !ok) answers[j].setBackground(bg(GREEN,13));
+                        else answers[j].setBackground(bg(SOFT,13));
+                    }
                     scroll.post(() -> scroll.smoothScrollTo(0, Math.max(0, checkCard.getBottom() - scroll.getHeight() + dp(42))));
                     if(ok){
                         prefs.edit().putBoolean("check_"+ch.id+"_"+idx,true)
                             .putBoolean("read_"+ch.id+"_"+idx,true).apply();
                         for(Button other:answers)other.setEnabled(false);
-                        answers[choice].setBackground(bg(GREEN,13));
                     }
                 });
             }
@@ -2256,7 +2262,7 @@ public class MainActivity extends Activity {
         qCard.setOrientation(LinearLayout.VERTICAL);
         qCard.setBackground(bg(CARD, 22));
         qCard.setPadding(dp(18), dp(18), dp(18), dp(18));
-        questionText = bold("", 19, TEXT);
+        questionText = bold("", 21, TEXT);
         questionText.setGravity(Gravity.CENTER);
         questionText.setLineSpacing(0, 1.18f);
         qCard.addView(questionText);
@@ -2280,8 +2286,8 @@ public class MainActivity extends Activity {
         ((LinearLayout)explainCard).setOrientation(LinearLayout.VERTICAL);
         explainCard.setBackground(bg(SOFT, 18));
         explainCard.setPadding(dp(16), dp(14), dp(16), dp(14));
-        explainTitle = bold("", 15, GREEN);
-        explainText = text("", 13, TEXT);
+        explainTitle = bold("", 16, GREEN);
+        explainText = text("", 15, TEXT);
         explainText.setLineSpacing(0, 1.14f);
         explainOptions = new LinearLayout(this);
         explainOptions.setOrientation(LinearLayout.VERTICAL);
@@ -2315,11 +2321,11 @@ public class MainActivity extends Activity {
         row.setGravity(Gravity.CENTER_VERTICAL);
         row.setBackground(bg(CARD, 16));
         row.setPadding(dp(10), dp(8), dp(12), dp(8));
-        TextView badge = bold(letter, 13, BLUE);
+        TextView badge = bold(letter, 14, BLUE);
         badge.setGravity(Gravity.CENTER);
         badge.setBackground(bg(SOFT, 14));
         row.addView(badge, new LinearLayout.LayoutParams(dp(34), dp(34)));
-        TextView option = text(label, 14, TEXT);
+        TextView option = text(label, 15, TEXT);
         option.setPadding(dp(12), 0, 0, 0);
         option.setLineSpacing(0, 1.1f);
         row.addView(option, new LinearLayout.LayoutParams(0, -2, 1));
@@ -2374,21 +2380,21 @@ public class MainActivity extends Activity {
     }
     private void cancelTimer(){ if(timer != null){ timer.cancel(); timer = null; } }
 
-    private View optionReviewRow(String letter, String option, boolean correct, String reason){
+    private View optionReviewRow(String letter, String option, boolean correct, boolean chosenWrong, String reason){
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.TOP);
-        row.setBackground(bg(correct ? 0xff12382d : 0xff3a1e28, 12));
+        row.setBackground(bg(correct ? 0xff12382d : chosenWrong ? 0xff3a1e28 : SOFT, 12));
         row.setPadding(dp(10), dp(8), dp(10), dp(8));
-        TextView badge = bold(letter, 12, correct ? GREEN : RED);
+        TextView badge = bold(letter, 12, correct ? GREEN : chosenWrong ? RED : DIM);
         badge.setGravity(Gravity.CENTER);
-        badge.setBackground(bg(correct ? 0xff1b5643 : 0xff5a2633, 12));
+        badge.setBackground(bg(correct ? 0xff1b5643 : chosenWrong ? 0xff5a2633 : CARD, 12));
         row.addView(badge, new LinearLayout.LayoutParams(dp(30), dp(30)));
         LinearLayout texts = new LinearLayout(this);
         texts.setOrientation(LinearLayout.VERTICAL);
         texts.setPadding(dp(10), 0, 0, 0);
-        texts.addView(bold(option, 12, TEXT));
-        TextView why = text(reason, 11, DIM);
+        texts.addView(bold(option, 13, TEXT));
+        TextView why = text(reason, 12, DIM);
         why.setPadding(0, dp(2), 0, 0);
         texts.addView(why);
         row.addView(texts, new LinearLayout.LayoutParams(0, -2, 1));
@@ -2437,8 +2443,9 @@ public class MainActivity extends Activity {
         explainOptions.addView(head);
         for(int i=0;i<q.o.length;i++){
             boolean ok = i == q.a;
-            String reason = ok ? q.e : "This is not the verified answer for this question.";
-            explainOptions.addView(optionReviewRow(letters[i], q.o[i], ok, reason), margins(0, 3));
+            boolean chosenWrong = i == chosen && !correct;
+            String reason = ok ? q.e : chosenWrong ? "This is the option you selected." : "This option stays neutral because it was not selected.";
+            explainOptions.addView(optionReviewRow(letters[i], q.o[i], ok, chosenWrong, reason), margins(0, 3));
         }
         explainCard.setBackground(bg(correct ? 0xff102e28 : 0xff351c28, 18));
         explainCard.setVisibility(View.VISIBLE);
@@ -2536,11 +2543,7 @@ public class MainActivity extends Activity {
         try {
             tts = new TextToSpeech(this, status -> {
                 ttsReady = status == TextToSpeech.SUCCESS;
-                if(ttsReady){
-                    int lang = tts.setLanguage(Locale.US);
-                    ttsReady = lang != TextToSpeech.LANG_MISSING_DATA && lang != TextToSpeech.LANG_NOT_SUPPORTED;
-                    if(ttsReady) tts.setSpeechRate(0.95f);
-                }
+                if(ttsReady) configureSpeechVoice();
             });
             tts.setOnUtteranceProgressListener(new UtteranceProgressListener(){
                 @Override public void onStart(String utteranceId){ }
@@ -2552,6 +2555,33 @@ public class MainActivity extends Activity {
             tts = null;
             ttsReady = false;
         }
+    }
+
+    private void configureSpeechVoice(){
+        Locale indianEnglish = new Locale("en", "IN");
+        int lang = tts.setLanguage(indianEnglish);
+        if(lang == TextToSpeech.LANG_MISSING_DATA || lang == TextToSpeech.LANG_NOT_SUPPORTED){
+            lang = tts.setLanguage(Locale.US);
+        }
+        ttsReady = lang != TextToSpeech.LANG_MISSING_DATA && lang != TextToSpeech.LANG_NOT_SUPPORTED;
+        if(!ttsReady) return;
+        try {
+            Voice best = null;
+            int bestScore = Integer.MIN_VALUE;
+            for(Voice voice : tts.getVoices()){
+                Locale locale = voice.getLocale();
+                if(locale == null || !"en".equals(locale.getLanguage()) || !"IN".equals(locale.getCountry())) continue;
+                int score = voice.getQuality() * 10 - voice.getLatency();
+                if(voice.isNetworkConnectionRequired()) score -= 1000;
+                if(score > bestScore){
+                    best = voice;
+                    bestScore = score;
+                }
+            }
+            if(best != null) tts.setVoice(best);
+        } catch(Exception ignored){ }
+        tts.setSpeechRate(0.88f);
+        tts.setPitch(1.0f);
     }
 
     private String cleanSpeech(String s){
@@ -2681,4 +2711,4 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
-}
+            }
