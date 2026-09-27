@@ -1147,6 +1147,102 @@
         {
           "q": "How do you configure a switch?",
           "a": "Assign a hostname and a management IP, configure VLANs, and enable the required ports. Always save the configuration after changes."
+        },
+        {
+          "q": "What is a network? What are LAN, MAN and WAN?",
+          "a": "A network is a group of connected devices that communicate and share data or resources. LAN covers a small local area like an office, MAN covers a city-level area, and WAN covers a large geographical area."
+        },
+        {
+          "q": "What is the TCP/IP model and how is it different from OSI?",
+          "a": "TCP/IP commonly uses four layers: Link, Internet, Transport and Application. OSI is a seven-layer reference model. OSI Physical plus Data Link maps to TCP/IP Link, OSI Network maps to Internet, OSI Transport maps to Transport, and the upper OSI layers map to Application."
+        },
+        {
+          "q": "What is ARP?",
+          "a": "ARP maps an IPv4 address to a MAC address on the local network. Linux uses it when it knows the next-hop IP and needs that device's MAC address. Check the neighbor cache with ip neigh."
+        },
+        {
+          "q": "What is Ethernet and what is a frame?",
+          "a": "Ethernet is a common LAN technology. A frame is the Layer-2 data unit that carries fields such as source MAC, destination MAC and payload. Switches forward Ethernet frames using MAC addresses."
+        },
+        {
+          "q": "How does a switch forward frames?",
+          "a": "A switch learns which source MAC address is connected to each port and stores that in its MAC address table. It forwards a frame to the port matching the destination MAC. If the destination is unknown, it may flood the frame to other ports."
+        },
+        {
+          "q": "How does a router forward packets?",
+          "a": "A router checks the destination IP address, looks up the best matching route in its routing table, and forwards the packet to the selected next hop or interface. Routers work mainly at Layer 3."
+        },
+        {
+          "q": "Explain the TCP 3-way handshake.",
+          "a": "The client sends SYN, the server replies with SYN-ACK, and the client sends ACK. After these three steps, TCP connection state is established and application data can be exchanged."
+        },
+        {
+          "q": "What is the difference between a static route and a default route?",
+          "a": "A static route is manually configured for a specific destination. A default route is used only when no more specific route matches. View both with ip route."
+        },
+        {
+          "q": "What are eth0, ens33, enp0s3 and lo?",
+          "a": "They are network interface names. eth0 is the traditional style, ens33 and enp0s3 are predictable names, and lo is the loopback interface. Check the real names on a system with ip a. The loopback interface commonly uses 127.0.0.1/8 for IPv4."
+        },
+        {
+          "q": "How do you configure IP address, gateway and DNS on Linux?",
+          "a": "The exact method depends on the distribution and network manager. On NetworkManager systems, use nmcli or nmtui for persistent configuration. Temporary testing can use ip addr and ip route, but those changes do not survive reboot unless saved in the system's network configuration."
+        },
+        {
+          "q": "What are nmcli and nmtui?",
+          "a": "NetworkManager manages network connections. nmcli is its command-line interface, and nmtui is its terminal menu interface. Examples are nmcli device status and nmcli connection show."
+        },
+        {
+          "q": "How does SSH work?",
+          "a": "SSH provides encrypted remote login and secure transport, normally on TCP port 22 unless configured otherwise. The client establishes an encrypted connection to the server and authenticates with a password or SSH keys. Key-based authentication is common in production."
+        },
+        {
+          "q": "A Linux server has no network. What do you check first?",
+          "a": "Troubleshoot layer by layer: check link and IP with ip link and ip a, routes with ip route, then gateway reachability, public IP reachability, DNS, listening ports, firewall rules and logs. A typical sequence is ip a, ip route, ping gateway, ping 8.8.8.8, dig example.com, ss -tulnp, then firewall and logs."
+        },
+        {
+          "q": "What is a proxy server? Forward proxy vs reverse proxy?",
+          "a": "A proxy is an intermediary between a client and a destination service. A forward proxy commonly represents clients and can provide filtering, logging or caching. A reverse proxy commonly represents backend servers and routes client requests to them."
+        },
+        {
+          "q": "What is a VPN?",
+          "a": "A VPN creates an authenticated and encrypted tunnel over another network, often the Internet. It lets a remote user or another network reach private resources securely. Common types are remote-access VPN and site-to-site VPN."
+        },
+        {
+          "q": "What is NIC bonding or teaming?",
+          "a": "Bonding or teaming combines multiple network interfaces into one logical connection for redundancy, load distribution or both. The exact benefit depends on the bonding mode and switch configuration. Common modes include active-backup and LACP (802.3ad) where supported."
+        },
+        {
+          "q": "What is a Linux bridge?",
+          "a": "A Linux bridge connects Layer-2 segments and forwards Ethernet frames using MAC learning, similar to a switch. It is common in virtualization to connect virtual machine interfaces to a physical LAN."
+        },
+        {
+          "q": "What are the basic IPv6 address types?",
+          "a": "Common types are global unicast, link-local (fe80::/10), unique local (fc00::/7), multicast (ff00::/8) and loopback (::1). IPv6 does not use broadcast; it uses multicast and neighbor discovery instead. 2001:db8::/32 is reserved for documentation examples."
+        },
+        {
+          "q": "How do you troubleshoot DNS?",
+          "a": "First separate IP connectivity from name resolution. If ping 8.8.8.8 works but ping example.com fails, suspect DNS. Check /etc/resolv.conf or resolvectl status, then test directly with dig example.com or nslookup example.com and verify the DNS server is reachable."
+        },
+        {
+          "q": "DHCP is not assigning an IP. What do you check?",
+          "a": "Check whether the interface is up, the DHCP client is running, the VLAN or switch path is correct, and the DHCP server is available. If the client and server are on different subnets, also check the DHCP relay. NetworkManager and DHCP client logs can show the failed DORA exchange."
+        },
+        {
+          "q": "How do you check networking logs in Linux?",
+          "a": "On systemd systems, use journalctl. For NetworkManager, use journalctl -u NetworkManager, and for current boot messages use journalctl -b. Example: journalctl -u NetworkManager --since '10 min ago'."
+        },
+        {
+          "q": "How do you troubleshoot a network service?",
+          "a": "Confirm the service is running, listening on the expected address and port, reachable locally and remotely, and allowed by firewall or SELinux. Useful checks are systemctl status ssh, ss -lntp | grep :22, curl or nc tests, firewall rules and service logs."
+        },
+        {
+          "q": "A port is listening locally but not reachable remotely. Why?",
+          "a": "A local listening socket only means the service is bound on that machine. Remote access can still fail because of firewall rules, routing, cloud security groups, ACLs, SELinux or the service binding only to localhost. Compare ss output on the server with a remote nc or curl test."
+        },
+        {
+          "q": "Ping works but SSH does not. What would you check?",
+          "a": "Ping only proves basic IP/ICMP reachability; SSH uses TCP. Check that sshd is running, TCP/22 is listening, firewall and routing allow TCP/22, SSH is bound to the right address, and authentication is valid. Use systemctl status ssh or sshd, ss -lntp | grep :22, firewall-cmd --list-all and ssh -v user@server."
         }
       ],
       "commands": [
@@ -1312,6 +1408,31 @@
               "command": "sshd -t",
               "example": "sshd -t",
               "use": "Validate SSH config syntax"
+            }
+          ]
+        },
+        {
+          "title": "Network Troubleshooting",
+          "items": [
+            {
+              "command": "ss -tulnp",
+              "example": "sudo ss -tulnp",
+              "use": "Listening TCP/UDP sockets with processes"
+            },
+            {
+              "command": "nmcli connection show",
+              "example": "nmcli connection show",
+              "use": "Saved NetworkManager connections"
+            },
+            {
+              "command": "nft list ruleset",
+              "example": "sudo nft list ruleset",
+              "use": "Current nftables firewall rules"
+            },
+            {
+              "command": "resolvectl status",
+              "example": "resolvectl status",
+              "use": "DNS resolver status on systemd systems"
             }
           ]
         }
