@@ -1,15 +1,22 @@
 # Linux App
 
 Master Linux, step by step. A fully offline Android app with a simple home
-dashboard: Beginner quizzes, Intermediate quizzes, Interview Questions and
-Learn Chapters. Each tile opens a clean topic-wise or chapter-wise list, and
-every interview answer opens as a readable book-style page.
+dashboard: Quiz, Full Forms, Interview Questions and Learn Chapters. Each tile
+opens a clean level, concept, or chapter list, and every interview answer opens
+as a readable book-style page.
 
 ## Features
 
-- **Simple home dashboard** - four big entry tiles only: Beginner quizzes,
-  Intermediate quizzes, Interview Questions and Learn Chapters. Topic cards stay
+- **Simple home dashboard** - big entry tiles only: Quiz, Full Forms,
+  Interview Questions and Learn Chapters. Levels, topics and chapters stay
   inside their section, so the home screen remains clean
+- **Quiz levels and difficulty** - one Quiz tile opens Beginner, Intermediate,
+  or Advanced, then Easy, Normal, or Hard. All 300 questions are tagged across
+  the nine level/difficulty sets, with 10 mixed questions per round and harder
+  sets using shorter timers
+- **477 technical full forms** - searchable concept-wise list covering Linux,
+  networking, security, cloud/DevOps, web, databases, hardware, programming and
+  IT standards. Speak reads only the abbreviation and its full form
 - **Your Questions & PDFs** - four named source sections: My Interview Questions
   (52 Q&A in Akash's original order and wording), 200 Important Commands (all
   200 rows), Networking Interview Q&A (all 40 PDF topics, converted to simple
@@ -23,13 +30,12 @@ every interview answer opens as a readable book-style page.
   topic area with exact, verified answers, plus practical command/example/use
   reference tables and an HR & closing-round set
   (`app/src/main/assets/interview.json`)
-- **Offline Speak mode** - listen to book-style interview answers, full lessons,
-  individual command rows, quiz questions/options/explanations, or play a whole
-  interview topic for revision; play/stop uses
-  Android TextToSpeech and needs no internet or new permission
+- **Focused offline Speak mode** - book pages and topic play-all read only the
+  question and answer, command rows read only command plus short use, quiz
+  speech reads only the question before feedback and the correct answer after
+  feedback, and Full Forms reads only abbreviation plus expansion. Play/stop
+  uses Android TextToSpeech and needs no internet or new permission
 - **Chapter-wise practice** - Basic to advanced, one concept area at a time
-- **Quiz section - topic-wise** - every topic area has its own clearly labelled
-  quiz (Beginner untimed, Intermediate 30s per question). Only quizzes here
 - **Interview Questions section - topic-wise** - every topic area has its own
   set of real interview questions with verified answers; tap a question to open
   its book-style answer page. Each matching topic also groups practical commands once, in clean
@@ -75,11 +81,11 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 ## Testing
 
 `emulator-test.yml` boots an Android 10 (API 29) emulator, installs the APK,
-drives the dashboard UI (open Beginner/Intermediate topic lists, interview
-chapters and Learn chapters, answer a question, check feedback, navigate back),
-checks the Speak controls, opens every named source section and the book-style
-reader, confirms generated diagrams and collapsed answer cards are absent, and
-publishes screenshots to the `emulator-shots-api29` branch.
+drives the dashboard UI (Quiz level/difficulty flow, searchable Full Forms,
+interview chapters and Learn chapters, answer a question, check feedback,
+navigate back), checks the Speak controls, opens every named source section and
+the book-style reader, confirms generated diagrams and collapsed answer cards
+are absent, and publishes screenshots to the `emulator-shots-api29` branch.
 
 ## Tech
 

@@ -8,6 +8,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -37,10 +40,11 @@ import java.util.Set;
 public class MainActivity extends Activity {
     private static final int BG=0xff101827, CARD=0xff1c2940, SOFT=0xff293954, TEXT=0xffedf3fa;
     private static final int DIM=0xffa7b8cc, BLUE=0xff5199ff, GREEN=0xff48df99, ORANGE=0xffffbc60, RED=0xffe75b67, PURPLE=0xff9d7bff;
-    private static final int MODE_BEGINNER=0, MODE_INTERMEDIATE=1;
+    private static final int MODE_BEGINNER=0, MODE_INTERMEDIATE=1, MODE_ADVANCED=2;
+    private static final int DIFF_EASY=0, DIFF_NORMAL=1, DIFF_HARD=2;
 
     static class Q {
-        String q, e, chapter; String[] o; int a, idx;
+        String q, e, chapter, level, difficulty; String[] o; int a, idx;
         String id(){ return chapter + ":" + idx; }
     }
     static class Chapter {
@@ -70,6 +74,12 @@ public class MainActivity extends Activity {
     static class ReaderPage {
         String label, title, body, note;
     }
+    static class FullForm {
+        int n; String abbr, full, category;
+    }
+    static class FullFormGroup {
+        String title; List<FullForm> items = new ArrayList<>();
+    }
 
     private FrameLayout container;
     private TextView streakChip;
@@ -88,8 +98,11 @@ public class MainActivity extends Activity {
     private final List<SourceQ> myQuestions = new ArrayList<>();
     private final List<SourceCommand> commands200 = new ArrayList<>();
     private final List<SourceQ> networkSource = new ArrayList<>();
+    private final List<FullFormGroup> fullForms = new ArrayList<>();
+    private int fullFormCount;
     private boolean interviewOpenedFromHandbook;
     private int mode = MODE_BEGINNER;
+    private int quizDifficulty = -1;
 
     // quiz state
     private List<Q> quiz;
@@ -175,6 +188,7 @@ public class MainActivity extends Activity {
                     Q q = new Q();
                     q.q = qj.getString("q"); q.e = qj.getString("e"); q.a = qj.getInt("a");
                     q.chapter = ch.id; q.idx = j;
+                    q.level = qj.optString("level", ""); q.difficulty = qj.optString("difficulty", "");
                     JSONArray oa = qj.getJSONArray("o");
                     q.o = new String[oa.length()];
                     for(int k=0;k<oa.length();k++) q.o[k] = oa.getString(k);
@@ -345,7 +359,7 @@ public class MainActivity extends Activity {
         TextView sub = text("One simple dashboard. Open a tile, then choose a topic or chapter.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
-        TextView version = text("v1.3.1  •  328 interview Q&A  •  346 commands  •  Speak built in", 12, ORANGE);
+        TextView version = text("v1.4.0  •  " + allQuestions().size() + " quiz Qs  •  " + fullFormCount + " full forms  •  Speak focused", 12, ORANGE);
         version.setTypeface(null, Typeface.BOLD);
         version.setPadding(0, dp(8), 0, 0);
         hero.addView(version);
@@ -360,10 +374,10 @@ public class MainActivity extends Activity {
                     v -> startRevise()), margins(0, 6));
 
         col.addView(sectionHead("🎯", "Home Dashboard", "Big entry tiles only - topics open after you tap.", GREEN), margins(0, 8));
-        col.addView(dashboardTile("🟢", "Beginner", "Topic-wise quizzes  •  no timer", BLUE,
-                v -> showQuizTopics(MODE_BEGINNER)), margins(0, 6));
-        col.addView(dashboardTile("🟠", "Intermediate", "Topic-wise quizzes  •  30 sec per question", ORANGE,
-                v -> showQuizTopics(MODE_INTERMEDIATE)), margins(0, 6));
+        col.addView(dashboardTile("📝", "Quiz", "Beginner / Intermediate / Advanced  •  Easy / Normal / Hard", BLUE,
+                v -> showQuizLevels()), margins(0, 6));
+        col.addView(dashboardTile("🔠", "Full Forms", fullFormCount + " technical abbreviations  •  searchable list", ORANGE,
+                v -> showFullForms()), margins(0, 6));
         col.addView(dashboardTile("💼", "Interview Questions", "Your questions, PDFs + topic-wise chapters", PURPLE,
                 v -> showInterviewTopics()), margins(0, 6));
         col.addView(dashboardTile("📖", "Learn Chapters", "48 short lessons  •  Listen + quick checks", GREEN,
@@ -401,25 +415,128 @@ public class MainActivity extends Activity {
         return b;
     }
 
-    private void showQuizTopics(final int selectedMode){
-        mode = selectedMode;
+    private void showQuizLevels(){
         cancelTimer();
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);
         col.setPadding(dp(16), dp(6), dp(16), dp(24));
         scroll.addView(col);
-        boolean beginner = selectedMode == MODE_BEGINNER;
-        col.addView(sectionHead(beginner ? "🟢" : "🟠",
-                beginner ? "Beginner Quiz Topics" : "Intermediate Quiz Topics",
-                beginner ? "Choose one topic - no timer." : "Choose one topic - 30 seconds per question.",
-                beginner ? BLUE : ORANGE), margins(0, 7));
-        for(final Chapter ch : chapters)
-            col.addView(topicCard("📝", ch.title + " Quiz",
-                    "10 of " + ch.qs.size() + " questions per round" + bestSuffix(ch), beginner ? BLUE : ORANGE, "Start",
-                    v -> startChapterQuiz(ch)), margins(0, 5));
+        col.addView(sectionHead("📝", "Quiz Levels", "Choose your level first, then Easy, Normal, or Hard.", BLUE), margins(0, 7));
+        for(int level=MODE_BEGINNER; level<=MODE_ADVANCED; level++){
+            final int selectedLevel = level;
+            int count = questionCountForLevel(level);
+            col.addView(topicCard(levelIcon(level), levelName(level) + " Quiz",
+                    count + " questions  •  Easy / Normal / Hard" + bestLevelSuffix(level), levelColor(level), "Open",
+                    v -> showQuizDifficulties(selectedLevel)), margins(0, 5));
+        }
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
         switchScreen(scroll);
+    }
+
+    private void showQuizDifficulties(final int level){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead(levelIcon(level), levelName(level) + " Quiz", "Choose a difficulty. Each round has 10 mixed questions.", levelColor(level)), margins(0, 7));
+        for(int difficulty=DIFF_EASY; difficulty<=DIFF_HARD; difficulty++){
+            final int selectedDifficulty = difficulty;
+            int count = questionCountFor(level, difficulty);
+            col.addView(topicCard(difficulty == DIFF_EASY ? "🟢" : difficulty == DIFF_NORMAL ? "🟠" : "🔴",
+                    difficultyName(difficulty),
+                    count + " questions  •  " + timerLabel(level, difficulty) + bestQuizSuffix(level, difficulty), levelColor(level), "Start",
+                    v -> startComboQuiz(level, selectedDifficulty)), margins(0, 5));
+        }
+        col.addView(listBackButton("Back to Quiz Levels", v -> showQuizLevels()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showFullForms(){
+        cancelTimer();
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(sectionHead("🔠", "Full Forms", fullFormCount + " commonly used technical abbreviations, grouped by concept.", ORANGE), margins(0, 7));
+
+        EditText search = new EditText(this);
+        search.setHint("Search DNS, network, domain...");
+        search.setSingleLine(true);
+        search.setTextColor(TEXT);
+        search.setHintTextColor(DIM);
+        search.setTextSize(14);
+        search.setBackground(bg(CARD, 18));
+        search.setPadding(dp(14), 0, dp(14), 0);
+        LinearLayout.LayoutParams searchParams = new LinearLayout.LayoutParams(-1, dp(48));
+        searchParams.setMargins(0, dp(4), 0, dp(6));
+        col.addView(search, searchParams);
+
+        TextView matchCount = text("", 12, DIM);
+        matchCount.setPadding(dp(2), 0, 0, dp(4));
+        col.addView(matchCount);
+        LinearLayout results = new LinearLayout(this);
+        results.setOrientation(LinearLayout.VERTICAL);
+        col.addView(results);
+        populateFullForms(results, matchCount, "");
+        search.addTextChangedListener(new TextWatcher(){
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after){ }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count){ }
+            @Override public void afterTextChanged(Editable s){ populateFullForms(results, matchCount, s.toString()); }
+        });
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void populateFullForms(LinearLayout results, TextView matchCount, String query){
+        results.removeAllViews();
+        String needle = query == null ? "" : query.trim().toLowerCase(Locale.US);
+        int matches = 0;
+        for(FullFormGroup group : fullForms){
+            List<FullForm> filtered = new ArrayList<>();
+            for(FullForm item : group.items){
+                String haystack = (item.abbr + " " + item.full + " " + item.category).toLowerCase(Locale.US);
+                if(needle.isEmpty() || haystack.contains(needle)) filtered.add(item);
+            }
+            if(filtered.isEmpty()) continue;
+            TextView head = bold(group.title + "  (" + filtered.size() + ")", 16, ORANGE);
+            head.setPadding(0, dp(9), 0, dp(2));
+            results.addView(head);
+            for(final FullForm item : filtered){
+                matches++;
+                LinearLayout row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                row.setGravity(Gravity.CENTER_VERTICAL);
+                row.setBackground(bg(CARD, 16));
+                row.setPadding(dp(14), dp(10), dp(8), dp(10));
+                TextView abbr = mono("#" + item.n + "  " + item.abbr, 13, BLUE);
+                abbr.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+                row.addView(abbr, new LinearLayout.LayoutParams(0, -2, .9f));
+                TextView full = text(item.full, 13, TEXT);
+                full.setLineSpacing(0, 1.1f);
+                LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(0, -2, 1.5f);
+                fp.leftMargin = dp(10);
+                row.addView(full, fp);
+                Button speak = new Button(this);
+                speak.setText("🔊"); speak.setAllCaps(false); speak.setTextColor(ORANGE); speak.setTextSize(13);
+                speak.setBackground(bg(SOFT, 14)); speak.setMinWidth(0); speak.setMinimumWidth(0); speak.setPadding(0,0,0,0);
+                final List<String> speech = singleSpeech(item.abbr + ". " + item.full + ".");
+                speak.setOnClickListener(v -> toggleSpeech(speak, "🔊", speech));
+                LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(dp(40), dp(36));
+                sp.leftMargin = dp(8);
+                row.addView(speak, sp);
+                results.addView(row, margins(0, 4));
+            }
+        }
+        if(matches == 0){
+            TextView empty = text("No full forms found. Try another search.", 13, DIM);
+            empty.setPadding(0, dp(14), 0, dp(8));
+            results.addView(empty);
+        }
+        matchCount.setText(matches + " of " + fullFormCount + " shown");
     }
 
     private void showInterviewTopics(){
@@ -751,6 +868,61 @@ public class MainActivity extends Activity {
     private String bestSuffix(Chapter ch){
         int best = prefs.getInt("best_" + ch.id, -1);
         return best >= 0 ? "  \u2022  Best: " + best + "%" : "";
+    }
+
+    private String levelName(int level){
+        return level == MODE_BEGINNER ? "Beginner" : level == MODE_INTERMEDIATE ? "Intermediate" : "Advanced";
+    }
+    private String difficultyName(int difficulty){
+        return difficulty == DIFF_EASY ? "Easy" : difficulty == DIFF_NORMAL ? "Normal" : "Hard";
+    }
+    private String levelIcon(int level){
+        return level == MODE_BEGINNER ? "🟢" : level == MODE_INTERMEDIATE ? "🟠" : "🔴";
+    }
+    private int levelColor(int level){
+        return level == MODE_BEGINNER ? BLUE : level == MODE_INTERMEDIATE ? ORANGE : RED;
+    }
+    private int questionCountForLevel(int level){
+        int count = 0;
+        String wanted = levelName(level);
+        for(Chapter ch : chapters) for(Q q : ch.qs) if(wanted.equals(q.level)) count++;
+        return count;
+    }
+    private int questionCountFor(int level, int difficulty){
+        int count = 0;
+        String wantedLevel = levelName(level), wantedDifficulty = difficultyName(difficulty);
+        for(Chapter ch : chapters) for(Q q : ch.qs)
+            if(wantedLevel.equals(q.level) && wantedDifficulty.equals(q.difficulty)) count++;
+        return count;
+    }
+    private List<Q> questionsFor(int level, int difficulty){
+        List<Q> pick = new ArrayList<>();
+        String wantedLevel = levelName(level), wantedDifficulty = difficultyName(difficulty);
+        for(Chapter ch : chapters) for(Q q : ch.qs)
+            if(wantedLevel.equals(q.level) && wantedDifficulty.equals(q.difficulty)) pick.add(q);
+        return pick;
+    }
+    private String bestQuizSuffix(int level, int difficulty){
+        int best = prefs.getInt("best_quiz_" + level + "_" + difficulty, -1);
+        return best >= 0 ? "  \u2022  Best: " + best + "%" : "";
+    }
+    private String bestLevelSuffix(int level){
+        int total = 0, count = 0;
+        for(int d=DIFF_EASY; d<=DIFF_HARD; d++){
+            int best = prefs.getInt("best_quiz_" + level + "_" + d, -1);
+            if(best >= 0){ total += best; count++; }
+        }
+        return count > 0 ? "  \u2022  Avg best: " + (total / count) + "%" : "";
+    }
+    private String timerLabel(int level, int difficulty){
+        int seconds = quizTimer(level, difficulty);
+        return seconds > 0 ? seconds + " sec per question" : "no timer";
+    }
+    private int quizTimer(int level, int difficulty){
+        if(difficulty == DIFF_EASY) return level == MODE_BEGINNER ? 0 : 30;
+        if(difficulty == DIFF_NORMAL) return level == MODE_ADVANCED ? 20 : 30;
+        if(difficulty == DIFF_HARD) return level == MODE_BEGINNER ? 20 : level == MODE_INTERMEDIATE ? 20 : 15;
+        return level == MODE_INTERMEDIATE ? 30 : 0;
     }
 
     private int commandCount(InterviewChapter ch){
@@ -1177,17 +1349,27 @@ public class MainActivity extends Activity {
 
     // ---------------- QUIZ STARTERS ----------------
     private void startChapterQuiz(Chapter ch){
+        quizDifficulty = -1;
         List<Q> pick = new ArrayList<>(ch.qs);
         Collections.shuffle(pick);
         if(pick.size() > 10) pick = pick.subList(0, 10);
         final Chapter c = ch;
-        startQuiz(new ArrayList<>(pick), ch.title, mode, "best_" + ch.id, false, false, () -> startChapterQuiz(c));
+        startQuiz(new ArrayList<>(pick), ch.title, MODE_BEGINNER, "best_" + ch.id, false, false, () -> startChapterQuiz(c));
+    }
+    private void startComboQuiz(final int level, final int difficulty){
+        quizDifficulty = difficulty;
+        List<Q> pick = questionsFor(level, difficulty);
+        Collections.shuffle(pick);
+        if(pick.size() > 10) pick = pick.subList(0, 10);
+        startQuiz(new ArrayList<>(pick), levelName(level) + " • " + difficultyName(difficulty), level,
+                "best_quiz_" + level + "_" + difficulty, false, false, () -> startComboQuiz(level, difficulty));
     }
     private void startDaily(){
+        quizDifficulty = -1;
         List<Q> all = allQuestions();
         Collections.shuffle(all, new Random(today().hashCode()));
         List<Q> pick = new ArrayList<>(all.subList(0, Math.min(10, all.size())));
-        startQuiz(pick, "Daily Challenge", mode, null, true, false, this::startDaily);
+        startQuiz(pick, "Daily Challenge", MODE_BEGINNER, null, true, false, this::startDaily);
     }
     private void startRevise(){
         Set<String> wrong = wrongSet();
@@ -1197,6 +1379,7 @@ public class MainActivity extends Activity {
         Collections.shuffle(pick);
         if(pick.size() > 15) pick = pick.subList(0, 15);
         final List<Q> p = new ArrayList<>(pick);
+        quizDifficulty = -1;
         startQuiz(p, "Revise Mistakes", MODE_BEGINNER, null, false, true, () -> startQuiz(p, "Revise Mistakes", MODE_BEGINNER, null, false, true, null));
     }
     private List<Q> allQuestions(){
@@ -1210,7 +1393,7 @@ public class MainActivity extends Activity {
         cancelTimer();
         quiz = qs; quizTitle = title; bestKey = best; daily = isDaily; revise = isRevise;
         qi = 0; correctCount = 0; restart = again;
-        timerSecs = m == MODE_INTERMEDIATE ? 30 : 0;
+        timerSecs = quizTimer(m, quizDifficulty);
 
         LinearLayout col = new LinearLayout(this);
         col.setOrientation(LinearLayout.VERTICAL);

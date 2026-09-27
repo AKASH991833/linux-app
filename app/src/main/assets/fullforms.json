@@ -1,0 +1,2434 @@
+{
+  "groups": [
+    {
+      "title": "Linux & Operating Systems",
+      "items": [
+        {
+          "n": 1,
+          "abbr": "GNU",
+          "full": "GNU's Not Unix"
+        },
+        {
+          "n": 2,
+          "abbr": "GPL",
+          "full": "General Public License"
+        },
+        {
+          "n": 3,
+          "abbr": "POSIX",
+          "full": "Portable Operating System Interface"
+        },
+        {
+          "n": 4,
+          "abbr": "ELF",
+          "full": "Executable and Linkable Format"
+        },
+        {
+          "n": 5,
+          "abbr": "ABI",
+          "full": "Application Binary Interface"
+        },
+        {
+          "n": 6,
+          "abbr": "CLI",
+          "full": "Command Line Interface"
+        },
+        {
+          "n": 7,
+          "abbr": "GUI",
+          "full": "Graphical User Interface"
+        },
+        {
+          "n": 8,
+          "abbr": "TUI",
+          "full": "Text User Interface"
+        },
+        {
+          "n": 9,
+          "abbr": "TTY",
+          "full": "Teletypewriter"
+        },
+        {
+          "n": 10,
+          "abbr": "PTY",
+          "full": "Pseudo Terminal"
+        },
+        {
+          "n": 11,
+          "abbr": "PID",
+          "full": "Process ID"
+        },
+        {
+          "n": 12,
+          "abbr": "PPID",
+          "full": "Parent Process ID"
+        },
+        {
+          "n": 13,
+          "abbr": "UID",
+          "full": "User ID"
+        },
+        {
+          "n": 14,
+          "abbr": "GID",
+          "full": "Group ID"
+        },
+        {
+          "n": 15,
+          "abbr": "SUID",
+          "full": "Set User ID"
+        },
+        {
+          "n": 16,
+          "abbr": "SGID",
+          "full": "Set Group ID"
+        },
+        {
+          "n": 17,
+          "abbr": "PAM",
+          "full": "Pluggable Authentication Modules"
+        },
+        {
+          "n": 18,
+          "abbr": "SELinux",
+          "full": "Security-Enhanced Linux"
+        },
+        {
+          "n": 19,
+          "abbr": "LSM",
+          "full": "Linux Security Module"
+        },
+        {
+          "n": 20,
+          "abbr": "LVM",
+          "full": "Logical Volume Manager"
+        },
+        {
+          "n": 21,
+          "abbr": "GRUB",
+          "full": "Grand Unified Bootloader"
+        },
+        {
+          "n": 22,
+          "abbr": "ACPI",
+          "full": "Advanced Configuration and Power Interface"
+        },
+        {
+          "n": 23,
+          "abbr": "IPC",
+          "full": "Inter-Process Communication"
+        },
+        {
+          "n": 24,
+          "abbr": "SSH",
+          "full": "Secure Shell"
+        },
+        {
+          "n": 25,
+          "abbr": "SCP",
+          "full": "Secure Copy Protocol"
+        },
+        {
+          "n": 26,
+          "abbr": "SFTP",
+          "full": "SSH File Transfer Protocol"
+        },
+        {
+          "n": 27,
+          "abbr": "NFS",
+          "full": "Network File System"
+        },
+        {
+          "n": 28,
+          "abbr": "SMB",
+          "full": "Server Message Block"
+        },
+        {
+          "n": 29,
+          "abbr": "CIFS",
+          "full": "Common Internet File System"
+        },
+        {
+          "n": 30,
+          "abbr": "KVM",
+          "full": "Kernel-based Virtual Machine"
+        },
+        {
+          "n": 31,
+          "abbr": "QEMU",
+          "full": "Quick Emulator"
+        },
+        {
+          "n": 32,
+          "abbr": "VM",
+          "full": "Virtual Machine"
+        },
+        {
+          "n": 33,
+          "abbr": "VPS",
+          "full": "Virtual Private Server"
+        },
+        {
+          "n": 34,
+          "abbr": "LXC",
+          "full": "Linux Containers"
+        },
+        {
+          "n": 35,
+          "abbr": "LXD",
+          "full": "Linux Container Daemon"
+        },
+        {
+          "n": 36,
+          "abbr": "VFS",
+          "full": "Virtual File System"
+        },
+        {
+          "n": 37,
+          "abbr": "FUSE",
+          "full": "Filesystem in Userspace"
+        },
+        {
+          "n": 38,
+          "abbr": "WSL",
+          "full": "Windows Subsystem for Linux"
+        },
+        {
+          "n": 39,
+          "abbr": "GNOME",
+          "full": "GNU Network Object Model Environment"
+        },
+        {
+          "n": 40,
+          "abbr": "APT",
+          "full": "Advanced Package Tool"
+        },
+        {
+          "n": 41,
+          "abbr": "dpkg",
+          "full": "Debian Package"
+        },
+        {
+          "n": 42,
+          "abbr": "YUM",
+          "full": "Yellowdog Updater, Modified"
+        },
+        {
+          "n": 43,
+          "abbr": "DNF",
+          "full": "Dandified YUM"
+        },
+        {
+          "n": 44,
+          "abbr": "OOM",
+          "full": "Out of Memory"
+        },
+        {
+          "n": 45,
+          "abbr": "FIFO",
+          "full": "First In, First Out"
+        },
+        {
+          "n": 46,
+          "abbr": "LIFO",
+          "full": "Last In, First Out"
+        },
+        {
+          "n": 47,
+          "abbr": "RPM",
+          "full": "RPM Package Manager"
+        },
+        {
+          "n": 48,
+          "abbr": "ZFS",
+          "full": "Zettabyte File System"
+        }
+      ]
+    },
+    {
+      "title": "Networking",
+      "items": [
+        {
+          "n": 49,
+          "abbr": "IP",
+          "full": "Internet Protocol"
+        },
+        {
+          "n": 50,
+          "abbr": "IPv4",
+          "full": "Internet Protocol version 4"
+        },
+        {
+          "n": 51,
+          "abbr": "IPv6",
+          "full": "Internet Protocol version 6"
+        },
+        {
+          "n": 52,
+          "abbr": "TCP",
+          "full": "Transmission Control Protocol"
+        },
+        {
+          "n": 53,
+          "abbr": "UDP",
+          "full": "User Datagram Protocol"
+        },
+        {
+          "n": 54,
+          "abbr": "ICMP",
+          "full": "Internet Control Message Protocol"
+        },
+        {
+          "n": 55,
+          "abbr": "ARP",
+          "full": "Address Resolution Protocol"
+        },
+        {
+          "n": 56,
+          "abbr": "DNS",
+          "full": "Domain Name System"
+        },
+        {
+          "n": 57,
+          "abbr": "DHCP",
+          "full": "Dynamic Host Configuration Protocol"
+        },
+        {
+          "n": 58,
+          "abbr": "NTP",
+          "full": "Network Time Protocol"
+        },
+        {
+          "n": 59,
+          "abbr": "NAT",
+          "full": "Network Address Translation"
+        },
+        {
+          "n": 60,
+          "abbr": "PAT",
+          "full": "Port Address Translation"
+        },
+        {
+          "n": 61,
+          "abbr": "CIDR",
+          "full": "Classless Inter-Domain Routing"
+        },
+        {
+          "n": 62,
+          "abbr": "VLSM",
+          "full": "Variable Length Subnet Mask"
+        },
+        {
+          "n": 63,
+          "abbr": "OSI",
+          "full": "Open Systems Interconnection"
+        },
+        {
+          "n": 64,
+          "abbr": "HTTP",
+          "full": "Hypertext Transfer Protocol"
+        },
+        {
+          "n": 65,
+          "abbr": "HTTPS",
+          "full": "Hypertext Transfer Protocol Secure"
+        },
+        {
+          "n": 66,
+          "abbr": "FTP",
+          "full": "File Transfer Protocol"
+        },
+        {
+          "n": 67,
+          "abbr": "FTPS",
+          "full": "File Transfer Protocol Secure"
+        },
+        {
+          "n": 68,
+          "abbr": "TFTP",
+          "full": "Trivial File Transfer Protocol"
+        },
+        {
+          "n": 69,
+          "abbr": "SMTP",
+          "full": "Simple Mail Transfer Protocol"
+        },
+        {
+          "n": 70,
+          "abbr": "POP3",
+          "full": "Post Office Protocol version 3"
+        },
+        {
+          "n": 71,
+          "abbr": "IMAP",
+          "full": "Internet Message Access Protocol"
+        },
+        {
+          "n": 72,
+          "abbr": "SNMP",
+          "full": "Simple Network Management Protocol"
+        },
+        {
+          "n": 73,
+          "abbr": "LDAP",
+          "full": "Lightweight Directory Access Protocol"
+        },
+        {
+          "n": 74,
+          "abbr": "SIP",
+          "full": "Session Initiation Protocol"
+        },
+        {
+          "n": 75,
+          "abbr": "RTP",
+          "full": "Real-time Transport Protocol"
+        },
+        {
+          "n": 76,
+          "abbr": "RTCP",
+          "full": "RTP Control Protocol"
+        },
+        {
+          "n": 77,
+          "abbr": "TELNET",
+          "full": "Teletype Network"
+        },
+        {
+          "n": 78,
+          "abbr": "BGP",
+          "full": "Border Gateway Protocol"
+        },
+        {
+          "n": 79,
+          "abbr": "OSPF",
+          "full": "Open Shortest Path First"
+        },
+        {
+          "n": 80,
+          "abbr": "RIP",
+          "full": "Routing Information Protocol"
+        },
+        {
+          "n": 81,
+          "abbr": "EIGRP",
+          "full": "Enhanced Interior Gateway Routing Protocol"
+        },
+        {
+          "n": 82,
+          "abbr": "IS-IS",
+          "full": "Intermediate System to Intermediate System"
+        },
+        {
+          "n": 83,
+          "abbr": "MPLS",
+          "full": "Multiprotocol Label Switching"
+        },
+        {
+          "n": 84,
+          "abbr": "VLAN",
+          "full": "Virtual Local Area Network"
+        },
+        {
+          "n": 85,
+          "abbr": "VXLAN",
+          "full": "Virtual Extensible Local Area Network"
+        },
+        {
+          "n": 86,
+          "abbr": "VPN",
+          "full": "Virtual Private Network"
+        },
+        {
+          "n": 87,
+          "abbr": "GRE",
+          "full": "Generic Routing Encapsulation"
+        },
+        {
+          "n": 88,
+          "abbr": "IPsec",
+          "full": "Internet Protocol Security"
+        },
+        {
+          "n": 89,
+          "abbr": "SSL",
+          "full": "Secure Sockets Layer"
+        },
+        {
+          "n": 90,
+          "abbr": "TLS",
+          "full": "Transport Layer Security"
+        },
+        {
+          "n": 91,
+          "abbr": "DNSSEC",
+          "full": "Domain Name System Security Extensions"
+        },
+        {
+          "n": 92,
+          "abbr": "DoH",
+          "full": "DNS over HTTPS"
+        },
+        {
+          "n": 93,
+          "abbr": "DoT",
+          "full": "DNS over TLS"
+        },
+        {
+          "n": 94,
+          "abbr": "LAN",
+          "full": "Local Area Network"
+        },
+        {
+          "n": 95,
+          "abbr": "WAN",
+          "full": "Wide Area Network"
+        },
+        {
+          "n": 96,
+          "abbr": "MAN",
+          "full": "Metropolitan Area Network"
+        },
+        {
+          "n": 97,
+          "abbr": "PAN",
+          "full": "Personal Area Network"
+        },
+        {
+          "n": 98,
+          "abbr": "WLAN",
+          "full": "Wireless Local Area Network"
+        },
+        {
+          "n": 99,
+          "abbr": "WiMAX",
+          "full": "Worldwide Interoperability for Microwave Access"
+        },
+        {
+          "n": 100,
+          "abbr": "SSID",
+          "full": "Service Set Identifier"
+        },
+        {
+          "n": 101,
+          "abbr": "BSSID",
+          "full": "Basic Service Set Identifier"
+        },
+        {
+          "n": 102,
+          "abbr": "ESSID",
+          "full": "Extended Service Set Identifier"
+        },
+        {
+          "n": 103,
+          "abbr": "WEP",
+          "full": "Wired Equivalent Privacy"
+        },
+        {
+          "n": 104,
+          "abbr": "WPA",
+          "full": "Wi-Fi Protected Access"
+        },
+        {
+          "n": 105,
+          "abbr": "WPA2",
+          "full": "Wi-Fi Protected Access 2"
+        },
+        {
+          "n": 106,
+          "abbr": "WPA3",
+          "full": "Wi-Fi Protected Access 3"
+        },
+        {
+          "n": 107,
+          "abbr": "MAC",
+          "full": "Media Access Control"
+        },
+        {
+          "n": 108,
+          "abbr": "NIC",
+          "full": "Network Interface Card"
+        },
+        {
+          "n": 109,
+          "abbr": "ISP",
+          "full": "Internet Service Provider"
+        },
+        {
+          "n": 110,
+          "abbr": "PoE",
+          "full": "Power over Ethernet"
+        },
+        {
+          "n": 111,
+          "abbr": "DSL",
+          "full": "Digital Subscriber Line"
+        },
+        {
+          "n": 112,
+          "abbr": "ADSL",
+          "full": "Asymmetric Digital Subscriber Line"
+        },
+        {
+          "n": 113,
+          "abbr": "VDSL",
+          "full": "Very-high-bit-rate Digital Subscriber Line"
+        },
+        {
+          "n": 114,
+          "abbr": "FTTH",
+          "full": "Fiber to the Home"
+        },
+        {
+          "n": 115,
+          "abbr": "FTTP",
+          "full": "Fiber to the Premises"
+        },
+        {
+          "n": 116,
+          "abbr": "GPON",
+          "full": "Gigabit Passive Optical Network"
+        },
+        {
+          "n": 117,
+          "abbr": "LTE",
+          "full": "Long Term Evolution"
+        },
+        {
+          "n": 118,
+          "abbr": "GSM",
+          "full": "Global System for Mobile Communications"
+        },
+        {
+          "n": 119,
+          "abbr": "CDMA",
+          "full": "Code Division Multiple Access"
+        },
+        {
+          "n": 120,
+          "abbr": "GPRS",
+          "full": "General Packet Radio Service"
+        },
+        {
+          "n": 121,
+          "abbr": "EDGE",
+          "full": "Enhanced Data rates for GSM Evolution"
+        },
+        {
+          "n": 122,
+          "abbr": "UMTS",
+          "full": "Universal Mobile Telecommunications System"
+        },
+        {
+          "n": 123,
+          "abbr": "QoS",
+          "full": "Quality of Service"
+        },
+        {
+          "n": 124,
+          "abbr": "VoIP",
+          "full": "Voice over Internet Protocol"
+        },
+        {
+          "n": 125,
+          "abbr": "RTSP",
+          "full": "Real Time Streaming Protocol"
+        },
+        {
+          "n": 126,
+          "abbr": "STUN",
+          "full": "Session Traversal Utilities for NAT"
+        },
+        {
+          "n": 127,
+          "abbr": "TURN",
+          "full": "Traversal Using Relays around NAT"
+        },
+        {
+          "n": 128,
+          "abbr": "ICE",
+          "full": "Interactive Connectivity Establishment"
+        },
+        {
+          "n": 129,
+          "abbr": "PPP",
+          "full": "Point-to-Point Protocol"
+        },
+        {
+          "n": 130,
+          "abbr": "PPPoE",
+          "full": "Point-to-Point Protocol over Ethernet"
+        },
+        {
+          "n": 131,
+          "abbr": "PPTP",
+          "full": "Point-to-Point Tunneling Protocol"
+        },
+        {
+          "n": 132,
+          "abbr": "L2TP",
+          "full": "Layer 2 Tunneling Protocol"
+        },
+        {
+          "n": 133,
+          "abbr": "RADIUS",
+          "full": "Remote Authentication Dial-In User Service"
+        },
+        {
+          "n": 134,
+          "abbr": "FQDN",
+          "full": "Fully Qualified Domain Name"
+        },
+        {
+          "n": 135,
+          "abbr": "URL",
+          "full": "Uniform Resource Locator"
+        },
+        {
+          "n": 136,
+          "abbr": "URI",
+          "full": "Uniform Resource Identifier"
+        },
+        {
+          "n": 137,
+          "abbr": "CDN",
+          "full": "Content Delivery Network"
+        },
+        {
+          "n": 138,
+          "abbr": "TTL",
+          "full": "Time to Live"
+        },
+        {
+          "n": 139,
+          "abbr": "MTU",
+          "full": "Maximum Transmission Unit"
+        },
+        {
+          "n": 140,
+          "abbr": "MSS",
+          "full": "Maximum Segment Size"
+        },
+        {
+          "n": 141,
+          "abbr": "LAG",
+          "full": "Link Aggregation Group"
+        },
+        {
+          "n": 142,
+          "abbr": "LACP",
+          "full": "Link Aggregation Control Protocol"
+        },
+        {
+          "n": 143,
+          "abbr": "STP",
+          "full": "Spanning Tree Protocol"
+        },
+        {
+          "n": 144,
+          "abbr": "RSTP",
+          "full": "Rapid Spanning Tree Protocol"
+        },
+        {
+          "n": 145,
+          "abbr": "LLDP",
+          "full": "Link Layer Discovery Protocol"
+        },
+        {
+          "n": 146,
+          "abbr": "CDP",
+          "full": "Cisco Discovery Protocol"
+        }
+      ]
+    },
+    {
+      "title": "Security",
+      "items": [
+        {
+          "n": 147,
+          "abbr": "2FA",
+          "full": "Two-Factor Authentication"
+        },
+        {
+          "n": 148,
+          "abbr": "MFA",
+          "full": "Multi-Factor Authentication"
+        },
+        {
+          "n": 149,
+          "abbr": "OTP",
+          "full": "One-Time Password"
+        },
+        {
+          "n": 150,
+          "abbr": "TOTP",
+          "full": "Time-based One-Time Password"
+        },
+        {
+          "n": 151,
+          "abbr": "HOTP",
+          "full": "HMAC-based One-Time Password"
+        },
+        {
+          "n": 152,
+          "abbr": "IAM",
+          "full": "Identity and Access Management"
+        },
+        {
+          "n": 153,
+          "abbr": "SSO",
+          "full": "Single Sign-On"
+        },
+        {
+          "n": 154,
+          "abbr": "SAML",
+          "full": "Security Assertion Markup Language"
+        },
+        {
+          "n": 155,
+          "abbr": "OAuth",
+          "full": "Open Authorization"
+        },
+        {
+          "n": 156,
+          "abbr": "OIDC",
+          "full": "OpenID Connect"
+        },
+        {
+          "n": 157,
+          "abbr": "JWT",
+          "full": "JSON Web Token"
+        },
+        {
+          "n": 158,
+          "abbr": "PKI",
+          "full": "Public Key Infrastructure"
+        },
+        {
+          "n": 159,
+          "abbr": "CA",
+          "full": "Certificate Authority"
+        },
+        {
+          "n": 160,
+          "abbr": "CSR",
+          "full": "Certificate Signing Request"
+        },
+        {
+          "n": 161,
+          "abbr": "CRL",
+          "full": "Certificate Revocation List"
+        },
+        {
+          "n": 162,
+          "abbr": "OCSP",
+          "full": "Online Certificate Status Protocol"
+        },
+        {
+          "n": 163,
+          "abbr": "mTLS",
+          "full": "Mutual Transport Layer Security"
+        },
+        {
+          "n": 164,
+          "abbr": "AES",
+          "full": "Advanced Encryption Standard"
+        },
+        {
+          "n": 165,
+          "abbr": "DES",
+          "full": "Data Encryption Standard"
+        },
+        {
+          "n": 166,
+          "abbr": "3DES",
+          "full": "Triple Data Encryption Standard"
+        },
+        {
+          "n": 167,
+          "abbr": "RSA",
+          "full": "Rivest-Shamir-Adleman"
+        },
+        {
+          "n": 168,
+          "abbr": "DSA",
+          "full": "Digital Signature Algorithm"
+        },
+        {
+          "n": 169,
+          "abbr": "ECDSA",
+          "full": "Elliptic Curve Digital Signature Algorithm"
+        },
+        {
+          "n": 170,
+          "abbr": "EdDSA",
+          "full": "Edwards-curve Digital Signature Algorithm"
+        },
+        {
+          "n": 171,
+          "abbr": "SHA",
+          "full": "Secure Hash Algorithm"
+        },
+        {
+          "n": 172,
+          "abbr": "MD5",
+          "full": "Message Digest Algorithm 5"
+        },
+        {
+          "n": 173,
+          "abbr": "HMAC",
+          "full": "Hash-based Message Authentication Code"
+        },
+        {
+          "n": 174,
+          "abbr": "KDF",
+          "full": "Key Derivation Function"
+        },
+        {
+          "n": 175,
+          "abbr": "PBKDF2",
+          "full": "Password-Based Key Derivation Function 2"
+        },
+        {
+          "n": 176,
+          "abbr": "CVE",
+          "full": "Common Vulnerabilities and Exposures"
+        },
+        {
+          "n": 177,
+          "abbr": "CVSS",
+          "full": "Common Vulnerability Scoring System"
+        },
+        {
+          "n": 178,
+          "abbr": "CWE",
+          "full": "Common Weakness Enumeration"
+        },
+        {
+          "n": 179,
+          "abbr": "OWASP",
+          "full": "Open Worldwide Application Security Project"
+        },
+        {
+          "n": 180,
+          "abbr": "XSS",
+          "full": "Cross-Site Scripting"
+        },
+        {
+          "n": 181,
+          "abbr": "CSRF",
+          "full": "Cross-Site Request Forgery"
+        },
+        {
+          "n": 182,
+          "abbr": "SSRF",
+          "full": "Server-Side Request Forgery"
+        },
+        {
+          "n": 183,
+          "abbr": "SQLi",
+          "full": "SQL Injection"
+        },
+        {
+          "n": 184,
+          "abbr": "RCE",
+          "full": "Remote Code Execution"
+        },
+        {
+          "n": 185,
+          "abbr": "LFI",
+          "full": "Local File Inclusion"
+        },
+        {
+          "n": 186,
+          "abbr": "RFI",
+          "full": "Remote File Inclusion"
+        },
+        {
+          "n": 187,
+          "abbr": "DoS",
+          "full": "Denial of Service"
+        },
+        {
+          "n": 188,
+          "abbr": "DDoS",
+          "full": "Distributed Denial of Service"
+        },
+        {
+          "n": 189,
+          "abbr": "MITM",
+          "full": "Man-in-the-Middle"
+        },
+        {
+          "n": 190,
+          "abbr": "SOC",
+          "full": "Security Operations Center"
+        },
+        {
+          "n": 191,
+          "abbr": "SIEM",
+          "full": "Security Information and Event Management"
+        },
+        {
+          "n": 192,
+          "abbr": "IDS",
+          "full": "Intrusion Detection System"
+        },
+        {
+          "n": 193,
+          "abbr": "IPS",
+          "full": "Intrusion Prevention System"
+        },
+        {
+          "n": 194,
+          "abbr": "EDR",
+          "full": "Endpoint Detection and Response"
+        },
+        {
+          "n": 195,
+          "abbr": "XDR",
+          "full": "Extended Detection and Response"
+        },
+        {
+          "n": 196,
+          "abbr": "SOAR",
+          "full": "Security Orchestration, Automation, and Response"
+        },
+        {
+          "n": 197,
+          "abbr": "DLP",
+          "full": "Data Loss Prevention"
+        },
+        {
+          "n": 198,
+          "abbr": "DMZ",
+          "full": "Demilitarized Zone"
+        },
+        {
+          "n": 199,
+          "abbr": "WAF",
+          "full": "Web Application Firewall"
+        },
+        {
+          "n": 200,
+          "abbr": "NGFW",
+          "full": "Next-Generation Firewall"
+        },
+        {
+          "n": 201,
+          "abbr": "RBAC",
+          "full": "Role-Based Access Control"
+        },
+        {
+          "n": 202,
+          "abbr": "ABAC",
+          "full": "Attribute-Based Access Control"
+        },
+        {
+          "n": 203,
+          "abbr": "ACL",
+          "full": "Access Control List"
+        }
+      ]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "items": [
+        {
+          "n": 204,
+          "abbr": "AWS",
+          "full": "Amazon Web Services"
+        },
+        {
+          "n": 205,
+          "abbr": "GCP",
+          "full": "Google Cloud Platform"
+        },
+        {
+          "n": 206,
+          "abbr": "EC2",
+          "full": "Elastic Compute Cloud"
+        },
+        {
+          "n": 207,
+          "abbr": "S3",
+          "full": "Simple Storage Service"
+        },
+        {
+          "n": 208,
+          "abbr": "EBS",
+          "full": "Elastic Block Store"
+        },
+        {
+          "n": 209,
+          "abbr": "EFS",
+          "full": "Elastic File System"
+        },
+        {
+          "n": 210,
+          "abbr": "AMI",
+          "full": "Amazon Machine Image"
+        },
+        {
+          "n": 211,
+          "abbr": "VPC",
+          "full": "Virtual Private Cloud"
+        },
+        {
+          "n": 212,
+          "abbr": "ELB",
+          "full": "Elastic Load Balancer"
+        },
+        {
+          "n": 213,
+          "abbr": "ALB",
+          "full": "Application Load Balancer"
+        },
+        {
+          "n": 214,
+          "abbr": "NLB",
+          "full": "Network Load Balancer"
+        },
+        {
+          "n": 215,
+          "abbr": "ASG",
+          "full": "Auto Scaling Group"
+        },
+        {
+          "n": 216,
+          "abbr": "RDS",
+          "full": "Relational Database Service"
+        },
+        {
+          "n": 217,
+          "abbr": "ECR",
+          "full": "Elastic Container Registry"
+        },
+        {
+          "n": 218,
+          "abbr": "ECS",
+          "full": "Elastic Container Service"
+        },
+        {
+          "n": 219,
+          "abbr": "EKS",
+          "full": "Elastic Kubernetes Service"
+        },
+        {
+          "n": 220,
+          "abbr": "SNS",
+          "full": "Simple Notification Service"
+        },
+        {
+          "n": 221,
+          "abbr": "SQS",
+          "full": "Simple Queue Service"
+        },
+        {
+          "n": 222,
+          "abbr": "SES",
+          "full": "Simple Email Service"
+        },
+        {
+          "n": 223,
+          "abbr": "KMS",
+          "full": "Key Management Service"
+        },
+        {
+          "n": 224,
+          "abbr": "GCE",
+          "full": "Google Compute Engine"
+        },
+        {
+          "n": 225,
+          "abbr": "GCS",
+          "full": "Google Cloud Storage"
+        },
+        {
+          "n": 226,
+          "abbr": "GKE",
+          "full": "Google Kubernetes Engine"
+        },
+        {
+          "n": 227,
+          "abbr": "AKS",
+          "full": "Azure Kubernetes Service"
+        },
+        {
+          "n": 228,
+          "abbr": "ACI",
+          "full": "Azure Container Instances"
+        },
+        {
+          "n": 229,
+          "abbr": "ARM",
+          "full": "Azure Resource Manager"
+        },
+        {
+          "n": 230,
+          "abbr": "VMSS",
+          "full": "Virtual Machine Scale Sets"
+        },
+        {
+          "n": 231,
+          "abbr": "K8s",
+          "full": "Kubernetes"
+        },
+        {
+          "n": 232,
+          "abbr": "CRD",
+          "full": "Custom Resource Definition"
+        },
+        {
+          "n": 233,
+          "abbr": "CNI",
+          "full": "Container Network Interface"
+        },
+        {
+          "n": 234,
+          "abbr": "CSI",
+          "full": "Container Storage Interface"
+        },
+        {
+          "n": 235,
+          "abbr": "CRI",
+          "full": "Container Runtime Interface"
+        },
+        {
+          "n": 236,
+          "abbr": "OCI",
+          "full": "Open Container Initiative"
+        },
+        {
+          "n": 237,
+          "abbr": "CNCF",
+          "full": "Cloud Native Computing Foundation"
+        },
+        {
+          "n": 238,
+          "abbr": "CaaS",
+          "full": "Containers as a Service"
+        },
+        {
+          "n": 239,
+          "abbr": "FaaS",
+          "full": "Function as a Service"
+        },
+        {
+          "n": 240,
+          "abbr": "BaaS",
+          "full": "Backend as a Service"
+        },
+        {
+          "n": 241,
+          "abbr": "DBaaS",
+          "full": "Database as a Service"
+        },
+        {
+          "n": 242,
+          "abbr": "IaaS",
+          "full": "Infrastructure as a Service"
+        },
+        {
+          "n": 243,
+          "abbr": "PaaS",
+          "full": "Platform as a Service"
+        },
+        {
+          "n": 244,
+          "abbr": "SaaS",
+          "full": "Software as a Service"
+        },
+        {
+          "n": 245,
+          "abbr": "CI",
+          "full": "Continuous Integration"
+        },
+        {
+          "n": 246,
+          "abbr": "CD",
+          "full": "Continuous Delivery or Deployment"
+        },
+        {
+          "n": 247,
+          "abbr": "IaC",
+          "full": "Infrastructure as Code"
+        },
+        {
+          "n": 248,
+          "abbr": "DevOps",
+          "full": "Development and Operations"
+        },
+        {
+          "n": 249,
+          "abbr": "DevSecOps",
+          "full": "Development, Security, and Operations"
+        },
+        {
+          "n": 250,
+          "abbr": "GitOps",
+          "full": "Git Operations"
+        },
+        {
+          "n": 251,
+          "abbr": "SRE",
+          "full": "Site Reliability Engineering"
+        },
+        {
+          "n": 252,
+          "abbr": "SDLC",
+          "full": "Software Development Life Cycle"
+        },
+        {
+          "n": 253,
+          "abbr": "TDD",
+          "full": "Test-Driven Development"
+        },
+        {
+          "n": 254,
+          "abbr": "BDD",
+          "full": "Behavior-Driven Development"
+        },
+        {
+          "n": 255,
+          "abbr": "DDD",
+          "full": "Domain-Driven Design"
+        },
+        {
+          "n": 256,
+          "abbr": "UAT",
+          "full": "User Acceptance Testing"
+        },
+        {
+          "n": 257,
+          "abbr": "QA",
+          "full": "Quality Assurance"
+        },
+        {
+          "n": 258,
+          "abbr": "SLO",
+          "full": "Service Level Objective"
+        },
+        {
+          "n": 259,
+          "abbr": "SLA",
+          "full": "Service Level Agreement"
+        },
+        {
+          "n": 260,
+          "abbr": "SLI",
+          "full": "Service Level Indicator"
+        },
+        {
+          "n": 261,
+          "abbr": "MTTR",
+          "full": "Mean Time to Recovery"
+        },
+        {
+          "n": 262,
+          "abbr": "MTBF",
+          "full": "Mean Time Between Failures"
+        },
+        {
+          "n": 263,
+          "abbr": "RTO",
+          "full": "Recovery Time Objective"
+        },
+        {
+          "n": 264,
+          "abbr": "RPO",
+          "full": "Recovery Point Objective"
+        },
+        {
+          "n": 265,
+          "abbr": "APM",
+          "full": "Application Performance Monitoring"
+        },
+        {
+          "n": 266,
+          "abbr": "YAML",
+          "full": "YAML Ain't Markup Language"
+        },
+        {
+          "n": 267,
+          "abbr": "HCL",
+          "full": "HashiCorp Configuration Language"
+        },
+        {
+          "n": 268,
+          "abbr": "APK",
+          "full": "Android Package Kit"
+        },
+        {
+          "n": 269,
+          "abbr": "IPA",
+          "full": "iOS App Store Package"
+        }
+      ]
+    },
+    {
+      "title": "Web & Software",
+      "items": [
+        {
+          "n": 270,
+          "abbr": "WWW",
+          "full": "World Wide Web"
+        },
+        {
+          "n": 271,
+          "abbr": "HTML",
+          "full": "Hypertext Markup Language"
+        },
+        {
+          "n": 272,
+          "abbr": "CSS",
+          "full": "Cascading Style Sheets"
+        },
+        {
+          "n": 273,
+          "abbr": "JS",
+          "full": "JavaScript"
+        },
+        {
+          "n": 274,
+          "abbr": "TS",
+          "full": "TypeScript"
+        },
+        {
+          "n": 275,
+          "abbr": "PHP",
+          "full": "PHP: Hypertext Preprocessor"
+        },
+        {
+          "n": 276,
+          "abbr": "ASP",
+          "full": "Active Server Pages"
+        },
+        {
+          "n": 277,
+          "abbr": "JSP",
+          "full": "JavaServer Pages"
+        },
+        {
+          "n": 278,
+          "abbr": "AJAX",
+          "full": "Asynchronous JavaScript and XML"
+        },
+        {
+          "n": 279,
+          "abbr": "DOM",
+          "full": "Document Object Model"
+        },
+        {
+          "n": 280,
+          "abbr": "BOM",
+          "full": "Browser Object Model"
+        },
+        {
+          "n": 281,
+          "abbr": "WS",
+          "full": "WebSocket"
+        },
+        {
+          "n": 282,
+          "abbr": "WSS",
+          "full": "WebSocket Secure"
+        },
+        {
+          "n": 283,
+          "abbr": "CORS",
+          "full": "Cross-Origin Resource Sharing"
+        },
+        {
+          "n": 284,
+          "abbr": "CSP",
+          "full": "Content Security Policy"
+        },
+        {
+          "n": 285,
+          "abbr": "SEO",
+          "full": "Search Engine Optimization"
+        },
+        {
+          "n": 286,
+          "abbr": "SEM",
+          "full": "Search Engine Marketing"
+        },
+        {
+          "n": 287,
+          "abbr": "SERP",
+          "full": "Search Engine Results Page"
+        },
+        {
+          "n": 288,
+          "abbr": "CMS",
+          "full": "Content Management System"
+        },
+        {
+          "n": 289,
+          "abbr": "CRM",
+          "full": "Customer Relationship Management"
+        },
+        {
+          "n": 290,
+          "abbr": "ERP",
+          "full": "Enterprise Resource Planning"
+        },
+        {
+          "n": 291,
+          "abbr": "PWA",
+          "full": "Progressive Web App"
+        },
+        {
+          "n": 292,
+          "abbr": "SPA",
+          "full": "Single-Page Application"
+        },
+        {
+          "n": 293,
+          "abbr": "MPA",
+          "full": "Multi-Page Application"
+        },
+        {
+          "n": 294,
+          "abbr": "SSR",
+          "full": "Server-Side Rendering"
+        },
+        {
+          "n": 295,
+          "abbr": "SSG",
+          "full": "Static Site Generation"
+        },
+        {
+          "n": 296,
+          "abbr": "ISR",
+          "full": "Incremental Static Regeneration"
+        },
+        {
+          "n": 297,
+          "abbr": "MVC",
+          "full": "Model-View-Controller"
+        },
+        {
+          "n": 298,
+          "abbr": "MVP",
+          "full": "Minimum Viable Product"
+        },
+        {
+          "n": 299,
+          "abbr": "MVVM",
+          "full": "Model-View-ViewModel"
+        },
+        {
+          "n": 300,
+          "abbr": "ORM",
+          "full": "Object-Relational Mapping"
+        },
+        {
+          "n": 301,
+          "abbr": "OOP",
+          "full": "Object-Oriented Programming"
+        },
+        {
+          "n": 302,
+          "abbr": "FP",
+          "full": "Functional Programming"
+        },
+        {
+          "n": 303,
+          "abbr": "AOP",
+          "full": "Aspect-Oriented Programming"
+        },
+        {
+          "n": 304,
+          "abbr": "DRY",
+          "full": "Don't Repeat Yourself"
+        },
+        {
+          "n": 305,
+          "abbr": "KISS",
+          "full": "Keep It Simple, Stupid"
+        },
+        {
+          "n": 306,
+          "abbr": "YAGNI",
+          "full": "You Aren't Gonna Need It"
+        },
+        {
+          "n": 307,
+          "abbr": "SOLID",
+          "full": "Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion"
+        },
+        {
+          "n": 308,
+          "abbr": "SDK",
+          "full": "Software Development Kit"
+        },
+        {
+          "n": 309,
+          "abbr": "IDE",
+          "full": "Integrated Development Environment"
+        },
+        {
+          "n": 310,
+          "abbr": "LSP",
+          "full": "Language Server Protocol"
+        },
+        {
+          "n": 311,
+          "abbr": "UTF",
+          "full": "Unicode Transformation Format"
+        },
+        {
+          "n": 312,
+          "abbr": "UTF-8",
+          "full": "8-bit Unicode Transformation Format"
+        },
+        {
+          "n": 313,
+          "abbr": "ASCII",
+          "full": "American Standard Code for Information Interchange"
+        },
+        {
+          "n": 314,
+          "abbr": "MIME",
+          "full": "Multipurpose Internet Mail Extensions"
+        },
+        {
+          "n": 315,
+          "abbr": "JSON",
+          "full": "JavaScript Object Notation"
+        },
+        {
+          "n": 316,
+          "abbr": "XML",
+          "full": "Extensible Markup Language"
+        },
+        {
+          "n": 317,
+          "abbr": "TOML",
+          "full": "Tom's Obvious, Minimal Language"
+        },
+        {
+          "n": 318,
+          "abbr": "REST",
+          "full": "Representational State Transfer"
+        },
+        {
+          "n": 319,
+          "abbr": "SOAP",
+          "full": "Simple Object Access Protocol"
+        },
+        {
+          "n": 320,
+          "abbr": "gRPC",
+          "full": "gRPC Remote Procedure Calls"
+        },
+        {
+          "n": 321,
+          "abbr": "RPC",
+          "full": "Remote Procedure Call"
+        },
+        {
+          "n": 322,
+          "abbr": "XHR",
+          "full": "XMLHttpRequest"
+        }
+      ]
+    },
+    {
+      "title": "Databases & Data",
+      "items": [
+        {
+          "n": 323,
+          "abbr": "SQL",
+          "full": "Structured Query Language"
+        },
+        {
+          "n": 324,
+          "abbr": "NoSQL",
+          "full": "Not Only SQL"
+        },
+        {
+          "n": 325,
+          "abbr": "RDBMS",
+          "full": "Relational Database Management System"
+        },
+        {
+          "n": 326,
+          "abbr": "DBMS",
+          "full": "Database Management System"
+        },
+        {
+          "n": 327,
+          "abbr": "DDL",
+          "full": "Data Definition Language"
+        },
+        {
+          "n": 328,
+          "abbr": "DML",
+          "full": "Data Manipulation Language"
+        },
+        {
+          "n": 329,
+          "abbr": "DCL",
+          "full": "Data Control Language"
+        },
+        {
+          "n": 330,
+          "abbr": "TCL",
+          "full": "Transaction Control Language"
+        },
+        {
+          "n": 331,
+          "abbr": "ACID",
+          "full": "Atomicity, Consistency, Isolation, Durability"
+        },
+        {
+          "n": 332,
+          "abbr": "BASE",
+          "full": "Basically Available, Soft State, Eventually Consistent"
+        },
+        {
+          "n": 333,
+          "abbr": "CAP",
+          "full": "Consistency, Availability, Partition Tolerance"
+        },
+        {
+          "n": 334,
+          "abbr": "OLTP",
+          "full": "Online Transaction Processing"
+        },
+        {
+          "n": 335,
+          "abbr": "OLAP",
+          "full": "Online Analytical Processing"
+        },
+        {
+          "n": 336,
+          "abbr": "ETL",
+          "full": "Extract, Transform, Load"
+        },
+        {
+          "n": 337,
+          "abbr": "ELT",
+          "full": "Extract, Load, Transform"
+        },
+        {
+          "n": 338,
+          "abbr": "CDC",
+          "full": "Change Data Capture"
+        },
+        {
+          "n": 339,
+          "abbr": "CRUD",
+          "full": "Create, Read, Update, Delete"
+        },
+        {
+          "n": 340,
+          "abbr": "JDBC",
+          "full": "Java Database Connectivity"
+        },
+        {
+          "n": 341,
+          "abbr": "ODBC",
+          "full": "Open Database Connectivity"
+        },
+        {
+          "n": 342,
+          "abbr": "ER",
+          "full": "Entity-Relationship"
+        },
+        {
+          "n": 343,
+          "abbr": "ERD",
+          "full": "Entity-Relationship Diagram"
+        },
+        {
+          "n": 344,
+          "abbr": "PK",
+          "full": "Primary Key"
+        },
+        {
+          "n": 345,
+          "abbr": "FK",
+          "full": "Foreign Key"
+        },
+        {
+          "n": 346,
+          "abbr": "MVCC",
+          "full": "Multi-Version Concurrency Control"
+        },
+        {
+          "n": 347,
+          "abbr": "WAL",
+          "full": "Write-Ahead Logging"
+        },
+        {
+          "n": 348,
+          "abbr": "BLOB",
+          "full": "Binary Large Object"
+        },
+        {
+          "n": 349,
+          "abbr": "CLOB",
+          "full": "Character Large Object"
+        },
+        {
+          "n": 350,
+          "abbr": "BSON",
+          "full": "Binary JSON"
+        },
+        {
+          "n": 351,
+          "abbr": "CSV",
+          "full": "Comma-Separated Values"
+        },
+        {
+          "n": 352,
+          "abbr": "TSV",
+          "full": "Tab-Separated Values"
+        },
+        {
+          "n": 353,
+          "abbr": "ORC",
+          "full": "Optimized Row Columnar"
+        },
+        {
+          "n": 354,
+          "abbr": "HDFS",
+          "full": "Hadoop Distributed File System"
+        },
+        {
+          "n": 355,
+          "abbr": "BI",
+          "full": "Business Intelligence"
+        },
+        {
+          "n": 356,
+          "abbr": "PII",
+          "full": "Personally Identifiable Information"
+        },
+        {
+          "n": 357,
+          "abbr": "PHI",
+          "full": "Protected Health Information"
+        },
+        {
+          "n": 358,
+          "abbr": "GDPR",
+          "full": "General Data Protection Regulation"
+        },
+        {
+          "n": 359,
+          "abbr": "HIPAA",
+          "full": "Health Insurance Portability and Accountability Act"
+        },
+        {
+          "n": 360,
+          "abbr": "AI",
+          "full": "Artificial Intelligence"
+        },
+        {
+          "n": 361,
+          "abbr": "ML",
+          "full": "Machine Learning"
+        },
+        {
+          "n": 362,
+          "abbr": "DL",
+          "full": "Deep Learning"
+        },
+        {
+          "n": 363,
+          "abbr": "NLP",
+          "full": "Natural Language Processing"
+        },
+        {
+          "n": 364,
+          "abbr": "CV",
+          "full": "Computer Vision"
+        },
+        {
+          "n": 365,
+          "abbr": "EDA",
+          "full": "Exploratory Data Analysis"
+        }
+      ]
+    },
+    {
+      "title": "Hardware & Storage",
+      "items": [
+        {
+          "n": 366,
+          "abbr": "CPU",
+          "full": "Central Processing Unit"
+        },
+        {
+          "n": 367,
+          "abbr": "GPU",
+          "full": "Graphics Processing Unit"
+        },
+        {
+          "n": 368,
+          "abbr": "ALU",
+          "full": "Arithmetic Logic Unit"
+        },
+        {
+          "n": 369,
+          "abbr": "FPU",
+          "full": "Floating-Point Unit"
+        },
+        {
+          "n": 370,
+          "abbr": "RAM",
+          "full": "Random Access Memory"
+        },
+        {
+          "n": 371,
+          "abbr": "ROM",
+          "full": "Read-Only Memory"
+        },
+        {
+          "n": 372,
+          "abbr": "SRAM",
+          "full": "Static Random Access Memory"
+        },
+        {
+          "n": 373,
+          "abbr": "DRAM",
+          "full": "Dynamic Random Access Memory"
+        },
+        {
+          "n": 374,
+          "abbr": "SDRAM",
+          "full": "Synchronous Dynamic Random Access Memory"
+        },
+        {
+          "n": 375,
+          "abbr": "DDR",
+          "full": "Double Data Rate"
+        },
+        {
+          "n": 376,
+          "abbr": "DIMM",
+          "full": "Dual In-Line Memory Module"
+        },
+        {
+          "n": 377,
+          "abbr": "HDD",
+          "full": "Hard Disk Drive"
+        },
+        {
+          "n": 378,
+          "abbr": "SSD",
+          "full": "Solid State Drive"
+        },
+        {
+          "n": 379,
+          "abbr": "NVMe",
+          "full": "Non-Volatile Memory Express"
+        },
+        {
+          "n": 380,
+          "abbr": "SATA",
+          "full": "Serial Advanced Technology Attachment"
+        },
+        {
+          "n": 381,
+          "abbr": "SAS",
+          "full": "Serial Attached SCSI"
+        },
+        {
+          "n": 382,
+          "abbr": "SCSI",
+          "full": "Small Computer System Interface"
+        },
+        {
+          "n": 383,
+          "abbr": "iSCSI",
+          "full": "Internet Small Computer System Interface"
+        },
+        {
+          "n": 384,
+          "abbr": "USB",
+          "full": "Universal Serial Bus"
+        },
+        {
+          "n": 385,
+          "abbr": "PCIe",
+          "full": "Peripheral Component Interconnect Express"
+        },
+        {
+          "n": 386,
+          "abbr": "BIOS",
+          "full": "Basic Input Output System"
+        },
+        {
+          "n": 387,
+          "abbr": "UEFI",
+          "full": "Unified Extensible Firmware Interface"
+        },
+        {
+          "n": 388,
+          "abbr": "CMOS",
+          "full": "Complementary Metal-Oxide-Semiconductor"
+        },
+        {
+          "n": 389,
+          "abbr": "PSU",
+          "full": "Power Supply Unit"
+        },
+        {
+          "n": 390,
+          "abbr": "UPS",
+          "full": "Uninterruptible Power Supply"
+        },
+        {
+          "n": 391,
+          "abbr": "IoT",
+          "full": "Internet of Things"
+        },
+        {
+          "n": 392,
+          "abbr": "PCB",
+          "full": "Printed Circuit Board"
+        },
+        {
+          "n": 393,
+          "abbr": "VLSI",
+          "full": "Very-Large-Scale Integration"
+        },
+        {
+          "n": 394,
+          "abbr": "IC",
+          "full": "Integrated Circuit"
+        },
+        {
+          "n": 395,
+          "abbr": "SoC",
+          "full": "System on a Chip"
+        },
+        {
+          "n": 396,
+          "abbr": "FPGA",
+          "full": "Field-Programmable Gate Array"
+        },
+        {
+          "n": 397,
+          "abbr": "ASIC",
+          "full": "Application-Specific Integrated Circuit"
+        },
+        {
+          "n": 398,
+          "abbr": "EEPROM",
+          "full": "Electrically Erasable Programmable Read-Only Memory"
+        },
+        {
+          "n": 399,
+          "abbr": "RAID",
+          "full": "Redundant Array of Independent Disks"
+        },
+        {
+          "n": 400,
+          "abbr": "NAS",
+          "full": "Network-Attached Storage"
+        },
+        {
+          "n": 401,
+          "abbr": "SAN",
+          "full": "Storage Area Network"
+        },
+        {
+          "n": 402,
+          "abbr": "DAS",
+          "full": "Direct-Attached Storage"
+        },
+        {
+          "n": 403,
+          "abbr": "LUN",
+          "full": "Logical Unit Number"
+        },
+        {
+          "n": 404,
+          "abbr": "HBA",
+          "full": "Host Bus Adapter"
+        },
+        {
+          "n": 405,
+          "abbr": "JBOD",
+          "full": "Just a Bunch of Disks"
+        },
+        {
+          "n": 406,
+          "abbr": "SMART",
+          "full": "Self-Monitoring, Analysis, and Reporting Technology"
+        },
+        {
+          "n": 407,
+          "abbr": "TPM",
+          "full": "Trusted Platform Module"
+        },
+        {
+          "n": 408,
+          "abbr": "HSM",
+          "full": "Hardware Security Module"
+        }
+      ]
+    },
+    {
+      "title": "Programming & Computer Science",
+      "items": [
+        {
+          "n": 409,
+          "abbr": "API",
+          "full": "Application Programming Interface"
+        },
+        {
+          "n": 410,
+          "abbr": "DSA",
+          "full": "Data Structures and Algorithms"
+        },
+        {
+          "n": 411,
+          "abbr": "ADT",
+          "full": "Abstract Data Type"
+        },
+        {
+          "n": 412,
+          "abbr": "REPL",
+          "full": "Read-Eval-Print Loop"
+        },
+        {
+          "n": 413,
+          "abbr": "JIT",
+          "full": "Just-In-Time"
+        },
+        {
+          "n": 414,
+          "abbr": "AOT",
+          "full": "Ahead-of-Time"
+        },
+        {
+          "n": 415,
+          "abbr": "JVM",
+          "full": "Java Virtual Machine"
+        },
+        {
+          "n": 416,
+          "abbr": "CLR",
+          "full": "Common Language Runtime"
+        },
+        {
+          "n": 417,
+          "abbr": "IL",
+          "full": "Intermediate Language"
+        },
+        {
+          "n": 418,
+          "abbr": "AST",
+          "full": "Abstract Syntax Tree"
+        },
+        {
+          "n": 419,
+          "abbr": "CFG",
+          "full": "Control Flow Graph"
+        },
+        {
+          "n": 420,
+          "abbr": "BNF",
+          "full": "Backus-Naur Form"
+        },
+        {
+          "n": 421,
+          "abbr": "EBNF",
+          "full": "Extended Backus-Naur Form"
+        },
+        {
+          "n": 422,
+          "abbr": "PEG",
+          "full": "Parsing Expression Grammar"
+        },
+        {
+          "n": 423,
+          "abbr": "REGEX",
+          "full": "Regular Expression"
+        },
+        {
+          "n": 424,
+          "abbr": "COBOL",
+          "full": "Common Business-Oriented Language"
+        },
+        {
+          "n": 425,
+          "abbr": "FORTRAN",
+          "full": "Formula Translation"
+        },
+        {
+          "n": 426,
+          "abbr": "BASIC",
+          "full": "Beginner's All-purpose Symbolic Instruction Code"
+        },
+        {
+          "n": 427,
+          "abbr": "ALGOL",
+          "full": "Algorithmic Language"
+        },
+        {
+          "n": 428,
+          "abbr": "LISP",
+          "full": "List Processing"
+        },
+        {
+          "n": 429,
+          "abbr": "GCC",
+          "full": "GNU Compiler Collection"
+        },
+        {
+          "n": 430,
+          "abbr": "GDB",
+          "full": "GNU Debugger"
+        },
+        {
+          "n": 431,
+          "abbr": "CMake",
+          "full": "Cross-Platform Make"
+        },
+        {
+          "n": 432,
+          "abbr": "NPM",
+          "full": "Node Package Manager"
+        },
+        {
+          "n": 433,
+          "abbr": "PyPI",
+          "full": "Python Package Index"
+        },
+        {
+          "n": 434,
+          "abbr": "PIP",
+          "full": "Pip Installs Packages"
+        },
+        {
+          "n": 435,
+          "abbr": "MUTEX",
+          "full": "Mutual Exclusion"
+        },
+        {
+          "n": 436,
+          "abbr": "VCS",
+          "full": "Version Control System"
+        },
+        {
+          "n": 437,
+          "abbr": "SCM",
+          "full": "Source Code Management"
+        },
+        {
+          "n": 438,
+          "abbr": "PR",
+          "full": "Pull Request"
+        },
+        {
+          "n": 439,
+          "abbr": "MR",
+          "full": "Merge Request"
+        },
+        {
+          "n": 440,
+          "abbr": "RFC",
+          "full": "Request for Comments"
+        },
+        {
+          "n": 441,
+          "abbr": "WIP",
+          "full": "Work in Progress"
+        },
+        {
+          "n": 442,
+          "abbr": "LGTM",
+          "full": "Looks Good To Me"
+        }
+      ]
+    },
+    {
+      "title": "IT, Standards & Careers",
+      "items": [
+        {
+          "n": 443,
+          "abbr": "IT",
+          "full": "Information Technology"
+        },
+        {
+          "n": 444,
+          "abbr": "ICT",
+          "full": "Information and Communications Technology"
+        },
+        {
+          "n": 445,
+          "abbr": "IS",
+          "full": "Information System"
+        },
+        {
+          "n": 446,
+          "abbr": "MIS",
+          "full": "Management Information System"
+        },
+        {
+          "n": 447,
+          "abbr": "CIO",
+          "full": "Chief Information Officer"
+        },
+        {
+          "n": 448,
+          "abbr": "CTO",
+          "full": "Chief Technology Officer"
+        },
+        {
+          "n": 449,
+          "abbr": "KPI",
+          "full": "Key Performance Indicator"
+        },
+        {
+          "n": 450,
+          "abbr": "ROI",
+          "full": "Return on Investment"
+        },
+        {
+          "n": 451,
+          "abbr": "TCO",
+          "full": "Total Cost of Ownership"
+        },
+        {
+          "n": 452,
+          "abbr": "BCP",
+          "full": "Business Continuity Plan"
+        },
+        {
+          "n": 453,
+          "abbr": "DRP",
+          "full": "Disaster Recovery Plan"
+        },
+        {
+          "n": 454,
+          "abbr": "ITIL",
+          "full": "Information Technology Infrastructure Library"
+        },
+        {
+          "n": 455,
+          "abbr": "ITSM",
+          "full": "Information Technology Service Management"
+        },
+        {
+          "n": 456,
+          "abbr": "COBIT",
+          "full": "Control Objectives for Information and Related Technologies"
+        },
+        {
+          "n": 457,
+          "abbr": "PCI DSS",
+          "full": "Payment Card Industry Data Security Standard"
+        },
+        {
+          "n": 458,
+          "abbr": "SOC 2",
+          "full": "System and Organization Controls 2"
+        },
+        {
+          "n": 459,
+          "abbr": "ISO",
+          "full": "International Organization for Standardization"
+        },
+        {
+          "n": 460,
+          "abbr": "IEC",
+          "full": "International Electrotechnical Commission"
+        },
+        {
+          "n": 461,
+          "abbr": "NIST",
+          "full": "National Institute of Standards and Technology"
+        },
+        {
+          "n": 462,
+          "abbr": "IEEE",
+          "full": "Institute of Electrical and Electronics Engineers"
+        },
+        {
+          "n": 463,
+          "abbr": "IETF",
+          "full": "Internet Engineering Task Force"
+        },
+        {
+          "n": 464,
+          "abbr": "W3C",
+          "full": "World Wide Web Consortium"
+        },
+        {
+          "n": 465,
+          "abbr": "ANSI",
+          "full": "American National Standards Institute"
+        },
+        {
+          "n": 466,
+          "abbr": "EULA",
+          "full": "End User License Agreement"
+        },
+        {
+          "n": 467,
+          "abbr": "ToS",
+          "full": "Terms of Service"
+        },
+        {
+          "n": 468,
+          "abbr": "UX",
+          "full": "User Experience"
+        },
+        {
+          "n": 469,
+          "abbr": "UI",
+          "full": "User Interface"
+        },
+        {
+          "n": 470,
+          "abbr": "DX",
+          "full": "Developer Experience"
+        },
+        {
+          "n": 471,
+          "abbr": "GA",
+          "full": "General Availability"
+        },
+        {
+          "n": 472,
+          "abbr": "RC",
+          "full": "Release Candidate"
+        },
+        {
+          "n": 473,
+          "abbr": "LTS",
+          "full": "Long-Term Support"
+        },
+        {
+          "n": 474,
+          "abbr": "EOL",
+          "full": "End of Life"
+        },
+        {
+          "n": 475,
+          "abbr": "EOS",
+          "full": "End of Support"
+        },
+        {
+          "n": 476,
+          "abbr": "RTM",
+          "full": "Release to Manufacturing"
+        },
+        {
+          "n": 477,
+          "abbr": "FAQ",
+          "full": "Frequently Asked Questions"
+        }
+      ]
+    }
+  ]
+}
