@@ -1262,11 +1262,11 @@ public class MainActivity extends Activity {
             card.setPadding(dp(14), dp(11), dp(12), dp(11));
             TextView category = bold(item.category.toUpperCase(Locale.US), 10, GREEN);
             card.addView(category);
-            TextView term = bold(item.term, 16, TEXT);
+            TextView term = bold(item.term, 18, TEXT);
             term.setPadding(0, dp(2), 0, dp(2));
             card.addView(term);
-            TextView definition = text(item.definition, 13, DIM);
-            definition.setLineSpacing(0, 1.16f);
+            TextView definition = text(item.definition, 15, TEXT);
+            definition.setLineSpacing(0, 1.22f);
             card.addView(definition);
             TextView source = text("Source: " + item.sourceTitle, 11, DIM);
             source.setPadding(0, dp(5), 0, 0);
@@ -2711,4 +2711,4 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
-            }
+}
