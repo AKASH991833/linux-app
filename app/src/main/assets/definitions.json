@@ -6,42 +6,42 @@
     {
      "category": "Linux",
      "term": "Absolute vs relative path",
-     "definition": "Full address from / versus directions from where you stand. An absolute path starts at the root and is unambiguous everywhere: /home/diego/notes.txt. A relative path is interpreted from the current working directory: notes.txt, ../photos, ./script.sh. Two shorthands appear constantly: ~ expands to your home directory (so ~/projects is absolute in disguise), and .. means the parent directory. Scripts should prefer absolute paths â they run from unpredictable directories, especially under cron.",
+     "definition": "Full address from / versus directions from where you stand. An absolute path starts at the root and is unambiguous everywhere: /home/diego/notes.txt. A relative path is interpreted from the current working directory: notes.txt, ../photos, ./script.sh. Two shorthands appear constantly: ~ expands to your home directory (so ~/projects is absolute in disguise), and .. means the parent directory. Scripts should prefer absolute paths — they run from unpredictable directories, especially under cron.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Bash",
-     "definition": "The default shell on most Linux distributions. Bash (Bourne Again Shell) is the shell most Linux systems start you in, and the language most shell scripts are written in. It combines an interactive command line â history, completion, job control â with a full scripting language: variables, conditionals, loops, functions. Scripts usually declare it on the first line with the shebang #!/bin/bash. Bash is deliberately compatible with the older Bourne shell (sh), which is why portable scripts often target sh instead. macOS switched its default interactive shell to zsh, but bash remains the lingua franca of servers and automation.",
+     "definition": "The default shell on most Linux distributions. Bash (Bourne Again Shell) is the shell most Linux systems start you in, and the language most shell scripts are written in. It combines an interactive command line — history, completion, job control — with a full scripting language: variables, conditionals, loops, functions. Scripts usually declare it on the first line with the shebang #!/bin/bash. Bash is deliberately compatible with the older Bourne shell (sh), which is why portable scripts often target sh instead. macOS switched its default interactive shell to zsh, but bash remains the lingua franca of servers and automation.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Cron",
-     "definition": "The scheduler that runs commands at fixed times. Cron runs commands on a schedule defined by five fields â minute, hour, day of month, month, day of week â followed by the command. It wakes every minute and runs whatever matches. Cron jobs run in a minimal environment: a short PATH, no interactive shell config, and the user's home as working directory. Absolute paths and explicit output capture (>> log 2>&1) are what separate cron jobs that work from cron jobs that fail silently.",
+     "definition": "The scheduler that runs commands at fixed times. Cron runs commands on a schedule defined by five fields — minute, hour, day of month, month, day of week — followed by the command. It wakes every minute and runs whatever matches. Cron jobs run in a minimal environment: a short PATH, no interactive shell config, and the user's home as working directory. Absolute paths and explicit output capture (>> log 2>&1) are what separate cron jobs that work from cron jobs that fail silently.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Daemon",
-     "definition": "A background process providing a service, usually started at boot. A daemon is a long-running background process with no terminal attached: web servers, databases, SSH servers, schedulers. Their names traditionally end in \"d\" â sshd, nginx, crond, systemd. On modern Linux, daemons are managed as systemd services: you start, stop and enable them with systemctl, and their output lands in the journal rather than a terminal. The word has nothing to do with demons â it comes from Maxwell's demon, a helpful background entity in physics.",
+     "definition": "A background process providing a service, usually started at boot. A daemon is a long-running background process with no terminal attached: web servers, databases, SSH servers, schedulers. Their names traditionally end in \"d\" — sshd, nginx, crond, systemd. On modern Linux, daemons are managed as systemd services: you start, stop and enable them with systemctl, and their output lands in the journal rather than a terminal. The word has nothing to do with demons — it comes from Maxwell's demon, a helpful background entity in physics.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Distribution (distro)",
-     "definition": "The kernel plus everything else, packaged as a usable system. Linux itself is only the kernel. A distribution bundles it with GNU tools, a package manager, an init system, drivers and defaults to make a usable operating system: Ubuntu, Debian, Fedora, Arch, Alpine. They differ in package manager, release cadence and defaults â but the commands in this reference behave the same across all of them. That portability is exactly why terminal skills outlive any particular distro choice.",
+     "definition": "The kernel plus everything else, packaged as a usable system. Linux itself is only the kernel. A distribution bundles it with GNU tools, a package manager, an init system, drivers and defaults to make a usable operating system: Ubuntu, Debian, Fedora, Arch, Alpine. They differ in package manager, release cadence and defaults — but the commands in this reference behave the same across all of them. That portability is exactly why terminal skills outlive any particular distro choice.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "DNS",
-     "definition": "The system that translates names into IP addresses. DNS turns example.com into an IP address. Recursive resolvers (your ISP's, or 8.8.8.8) chase the answer on your behalf and cache it for the record's TTL; authoritative servers hold the zone's truth. Caching is why changes propagate gradually rather than instantly, and why lowering a record's TTL before a migration is standard practice. When a site is \"down\" but pings by IP, DNS is the first suspect â dig is how you interrogate it.",
+     "definition": "The system that translates names into IP addresses. DNS turns example.com into an IP address. Recursive resolvers (your ISP's, or 8.8.8.8) chase the answer on your behalf and cache it for the record's TTL; authoritative servers hold the zone's truth. Caching is why changes propagate gradually rather than instantly, and why lowering a record's TTL before a migration is standard practice. When a site is \"down\" but pings by IP, DNS is the first suspect — dig is how you interrogate it.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -62,42 +62,42 @@
     {
      "category": "Linux",
      "term": "File permissions",
-     "definition": "Who may read, write and execute â nine bits per file. Every file carries a mode: read (r=4), write (w=2) and execute (x=1) for three audiences â the owner, the group, and everyone else. Written in octal, those become the familiar numbers: 755 is rwxr-xr-x, 644 is rw-r--r--. For directories the letters shift meaning: r lists names, w creates and deletes entries inside, and x grants permission to traverse into it. That last one explains why a directory without x is sealed regardless of what it contains, and why deleting a file depends on the directory's permissions rather than the file's.",
+     "definition": "Who may read, write and execute — nine bits per file. Every file carries a mode: read (r=4), write (w=2) and execute (x=1) for three audiences — the owner, the group, and everyone else. Written in octal, those become the familiar numbers: 755 is rwxr-xr-x, 644 is rw-r--r--. For directories the letters shift meaning: r lists names, w creates and deletes entries inside, and x grants permission to traverse into it. That last one explains why a directory without x is sealed regardless of what it contains, and why deleting a file depends on the directory's permissions rather than the file's.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Filesystem hierarchy",
-     "definition": "The standard layout of directories under /. Linux has one tree rooted at /, with a standardized layout: /etc holds configuration, /var holds data that grows (logs, databases, web roots), /usr holds installed programs, /home holds user directories, /tmp is scratch space, /opt hosts self-contained third-party apps. Disks and network shares do not get drive letters â they are mounted onto directories inside this tree. Knowing the layout turns an unfamiliar server from a maze into a map: configs here, logs there.",
+     "definition": "The standard layout of directories under /. Linux has one tree rooted at /, with a standardized layout: /etc holds configuration, /var holds data that grows (logs, databases, web roots), /usr holds installed programs, /home holds user directories, /tmp is scratch space, /opt hosts self-contained third-party apps. Disks and network shares do not get drive letters — they are mounted onto directories inside this tree. Knowing the layout turns an unfamiliar server from a maze into a map: configs here, logs there.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Glob (wildcard)",
-     "definition": "Patterns like *.txt, expanded by the shell before the command runs. Globs are filename patterns: * matches any sequence of characters, ? a single one, [abc] one of a set, and {a,b} expands to each alternative. Critically, the shell expands them against the filesystem before the command runs â ls *.txt hands ls a list of names, never an asterisk. This explains why quoting matters: find . -name \"*.txt\" needs quotes so the pattern reaches find intact instead of being expanded by the shell first. Preview any glob by prefixing echo.",
+     "definition": "Patterns like *.txt, expanded by the shell before the command runs. Globs are filename patterns: * matches any sequence of characters, ? a single one, [abc] one of a set, and {a,b} expands to each alternative. Critically, the shell expands them against the filesystem before the command runs — ls *.txt hands ls a list of names, never an asterisk. This explains why quoting matters: find . -name \"*.txt\" needs quotes so the pattern reaches find intact instead of being expanded by the shell first. Preview any glob by prefixing echo.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Hard link",
-     "definition": "A second, equally real name for the same file. A hard link is another directory entry pointing at an existing inode. Both names are equally \"the real file\" â there is no original and no copy, and the data survives until every hard link is removed. Because inode numbers are only meaningful within one filesystem, hard links cannot cross filesystems, and they cannot point at directories (that would let the tree contain cycles). ls -l shows the link count in its second column.",
+     "definition": "A second, equally real name for the same file. A hard link is another directory entry pointing at an existing inode. Both names are equally \"the real file\" — there is no original and no copy, and the data survives until every hard link is removed. Because inode numbers are only meaningful within one filesystem, hard links cannot cross filesystems, and they cannot point at directories (that would let the tree contain cycles). ls -l shows the link count in its second column.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Inode",
-     "definition": "The structure that IS a file â metadata plus pointers to its data. A file in Linux is not its name: it is an inode, a structure holding permissions, owner, size, timestamps and the pointers to the data blocks. A filename is just an entry in a directory pointing at an inode, and the inode counts how many names point at it. This is the single most clarifying fact in the filesystem. Deleting removes a name and decrements that count â data is freed only at zero. A hard link adds another name to the same inode. Moving within a filesystem rewrites the directory entry without touching data. A filesystem can run out of inodes while bytes remain free, which is why df -i exists.",
+     "definition": "The structure that IS a file — metadata plus pointers to its data. A file in Linux is not its name: it is an inode, a structure holding permissions, owner, size, timestamps and the pointers to the data blocks. A filename is just an entry in a directory pointing at an inode, and the inode counts how many names point at it. This is the single most clarifying fact in the filesystem. Deleting removes a name and decrements that count — data is freed only at zero. A hard link adds another name to the same inode. Moving within a filesystem rewrites the directory entry without touching data. A filesystem can run out of inodes while bytes remain free, which is why df -i exists.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Kernel",
-     "definition": "The core of the operating system, managing hardware and processes. The kernel is the part of Linux that actually talks to hardware: it schedules processes on CPUs, manages memory, drives disks and network cards, and enforces permissions. Everything else â your shell, your editor, your web server â is a user-space program that asks the kernel for these services through system calls. Strictly speaking, \"Linux\" is the kernel; a usable system is the kernel plus GNU tools, a package manager and the rest, which is why distributions exist. Check yours with uname -r.",
+     "definition": "The core of the operating system, managing hardware and processes. The kernel is the part of Linux that actually talks to hardware: it schedules processes on CPUs, manages memory, drives disks and network cards, and enforces permissions. Everything else — your shell, your editor, your web server — is a user-space program that asks the kernel for these services through system calls. Strictly speaking, \"Linux\" is the kernel; a usable system is the kernel plus GNU tools, a package manager and the rest, which is why distributions exist. Check yours with uname -r.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -111,14 +111,14 @@
     {
      "category": "Linux",
      "term": "Package manager",
-     "definition": "The tool that installs, updates and removes software. A package manager installs software with its dependencies from signed repositories, tracks what belongs to what, and keeps everything upgradable with one command. apt on Debian and Ubuntu, dnf on Fedora and RHEL, pacman on Arch, apk on Alpine. The concepts transfer between them: refresh the catalog, resolve dependencies, install from a trusted repository, and remove cleanly. Installing software by downloading random binaries bypasses all of that â and all of its security.",
+     "definition": "The tool that installs, updates and removes software. A package manager installs software with its dependencies from signed repositories, tracks what belongs to what, and keeps everything upgradable with one command. apt on Debian and Ubuntu, dnf on Fedora and RHEL, pacman on Arch, apk on Alpine. The concepts transfer between them: refresh the catalog, resolve dependencies, install from a trusted repository, and remove cleanly. Installing software by downloading random binaries bypasses all of that — and all of its security.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "PATH",
-     "definition": "The ordered list of directories the shell searches for commands. PATH is a colon-separated list of directories. When you type a command name, the shell walks that list in order and runs the first matching executable it finds â which is why order is precedence, and why prepending ~/.local/bin makes your own tools win over the system's. \"command not found\" for something you know is installed almost always means its directory is not on PATH. Inspect yours with echo $PATH | tr : '\\n', and see exactly which file would run with which or type -a.",
+     "definition": "The ordered list of directories the shell searches for commands. PATH is a colon-separated list of directories. When you type a command name, the shell walks that list in order and runs the first matching executable it finds — which is why order is precedence, and why prepending ~/.local/bin makes your own tools win over the system's. \"command not found\" for something you know is installed almost always means its directory is not on PATH. Inspect yours with echo $PATH | tr : '\\n', and see exactly which file would run with which or type -a.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -132,28 +132,28 @@
     {
      "category": "Linux",
      "term": "Pipe (|)",
-     "definition": "Connects one program's output to the next one's input. A pipe wires stdout of one process to stdin of the next through a kernel buffer. Both processes run at the same time and data flows as it is produced â nothing is written to disk. This is the central idea of Unix: small specialized tools composed into pipelines that do what none could alone. Read them left to right as assembly lines: producers (cat, find, ps), filters (grep, sed, awk, sort), consumers (head, wc, tee).",
+     "definition": "Connects one program's output to the next one's input. A pipe wires stdout of one process to stdin of the next through a kernel buffer. Both processes run at the same time and data flows as it is produced — nothing is written to disk. This is the central idea of Unix: small specialized tools composed into pipelines that do what none could alone. Read them left to right as assembly lines: producers (cat, find, ps), filters (grep, sed, awk, sort), consumers (head, wc, tee).",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Port",
-     "definition": "A number identifying a specific service on a machine. An IP address identifies a machine; a port identifies which service on it. Web servers listen on 80 and 443, SSH on 22, PostgreSQL on 5432. Ports below 1024 require root privileges to bind. Two everyday questions follow: \"what is listening here?\" (ss -tlnp) and \"why is this port taken?\" â usually an orphaned previous instance of your own app. The listen address matters too: 0.0.0.0 is reachable from the network, 127.0.0.1 only locally.",
+     "definition": "A number identifying a specific service on a machine. An IP address identifies a machine; a port identifies which service on it. Web servers listen on 80 and 443, SSH on 22, PostgreSQL on 5432. Ports below 1024 require root privileges to bind. Two everyday questions follow: \"what is listening here?\" (ss -tlnp) and \"why is this port taken?\" — usually an orphaned previous instance of your own app. The listen address matters too: 0.0.0.0 is reachable from the network, 127.0.0.1 only locally.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Process",
-     "definition": "A running program, with its own ID, memory and environment. A process is one running instance of a program. Every process has a numeric PID, an owner, a working directory, an environment, and three open streams. Processes form a tree: each is started by a parent and inherits a copy of the parent's environment and working directory at launch â never the other way round. That one-way inheritance explains a surprising amount: why cd must be built into the shell, why a script cannot change the directory of the terminal that ran it, and why an exported variable set inside a script vanishes when it ends.",
+     "definition": "A running program, with its own ID, memory and environment. A process is one running instance of a program. Every process has a numeric PID, an owner, a working directory, an environment, and three open streams. Processes form a tree: each is started by a parent and inherits a copy of the parent's environment and working directory at launch — never the other way round. That one-way inheritance explains a surprising amount: why cd must be built into the shell, why a script cannot change the directory of the terminal that ran it, and why an exported variable set inside a script vanishes when it ends.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Redirection (> and >>)",
-     "definition": "Sending a program's streams to files instead of the screen. Redirection is the shell pointing a stream at a file. > writes, replacing the file's contents â and it truncates the target before the command even runs, which is why redirecting a file onto itself destroys it. >> appends, preserving what is there. 2> captures errors, and < feeds a file as input. The distinction between > and >> is the most consequential pair of characters in the shell: one accumulates, the other overwrites.",
+     "definition": "Sending a program's streams to files instead of the screen. Redirection is the shell pointing a stream at a file. > writes, replacing the file's contents — and it truncates the target before the command even runs, which is why redirecting a file onto itself destroys it. >> appends, preserving what is there. 2> captures errors, and < feeds a file as input. The distinction between > and >> is the most consequential pair of characters in the shell: one accumulates, the other overwrites.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -181,42 +181,42 @@
     {
      "category": "Linux",
      "term": "Shell",
-     "definition": "The program that reads your commands and runs them. The shell is the program sitting between you and the operating system: it prints the prompt, reads what you type, interprets it, and asks the kernel to run the resulting programs. Bash is the most common on Linux; zsh, fish and dash are alternatives with the same job. Crucially, the shell does real work before any command runs â it expands variables, replaces $(command) with its output, interprets quotes and expands wildcards like *.txt against the filesystem. The command you type is not what the command receives. Understanding that order of operations explains most \"why did it do that?\" moments in the terminal.",
+     "definition": "The program that reads your commands and runs them. The shell is the program sitting between you and the operating system: it prints the prompt, reads what you type, interprets it, and asks the kernel to run the resulting programs. Bash is the most common on Linux; zsh, fish and dash are alternatives with the same job. Crucially, the shell does real work before any command runs — it expands variables, replaces $(command) with its output, interprets quotes and expands wildcards like *.txt against the filesystem. The command you type is not what the command receives. Understanding that order of operations explains most \"why did it do that?\" moments in the terminal.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Signal",
-     "definition": "An asynchronous message sent to a process, like SIGTERM or SIGKILL. Signals are the kernel's way of tapping a process on the shoulder. Each has a number, a name and a default action: SIGTERM (15) politely requests termination, SIGHUP (1) traditionally means \"reload your configuration\", SIGINT (2) is what Ctrl+C sends. Programs may install handlers to react gracefully â flush data, close files, reload config. Two signals cannot be caught or ignored: SIGKILL (9) and SIGSTOP, which is why kill -9 always works and why it never lets the program clean up.",
+     "definition": "An asynchronous message sent to a process, like SIGTERM or SIGKILL. Signals are the kernel's way of tapping a process on the shoulder. Each has a number, a name and a default action: SIGTERM (15) politely requests termination, SIGHUP (1) traditionally means \"reload your configuration\", SIGINT (2) is what Ctrl+C sends. Programs may install handlers to react gracefully — flush data, close files, reload config. Two signals cannot be caught or ignored: SIGKILL (9) and SIGSTOP, which is why kill -9 always works and why it never lets the program clean up.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "SSH key",
-     "definition": "A key pair that replaces passwords for remote login. An SSH key pair is a private key you keep and a public key you install on servers. Logging in, your client proves possession of the private key by signing a challenge â the key itself never leaves your machine, which makes it both safer and more convenient than a password. Generate with ssh-keygen -t ed25519, install with ssh-copy-id user@host. Permissions matter: SSH refuses private keys that others can read, hence chmod 600 on the key and 700 on ~/.ssh.",
+     "definition": "A key pair that replaces passwords for remote login. An SSH key pair is a private key you keep and a public key you install on servers. Logging in, your client proves possession of the private key by signing a challenge — the key itself never leaves your machine, which makes it both safer and more convenient than a password. Generate with ssh-keygen -t ed25519, install with ssh-copy-id user@host. Permissions matter: SSH refuses private keys that others can read, hence chmod 600 on the key and 700 on ~/.ssh.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "stderr (standard error)",
-     "definition": "Stream 2 â the separate channel for errors and diagnostics. Standard error is stream 2, where programs write error messages and progress notes. It goes to your terminal by default, like stdout, which is why the two appear mixed together â but they are separate channels. The practical consequences: 2> /dev/null silences errors without touching results; 2>&1 merges errors into wherever stdout is going; and a pipe carries only stdout, so errors must be merged in explicitly (cmd 2>&1 | grep â¦) if you want to filter them.",
+     "definition": "Stream 2 — the separate channel for errors and diagnostics. Standard error is stream 2, where programs write error messages and progress notes. It goes to your terminal by default, like stdout, which is why the two appear mixed together — but they are separate channels. The practical consequences: 2> /dev/null silences errors without touching results; 2>&1 merges errors into wherever stdout is going; and a pipe carries only stdout, so errors must be merged in explicitly (cmd 2>&1 | grep …) if you want to filter them.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "stdin (standard input)",
-     "definition": "Stream 0 â where a program reads its input from. Standard input is the stream a program reads from, numbered 0. By default it is your keyboard, but the shell can rewire it before the program starts: from a file with <, or from another program's output through a pipe. Commands designed for pipelines read stdin when given no filename â which is why grep pattern works after a pipe, and why sort, wc and awk slot into pipelines so naturally.",
+     "definition": "Stream 0 — where a program reads its input from. Standard input is the stream a program reads from, numbered 0. By default it is your keyboard, but the shell can rewire it before the program starts: from a file with <, or from another program's output through a pipe. Commands designed for pipelines read stdin when given no filename — which is why grep pattern works after a pipe, and why sort, wc and awk slot into pipelines so naturally.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "stdout (standard output)",
-     "definition": "Stream 1 â where a program writes its normal results. Standard output is stream 1, where a program writes its results. By default it goes to your terminal; redirect it to a file with > (replacing contents) or >> (appending), or into another program with a pipe. Results and errors travel on separate streams by design, so you can save clean output to a file while still seeing errors on screen â or the reverse.",
+     "definition": "Stream 1 — where a program writes its normal results. Standard output is stream 1, where a program writes its results. By default it goes to your terminal; redirect it to a file with > (replacing contents) or >> (appending), or into another program with a pipe. Results and errors travel on separate streams by design, so you can save clean output to a file while still seeing errors on screen — or the reverse.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -230,35 +230,35 @@
     {
      "category": "Linux",
      "term": "Symbolic link (symlink)",
-     "definition": "A small file containing a path, resolved on every access. A symbolic link is a tiny file whose content is a path to something else. Every time you open it, the system reads that path and follows it. Because it stores a path rather than a reference to an inode, a symlink can cross filesystems, point at directories, and even point at something that does not exist yet â a \"broken\" link. Symlinks power two ubiquitous patterns: dotfiles kept in a git repo and linked into place, and deployment schemes where /opt/app/current points at the active release, so switching versions is one atomic link change.",
+     "definition": "A small file containing a path, resolved on every access. A symbolic link is a tiny file whose content is a path to something else. Every time you open it, the system reads that path and follows it. Because it stores a path rather than a reference to an inode, a symlink can cross filesystems, point at directories, and even point at something that does not exist yet — a \"broken\" link. Symlinks power two ubiquitous patterns: dotfiles kept in a git repo and linked into place, and deployment schemes where /opt/app/current points at the active release, so switching versions is one atomic link change.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "System call",
-     "definition": "How a program asks the kernel to do something. User programs cannot touch hardware directly. When a program needs to open a file, allocate memory or send a network packet, it makes a system call â a controlled entry into the kernel, which validates permissions and performs the operation. Most commands are thin wrappers over a few: cd is chdir(), rm is unlink(), mv is rename(), mkdir is mkdir(). Knowing the underlying call often explains a command's exact behavior better than its manual page.",
+     "definition": "How a program asks the kernel to do something. User programs cannot touch hardware directly. When a program needs to open a file, allocate memory or send a network packet, it makes a system call — a controlled entry into the kernel, which validates permissions and performs the operation. Most commands are thin wrappers over a few: cd is chdir(), rm is unlink(), mv is rename(), mkdir is mkdir(). Knowing the underlying call often explains a command's exact behavior better than its manual page.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "systemd",
-     "definition": "The init system that starts and supervises services on modern Linux. systemd is PID 1 on most current distributions: it boots the machine, starts services in dependency order, restarts them when they fail, and captures their logs. Services are declared as \"unit\" files rather than shell scripts. You interact with it through systemctl (start, stop, enable, status) and journalctl (its logs). Because it places each service's processes in a cgroup, stopping a service reliably stops everything it spawned â a real improvement over the init scripts it replaced.",
+     "definition": "The init system that starts and supervises services on modern Linux. systemd is PID 1 on most current distributions: it boots the machine, starts services in dependency order, restarts them when they fail, and captures their logs. Services are declared as \"unit\" files rather than shell scripts. You interact with it through systemctl (start, stop, enable, status) and journalctl (its logs). Because it places each service's processes in a cgroup, stopping a service reliably stops everything it spawned — a real improvement over the init scripts it replaced.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "Terminal",
-     "definition": "The window that displays a shell session. A terminal (or terminal emulator) is the application that draws the black window, captures your keystrokes and renders text output. It is not the shell â it is the screen and keyboard the shell talks through. GNOME Terminal, iTerm2, Windows Terminal and Alacritty are terminals; bash and zsh are shells running inside them. The distinction matters in practice: colors, fonts, tabs, scrollback and copy-paste are terminal features, while aliases, history and prompt behavior belong to the shell. When something looks wrong, knowing which of the two owns the behavior halves the search.",
+     "definition": "The window that displays a shell session. A terminal (or terminal emulator) is the application that draws the black window, captures your keystrokes and renders text output. It is not the shell — it is the screen and keyboard the shell talks through. GNOME Terminal, iTerm2, Windows Terminal and Alacritty are terminals; bash and zsh are shells running inside them. The distinction matters in practice: colors, fonts, tabs, scrollback and copy-paste are terminal features, while aliases, history and prompt behavior belong to the shell. When something looks wrong, knowing which of the two owns the behavior halves the search.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
     {
      "category": "Linux",
      "term": "TTY",
-     "definition": "The terminal device a process is attached to â or is not. TTY (from \"teletypewriter\") is the kernel's name for a terminal device. Interactive programs check whether their output is a TTY to decide behavior: ls prints columns and colors to a terminal but one plain name per line into a pipe; many tools disable progress bars when not on a TTY. Processes without a TTY â cron jobs, daemons, scripts run by CI â behave differently for exactly this reason. Type tty to see yours.",
+     "definition": "The terminal device a process is attached to — or is not. TTY (from \"teletypewriter\") is the kernel's name for a terminal device. Interactive programs check whether their output is a TTY to decide behavior: ls prints columns and colors to a terminal but one plain name per line into a pipe; many tools disable progress bars when not on a TTY. Processes without a TTY — cron jobs, daemons, scripts run by CI — behave differently for exactly this reason. Type tty to see yours.",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     },
@@ -272,7 +272,7 @@
     {
      "category": "Linux",
      "term": "Working directory",
-     "definition": "The folder your shell is currently \"standing\" in. Every process carries a current working directory, and all relative paths are resolved against it. Your shell's is what pwd prints and what cd changes. Since each process has its own, and children inherit the parent's at launch, a script cannot change your shell's directory â and a cron job starts in the user's home rather than wherever the script file lives, which is the single most common reason scripts \"work by hand but fail from cron\".",
+     "definition": "The folder your shell is currently \"standing\" in. Every process carries a current working directory, and all relative paths are resolved against it. Your shell's is what pwd prints and what cd changes. Since each process has its own, and children inherit the parent's at launch, a script cannot change your shell's directory — and a cron job starts in the user's home rather than wherever the script file lives, which is the single most common reason scripts \"work by hand but fail from cron\".",
      "sourceTitle": "Linux Glossary: 39 Terminal Concepts Explained",
      "sourceUrl": "https://shelltrainer.com/glossary/"
     }
@@ -305,7 +305,7 @@
     {
      "category": "Computer",
      "term": "Bcc (blind carbon copy)",
-     "definition": "Bcc is similar to that of Cc except that the email address is invisible to the people in the âToâ or âCcâ fields. Use Bcc if you don't want the other people to see who else has received a copy of the email.",
+     "definition": "Bcc is similar to that of Cc except that the email address is invisible to the people in the “To” or “Cc” fields. Use Bcc if you don't want the other people to see who else has received a copy of the email.",
      "sourceTitle": "Glossary - Key Concepts of Computer Studies",
      "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
     },
@@ -368,7 +368,7 @@
     {
      "category": "Computer",
      "term": "Cc (carbon copy or courtesy copy)",
-     "definition": "entering a person's email address in the âCcâ field means that person will receive a copy of the email (for their information).",
+     "definition": "entering a person's email address in the “Cc” field means that person will receive a copy of the email (for their information).",
      "sourceTitle": "Glossary - Key Concepts of Computer Studies",
      "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
     },
@@ -718,7 +718,7 @@
     {
      "category": "Computer",
      "term": "left-click",
-     "definition": "press the left mouse button on the left side of the mouse. Left-click is often referred to as âregular-clickâ and it is used for many common computer tasks, such as selecting objects, closing windows, opening hyperlinks, double-clicking, etc.",
+     "definition": "press the left mouse button on the left side of the mouse. Left-click is often referred to as “regular-click” and it is used for many common computer tasks, such as selecting objects, closing windows, opening hyperlinks, double-clicking, etc.",
      "sourceTitle": "Glossary - Key Concepts of Computer Studies",
      "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
     },
@@ -1040,7 +1040,7 @@
     {
      "category": "Computer",
      "term": "spyware",
-     "definition": "a software that secretly monitors (spies) a userâs online behaviour and gets sensitive information about a person or organization without the userâs knowledge.",
+     "definition": "a software that secretly monitors (spies) a user’s online behaviour and gets sensitive information about a person or organization without the user’s knowledge.",
      "sourceTitle": "Glossary - Key Concepts of Computer Studies",
      "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
     },
