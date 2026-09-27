@@ -151,7 +151,7 @@ def main():
     r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'])
     out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
     check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
-    run(['adb', 'shell', 'monkey', '-p', PKG, '-c', 'android.intent.category.LAUNCHER', '1'])
+    run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'])
 
     nodes, xml = wait_node(20, contains='Loading your learning journey')
     PAGES.append(xml)
@@ -173,7 +173,7 @@ def main():
     check('home action cards present',
           bool(find_all(xml, text='Linux Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
           bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')))
-    progress_nodes, progress_xml = find_scrolled(8, text='Your Progress')
+    progress_nodes, progress_xml = find_scrolled(12, text='Acronyms')
     check('progress card present', bool(progress_nodes) and bool(find_all(progress_xml, contains='Interview Q&A')) and bool(find_all(progress_xml, contains='Acronyms')))
     shot('03b_home_progress')
     scroll_up(8)
@@ -243,7 +243,7 @@ def main():
         tap_option(xml, 1)  # deliberately wrong: source data has correct answer first
         time.sleep(0.8)
         label = 'See Results' if i == 4 else 'Next Question'
-        nodes, xml = wait_node(10, text=label)
+        nodes, xml = find_scrolled(8, text=label)
         if not nodes:
             die(label + ' button not found')
         tap_node(nodes[0])
