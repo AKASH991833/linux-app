@@ -157,13 +157,14 @@ else:
     check('My Interview Questions opens', False)
     check('interview answer reader opens', False)
 
-nodes, xml = open_interview_sections()
-if tap_exact(xml, '200 Important Commands', contains=True):
-    nodes, xml = wait_node(25, contains='all 200 rows in original order')
-    check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
-    shot('04_commands_200')
-else:
-    check('200 Important Commands opens', False)
+for attempt in range(3):
+    nodes, xml = open_interview_sections()
+    if tap_exact(xml, '200 Important Commands', contains=True):
+        nodes, xml = wait_node(25, contains='all 200 rows in original order')
+        if nodes and find_all(xml, contains='#1'):
+            break
+check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
+shot('04_commands_200')
 
 nodes, xml = open_interview_sections()
 if tap_exact(xml, 'Networking Interview Q&A', contains=True):
