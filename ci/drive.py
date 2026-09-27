@@ -140,10 +140,7 @@ def main():
         die('app did not open')
     check('daily challenge card present', bool(find_all(xml, contains='Daily Challenge')))
     check('home shows v1.5.0 content marker', bool(find_all(xml, contains='v1.5.0')) and bool(find_all(xml, contains='150 computer Qs')) and bool(find_all(xml, contains='477 full forms')))
-    check('dashboard tiles present',
-          bool(find_all(xml, text='Quiz')) and bool(find_all(xml, text='Computer Quiz')) and
-          bool(find_all(xml, text='Full Forms')) and bool(find_all(xml, text='Interview Questions')) and
-          bool(find_all(xml, text='Learn Chapters')))
+    check('home dashboard starts with quiz tile', bool(find_all(xml, text='Quiz')))
     check('old split quiz tiles removed', not find_all(xml, text='Beginner') and not find_all(xml, text='Intermediate'))
     check('home has no topic cards', not find_all(xml, contains='Linux History & Foundations Quiz'))
     check('home has no generated diagrams', not find_all(xml, contains='Diagram:') and not find_all(xml, contains='Visual guide'))
@@ -196,7 +193,7 @@ def main():
                 PAGES.append(xml)
 
     # Full Forms tile opens a searchable, concept-wise list.
-    fullforms = find_all(xml, text='Full Forms')
+    fullforms, xml = find_scrolled(text='Full Forms')
     check('full forms tile present', bool(fullforms))
     if fullforms:
         tap_node(fullforms[0])
@@ -221,7 +218,7 @@ def main():
         PAGES.append(xml)
 
     # Computer Quiz tile opens chapter -> difficulty -> question.
-    computer = find_all(xml, text='Computer Quiz')
+    computer, xml = find_scrolled(text='Computer Quiz')
     check('computer quiz tile present', bool(computer))
     if computer:
         tap_node(computer[0])
@@ -254,7 +251,7 @@ def main():
                 PAGES.append(xml)
 
     # Interview tile opens named source sections plus topic-wise chapters.
-    interview = find_all(xml, text='Interview Questions')
+    interview, xml = find_scrolled(text='Interview Questions')
     check('interview tile present', bool(interview))
     if interview:
         tap_node(interview[0])
@@ -297,7 +294,7 @@ def main():
             PAGES.append(xml)
 
         # 200 command PDF as its own table.
-        interview = find_all(xml, text='Interview Questions')
+        interview, xml = find_scrolled(text='Interview Questions')
         if interview:
             tap_node(interview[0])
             nodes, xml = wait_node(20, contains='Your Questions & PDFs')
@@ -318,7 +315,7 @@ def main():
                 PAGES.append(xml)
 
         # Networking PDF, all 40 Q&A in original order.
-        interview = find_all(xml, text='Interview Questions')
+        interview, xml = find_scrolled(text='Interview Questions')
         if interview:
             tap_node(interview[0])
             nodes, xml = wait_node(20, contains='Your Questions & PDFs')
@@ -343,7 +340,7 @@ def main():
                 PAGES.append(xml)
 
         # 15 Advanced Topics Handbook and one topic reader.
-        interview = find_all(xml, text='Interview Questions')
+        interview, xml = find_scrolled(text='Interview Questions')
         if interview:
             tap_node(interview[0])
             nodes, xml = wait_node(20, contains='Your Questions & PDFs')
@@ -374,7 +371,7 @@ def main():
                     PAGES.append(xml)
 
         # Topic-wise sets are still present and use the same book reader.
-        interview = find_all(xml, text='Interview Questions')
+        interview, xml = find_scrolled(text='Interview Questions')
         if interview:
             tap_node(interview[0])
             nodes, xml = wait_node(20, contains='Your Questions & PDFs')
@@ -398,7 +395,7 @@ def main():
                 PAGES.append(xml)
 
     # Learn tile still opens chapter-wise lessons.
-    learn = find_all(xml, text='Learn Chapters')
+    learn, xml = find_scrolled(text='Learn Chapters')
     check('learn tile present', bool(learn))
     if not learn:
         die('learn tile not found')
@@ -427,7 +424,7 @@ def main():
         run(['adb', 'shell', 'input', 'keyevent', '4'])
         time.sleep(1)
         nodes, xml = wait_node(15, contains='Home Dashboard')
-        learn = find_all(xml, text='Learn Chapters')
+        learn, xml = find_scrolled(text='Learn Chapters')
         if learn:
             tap_node(learn[0])
             nodes, xml = wait_node(15, contains='Learn Chapters')
