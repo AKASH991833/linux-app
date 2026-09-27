@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         String id, title, desc; List<Q> qs = new ArrayList<>();
     }
     static class Lesson {
-        String title, body, diagram, example;
+        String title, body, diagram, example, scenario, checkQ, checkE; String[] checkOptions; int checkAnswer;
     }
 
     private FrameLayout container;
@@ -165,6 +165,16 @@ public class MainActivity extends Activity {
                     l.body = lj.getString("body");
                     l.diagram = lj.optString("diagram", "");
                     l.example = lj.optString("example", "");
+                    l.scenario = lj.optString("scenario", "");
+                    JSONObject check = lj.optJSONObject("check");
+                    if(check != null){
+                        l.checkQ = check.getString("q");
+                        l.checkE = check.getString("e");
+                        l.checkAnswer = check.getInt("a");
+                        JSONArray ops = check.getJSONArray("o");
+                        l.checkOptions = new String[ops.length()];
+                        for(int k=0;k<ops.length();k++) l.checkOptions[k] = ops.getString(k);
+                    }
                     list.add(l);
                 }
                 lessons.put(c.getString("id"), list);
@@ -177,6 +187,14 @@ public class MainActivity extends Activity {
     private String today(){ return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()); }
     private String yesterday(){ return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date(System.currentTimeMillis()-86400000L)); }
     private int streak(){ return prefs.getInt("streak", 0); }
+    private int totalPassedChecks(){
+        int count=0;
+        for(Chapter ch: chapters){
+            List<Lesson> ls=lessons.get(ch.id);
+            if(ls!=null) for(int i=0;i<ls.size();i++) if(prefs.getBoolean("check_"+ch.id+"_"+i,false)) count++;
+        }
+        return count;
+    }
 
     private void updateStreakChip(){
         int s = streak();
@@ -203,6 +221,11 @@ public class MainActivity extends Activity {
         TextView sub = text("300+ chapter-wise questions, from history to systemd. Fully offline.", 13, DIM);
         sub.setPadding(0, dp(4), 0, 0);
         hero.addView(sub);
+        int passed=totalPassedChecks();
+        TextView guide=text(passed==0 ? "Start here: open a chapter, read a lesson, then answer its quick check. No Linux machine needed." :
+            "Quick checks: " + passed + "/48 passed. Next, open any chapter to continue.", 13, GREEN);
+        guide.setPadding(0, dp(10), 0, 0);
+        hero.addView(guide);
         col.addView(hero, margins(0, 8));
 
         LinearLayout modesRow = new LinearLayout(this);
@@ -219,6 +242,8 @@ public class MainActivity extends Activity {
             modesRow.addView(b, p);
             press(b);
         }
+        TextView modeHelp=text("Beginner: no timer  •  Intermediate: 30s  •  Interview: 20s",12,DIM);
+        col.addView(modeHelp, margins(0, 2));
         col.addView(modesRow, margins(0, 8));
 
         col.addView(actionCard("\u26A1 Daily Challenge", "10 questions - new set every day", BLUE,
@@ -269,6 +294,13 @@ public class MainActivity extends Activity {
         return card;
     }
 
+    private int passedChecks(Chapter ch){
+        int count=0;
+        List<Lesson> ls=lessons.get(ch.id);
+        if(ls!=null) for(int i=0;i<ls.size();i++) if(prefs.getBoolean("check_"+ch.id+"_"+i,false)) count++;
+        return count;
+    }
+
     private View chapterCard(final Chapter ch, int delay){
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
@@ -288,6 +320,8 @@ public class MainActivity extends Activity {
         TextView d = text(ch.desc + (lc>0 ? "  \u2022  " + lc + " lessons" + (readCount>0 ? " (" + readCount + " read)" : "") : ""), 12, DIM);
         d.setPadding(0, dp(3), 0, dp(6));
         card.addView(d);
+        TextView badge=text(passedChecks(ch)==lc && lc>0 ? "Chapter mastered ✓" : "Lessons " + readCount + "/" + lc + "  •  Checks " + passedChecks(ch) + "/" + lc,12,passedChecks(ch)==lc && lc>0 ? GREEN : ORANGE);
+        card.addView(badge);
         ProgressBar bar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         bar.setMax(100);
         bar.setProgress(0);
@@ -358,7 +392,8 @@ public class MainActivity extends Activity {
                 row.addView(num);
                 row.addView(text(l.title, 14, TEXT), new LinearLayout.LayoutParams(0, -2, 1));
                 boolean read = prefs.getBoolean("read_" + ch.id + "_" + i, false);
-                TextView tick = text(read ? "\u2713" : "\u25CB", 15, read ? GREEN : DIM);
+                boolean checked = prefs.getBoolean("check_" + ch.id + "_" + i, false);
+                TextView tick = text(checked ? "✓" : read ? "◐" : "○", 15, checked ? GREEN : read ? ORANGE : DIM);
                 row.addView(tick);
                 row.setOnClickListener(v -> showLesson(ch, idx));
                 press(row);
@@ -381,7 +416,7 @@ public class MainActivity extends Activity {
         cancelTimer();
         final List<Lesson> ls = lessons.get(ch.id);
         final Lesson l = ls.get(idx);
-        prefs.edit().putBoolean("read_" + ch.id + "_" + idx, true).apply();
+        prefs.edit().putBoolean("read_"+ch.id+"_"+idx,true).apply();
 
         ScrollView scroll = new ScrollView(this);
         LinearLayout col = new LinearLayout(this);
@@ -392,11 +427,22 @@ public class MainActivity extends Activity {
         TextView crumb = bold(ch.title + "  \u2022  Lesson " + (idx+1) + " of " + ls.size(), 13, DIM);
         col.addView(crumb, margins(0, 4));
         col.addView(bold(l.title, 19, TEXT), margins(0, 2));
+        TextView guide = text("Read → see an example → try the quick check below", 12, GREEN);
+        col.addView(guide, margins(0, 2));
 
         for(String para : l.body.split("\n\n")){
             TextView t = text(para.trim(), 14, TEXT);
             t.setLineSpacing(0, 1.2f);
             col.addView(t, margins(0, 5));
+        }
+        if(!l.scenario.isEmpty()){
+            LinearLayout scenario=new LinearLayout(this);
+            scenario.setOrientation(LinearLayout.VERTICAL);
+            scenario.setPadding(dp(14),dp(12),dp(14),dp(12));
+            scenario.setBackground(bg(SOFT,14));
+            scenario.addView(bold("Where you'd use it",13,ORANGE));
+            scenario.addView(text(l.scenario,14,TEXT));
+            col.addView(scenario,margins(0,6));
         }
         if(!l.diagram.isEmpty()){
             LinearLayout box = new LinearLayout(this);
@@ -411,7 +457,7 @@ public class MainActivity extends Activity {
             popIn(box, 120);
         }
         if(!l.example.isEmpty()){
-            TextView cap = bold("Try it / example", 13, ORANGE);
+            TextView cap = bold("Walkthrough: commands and sample output", 13, ORANGE);
             col.addView(cap, margins(0, 4));
             LinearLayout box = new LinearLayout(this);
             box.setBackground(bg(0xff0b1220, 14));
@@ -422,7 +468,48 @@ public class MainActivity extends Activity {
             hsv.addView(et);
             box.addView(hsv);
             col.addView(box, margins(0, 4));
+            TextView caution=text("Sample output differs by machine. Read before running; never try destructive disk, delete, firewall or account commands on real data.",12,DIM);
+            col.addView(caution,margins(0,2));
             popIn(box, 160);
+        }
+
+        if(l.checkOptions!=null){
+            LinearLayout checkCard=new LinearLayout(this);
+            checkCard.setOrientation(LinearLayout.VERTICAL);
+            checkCard.setPadding(dp(14),dp(14),dp(14),dp(14));
+            checkCard.setBackground(bg(CARD,16));
+            checkCard.addView(bold("Quick check  •  " + (idx+1) + "/" + ls.size(),14,GREEN));
+            checkCard.addView(bold(l.checkQ,15,TEXT),margins(0,5));
+            TextView feedback=text("Pick an answer to check your understanding.",13,DIM);
+            Button[] answers=new Button[l.checkOptions.length];
+            for(int i=0;i<answers.length;i++){
+                final int choice=i;
+                Button b=new Button(this);
+                b.setAllCaps(false); b.setText(l.checkOptions[i]); b.setTextColor(TEXT); b.setTextSize(13);
+                b.setBackground(bg(SOFT,13));
+                LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);
+                ap.setMargins(0,dp(5),0,0);
+                checkCard.addView(b,ap); answers[i]=b;
+                if(prefs.getBoolean("check_"+ch.id+"_"+idx,false)){
+                    b.setEnabled(false);
+                    if(choice==l.checkAnswer) b.setBackground(bg(GREEN,13));
+                    feedback.setText("Already passed ✓ " + l.checkE);
+                    feedback.setTextColor(GREEN);
+                }
+                b.setOnClickListener(v -> {
+                    boolean ok=choice==l.checkAnswer;
+                    feedback.setText((ok ? "You got it! ✓ " : "Try again. ") + l.checkE);
+                    feedback.setTextColor(ok ? GREEN : ORANGE);
+                    if(ok){
+                        prefs.edit().putBoolean("check_"+ch.id+"_"+idx,true)
+                            .putBoolean("read_"+ch.id+"_"+idx,true).apply();
+                        for(Button other:answers)other.setEnabled(false);
+                        answers[choice].setBackground(bg(GREEN,13));
+                    }
+                });
+            }
+            checkCard.addView(feedback,margins(0,6));
+            col.addView(checkCard,margins(0,8));
         }
 
         LinearLayout nav = new LinearLayout(this);
@@ -556,7 +643,10 @@ public class MainActivity extends Activity {
         np.setMargins(0, dp(6), 0, 0);
         col.addView(nextBtn, np);
 
-        switchScreen(col);
+        ScrollView quizScroll=new ScrollView(this);
+        quizScroll.setFillViewport(true);
+        quizScroll.addView(col);
+        switchScreen(quizScroll);
         renderQuestion();
     }
 
@@ -580,7 +670,8 @@ public class MainActivity extends Activity {
             b.setBackground(bg(CARD, 16));
             b.setOnClickListener(v -> answer(idx, b));
             press(b);
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, dp(56));
+            b.setMinHeight(dp(56));
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
             p.setMargins(0, dp(5), 0, dp(5));
             optionsBox.addView(b, p);
             popIn(b, 60 * i);
@@ -673,6 +764,7 @@ public class MainActivity extends Activity {
                 : percent >= 70 ? "Great job! Almost there \uD83D\uDCAA"
                 : percent >= 50 ? "Good progress - keep practicing \uD83D\uDCDA"
                 : "Don't give up - revise and retry \uD83D\uDCA1", 14, DIM);
+        if(percent >= 90) msg.setText("Strong result! Keep practicing unfamiliar topics before interviews.");
         msg.setGravity(Gravity.CENTER);
         msg.setPadding(0, dp(6), 0, dp(6));
         col.addView(msg);
@@ -726,4 +818,4 @@ public class MainActivity extends Activity {
         cancelTimer();
         super.onDestroy();
     }
-}
+    }
