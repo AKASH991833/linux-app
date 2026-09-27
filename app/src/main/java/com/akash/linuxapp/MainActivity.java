@@ -1089,10 +1089,17 @@ public class MainActivity extends Activity {
         results.setOrientation(LinearLayout.VERTICAL);
         col.addView(results);
         populateFullForms(results, matchCount, "");
+        final Handler fullFormSearchHandler = new Handler(Looper.getMainLooper());
+        final Runnable[] pendingFullFormSearch = new Runnable[1];
         search.addTextChangedListener(new TextWatcher(){
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after){ }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count){ }
-            @Override public void afterTextChanged(Editable s){ populateFullForms(results, matchCount, s.toString()); }
+            @Override public void afterTextChanged(Editable s){
+                if(pendingFullFormSearch[0] != null) fullFormSearchHandler.removeCallbacks(pendingFullFormSearch[0]);
+                final String query = s.toString();
+                pendingFullFormSearch[0] = () -> populateFullForms(results, matchCount, query);
+                fullFormSearchHandler.postDelayed(pendingFullFormSearch[0], 350);
+            }
         });
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
         switchScreen(scroll);
@@ -1216,10 +1223,17 @@ public class MainActivity extends Activity {
             filters.addView(b, fp);
         }
         populateDefinitions(results, matchCount, "", "All");
+        final Handler definitionSearchHandler = new Handler(Looper.getMainLooper());
+        final Runnable[] pendingDefinitionSearch = new Runnable[1];
         search.addTextChangedListener(new TextWatcher(){
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after){ }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count){ }
-            @Override public void afterTextChanged(Editable s){ populateDefinitions(results, matchCount, s.toString(), filter[0]); }
+            @Override public void afterTextChanged(Editable s){
+                if(pendingDefinitionSearch[0] != null) definitionSearchHandler.removeCallbacks(pendingDefinitionSearch[0]);
+                final String query = s.toString();
+                pendingDefinitionSearch[0] = () -> populateDefinitions(results, matchCount, query, filter[0]);
+                definitionSearchHandler.postDelayed(pendingDefinitionSearch[0], 350);
+            }
         });
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
         switchScreen(scroll);
