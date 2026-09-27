@@ -284,9 +284,9 @@
     {
      "category": "Computer",
      "term": "application program (or application software)",
-     "definition": "a computer program that provides users with tools to accomplish a specific task.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Application software is software that is intended for end-user use – not operating, administering or programming a computer. It includes programs such as word processors, web browsers, media players, and mobile applications used in daily tasks. An application is any program that can be categorized as application software. Application is a subjective classification that is often used to differentiate from system and utility software.",
+     "sourceTitle": "Wikipedia - Application software",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Application_software"
     },
     {
      "category": "Computer",
@@ -298,9 +298,9 @@
     {
      "category": "Computer",
      "term": "basic file management",
-     "definition": "a way to name, save, backup, organize, and keep track of files and folders on a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A file manager or file browser is a computer program that provides a user interface to manage files and folders. The most common operations performed on files or groups of files include creating, opening, renaming, copying, moving, deleting and searching for files, as well as modifying file attributes, properties and file permissions. Folders and files may be displayed in a hierarchical tree based on their directory structure.",
+     "sourceTitle": "Wikipedia - File manager",
+     "sourceUrl": "https://en.wikipedia.org/wiki/File_manager"
     },
     {
      "category": "Computer",
@@ -319,9 +319,9 @@
     {
      "category": "Computer",
      "term": "blog",
-     "definition": "a personal website or webpage that is like an online diary/journal.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A blog is a website whose basic unit is a \"post\" or \"entry\", with posts typically presented in reverse chronological order. Blogging may be carried out by individuals, commercial enterprises, or organizations, and blog content varies widely.",
+     "sourceTitle": "Wikipedia - Blog",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Blog"
     },
     {
      "category": "Computer",
@@ -333,16 +333,16 @@
     {
      "category": "Computer",
      "term": "bookmark (or favourite)",
-     "definition": "a collection of links (a saved shortcut) to web pages that is stored in a web browser.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In the context of the World Wide Web, a bookmark is a Uniform Resource Identifier (URI) that is stored for later retrieval in any of various storage formats. All modern web browsers include bookmark features. Bookmarks are called favorites or Internet shortcuts in Internet Explorer and Microsoft Edge, and by virtue of that browser's large market share, these terms have been synonymous with bookmark since the First Browser War. Bookmarks are normally accessed through a menu in the user's web browser, and folders are commonly used for organization.",
+     "sourceTitle": "Wikipedia - Bookmark (digital)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Bookmark_(World_Wide_Web)"
     },
     {
      "category": "Computer",
      "term": "bookmark bar",
-     "definition": "a row of all bookmarks that shows on the top of a browser window (under the address bar).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Bookmarks are called favorites or Internet shortcuts in Internet Explorer and Microsoft Edge, and by virtue of that browser's large market share, these terms have been synonymous with bookmark since the First Browser War. Bookmarks are normally accessed through a menu in the user's web browser, and folders are commonly used for organization.",
+     "sourceTitle": "Wikipedia - Bookmarks bar",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Bookmark_(World_Wide_Web)"
     },
     {
      "category": "Computer",
@@ -361,9 +361,9 @@
     {
      "category": "Computer",
      "term": "byte",
-     "definition": "a unit of measurement for data storage. One byte is equal to 8 bits.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "The byte is a unit of digital information that most commonly consists of eight bits. Historically, the byte was the number of bits used to encode a single character of text in a computer and for this reason it is the smallest addressable unit of memory in many computer architectures. To disambiguate arbitrarily sized bytes from the common 8-bit definition, network protocol documents such as the Internet Protocol refer to an 8-bit byte as an octet. Those bits in an octet are usually counted with numbering from 0 to 7 or 7 to 0 depending on the bit endianness.",
+     "sourceTitle": "Wikipedia - Byte",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Byte"
     },
     {
      "category": "Computer",
@@ -375,23 +375,23 @@
     {
      "category": "Computer",
      "term": "center-justification",
-     "definition": "text is aligned to neither the left side nor right.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typesetting and page layout, alignment or range is the setting of text flow or image placement relative to a page, column (measure), table cell, or tab.",
+     "sourceTitle": "Wikipedia - Justification (typesetting)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Typographic_alignment"
     },
     {
      "category": "Computer",
      "term": "chat room",
-     "definition": "an online service that allows people to communicate by typing messages to each other in real time.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Online chat is any direct text-, audio- or video-based (webcams), one-on-one or one-to-many (group) chat, using tools such as instant messengers, Internet Relay Chat (IRC), talkers and possibly MUDs or other online games. Online chat includes web-based applications that allow communication – often directly addressed, but anonymous between users in a multi-user environment. Web conferencing is a more specific online service that is often sold as a service, hosted on a web server controlled by the vendor.",
+     "sourceTitle": "Wikipedia - Chat room",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Online_chat"
     },
     {
      "category": "Computer",
      "term": "computer monitor",
-     "definition": "a display screen used to display information (text, image, video, etc.) processed by a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer monitor is an output device that displays information in pictorial or textual form. A discrete monitor comprises a visual display, support electronics, power supply, housing, electrical connectors, and external user controls.",
+     "sourceTitle": "Wikipedia - Computer monitor",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_monitor"
     },
     {
      "category": "Computer",
@@ -403,9 +403,9 @@
     {
      "category": "Computer",
      "term": "computer virus",
-     "definition": "a specific type of malware that is designed to replicate (copy) and spread from one computer to another.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer virus is a type of malware that, when executed, replicates itself by modifying other computer programs and inserting its own code into those programs. If this replication succeeds, the affected areas are then said to be \"infected\" with a computer virus, a metaphor derived from biological viruses.",
+     "sourceTitle": "Wikipedia - Computer virus",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_virus"
     },
     {
      "category": "Computer",
@@ -417,23 +417,23 @@
     {
      "category": "Computer",
      "term": "copy",
-     "definition": "make a duplicate of the selected items (text, symbol, table, image, etc.) and place it in another location.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Cut, copy, and paste are essential commands of modern human–computer interaction and user interface design. They offer an interprocess communication technique for transferring data through a computer's user interface. The cut command removes the selected data from its original position, and the copy command creates a duplicate; in both cases the selected data is kept in temporary storage called the clipboard. Clipboard data is later inserted wherever a paste command is issued. The data remains available to any application supporting the feature, thus allowing easy data transfer between applications.",
+     "sourceTitle": "Wikipedia - Cut, copy, and paste",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Cut%2C_copy%2C_and_paste"
     },
     {
      "category": "Computer",
      "term": "CPU (central processing unit)",
-     "definition": "The brain or engine of a computer, where most of the processing and operations take place.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A central processing unit (CPU), also known as a central processor, main processor, or simply processor, is the primary processor in a given computer. Its electronic circuitry executes instructions of a computer program, such as arithmetic, logic, controlling, and input/output (I/O) operations. This role contrasts with that of external components, such as main memory and I/O circuitry, and specialized coprocessors such as graphics processing units (GPUs).",
+     "sourceTitle": "Wikipedia - Central processing unit",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Central_processing_unit"
     },
     {
      "category": "Computer",
      "term": "cut",
-     "definition": "removes the selected item from its original position.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Cut, copy, and paste are essential commands of modern human–computer interaction and user interface design. They offer an interprocess communication technique for transferring data through a computer's user interface. The cut command removes the selected data from its original position, and the copy command creates a duplicate; in both cases the selected data is kept in temporary storage called the clipboard. Clipboard data is later inserted wherever a paste command is issued. The data remains available to any application supporting the feature, thus allowing easy data transfer between applications.",
+     "sourceTitle": "Wikipedia - Cut, copy, and paste",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Cut%2C_copy%2C_and_paste"
     },
     {
      "category": "Computer",
@@ -445,9 +445,9 @@
     {
      "category": "Computer",
      "term": "deleted items",
-     "definition": "an email folder that saves all emails that have been deleted.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, the trash, also known by other names such as trash bin, dustbin, wastebasket, and similar names, is a graphical user interface desktop metaphor for temporary storage for files set aside by the user for deletion, but which are not yet permanently erased. This lifts the burden from the user of having to be highly careful while selecting files for deletion, since a trash bin provides a grace period to reverse unwanted deletions.",
+     "sourceTitle": "Wikipedia - Trash (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Trash_(computing)"
     },
     {
      "category": "Computer",
@@ -459,30 +459,30 @@
     {
      "category": "Computer",
      "term": "device driver",
-     "definition": "a software program that is designed to control a particular hardware device that is attached to a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A device driver is software that operates or controls a particular type of device that is attached to a computer. A driver provides a software interface to hardware devices, enabling other software to access hardware functions without needing to know precise details about the hardware.",
+     "sourceTitle": "Wikipedia - Device driver",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Device_driver"
     },
     {
      "category": "Computer",
      "term": "disk drive",
-     "definition": "a computer device that stores and retrieves information, data, files, programs, etc., from a disk.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Disk storage is a data storage mechanism that records data onto a rotating disk using electronic, magnetic, optical, or mechanical changes to the surface layer. A disk drive is a device implementing such a mechanism.",
+     "sourceTitle": "Wikipedia - Disk drive",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Disk_storage"
     },
     {
      "category": "Computer",
      "term": "double-click",
-     "definition": "quickly click the left mouse button twice on any folder, file, or program to open it.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A double-click is the act of pressing a computer mouse button twice quickly without moving the mouse. Double-clicking allows two different actions to be associated with the same mouse button. It was developed by Tim Mott of Xerox Palo Alto Research Center. Often, single-clicking selects an object while a double-click selects the next object up in the selection hierarchy, or executes the function associated with that object.",
+     "sourceTitle": "Wikipedia - Double-click",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Double-click"
     },
     {
      "category": "Computer",
      "term": "drafts",
-     "definition": "an email folder that automatically saves unfinished emails.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Email is a ubiquitous and very widely used communication medium; in current use, an email address is often treated as a basic and necessary part of many processes in business, commerce, government, education, entertainment, and other spheres of daily life in most countries.",
+     "sourceTitle": "Wikipedia - Email",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Email"
     },
     {
      "category": "Computer",
@@ -508,93 +508,93 @@
     {
      "category": "Computer",
      "term": "external hardware devices (peripherals)",
-     "definition": "any hardware device that is located outside the computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A peripheral device, or simply peripheral, is an auxiliary hardware device that a computer uses to transfer information externally. A peripheral is a hardware component that is accessible to and controlled by a computer but is not a core component of the computer. It can communicate with a computer through wired or wireless connections. Many modern electronic devices, such as Internet-enabled digital watches, video game consoles, smartphones, and tablet computers, have interfaces for use as a peripheral.",
+     "sourceTitle": "Wikipedia - Peripheral",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Peripheral"
     },
     {
      "category": "Computer",
      "term": "file",
-     "definition": "a storage unit on a computer that stores information, data, etc. (such as a document, an image, etc.).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer file is a named collection of data treated as a unit by the system that manages it. Today, this system is called a file system. Many older computer systems lacked a distinct file system per se, yet a management feature is required in order to provide a file abstraction.",
+     "sourceTitle": "Wikipedia - Computer file",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_file"
     },
     {
      "category": "Computer",
      "term": "filename",
-     "definition": "a unique name given to a file to identify it.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A filename is used to uniquely identify a computer file in a file system. Different file systems impose different restrictions on filename lengths. A filename may (depending on the file system) include a base name and an extension that may indicate the format of the file (for example .txt for plain text or .pdf for Portable Document Format).",
+     "sourceTitle": "Wikipedia - Filename",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Filename"
     },
     {
      "category": "Computer",
      "term": "files hierarchy",
-     "definition": "a file system that organizes folders and files in a top-to-bottom structure.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, a directory is a file system cataloging structure that contains references to other computer files, and possibly other directories. On many computers, directories are known as folders or drawers, analogous to a workbench or the traditional office filing cabinet. The name derives from books like a telephone directory that lists the phone numbers of all the people living in a certain area.",
+     "sourceTitle": "Wikipedia - Directory (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Directory_(computing)"
     },
     {
      "category": "Computer",
      "term": "firewall",
-     "definition": "a network security device designed to prevent unauthorized access to or from a network.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, a firewall is a network security system that monitors and controls incoming and outgoing network traffic based on configurable security rules. A firewall typically establishes a barrier between a trusted network and an untrusted network, such as the Internet or between several VLANs. Firewalls can be categorized as network-based or host-based.",
+     "sourceTitle": "Wikipedia - Firewall (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Firewall_(computing)"
     },
     {
      "category": "Computer",
      "term": "folder (or directory)",
-     "definition": "a virtual storage space used to store and organize computer files.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, a directory is a file system cataloging structure that contains references to other computer files, and possibly other directories. On many computers, directories are known as folders or drawers, analogous to a workbench or the traditional office filing cabinet. The name derives from books like a telephone directory that lists the phone numbers of all the people living in a certain area.",
+     "sourceTitle": "Wikipedia - Directory (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Directory_(computing)"
     },
     {
      "category": "Computer",
      "term": "footer",
-     "definition": "a section of information that appears at the bottom margin of each page of a document.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typography and word processing, the page footer (or simply footer) of a printed page is a section located under the main text, or body. It is typically used as the space for the page number. In the earliest printed books it also contained the first words of the next page; in this case they preferred to place the page number in the page header, in the top margin. Because of the lack of a set standard, in modern times the header and footer are sometimes interchangeable.",
+     "sourceTitle": "Wikipedia - Page footer",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Page_footer"
     },
     {
      "category": "Computer",
      "term": "formatting",
-     "definition": "the appearance of a document. It is the shape, size, form, style, typeface, general arrangement etc. of a document.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, formatted text, styled text, or rich text, as opposed to plain text, is digital text which has styling information beyond the minimum of semantic elements: colours, styles (boldface, italic), sizes, and special features in HTML (such as hyperlinks).",
+     "sourceTitle": "Wikipedia - Formatted text",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Formatted_text"
     },
     {
      "category": "Computer",
      "term": "FTP (File Transfer Protocol)",
-     "definition": "a set of rules (a protocol) for transferring files between computers over the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "The File Transfer Protocol (FTP) is a standard communication protocol used for the transfer of computer files from a server to a client over a computer network. FTP is built on a client–server model architecture using separate control and data connections between the client and the server. FTP users may authenticate themselves with a plain-text sign-in protocol, normally in the form of a username and password, but can connect anonymously if the server is configured to allow it.",
+     "sourceTitle": "Wikipedia - File Transfer Protocol",
+     "sourceUrl": "https://en.wikipedia.org/wiki/File_Transfer_Protocol"
     },
     {
      "category": "Computer",
      "term": "hacker",
-     "definition": "a person who can gain unauthorized access to (break into) a computer or a network to commit crimes.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A hacker is most commonly a person who seeks unauthorized access to a computer system or network. The word is also used for a skilled programmer or computer enthusiast. In computer security, it may describe an intruder or an authorized specialist who tests systems and reports vulnerabilities. Programmer and free software communities apply the term to people who explore programmable systems, modify software, or find ways around technical limits. Its meaning depends on context, and communities disagree over who may claim it.",
+     "sourceTitle": "Wikipedia - Hacker",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Hacker"
     },
     {
      "category": "Computer",
      "term": "hard disk drive",
-     "definition": "the main data storage device in a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A hard disk drive (HDD), hard disk, hard drive, or fixed disk is an electro-mechanical computer data storage device that stores and retrieves digital data using magnetic storage with one or more rigid rapidly rotating platters coated with magnetic material. The platters are paired with magnetic heads, usually arranged on a moving actuator arm, which read and write data to the platter surfaces. Data is accessed in a random-access manner, meaning that individual blocks of data can be stored and retrieved in any order. HDDs are a type of non-volatile storage, retaining stored data when powered off.",
+     "sourceTitle": "Wikipedia - Hard disk drive",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Hard_disk_drive"
     },
     {
      "category": "Computer",
      "term": "hardware",
-     "definition": "any physical device or equipment used in or with a computer system (anything you can see and touch).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Computer hardware, commonly shortened to hardware, includes the physical parts of a computer, such as the central processing unit (CPU), random-access memory (RAM), motherboard, computer data storage, graphics card, sound card, and computer case. It includes external devices such as a monitor, mouse, keyboard, and speakers. By contrast, software is a set of written instructions that can be stored and run by hardware. Hardware derived its name from the fact that it is hard or rigid with respect to changes, whereas software is soft because it is easy to change.",
+     "sourceTitle": "Wikipedia - Computer hardware",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_hardware"
     },
     {
      "category": "Computer",
      "term": "header",
-     "definition": "a section of information that appears at the top margin of each page of a document.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typography and word processing, a page header is text that is separated from the body text and appears at the top of a printed page. Word-processing programs usually allow for the configuration of page headers, which are typically identical throughout a work except in aspects such as page numbers.",
+     "sourceTitle": "Wikipedia - Page header",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Page_header"
     },
     {
      "category": "Computer",
@@ -613,30 +613,30 @@
     {
      "category": "Computer",
      "term": "horizontal scrolling",
-     "definition": "sliding content left or right on a computer screen using a horizontal scroll bar.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computer displays, filmmaking, television production, video games and other kinetic displays, scrolling is sliding text, images or video across a monitor or display, vertically or horizontally. \"Scrolling,\" as such, does not change the layout of the text or pictures but moves (pans or tilts) the user's view across what is apparently a larger image that is not wholly seen. A common television and movie special effect is to scroll credits, while leaving the background stationary.",
+     "sourceTitle": "Wikipedia - Scrolling",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Scrolling"
     },
     {
      "category": "Computer",
      "term": "HTTP",
-     "definition": "short for Hypertext Transfer Protocol. A set of rules (a protocol) for transferring and accessing data using the web.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "HTTP (Hypertext Transfer Protocol) is an application layer protocol in the Internet protocol suite for distributed, collaborative, hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web, where hypertext documents include hyperlinks to other resources that the user can easily access, for example by a mouse click or by tapping the screen in a web browser. HTTP is a request–response protocol in the client–server model.",
+     "sourceTitle": "Wikipedia - HTTP",
+     "sourceUrl": "https://en.wikipedia.org/wiki/HTTP"
     },
     {
      "category": "Computer",
      "term": "inbox",
-     "definition": "an email folder where incoming emails are received and stored.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A mailbox (also electronic mailbox, email box, email mailbox, e-mailbox) is the destination to which electronic mail messages are delivered. It is the equivalent of a letter box in the postal system.",
+     "sourceTitle": "Wikipedia - Email box",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Email_box"
     },
     {
      "category": "Computer",
      "term": "input device",
-     "definition": "a piece of hardware device which is used to enter information to a computer for processing.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, an input device is a piece of equipment used to enter data and control signals to an information processing system, such as a computer or information appliance. Examples of input devices include keyboards, computer mice, scanners, cameras, joysticks, and microphones. - Modality of output (e.g., mechanical motion, audio, visual, etc.)",
+     "sourceTitle": "Wikipedia - Input device",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Input_device"
     },
     {
      "category": "Computer",
@@ -648,30 +648,30 @@
     {
      "category": "Computer",
      "term": "internal hardware devices (or internal hardware components)",
-     "definition": "any piece of hardware device that is located inside the computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Computer hardware, commonly shortened to hardware, includes the physical parts of a computer, such as the central processing unit (CPU), random-access memory (RAM), motherboard, computer data storage, graphics card, sound card, and computer case. It includes external devices such as a monitor, mouse, keyboard, and speakers. By contrast, software is a set of written instructions that can be stored and run by hardware. Hardware derived its name from the fact that it is hard or rigid with respect to changes, whereas software is soft because it is easy to change.",
+     "sourceTitle": "Wikipedia - Computer hardware",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_hardware"
     },
     {
      "category": "Computer",
      "term": "Internet",
-     "definition": "a globally connected massive computer network system.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "The Internet is the global system of interconnected computer networks that uses the Internet protocol suite (TCP/IP) to communicate between networks and devices. It is a network of networks that comprises private, public, academic, business, and government networks of local to global scope, linked by electronic, wireless, and optical networking technologies. The Internet carries a vast range of information services and resources, such as the interlinked hypertext documents and applications of the World Wide Web (WWW), electronic mail, discussion groups, internet telephony, streaming media and file sharing.",
+     "sourceTitle": "Wikipedia - Internet",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Internet"
     },
     {
      "category": "Computer",
      "term": "IP (Internet Protocol)",
-     "definition": "a set of rules (a protocol) for sending data from one computer to another on the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "The Internet Protocol (IP) is the network layer communications protocol in the Internet protocol suite for relaying datagrams across network boundaries. Its routing function enables internetworking, and essentially establishes the Internet. IP has the task of delivering packets from the source host to the destination host solely based on the IP addresses in the packet headers. For this purpose, IP defines packet structures that encapsulate the data to be delivered. It also defines addressing methods that are used to label the datagram with source and destination information.",
+     "sourceTitle": "Wikipedia - Internet Protocol",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Internet_Protocol"
     },
     {
      "category": "Computer",
      "term": "ISP (Internet service provider)",
-     "definition": "a company that provides Internet service to customers.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "An Internet service provider (ISP) is an organization that provides a myriad of services related to accessing, using, managing, or participating in the Internet. ISPs can be organized in various forms, such as commercial, community-owned, non-profit, or otherwise privately owned.",
+     "sourceTitle": "Wikipedia - Internet service provider",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Internet_service_provider"
     },
     {
      "category": "Computer",
@@ -690,23 +690,23 @@
     {
      "category": "Computer",
      "term": "justify (full justification)",
-     "definition": "align text along the both left and right sides.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typesetting and page layout, alignment or range is the setting of text flow or image placement relative to a page, column (measure), table cell, or tab.",
+     "sourceTitle": "Wikipedia - Justification (typesetting)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Typographic_alignment"
     },
     {
      "category": "Computer",
      "term": "keyboard",
-     "definition": "an input device that allows a user to enter characters (letters, numbers, symbols, etc.) and commands into a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer keyboard is a built-in or peripheral input device modeled after the typewriter keyboard which uses an arrangement of buttons or keys to act as mechanical levers or electronic switches. Replacing early punched cards and paper tape technology, interaction via teleprinter-style keyboards have been the main input method for computers since the 1970s, supplemented by the computer mouse since the 1980s, and the touchscreen since the 2000s. Common designs follow a variety of standard keyboard layouts.",
+     "sourceTitle": "Wikipedia - Computer keyboard",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_keyboard"
     },
     {
      "category": "Computer",
      "term": "keyboarding skills",
-     "definition": "the ability to input information through a keyboard smoothly while typing.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Touch typing is a style of typing. Although the phrase refers to typing without using the sense of sight to find the keys—specifically, a touch typist will know their location on the keyboard through muscle memory—the term is often used to refer to a specific form of touch typing that involves placing the eight fingers in a horizontal row along the middle of the keyboard and having them reach for specific other keys. Both two-handed touch typing and one-handed touch typing are possible.",
+     "sourceTitle": "Wikipedia - Touch typing",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Touch_typing"
     },
     {
      "category": "Computer",
@@ -725,16 +725,16 @@
     {
      "category": "Computer",
      "term": "left-justification (flush left)",
-     "definition": "align text along the left side (ragged on the right).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typesetting and page layout, alignment or range is the setting of text flow or image placement relative to a page, column (measure), table cell, or tab.",
+     "sourceTitle": "Wikipedia - Typographic alignment",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Typographic_alignment"
     },
     {
      "category": "Computer",
      "term": "line spacing",
-     "definition": "the space between lines of text in a paragraph / document.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typography, leading (/ˈ lɛ dɪŋ/ LED-ing) is the space between adjacent lines of type; the exact definition varies. In hand typesetting, leading is the thin strips of lead (or aluminium) that were inserted between lines of type in the composing stick to increase the vertical distance between them. The thickness of the strip is called leading and is equal to the difference between the size of the type and the distance from one baseline to the next. For instance, given a type size of 10 points and a distance between baselines of 12 points, the leading would be 2 points.",
+     "sourceTitle": "Wikipedia - Leading",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Leading"
     },
     {
      "category": "Computer",
@@ -746,9 +746,9 @@
     {
      "category": "Computer",
      "term": "Mac",
-     "definition": "a type of personal computer made by Apple Inc. Short for Macintosh.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Mac is a brand of personal computers designed and marketed by Apple since 1984. The name is short for Macintosh (its official name until 1999), a reference to the McIntosh apple. As of 2026, the product lineup includes the MacBook Neo, MacBook Air and MacBook Pro laptops, and the iMac, Mac Mini and Mac Studio desktops. Macs are currently sold with Apple's Unix-based macOS operating system, which is not licensed to other manufacturers and exclusively bundled with Mac computers.",
+     "sourceTitle": "Wikipedia - Mac (computer)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Mac_%28computer%29"
     },
     {
      "category": "Computer",
@@ -760,37 +760,37 @@
     {
      "category": "Computer",
      "term": "magnetic core",
-     "definition": "uses arrays of small rings of magnetized material called cores to store information.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, magnetic-core memory is a form of random-access memory. It predominated for roughly 20 years between 1955 and 1975, and is often just called core memory, or, informally, core. Core memory uses toroids (rings) of a hard magnetic material (usually a semi-hard ferrite). Each core stores one bit of information. At least two wires pass through each core, forming a two-dimensional X-Y-wired array of cores.",
+     "sourceTitle": "Wikipedia - Magnetic-core memory",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Magnetic-core_memory"
     },
     {
      "category": "Computer",
      "term": "magnetic drum",
-     "definition": "a cylinder coated with magnetic material, on which data and programs can be stored.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Drum memory was a magnetic data storage device invented by Gustav Tauschek in 1932 in Austria. Drums were widely used in the 1950s and into the 1960s as computer memory.",
+     "sourceTitle": "Wikipedia - Drum memory",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Drum_memory"
     },
     {
      "category": "Computer",
      "term": "mainframe computer",
-     "definition": "a high-performance computer used for large information processing jobs.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A mainframe computer, informally called a mainframe, maxicomputer, or big iron, is a computer used primarily by large organizations for critical applications like bulk data processing for tasks such as censuses, industry and consumer statistics, enterprise resource planning, and large-scale transaction processing.",
+     "sourceTitle": "Wikipedia - Mainframe computer",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Mainframe_computer"
     },
     {
      "category": "Computer",
      "term": "malware",
-     "definition": "a software that is designed to damage, disrupt, or infect computers.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Malware (a portmanteau of malicious software) is any software intentionally designed to cause disruption or destruction to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or interfere with the user's computer security and privacy without their knowledge. Researchers tend to classify malware into one or more sub-types (i.e. computer viruses, worms, Trojan horses, logic bombs, ransomware, spyware, adware, rogue software, wipers and keyloggers).",
+     "sourceTitle": "Wikipedia - Malware",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Malware"
     },
     {
      "category": "Computer",
      "term": "memory",
-     "definition": "a physical device that is used to store data, information, and programs in a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Computer memory stores information, such as data and programs, for immediate use in the computer; instructions fetched by the computer, and data fetched and stored by those instructions, are located in computer memory. The terms memory, main memory, and primary storage are also used for computer memory.",
+     "sourceTitle": "Wikipedia - Computer memory",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_memory"
     },
     {
      "category": "Computer",
@@ -816,30 +816,30 @@
     {
      "category": "Computer",
      "term": "motherboard",
-     "definition": "the main circuit board of a computer; also known as the mainboard.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A motherboard, also known as a mainboard, system board, logic board, and informally mobo, is the main printed circuit board (PCB) in general-purpose computers and other expandable systems. It holds and allows communication between many of the crucial electronic components of a system, such as the central processing unit (CPU) and memory, and provides connectors for other peripherals.",
+     "sourceTitle": "Wikipedia - Motherboard",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Motherboard"
     },
     {
      "category": "Computer",
      "term": "mouse",
-     "definition": "a hand-held pointing device that can control the position of a cursor on a display screen.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer mouse is a hand-held pointing device that detects two-dimensional motion relative to a surface. This motion is typically translated into the motion of the pointer on a display, which allows a smooth control of the graphical user interface of a computer.",
+     "sourceTitle": "Wikipedia - Computer mouse",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_mouse"
     },
     {
      "category": "Computer",
      "term": "moving",
-     "definition": "move the original files or folder from one place to another (change the destination).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Cut, copy, and paste are essential commands of modern human–computer interaction and user interface design. They offer an interprocess communication technique for transferring data through a computer's user interface. The cut command removes the selected data from its original position, and the copy command creates a duplicate; in both cases the selected data is kept in temporary storage called the clipboard. Clipboard data is later inserted wherever a paste command is issued. The data remains available to any application supporting the feature, thus allowing easy data transfer between applications.",
+     "sourceTitle": "Wikipedia - Cut, copy, and paste",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Cut%2C_copy%2C_and_paste"
     },
     {
      "category": "Computer",
      "term": "online communication",
-     "definition": "the sharing of information or communication over a computer network.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Computer-mediated communication (CMC) is human communication that occurs through the use of two or more electronic devices. Computer-mediated communication is relevant to linguistics as it shows how digital environments influence grammar and pragmatic meaning. While the term has traditionally referred to those communications that occur via computer-mediated formats, it has also been applied to other forms of text-based interaction such as text messaging. Research on CMC focuses largely on the social effects of different computer-supported communication technologies.",
+     "sourceTitle": "Wikipedia - Computer-mediated communication",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer-mediated_communication"
     },
     {
      "category": "Computer",
@@ -851,16 +851,16 @@
     {
      "category": "Computer",
      "term": "output device",
-     "definition": "a piece of hardware device that receives information from a computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "An output device is any piece of computer hardware that converts information or data into a human-perceptible form or, historically, into a physical machine-readable form for use with other non-computerized equipment. It can be text, graphics, tactile, audio, or video. Examples include monitors, printers and sound cards.",
+     "sourceTitle": "Wikipedia - Output device",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Output_device"
     },
     {
      "category": "Computer",
      "term": "page break",
-     "definition": "a page break marks the end of a page that indicates where the printer will start a new page.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A page break is a marker in an electronic document that tells the document interpreter the content which follows is part of a new page. A page break causes a form feed to be sent to the printer during spooling of the document to the printer. It is one of the elements that contributes to pagination.",
+     "sourceTitle": "Wikipedia - Page break",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Page_break"
     },
     {
      "category": "Computer",
@@ -872,23 +872,23 @@
     {
      "category": "Computer",
      "term": "page numbers",
-     "definition": "Word supports automatically adding page numbers in a multi-page document.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Page numbering is the process of applying a sequence of numbers (or letters, or Roman numerals) to the pages of a book or other document. The number itself, which may appear in various places on the page, can be referred to as a page number or as a folio. Like other numbering schemes such as chapter numbering, page numbers allow the citation of a particular page of the numbered document and facilitates to the reader to find specific parts of the document and to know the size of the complete text (by checking the number of the last page).",
+     "sourceTitle": "Wikipedia - Page numbering",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Page_numbering"
     },
     {
      "category": "Computer",
      "term": "personal computer",
-     "definition": "a small computer designed for use by a single user at a time. Also known as a PC or a microcomputer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A personal computer (PC), or simply computer, is a computer designed for personal use. It is typically used for tasks such as word processing, web browsing, email, file management, spreadsheets, and video calling. Personal computers are meant to be operated directly by an end user, rather than by a computer expert, administrator, company or technician. Unlike large, costly minicomputers and mainframes, time-sharing by many people at the same time is not used with personal computers. The term \" home computer\" has also been used, primarily in the late 1970s and 1980s.",
+     "sourceTitle": "Wikipedia - Personal computer",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Personal_computer"
     },
     {
      "category": "Computer",
      "term": "phishing",
-     "definition": "when an Internet scammer uses deceptive emails or websites to try to obtain valuable personal information from people.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Phishing is a form of social engineering and a scam in which attackers deceive people into revealing sensitive information or installing malware. Phishing can be used for credential theft, session hijacking, malware delivery, or command execution. Some attacks transparently relay authentication to a legitimate site, allowing the attacker to capture credentials and authenticated sessions. Phishing is a common initial-access method, and Large language models can automate personalized phishing at low cost.",
+     "sourceTitle": "Wikipedia - Phishing",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Phishing"
     },
     {
      "category": "Computer",
@@ -900,9 +900,9 @@
     {
      "category": "Computer",
      "term": "pointing device",
-     "definition": "a device used to control the movement of the pointer (cursor) on the screen.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A pointing device is a human interface device that allows a user to input spatial data to a computer. Graphical user interfaces (GUI) and CAD systems allow the user to control and provide data to the computer using physical gestures by moving a hand-held mouse or similar device across the surface of the physical desktop and activating switches on the mouse. Movements of the pointing device are echoed on the screen by movements of the pointer and other visual changes. Common gestures are point and click and drag and drop.",
+     "sourceTitle": "Wikipedia - Pointing device",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Pointing_device"
     },
     {
      "category": "Computer",
@@ -914,9 +914,9 @@
     {
      "category": "Computer",
      "term": "printer",
-     "definition": "an output device linked to a computer that transfers the information (text, images, etc.) to paper.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A printer is a peripheral machine which makes a durable representation of graphics or text, usually on paper. While most output is human-readable, bar code printers are an example of an expanded use for printers. Different types of printers include 3D printers, inkjet printers, laser printers, and thermal printers.",
+     "sourceTitle": "Wikipedia - Printer (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Printer_(computing)"
     },
     {
      "category": "Computer",
@@ -928,9 +928,9 @@
     {
      "category": "Computer",
      "term": "reboot",
-     "definition": "to shut down and restart a computer, allowing its operating system and programs to be reloaded.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Reboots can be either a cold reboot (alternatively known as a hard reboot) in which the power to the system is physically turned off and back on again (causing an initial boot of the machine); or a warm reboot (or soft reboot) in which the system restarts while still powered up. The term restart (as a system command) is used to refer to a reboot when the operating system closes all programs and finalizes all pending input and output operations before initiating a soft reboot.",
+     "sourceTitle": "Wikipedia - Reboot",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Reboot"
     },
     {
      "category": "Computer",
@@ -949,9 +949,9 @@
     {
      "category": "Computer",
      "term": "right-justification (flush right)",
-     "definition": "align text along the right side (ragged on the left).",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typesetting and page layout, alignment or range is the setting of text flow or image placement relative to a page, column (measure), table cell, or tab.",
+     "sourceTitle": "Wikipedia - Typographic alignment",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Typographic_alignment"
     },
     {
      "category": "Computer",
@@ -963,9 +963,9 @@
     {
      "category": "Computer",
      "term": "router",
-     "definition": "a device that transfers data between computer networks to provide access to the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A router is a computer and networking device that forwards data packets between computer networks, including internetworks such as the global Internet.",
+     "sourceTitle": "Wikipedia - Router (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Router_(computing)"
     },
     {
      "category": "Computer",
@@ -984,9 +984,9 @@
     {
      "category": "Computer",
      "term": "search engine",
-     "definition": "a web-based tool that is designed to search the content of web pages and find particular information on the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "The term search engine refers to a search application that provides links to web pages and other relevant information on the Web in response to a user's query. Users submit their queries through a web browser or a mobile app, and the results page generally displays a collection of hyperlinks together with brief descriptions and relevant images. Users also have the option of limiting a search to specific types of results, such as images, videos, or news.",
+     "sourceTitle": "Wikipedia - Search engine",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Search_engine"
     },
     {
      "category": "Computer",
@@ -998,30 +998,30 @@
     {
      "category": "Computer",
      "term": "sent",
-     "definition": "an email folder that saves copies of emails that you have sent.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Email is a ubiquitous and very widely used communication medium; in current use, an email address is often treated as a basic and necessary part of many processes in business, commerce, government, education, entertainment, and other spheres of daily life in most countries.",
+     "sourceTitle": "Wikipedia - Email",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Email"
     },
     {
      "category": "Computer",
      "term": "server",
-     "definition": "a central computer that provides information to other computers.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A server is a computer or software system that provides data, resources, or services to other computers called \"clients\" on a computer network. This architecture is called the client–server model. Servers can provide various functionalities, often called \"services\", such as sharing data or resources among multiple clients or performing computations for a client. A single server can serve multiple clients, and a single client can use multiple servers. A client process may run on the same device or may connect over a network to a server on a different device.",
+     "sourceTitle": "Wikipedia - Server (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Server_(computing)"
     },
     {
      "category": "Computer",
      "term": "smartphone",
-     "definition": "a mobile phone that performs many of the functions of a personal computer.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A smartphone is a mobile device that combines the functionality of a traditional mobile phone with advanced computing capabilities. It typically has a touchscreen interface, allowing users to access a wide range of applications and services, such as web browsing, email, and social media, as well as multimedia playback and streaming. Smartphones have built-in cameras, GPS navigation, and support for various communication methods, including voice calls, text messaging, and internet-based messaging apps.",
+     "sourceTitle": "Wikipedia - Smartphone",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Smartphone"
     },
     {
      "category": "Computer",
      "term": "social networking",
-     "definition": "the use of websites and other Internet services to communicate with other people.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A social networking service or social networking site, abbreviated as SNS, is a type of online social media platform which people use to build social networks or social relationships with other people who share similar personal or career content, interests, activities, backgrounds or real-life connections.",
+     "sourceTitle": "Wikipedia - Social networking service",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Social_networking_service"
     },
     {
      "category": "Computer",
@@ -1047,9 +1047,9 @@
     {
      "category": "Computer",
      "term": "supercomputer",
-     "definition": "a powerful computer that can process large amounts of data and do a great amount of computation very quickly.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A supercomputer is a type of computer with a high level of performance as compared to a general-purpose computer. Supercomputers play an important role in the field of computational science, and are used for a wide range of computationally intensive tasks in various fields including quantum mechanics, weather forecasting, climate research, oil and gas exploration, molecular modeling, and physical simulations. They have been essential in the field of cryptanalysis.",
+     "sourceTitle": "Wikipedia - Supercomputer",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Supercomputer"
     },
     {
      "category": "Computer",
@@ -1061,9 +1061,9 @@
     {
      "category": "Computer",
      "term": "system unit",
-     "definition": "the main part of a desktop computer (the case) that contains all of the main electronic components.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer case, also known as a computer chassis, is the enclosure that contains most of the hardware of a personal computer. The components housed inside the case are referred as the internal hardware, while hardware outside the case are known as peripherals.",
+     "sourceTitle": "Wikipedia - Computer case",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_case"
     },
     {
      "category": "Computer",
@@ -1075,44 +1075,44 @@
     {
      "category": "Computer",
      "term": "tab stop",
-     "definition": "a location where the cursor (insertion point) would stop when the Tab key is pressed.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A tab stop or tabulator position on a typewriter is a location where the carriage movement is halted by an adjustable end stop. Tab stops are set manually, and pressing the tab key causes the carriage to go to the next tab stop. In text editors on a computer, the same concept is implemented simplistically with automatic, fixed tab stops.",
+     "sourceTitle": "Wikipedia - Tab stop",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Tab_stop"
     },
     {
      "category": "Computer",
      "term": "table",
-     "definition": "information arranged in a condensed form of columns and rows. It is a more effective way to present information.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A table is a two-dimensional arrangement of information or data, typically in rows and columns, or possibly in a more complex structure. Tables are widely used in communication, research, and data analysis. Tables appear in print media, handwritten notes, computer software, architectural ornamentation, traffic signs, and many other places. The precise conventions and terminology for describing tables vary depending on the context. Further, tables differ significantly in variety, structure, flexibility, notation, representation and use. Information or data conveyed in table form is said to be in tabular format.",
+     "sourceTitle": "Wikipedia - Table (format)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Table_(format)"
     },
     {
      "category": "Computer",
      "term": "tablet",
-     "definition": "a wireless touchscreen PC that is slightly smaller and weighs less than the average laptop.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A tablet computer, commonly shortened to tablet or simply tab, is a mobile device, typically with a mobile operating system and touchscreen display processing circuitry, and a rechargeable battery in a single, thin and flat package. Tablets, being computers, have similar capabilities, but lack some input/output (I/O) abilities that others have.",
+     "sourceTitle": "Wikipedia - Tablet computer",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Tablet_computer"
     },
     {
      "category": "Computer",
      "term": "text justification / alignment",
-     "definition": "refers to how the left and right edges of a paragraph align on a page.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In typesetting and page layout, alignment or range is the setting of text flow or image placement relative to a page, column (measure), table cell, or tab.",
+     "sourceTitle": "Wikipedia - Typographic alignment",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Typographic_alignment"
     },
     {
      "category": "Computer",
      "term": "touch typing",
-     "definition": "a method of typing (with all the available fingers) without looking at the keyboard.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Touch typing is a style of typing. Although the phrase refers to typing without using the sense of sight to find the keys—specifically, a touch typist will know their location on the keyboard through muscle memory—the term is often used to refer to a specific form of touch typing that involves placing the eight fingers in a horizontal row along the middle of the keyboard and having them reach for specific other keys. Both two-handed touch typing and one-handed touch typing are possible.",
+     "sourceTitle": "Wikipedia - Touch typing",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Touch_typing"
     },
     {
      "category": "Computer",
      "term": "trackpad",
-     "definition": "a small, flat surface on a laptop or other computer that does the same things as a mouse.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A touchpad or trackpad is a type of pointing device. Its largest component is a tactile sensor: an electronic device with a flat surface that detects the position and motion of a user's fingers, and translates them into 2D motion to control a pointer in a graphical user interface. Touchpads are common on laptop computers, contrasted with desktop computers, with which mice are more prevalent. Trackpads are sometimes used with desktop setups where desk space is scarce. Wireless touchpads are also available as detached accessories.",
+     "sourceTitle": "Wikipedia - Touchpad",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Touchpad"
     },
     {
      "category": "Computer",
@@ -1124,23 +1124,23 @@
     {
      "category": "Computer",
      "term": "Trojan horse",
-     "definition": "(or Trojan) a type of malware that looks harmless but can cause harm to a computer system.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computing, a trojan horse or trojan is a kind of malware that misleads users as to its true intent by disguising itself as a normal program. Trojans are generally spread by some form of social engineering. Although their payload can be anything, many modern forms act as a backdoor, contacting a controller who can then have unauthorized access to the affected device. Ransomware attacks are often carried out using a trojan. Unlike computer viruses and worms, trojans generally do not attempt to inject themselves into other files or otherwise propagate themselves.",
+     "sourceTitle": "Wikipedia - Trojan horse (computing)",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Trojan_horse_(computing)"
     },
     {
      "category": "Computer",
      "term": "underline",
-     "definition": "add a line underneath the text, in order to show its importance and draw attention to the text.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "An underscore or underline is a line drawn under a segment of text. In proofreading, underscoring is a convention that says \"set this text in italic type\", traditionally used on manuscript or typescript as an instruction to the printer.",
+     "sourceTitle": "Wikipedia - Underline",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Underline"
     },
     {
      "category": "Computer",
      "term": "URL",
-     "definition": "Short for Uniform Resource Locator. A web address of a specific web page or file on the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A uniform resource locator (URL), colloquially known as a web address, is a reference to a resource on the World Wide Web. A URL specifies the location of a resource on a computer network and a mechanism for retrieving it. A URL is a specific type of Uniform Resource Identifier (URI), although many people use the two terms interchangeably. A URL is most commonly used to reference a web page (HTTP/ HTTPS) but is also used for file transfer (FTP), email (mailto), database access (JDBC), and many other applications. Most web browsers display the URL of a web page above the page in an address bar.",
+     "sourceTitle": "Wikipedia - URL",
+     "sourceUrl": "https://en.wikipedia.org/wiki/URL"
     },
     {
      "category": "Computer",
@@ -1173,9 +1173,9 @@
     {
      "category": "Computer",
      "term": "vertical scrolling",
-     "definition": "sliding content up or down on a computer screen using a vertical scroll bar.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "In computer displays, filmmaking, television production, video games and other kinetic displays, scrolling is sliding text, images or video across a monitor or display, vertically or horizontally. \"Scrolling,\" as such, does not change the layout of the text or pictures but moves (pans or tilts) the user's view across what is apparently a larger image that is not wholly seen. A common television and movie special effect is to scroll credits, while leaving the background stationary.",
+     "sourceTitle": "Wikipedia - Scrolling",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Scrolling"
     },
     {
      "category": "Computer",
@@ -1187,23 +1187,23 @@
     {
      "category": "Computer",
      "term": "VoIP",
-     "definition": "a telephone connection over the Internet.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "Voice over Internet Protocol (VoIP), also known as IP telephony, is a set of technologies used primarily for voice communication sessions over Internet Protocol(IP) networks, such as the Internet. VoIP enables voice calls to be transmitted as data packets, facilitating various methods of voice communication, including traditional applications like Skype, Microsoft Teams, Google Voice, and VoIP phones.",
+     "sourceTitle": "Wikipedia - Voice over IP",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Voice_over_IP"
     },
     {
      "category": "Computer",
      "term": "word processing",
-     "definition": "the use of a program (software application) running on a computer to create, edit, format, and store documents.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A word processor (WP) is a device or computer program that provides for input, editing, formatting, and output of text, often with some additional features. Early word processors were stand-alone devices dedicated to the function, but current word processors are primarily word processor programs running on general purpose computers, including smartphones, tablets, laptops, and desktop computers, with dedicated hardware word processors being confined to a small niche market. The functions of a word processor program are typically between those of a simple text editor and a desktop publishing program.",
+     "sourceTitle": "Wikipedia - Word processing",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Word_processing"
     },
     {
      "category": "Computer",
      "term": "word processor",
-     "definition": "a program that allows users to create, save, edit, format, print, and retrieve documents.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A word processor (WP) is a device or computer program that provides for input, editing, formatting, and output of text, often with some additional features.",
+     "sourceTitle": "Wikipedia - Word processor",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Word_processor"
     },
     {
      "category": "Computer",
@@ -1215,9 +1215,9 @@
     {
      "category": "Computer",
      "term": "worm",
-     "definition": "a type of virus designed to quickly self-replicate and spread copies of itself from one computer to another.",
-     "sourceTitle": "Glossary - Key Concepts of Computer Studies",
-     "sourceUrl": "https://opentextbc.ca/computerstudies/back-matter/glossary/"
+     "definition": "A computer worm is a standalone malware computer program that replicates itself in order to spread to other computers. It often uses a computer network to spread itself, relying on security failures on the target computer to access it. It will use this machine as a host to scan and infect other computers. When these new worm-invaded computers are controlled, the worm will continue to scan and infect other computers using these computers as hosts, and this behavior will continue.",
+     "sourceTitle": "Wikipedia - Computer worm",
+     "sourceUrl": "https://en.wikipedia.org/wiki/Computer_worm"
     }
    ]
   }
