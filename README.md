@@ -97,3 +97,22 @@ are absent, and publishes screenshots to the `emulator-shots-api29` branch.
 Native Android, single Activity, programmatic UI (no XML layouts), Java 17,
 minSdk 26, targetSdk 35. Question bank lives in `app/src/main/assets/questions.json`.
 Progress, streaks and the mistake list persist in SharedPreferences.
+
+## Command guide (v2.2 source)
+
+The separate Commands button opens 20 topics and 200 rows from the user's original
+command reference. Each row has a detail page with command-specific options,
+examples, when to use them, safety notes, and a manual/reference link. Linux
+definitions have short practical examples; the Computer definitions retain their
+existing source links. This is a learning aid, not an instruction to run dangerous
+commands unchanged on a real system. Check your distribution's manual before a
+command changes disks, users, permissions, network access or services.
+
+To regenerate the content: `python3 ci/make_command_guide.py && python3
+ci/enrich_content.py`. Review generated examples and links before release.
+
+The Android signed APK workflow uses repository secrets
+`LINUX_APP_KEYSTORE_B64` and `LINUX_APP_KEYSTORE_PASSWORD`. Never commit the
+keystore or password. Every installable update after v2.1.0 must use the same
+signer and a higher versionCode; debug CI APKs from older builds cannot update
+an installed version.
