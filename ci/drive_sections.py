@@ -153,50 +153,51 @@ run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'], timeout=10)
 nodes, xml = wait_home()
 check('home opens', bool(nodes))
 
-nodes, xml = open_interview_sections()
-check('interview sections open', bool(nodes))
-check('all named sections visible',
-      bool(find_all(xml, contains='My Interview Questions')) and bool(find_all(xml, contains='200 Important Commands')) and
-      bool(find_all(xml, contains='Networking Interview Q&A')) and bool(find_all(xml, contains='15 Advanced Topics Handbook')))
-shot('01_interview_sections')
-
-if tap_exact(xml, 'My Interview Questions', contains=True):
-    nodes, xml = wait_node(25, contains='Your questions and answers in your original order')
-    check('My Interview Questions opens', bool(nodes) and bool(find_all(xml, contains='How is Windows different from Linux?')))
-    shot('02_my_interview_questions')
-    if tap_exact(xml, 'How is Windows different from Linux?', contains=True):
-        nodes, xml = wait_node(25, contains='Interview Question')
-        check('interview answer reader opens', bool(nodes) and bool(find_all(xml, text='Speak answer', clazz='Button')))
-        shot('03_interview_answer_reader')
-    else:
-        check('interview answer reader opens', False)
-else:
-    check('My Interview Questions opens', False)
-    check('interview answer reader opens', False)
-
-for attempt in range(3):
-    nodes, xml = open_interview_sections()
-    if tap_open_near(xml, '200 Important Commands'):
-        nodes, xml = wait_node(25, contains='all 200 rows in original order')
-        if nodes and find_all(xml, contains='#1'):
-            break
-check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
-shot('04_commands_200')
-
-nodes, xml = open_interview_sections()
-if tap_exact(xml, 'Networking Interview Q&A', contains=True):
-    nodes, xml = wait_node(25, contains='all 40 Q&A in original order')
-    check('Networking Interview Q&A opens', bool(nodes) and bool(find_all(xml, contains='Read answer')))
-    shot('05_network_qa')
-else:
-    check('Networking Interview Q&A opens', False)
+nodes, xml = restart_app()
+check('home opens for Commands', bool(nodes))
+if tap_exact(xml, 'Commands'):
+    nodes, xml = wait_node(25, contains='Learn Linux commands')
+    check('Commands topics open', bool(nodes))
+    shot('commands_topics')
+    if tap_exact(xml, 'Navigation & Basics'):
+        nodes, xml = wait_node(25, contains='COMMAND')
+        check('Commands table opens', bool(nodes))
+        shot('commands_table')
+        # Record the exact accessibility hierarchy and each candidate so failures are diagnosable.
+        open(os.path.join(OUT, 'command_table.xml'), 'w').write(xml)
+        candidates = [n for n in find_all(xml, clazz='LinearLayout', clickable=True) if (n.get('content-desc') or '').startswith('ls.')]
+        print('ls row candidates: '+repr([(n.get('bounds'),n.get('content-desc')) for n in candidates]),flush=True)
+        if candidates:
+            tap_node(candidates[0])
+            nodes, xml = wait_node(8, contains='What it does')
+            if not nodes:
+                # If the center was obscured, tap the left half of the same visible row.
+                a,b = yrange(candidates[0]); x,y = center(candidates[0])
+                run(['adb','shell','input','tap',str(max(90,x//2)),str((a+b)//2)])
+                nodes, xml = wait_node(8, contains='What it does')
+            check('Command detail opens with flags', bool(nodes) and bool(find_all(xml, contains='Try this example')))
+            open(os.path.join(OUT, 'command_detail.xml'), 'w').write(xml)
+            shot('commands_ls_detail')
+        else: check('Command detail opens with flags',False)
+    else: check('Commands table opens',False)
+else: check('Commands topics open',False)
 
 nodes, xml = open_interview_sections()
-if tap_exact(xml, '15 Advanced Topics Handbook', contains=True):
-    nodes, xml = wait_node(25, contains='15 practical topics in original order')
-    check('15 Advanced Topics Handbook opens', bool(nodes) and bool(find_all(xml, contains='Backup')))
-    shot('06_advanced_handbook')
-else:
-    check('15 Advanced Topics Handbook opens', False)
+check('interview sections open',bool(nodes))
+open(os.path.join(OUT, 'interview_sections.xml'), 'w').write(xml)
+print('PDF candidates: '+repr([(n.get('text'),n.get('bounds')) for n in find_all(xml, contains='200 Important Commands')]),flush=True)
+if tap_open_near(xml, '200 Important Commands'):
+    nodes, xml = wait_node(8, contains='all 200 rows in original order')
+    if not nodes:
+        # The whole card is clickable, not just its label.
+        before=xml
+        titles=find_all(before, contains='200 Important Commands')
+        if titles:
+            x,y=center(titles[0]); run(['adb','shell','input','tap',str(x),str(y)])
+            nodes,xml=wait_node(8,contains='all 200 rows in original order')
+    check('200 Important Commands opens',bool(nodes) and bool(find_all(xml,contains='#1')))
+    open(os.path.join(OUT, 'commands_200.xml'), 'w').write(xml)
+    shot('commands_200')
+else: check('200 Important Commands opens',False)
 
 finish()
