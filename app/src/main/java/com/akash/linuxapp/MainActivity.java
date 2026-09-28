@@ -81,6 +81,8 @@ public class MainActivity extends Activity {
     static class SourceCommand {
         int n; String topic, command, example, use;
     }
+    static class GuideOption { String option, meaning, example, when; }
+    static class GuideCommand { int n; String topic, command, example, use, tip, noFlags, sourceTitle, sourceUrl; List<GuideOption> options = new ArrayList<>(); }
     static class ReaderPage {
         String label, title, body, note;
     }
@@ -91,7 +93,7 @@ public class MainActivity extends Activity {
         String title; List<FullForm> items = new ArrayList<>();
     }
     static class DefinitionItem {
-        String category, term, definition, sourceTitle, sourceUrl;
+        String category, term, definition, sourceTitle, sourceUrl, example, additionalSourceTitle, additionalSourceUrl;
     }
     static class QuizTrack {
         String title; int level = -1; Chapter computer;
@@ -117,6 +119,8 @@ public class MainActivity extends Activity {
     private final List<InterviewChapter> interviewChapters = new ArrayList<>();
     private final List<SourceQ> myQuestions = new ArrayList<>();
     private final List<SourceCommand> commands200 = new ArrayList<>();
+    private final List<GuideCommand> commandGuide = new ArrayList<>();
+    private final List<String> commandTopics = new ArrayList<>();
     private final List<SourceQ> networkSource = new ArrayList<>();
     private final List<FullFormGroup> fullForms = new ArrayList<>();
     private final List<DefinitionItem> definitions = new ArrayList<>();
@@ -366,6 +370,7 @@ public class MainActivity extends Activity {
         prefs = getSharedPreferences("linuxapp", 0);
         initSpeech();
         loadData();
+        loadCommandGuide();
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -603,6 +608,9 @@ public class MainActivity extends Activity {
                     item.definition = ij.getString("definition");
                     item.sourceTitle = ij.getString("sourceTitle");
                     item.sourceUrl = ij.getString("sourceUrl");
+                    item.example = ij.optString("example");
+                    item.additionalSourceTitle = ij.optString("additionalSourceTitle");
+                    item.additionalSourceUrl = ij.optString("additionalSourceUrl");
                     definitions.add(item);
                 }
             }
@@ -632,6 +640,33 @@ public class MainActivity extends Activity {
                 computerChapters.add(ch);
             }
         } catch(Exception ignored){ }
+    }
+
+    private void loadCommandGuide(){
+        try(InputStream in = getAssets().open("command_guide.json")){
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n;
+            while((n=in.read(buf)) != -1) bytes.write(buf,0,n);
+            JSONObject root = new JSONObject(bytes.toString("UTF-8"));
+            JSONArray topics = root.getJSONArray("topics");
+            for(int i=0;i<topics.length();i++) commandTopics.add(topics.getString(i));
+            JSONArray items = root.getJSONArray("items");
+            for(int i=0;i<items.length();i++){
+                JSONObject o=items.getJSONObject(i); GuideCommand c=new GuideCommand();
+                c.n=o.getInt("n"); c.topic=o.getString("topic"); c.command=o.getString("command");
+                c.example=o.getString("example"); c.use=o.getString("use");
+                c.tip=o.optString("tip"); c.noFlags=o.optString("no_flags");
+                c.sourceTitle=o.optString("sourceTitle"); c.sourceUrl=o.optString("sourceUrl");
+                JSONArray flags=o.getJSONArray("options");
+                for(int j=0;j<flags.length();j++){
+                    JSONObject f=flags.getJSONObject(j); GuideOption option=new GuideOption();
+                    option.option=f.getString("option"); option.meaning=f.getString("meaning");
+                    option.example=f.getString("example"); option.when=f.getString("when");
+                    c.options.add(option);
+                }
+                commandGuide.add(c);
+            }
+        }catch(Exception e){ android.util.Log.e("LinuxApp","Command guide failed to load",e); }
     }
 
     private Set<String> wrongSet(){ return new HashSet<>(prefs.getStringSet("wrong", new HashSet<String>())); }
@@ -803,6 +838,8 @@ public class MainActivity extends Activity {
         LinearLayout spacer2 = new LinearLayout(this); row2.addView(spacer2, new LinearLayout.LayoutParams(dp(10), 1));
         row2.addView(homeAction("Interview Questions", "4 named sections", R.drawable.ic_interview, ORANGE, v -> showInterviewTopics()), new LinearLayout.LayoutParams(0, -2, 1));
         col.addView(row2, margins(0, 5));
+        col.addView(actionCard("Commands", commandGuide.size() + " commands by topic, examples and flags", BLUE, "Open",
+                v -> showCommandTopics()), margins(0, 6));
         col.addView(actionCard("Definitions", definitions.size() + " sourced Linux & Computer meanings", GREEN, "Open",
                 v -> showDefinitions()), margins(0, 6));
 
@@ -863,6 +900,7 @@ public class MainActivity extends Activity {
         col.addView(topicCard("", "Linux Quiz Setup", "Beginner, Intermediate, Advanced", BLUE, "Open", v -> showQuizSetup()), margins(0, 5));
         col.addView(topicCard("", "Computer Quiz", computerQuestionCount() + " computer fundamentals questions", BLUE, "Open", v -> showComputerQuizChapters()), margins(0, 5));
         col.addView(topicCard("", "Full Forms", fullFormCount + " searchable technical abbreviations", PURPLE, "Open", v -> showFullForms()), margins(0, 5));
+        col.addView(topicCard("", "Commands", commandGuide.size() + " topic-wise examples and flags", BLUE, "Open", v -> showCommandTopics()), margins(0, 5));
         col.addView(topicCard("", "Definitions", definitions.size() + " online-sourced Linux and Computer definitions", GREEN, "Open", v -> showDefinitions()), margins(0, 5));
         col.addView(topicCard("", "Interview Questions", "Your 4 named sections plus topic-wise revision", ORANGE, "Open", v -> showInterviewTopics()), margins(0, 5));
         col.addView(topicCard("", "Daily Challenge", "10 mixed questions every day", GREEN, "Start", v -> startDaily()), margins(0, 5));
@@ -1286,6 +1324,16 @@ public class MainActivity extends Activity {
             TextView definition = text(item.definition, 15, TEXT);
             definition.setLineSpacing(0, 1.22f);
             card.addView(definition);
+            if(item.example != null && !item.example.isEmpty()){
+                TextView practice=text("Example: " + item.example, 13, GREEN);
+                practice.setPadding(0,dp(8),0,0); card.addView(practice);
+            }
+            if(item.additionalSourceUrl != null && !item.additionalSourceUrl.isEmpty()){
+                TextView extra=text("Also see: " + item.additionalSourceTitle, 11, DIM);
+                extra.setPadding(0,dp(7),0,0);
+                extra.setOnClickListener(v -> {try {startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(item.additionalSourceUrl)));} catch(Exception ignored){} });
+                card.addView(extra);
+            }
             LinearLayout buttons = new LinearLayout(this);
             buttons.setOrientation(LinearLayout.HORIZONTAL);
             buttons.setPadding(0, dp(8), 0, 0);
@@ -1389,6 +1437,91 @@ public class MainActivity extends Activity {
                     v -> showQaReader("My Interview Questions", pages, idx, ORANGE, () -> showMyQuestions())), margins(0, 5));
         }
         col.addView(listBackButton("Back to Interview Sections", v -> showInterviewTopics()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    // Separate, topic-wise command learner. The user's original 200-row PDF remains unchanged in Interview.
+    private void showCommandTopics(){
+        cancelTimer(); chrome(true); setNav(0);
+        ScrollView scroll=new ScrollView(this);
+        LinearLayout col=new LinearLayout(this); col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16),dp(6),dp(16),dp(24)); scroll.addView(col);
+        col.addView(screenTopBar("Commands", () -> showHome()));
+        col.addView(sectionHead("⌨️", "Learn Linux commands", "Choose a topic, then tap a row to learn its options, how to use them, and when.", BLUE), margins(0,7));
+        for(String topic:commandTopics){
+            int count=0; for(GuideCommand c:commandGuide) if(c.topic.equals(topic)) count++;
+            final String chosen=topic;
+            col.addView(topicCard("",topic,count+" commands  •  examples + options", BLUE,"Open", v -> showCommandTopic(chosen)), margins(0,5));
+        }
+        col.addView(listBackButton("Back to Home",v -> showHome()), margins(0,10));
+        switchScreen(scroll);
+    }
+
+    private void showCommandTopic(String topic){
+        cancelTimer(); chrome(true); setNav(0);
+        ScrollView scroll=new ScrollView(this);
+        LinearLayout col=new LinearLayout(this); col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16),dp(6),dp(16),dp(24)); scroll.addView(col);
+        col.addView(screenTopBar(topic, () -> showCommandTopics()));
+        col.addView(sectionHead("⌨️",topic,"Command | Example | Use. Tap a row for options and real-life usage.",BLUE),margins(0,7));
+        LinearLayout labels=new LinearLayout(this); labels.setOrientation(LinearLayout.HORIZONTAL);
+        labels.setPadding(dp(10),dp(7),dp(10),dp(7));
+        labels.addView(bold("COMMAND",10,BLUE),new LinearLayout.LayoutParams(0,-2,1f));
+        labels.addView(bold("EXAMPLE",10,BLUE),new LinearLayout.LayoutParams(0,-2,1.35f));
+        labels.addView(bold("USE",10,BLUE),new LinearLayout.LayoutParams(0,-2,1.25f));
+        col.addView(labels);
+        for(GuideCommand c:commandGuide){
+            if(!c.topic.equals(topic)) continue;
+            LinearLayout row=new LinearLayout(this); row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setBackground(bg(CARD,12)); row.setPadding(dp(10),dp(11),dp(10),dp(11));
+            TextView command=mono(c.command,11,BLUE); command.setTypeface(Typeface.MONOSPACE,Typeface.BOLD);
+            row.addView(command,new LinearLayout.LayoutParams(0,-2,1f));
+            TextView ex=mono(c.example,10,TEXT); ex.setPadding(dp(5),0,dp(5),0);
+            row.addView(ex,new LinearLayout.LayoutParams(0,-2,1.35f));
+            row.addView(text(c.use,10,DIM),new LinearLayout.LayoutParams(0,-2,1.25f));
+            row.setContentDescription(c.command+". "+c.use+". Tap for examples and options.");
+            row.setOnClickListener(v -> showCommandDetail(c)); press(row);
+            col.addView(row,margins(0,4));
+        }
+        col.addView(listBackButton("Back to Topics",v -> showCommandTopics()),margins(0,10));
+        switchScreen(scroll);
+    }
+
+    private void showCommandDetail(GuideCommand c){
+        cancelTimer(); chrome(true); setNav(0);
+        ScrollView scroll=new ScrollView(this);
+        LinearLayout col=new LinearLayout(this); col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16),dp(6),dp(16),dp(24)); scroll.addView(col);
+        col.addView(screenTopBar("Command details", () -> showCommandTopic(c.topic)));
+        col.addView(sectionHead("⌨️",c.command,c.topic+"  •  command #"+c.n,BLUE),margins(0,7));
+        col.addView(bold("What it does",15,TEXT),margins(0,10));
+        col.addView(text(c.use,14,DIM),margins(0,4));
+        col.addView(bold("Try this example",15,TEXT),margins(0,12));
+        LinearLayout example=new LinearLayout(this); example.setOrientation(LinearLayout.VERTICAL);
+        example.setPadding(dp(13),dp(12),dp(13),dp(12)); example.setBackground(bg(CARD,14));
+        example.addView(mono(c.example,14,GREEN)); col.addView(example,margins(0,5));
+        if(!c.tip.isEmpty()){
+            TextView warning=text("Before you run it: "+c.tip,13,ORANGE);
+            warning.setPadding(dp(12),dp(11),dp(12),dp(11)); warning.setBackground(bg(CARD,12));
+            col.addView(warning,margins(0,10));
+        }
+        col.addView(sectionHead("-", "Options and arguments", "What they mean, how to combine them, and when they help.", BLUE),margins(0,12));
+        if(c.options.isEmpty()) col.addView(text(c.noFlags,13,DIM),margins(0,5));
+        for(GuideOption o:c.options){
+            LinearLayout card=new LinearLayout(this); card.setOrientation(LinearLayout.VERTICAL);
+            card.setBackground(bg(CARD,14)); card.setPadding(dp(13),dp(12),dp(13),dp(12));
+            card.addView(mono(o.option,15,BLUE));
+            card.addView(text("Why: "+o.meaning,13,TEXT),margins(0,5));
+            card.addView(mono("How: "+o.example,12,GREEN),margins(0,5));
+            card.addView(text("When: "+o.when,12,DIM),margins(0,5));
+            col.addView(card,margins(0,7));
+        }
+        if(c.sourceUrl != null && !c.sourceUrl.isEmpty()){
+            Button source=primaryButton("Read " + c.sourceTitle, BLUE, v -> {try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(c.sourceUrl)));}catch(Exception ignored){} });
+            col.addView(source,margins(0,12));
+        }
+        if(c.command.equals("ls")) col.addView(text("Together: ls -lah combines -l (details), -a (hidden files), and -h (readable sizes). Flags are command-specific: -h does not mean the same thing everywhere.",13,ORANGE),margins(0,12));
+        col.addView(listBackButton("Back to "+c.topic,v -> showCommandTopic(c.topic)),margins(0,12));
         switchScreen(scroll);
     }
 
