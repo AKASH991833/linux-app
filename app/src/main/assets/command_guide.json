@@ -1,0 +1,4676 @@
+{
+  "topics": [
+    "Navigation & Basics",
+    "Files & Directories",
+    "Viewing & Text",
+    "Search & Filtering",
+    "Users & Groups",
+    "Permissions & Ownership",
+    "Processes",
+    "Services & systemd",
+    "Networking Basics",
+    "DNS & Network Tools",
+    "Storage & Filesystems",
+    "LVM",
+    "Package Management RHEL",
+    "Logs & Troubleshooting",
+    "SSH & File Transfer",
+    "Archive & Compression",
+    "Scheduling & Repetition",
+    "Shell & Text Processing",
+    "System Info & Monitoring",
+    "Security & Firewall"
+  ],
+  "items": [
+    {
+      "n": 1,
+      "topic": "Navigation & Basics",
+      "command": "pwd",
+      "example": "pwd",
+      "use": "Current directory check",
+      "options": [
+        {
+          "option": "-P",
+          "meaning": "Resolve symlinks and show physical path",
+          "example": "pwd -P",
+          "when": "When a directory is reached through a symlink"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/pwd.1.html"
+    },
+    {
+      "n": 2,
+      "topic": "Navigation & Basics",
+      "command": "ls",
+      "example": "ls -la",
+      "use": "View files, hidden files and permissions",
+      "options": [
+        {
+          "option": "-a",
+          "meaning": "Include hidden dotfiles",
+          "example": "ls -a",
+          "when": "When config files appear missing"
+        },
+        {
+          "option": "-l",
+          "meaning": "Long listing: permissions, owner, size, date",
+          "example": "ls -l /etc",
+          "when": "When checking ownership"
+        },
+        {
+          "option": "-h",
+          "meaning": "Human-readable sizes in detailed listings; use with -l (ls -lh)",
+          "example": "ls -lh /var/log",
+          "when": "When sizes matter"
+        }
+      ],
+      "tip": "Combine ls -lah for long details, hidden files and readable sizes. Flags are command-specific: -h is not universal help.",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/ls.1.html"
+    },
+    {
+      "n": 3,
+      "topic": "Navigation & Basics",
+      "command": "cd",
+      "example": "cd /etc",
+      "use": "Directory change",
+      "options": [
+        {
+          "option": "..",
+          "meaning": "Go one directory up",
+          "example": "cd ..",
+          "when": "When returning to parent"
+        },
+        {
+          "option": "-",
+          "meaning": "Switch to previous directory",
+          "example": "cd -",
+          "when": "When alternating between folders"
+        },
+        {
+          "option": "~",
+          "meaning": "Go to your home directory",
+          "example": "cd ~",
+          "when": "When starting over from home"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 4,
+      "topic": "Navigation & Basics",
+      "command": "cd ..",
+      "example": "cd ..",
+      "use": "Parent directory",
+      "options": [
+        {
+          "option": "..",
+          "meaning": "Go one directory up",
+          "example": "cd ..",
+          "when": "When returning to parent"
+        },
+        {
+          "option": "-",
+          "meaning": "Switch to previous directory",
+          "example": "cd -",
+          "when": "When alternating between folders"
+        },
+        {
+          "option": "~",
+          "meaning": "Go to your home directory",
+          "example": "cd ~",
+          "when": "When starting over from home"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 5,
+      "topic": "Navigation & Basics",
+      "command": "cd -",
+      "example": "cd -",
+      "use": "Previous directory",
+      "options": [
+        {
+          "option": "-",
+          "meaning": "Switch to previous directory",
+          "example": "cd -",
+          "when": "When alternating between folders"
+        },
+        {
+          "option": "..",
+          "meaning": "Go one directory up",
+          "example": "cd ..",
+          "when": "When returning to parent"
+        },
+        {
+          "option": "~",
+          "meaning": "Go to your home directory",
+          "example": "cd ~",
+          "when": "When starting over from home"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 6,
+      "topic": "Navigation & Basics",
+      "command": "cd ~",
+      "example": "cd ~",
+      "use": "Home directory",
+      "options": [
+        {
+          "option": "~",
+          "meaning": "Go to your home directory",
+          "example": "cd ~",
+          "when": "When starting over from home"
+        },
+        {
+          "option": "..",
+          "meaning": "Go one directory up",
+          "example": "cd ..",
+          "when": "When returning to parent"
+        },
+        {
+          "option": "-",
+          "meaning": "Switch to previous directory",
+          "example": "cd -",
+          "when": "When alternating between folders"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 7,
+      "topic": "Navigation & Basics",
+      "command": "clear",
+      "example": "clear",
+      "use": "Terminal clean",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/clear.1.html"
+    },
+    {
+      "n": 8,
+      "topic": "Navigation & Basics",
+      "command": "history",
+      "example": "history 20",
+      "use": "Recent commands",
+      "options": [
+        {
+          "option": "N",
+          "meaning": "Show recent N entries (Bash)",
+          "example": "history 20",
+          "when": "When recalling recent commands"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 9,
+      "topic": "Navigation & Basics",
+      "command": "whoami",
+      "example": "whoami",
+      "use": "Current user",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/whoami.1.html"
+    },
+    {
+      "n": 10,
+      "topic": "Navigation & Basics",
+      "command": "man",
+      "example": "man ls",
+      "use": "Command documentation",
+      "options": [
+        {
+          "option": "-k",
+          "meaning": "Search manual page descriptions by keyword",
+          "example": "man -k network",
+          "when": "When you know a topic but not a command"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/man.1.html"
+    },
+    {
+      "n": 11,
+      "topic": "Files & Directories",
+      "command": "touch",
+      "example": "touch test.txt",
+      "use": "Empty file create",
+      "options": [
+        {
+          "option": "-c",
+          "meaning": "Do not create a file if absent",
+          "example": "touch -c app.log",
+          "when": "When updating timestamps on existing files only"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/touch.1.html"
+    },
+    {
+      "n": 12,
+      "topic": "Files & Directories",
+      "command": "mkdir",
+      "example": "mkdir backup",
+      "use": "Directory create",
+      "options": [
+        {
+          "option": "-p",
+          "meaning": "Create parents as needed; do not fail if they exist",
+          "example": "mkdir -p /tmp/demo/logs",
+          "when": "When creating nested folders"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/mkdir.1.html"
+    },
+    {
+      "n": 13,
+      "topic": "Files & Directories",
+      "command": "mkdir -p",
+      "example": "mkdir -p /data/app/logs",
+      "use": "Nested directories create",
+      "options": [
+        {
+          "option": "-p",
+          "meaning": "Create parents as needed; do not fail if they exist",
+          "example": "mkdir -p /tmp/demo/logs",
+          "when": "When creating nested folders"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/mkdir.1.html"
+    },
+    {
+      "n": 14,
+      "topic": "Files & Directories",
+      "command": "cp",
+      "example": "cp app.conf app.conf.bak",
+      "use": "Config backup/copy",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Copy a directory recursively",
+          "example": "cp -r app/ /tmp/app-backup/",
+          "when": "When copying a folder"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ask before overwriting",
+          "example": "cp -i app.conf app.conf.bak",
+          "when": "When destination might exist"
+        },
+        {
+          "option": "-a",
+          "meaning": "Preserve metadata and symlinks recursively",
+          "example": "cp -a app/ /tmp/app-backup/",
+          "when": "When making a faithful backup"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/cp.1.html"
+    },
+    {
+      "n": 15,
+      "topic": "Files & Directories",
+      "command": "cp -r",
+      "example": "cp -r app /backup/",
+      "use": "Directory copy",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Copy a directory recursively",
+          "example": "cp -r app/ /tmp/app-backup/",
+          "when": "When copying a folder"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ask before overwriting",
+          "example": "cp -i app.conf app.conf.bak",
+          "when": "When destination might exist"
+        },
+        {
+          "option": "-a",
+          "meaning": "Preserve metadata and symlinks recursively",
+          "example": "cp -a app/ /tmp/app-backup/",
+          "when": "When making a faithful backup"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/cp.1.html"
+    },
+    {
+      "n": 16,
+      "topic": "Files & Directories",
+      "command": "mv",
+      "example": "mv old.log archive.log",
+      "use": "Move/rename",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Ask before overwriting destination",
+          "example": "mv -i old.conf new.conf",
+          "when": "When renaming an important file"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/mv.1.html"
+    },
+    {
+      "n": 17,
+      "topic": "Files & Directories",
+      "command": "rm",
+      "example": "rm test.txt",
+      "use": "File delete",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Ask before removal",
+          "example": "rm -i old.txt",
+          "when": "When deleting an uncertain file"
+        },
+        {
+          "option": "-r",
+          "meaning": "Remove a directory and contents",
+          "example": "rm -r /tmp/oldapp",
+          "when": "Only after checking the path; cannot undo"
+        }
+      ],
+      "tip": "Destructive: verify the exact path with ls before deleting. Never paste an unknown rm -rf command.",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/rm.1.html"
+    },
+    {
+      "n": 18,
+      "topic": "Files & Directories",
+      "command": "rm -r",
+      "example": "rm -r oldapp",
+      "use": "Directory delete",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Remove a directory and contents",
+          "example": "rm -r /tmp/oldapp",
+          "when": "Only after checking the path; cannot undo"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ask before removal",
+          "example": "rm -i old.txt",
+          "when": "When deleting an uncertain file"
+        }
+      ],
+      "tip": "Destructive: verify the exact path with ls before deleting. Never paste an unknown rm -rf command.",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/rm.1.html"
+    },
+    {
+      "n": 19,
+      "topic": "Files & Directories",
+      "command": "rmdir",
+      "example": "rmdir emptydir",
+      "use": "Empty directory delete",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/rmdir.1.html"
+    },
+    {
+      "n": 20,
+      "topic": "Files & Directories",
+      "command": "stat",
+      "example": "stat app.log",
+      "use": "Metadata/inode/timestamps",
+      "options": [
+        {
+          "option": "-c",
+          "meaning": "Print selected metadata format",
+          "example": "stat -c %a app.log",
+          "when": "When you need numeric permissions"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/stat.1.html"
+    },
+    {
+      "n": 21,
+      "topic": "Viewing & Text",
+      "command": "cat",
+      "example": "cat /etc/hosts",
+      "use": "Small file read",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Number every output line",
+          "example": "cat -n app.conf",
+          "when": "When discussing a line number"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/cat.1.html"
+    },
+    {
+      "n": 22,
+      "topic": "Viewing & Text",
+      "command": "less",
+      "example": "less /var/log/messages",
+      "use": "Large file page-by-page",
+      "options": [
+        {
+          "option": "-N",
+          "meaning": "Show line numbers",
+          "example": "less -N app.log",
+          "when": "When locating a reported line"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/less.1.html"
+    },
+    {
+      "n": 23,
+      "topic": "Viewing & Text",
+      "command": "more",
+      "example": "more file.txt",
+      "use": "Paged viewing",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/more.1.html"
+    },
+    {
+      "n": 24,
+      "topic": "Viewing & Text",
+      "command": "head",
+      "example": "head -n 20 app.log",
+      "use": "First lines",
+      "options": [
+        {
+          "option": "-n N",
+          "meaning": "Print first N lines",
+          "example": "head -n 20 app.log",
+          "when": "When checking file start"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/head.1.html"
+    },
+    {
+      "n": 25,
+      "topic": "Viewing & Text",
+      "command": "tail",
+      "example": "tail -n 50 app.log",
+      "use": "Last lines",
+      "options": [
+        {
+          "option": "-n N",
+          "meaning": "Print last N lines",
+          "example": "tail -n 50 app.log",
+          "when": "When reading recent entries"
+        },
+        {
+          "option": "-f",
+          "meaning": "Follow appended lines",
+          "example": "tail -f app.log",
+          "when": "When watching a live log; Ctrl+C stops"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tail.1.html"
+    },
+    {
+      "n": 26,
+      "topic": "Viewing & Text",
+      "command": "tail -f",
+      "example": "tail -f app.log",
+      "use": "Live log monitoring",
+      "options": [
+        {
+          "option": "-f",
+          "meaning": "Follow appended lines",
+          "example": "tail -f app.log",
+          "when": "When watching a live log; Ctrl+C stops"
+        },
+        {
+          "option": "-n N",
+          "meaning": "Print last N lines",
+          "example": "tail -n 50 app.log",
+          "when": "When reading recent entries"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tail.1.html"
+    },
+    {
+      "n": 27,
+      "topic": "Viewing & Text",
+      "command": "wc",
+      "example": "wc app.log",
+      "use": "Lines/words/bytes",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "Count lines",
+          "example": "wc -l app.log",
+          "when": "When counting records"
+        },
+        {
+          "option": "-c",
+          "meaning": "Count bytes",
+          "example": "wc -c app.log",
+          "when": "When checking byte size"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/wc.1.html"
+    },
+    {
+      "n": 28,
+      "topic": "Viewing & Text",
+      "command": "sort",
+      "example": "sort users.txt",
+      "use": "Sort data",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Sort numerically",
+          "example": "sort -n numbers.txt",
+          "when": "When text sorting gives wrong number order"
+        },
+        {
+          "option": "-r",
+          "meaning": "Reverse order",
+          "example": "sort -r names.txt",
+          "when": "When descending order helps"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/sort.1.html"
+    },
+    {
+      "n": 29,
+      "topic": "Viewing & Text",
+      "command": "uniq",
+      "example": "sort users.txt | uniq",
+      "use": "Duplicate handling",
+      "options": [
+        {
+          "option": "-c",
+          "meaning": "Count repeated adjacent lines",
+          "example": "sort users.txt | uniq -c",
+          "when": "When tallying values; sort first"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/uniq.1.html"
+    },
+    {
+      "n": 30,
+      "topic": "Viewing & Text",
+      "command": "diff",
+      "example": "diff old.conf new.conf",
+      "use": "Compare files",
+      "options": [
+        {
+          "option": "-u",
+          "meaning": "Unified context format",
+          "example": "diff -u old.conf new.conf",
+          "when": "When reviewing config changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/diff.1.html"
+    },
+    {
+      "n": 31,
+      "topic": "Search & Filtering",
+      "command": "grep",
+      "example": "grep 'error' app.log",
+      "use": "Search text",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        },
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 32,
+      "topic": "Search & Filtering",
+      "command": "grep -i",
+      "example": "grep -i 'error' app.log",
+      "use": "Case-insensitive search",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        },
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 33,
+      "topic": "Search & Filtering",
+      "command": "grep -n",
+      "example": "grep -n 'error' app.log",
+      "use": "Show line numbers",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        },
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 34,
+      "topic": "Search & Filtering",
+      "command": "grep -v",
+      "example": "grep -v 'debug' app.log",
+      "use": "Exclude matches",
+      "options": [
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        },
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 35,
+      "topic": "Search & Filtering",
+      "command": "grep -r",
+      "example": "grep -r 'DB_HOST' /etc/app",
+      "use": "Recursive search",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 36,
+      "topic": "Search & Filtering",
+      "command": "grep -E",
+      "example": "grep -E 'error|failed' app.log",
+      "use": "Multiple patterns",
+      "options": [
+        {
+          "option": "-E",
+          "meaning": "Extended regular expressions",
+          "example": "grep -E \"error|failed\" app.log",
+          "when": "When matching alternatives"
+        },
+        {
+          "option": "-i",
+          "meaning": "Ignore case",
+          "example": "grep -i error app.log",
+          "when": "When ERROR and error both matter"
+        },
+        {
+          "option": "-n",
+          "meaning": "Show matching line numbers",
+          "example": "grep -n error app.log",
+          "when": "When locating a match"
+        },
+        {
+          "option": "-v",
+          "meaning": "Exclude matching lines",
+          "example": "grep -v debug app.log",
+          "when": "When filtering noise"
+        },
+        {
+          "option": "-r",
+          "meaning": "Search directories recursively",
+          "example": "grep -r DB_HOST /etc/app",
+          "when": "When finding text in a tree"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU grep manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/grep.1.html"
+    },
+    {
+      "n": 37,
+      "topic": "Search & Filtering",
+      "command": "find",
+      "example": "find /var -name '*.log'",
+      "use": "Find by name",
+      "options": [
+        {
+          "option": "-name PATTERN",
+          "meaning": "Match filename; quote wildcards",
+          "example": "find /var -name \"*.log\"",
+          "when": "When locating logs"
+        },
+        {
+          "option": "-size +500M",
+          "meaning": "File size greater than 500 units of 1,048,576 bytes (GNU find rounds up to whole units)",
+          "example": "find /var -type f -size +500M",
+          "when": "When chasing disk usage"
+        },
+        {
+          "option": "-mtime +30",
+          "meaning": "Modified more than 30 days ago (24h periods)",
+          "example": "find /backup -type f -mtime +30",
+          "when": "When reviewing old backups"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "findutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/find.1.html"
+    },
+    {
+      "n": 38,
+      "topic": "Search & Filtering",
+      "command": "find -size",
+      "example": "find /var -type f -size +500M",
+      "use": "Find large files",
+      "options": [
+        {
+          "option": "-name PATTERN",
+          "meaning": "Match filename; quote wildcards",
+          "example": "find /var -name \"*.log\"",
+          "when": "When locating logs"
+        },
+        {
+          "option": "-size +500M",
+          "meaning": "File size greater than 500 units of 1,048,576 bytes (GNU find rounds up to whole units)",
+          "example": "find /var -type f -size +500M",
+          "when": "When chasing disk usage"
+        },
+        {
+          "option": "-mtime +30",
+          "meaning": "Modified more than 30 days ago (24h periods)",
+          "example": "find /backup -type f -mtime +30",
+          "when": "When reviewing old backups"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "findutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/find.1.html"
+    },
+    {
+      "n": 39,
+      "topic": "Search & Filtering",
+      "command": "find -mtime",
+      "example": "find /backup -type f -mtime +30",
+      "use": "Find old files",
+      "options": [
+        {
+          "option": "-name PATTERN",
+          "meaning": "Match filename; quote wildcards",
+          "example": "find /var -name \"*.log\"",
+          "when": "When locating logs"
+        },
+        {
+          "option": "-size +500M",
+          "meaning": "File size greater than 500 units of 1,048,576 bytes (GNU find rounds up to whole units)",
+          "example": "find /var -type f -size +500M",
+          "when": "When chasing disk usage"
+        },
+        {
+          "option": "-mtime +30",
+          "meaning": "Modified more than 30 days ago (24h periods)",
+          "example": "find /backup -type f -mtime +30",
+          "when": "When reviewing old backups"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "findutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/find.1.html"
+    },
+    {
+      "n": 40,
+      "topic": "Search & Filtering",
+      "command": "locate",
+      "example": "locate httpd.conf",
+      "use": "Fast indexed search",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Case-insensitive filename lookup",
+          "example": "locate -i httpd.conf",
+          "when": "When name case is unknown; index may be stale"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/locate.1.html"
+    },
+    {
+      "n": 41,
+      "topic": "Users & Groups",
+      "command": "useradd",
+      "example": "useradd rahul",
+      "use": "Create user",
+      "options": [
+        {
+          "option": "-m",
+          "meaning": "Create home directory",
+          "example": "sudo useradd -m trainee",
+          "when": "When creating a login account"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/useradd.8.html"
+    },
+    {
+      "n": 42,
+      "topic": "Users & Groups",
+      "command": "adduser",
+      "example": "adduser rahul",
+      "use": "Interactive user creation",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 43,
+      "topic": "Users & Groups",
+      "command": "passwd",
+      "example": "passwd rahul",
+      "use": "Set/change password",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "Lock password authentication (not every login method)",
+          "example": "sudo passwd -l trainee",
+          "when": "When disabling password login only"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/passwd.1.html"
+    },
+    {
+      "n": 44,
+      "topic": "Users & Groups",
+      "command": "usermod",
+      "example": "usermod -s /bin/bash rahul",
+      "use": "Modify user",
+      "options": [
+        {
+          "option": "-aG GROUP",
+          "meaning": "Append supplementary group; use -a with -G",
+          "example": "sudo usermod -aG developers trainee",
+          "when": "When granting group membership without removing old groups"
+        },
+        {
+          "option": "-s SHELL",
+          "meaning": "Set login shell",
+          "example": "sudo usermod -s /bin/bash trainee",
+          "when": "When changing a login shell"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/usermod.8.html"
+    },
+    {
+      "n": 45,
+      "topic": "Users & Groups",
+      "command": "usermod -aG",
+      "example": "usermod -aG developers rahul",
+      "use": "Add supplementary group",
+      "options": [
+        {
+          "option": "-aG GROUP",
+          "meaning": "Append supplementary group; use -a with -G",
+          "example": "sudo usermod -aG developers trainee",
+          "when": "When granting group membership without removing old groups"
+        },
+        {
+          "option": "-s SHELL",
+          "meaning": "Set login shell",
+          "example": "sudo usermod -s /bin/bash trainee",
+          "when": "When changing a login shell"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/usermod.8.html"
+    },
+    {
+      "n": 46,
+      "topic": "Users & Groups",
+      "command": "userdel",
+      "example": "userdel rahul",
+      "use": "Delete user",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Also delete home and mail spool",
+          "example": "sudo userdel -r trainee",
+          "when": "Only after backing up needed user data"
+        }
+      ],
+      "tip": "Removing a user can affect files and service ownership; back up first.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/userdel.8.html"
+    },
+    {
+      "n": 47,
+      "topic": "Users & Groups",
+      "command": "userdel -r",
+      "example": "userdel -r rahul",
+      "use": "Delete user + home",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Also delete home and mail spool",
+          "example": "sudo userdel -r trainee",
+          "when": "Only after backing up needed user data"
+        }
+      ],
+      "tip": "Removing a user can affect files and service ownership; back up first.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/userdel.8.html"
+    },
+    {
+      "n": 48,
+      "topic": "Users & Groups",
+      "command": "groupadd",
+      "example": "groupadd developers",
+      "use": "Create group",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/groupadd.8.html"
+    },
+    {
+      "n": 49,
+      "topic": "Users & Groups",
+      "command": "groupdel",
+      "example": "groupdel developers",
+      "use": "Delete group",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/groupdel.8.html"
+    },
+    {
+      "n": 50,
+      "topic": "Users & Groups",
+      "command": "groups",
+      "example": "groups rahul",
+      "use": "Show user's groups",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/groups.1.html"
+    },
+    {
+      "n": 51,
+      "topic": "Permissions & Ownership",
+      "command": "chmod",
+      "example": "chmod 644 app.conf",
+      "use": "Change permissions",
+      "options": [
+        {
+          "option": "644",
+          "meaning": "Owner read/write; others read",
+          "example": "chmod 644 app.conf",
+          "when": "When a readable config must not be writable by others"
+        },
+        {
+          "option": "+x",
+          "meaning": "Add execute permission",
+          "example": "chmod +x backup.sh",
+          "when": "When a script needs to run directly"
+        },
+        {
+          "option": "-R",
+          "meaning": "Change a tree recursively",
+          "example": "chmod -R u+rwX /tmp/demo",
+          "when": "Only after reviewing target and desired permissions"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chmod.1.html"
+    },
+    {
+      "n": 52,
+      "topic": "Permissions & Ownership",
+      "command": "chmod +x",
+      "example": "chmod +x backup.sh",
+      "use": "Make script executable",
+      "options": [
+        {
+          "option": "+x",
+          "meaning": "Add execute permission",
+          "example": "chmod +x backup.sh",
+          "when": "When a script needs to run directly"
+        },
+        {
+          "option": "644",
+          "meaning": "Owner read/write; others read",
+          "example": "chmod 644 app.conf",
+          "when": "When a readable config must not be writable by others"
+        },
+        {
+          "option": "-R",
+          "meaning": "Change a tree recursively",
+          "example": "chmod -R u+rwX /tmp/demo",
+          "when": "Only after reviewing target and desired permissions"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chmod.1.html"
+    },
+    {
+      "n": 53,
+      "topic": "Permissions & Ownership",
+      "command": "chown",
+      "example": "chown appuser app.conf",
+      "use": "Change owner",
+      "options": [
+        {
+          "option": "USER:GROUP",
+          "meaning": "Set owner and group together",
+          "example": "sudo chown app:app app.conf",
+          "when": "When service account must own a file"
+        },
+        {
+          "option": "-R",
+          "meaning": "Recurse into directories",
+          "example": "sudo chown -R app:app /srv/app",
+          "when": "Only after reviewing path and current ownership"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chown.1.html"
+    },
+    {
+      "n": 54,
+      "topic": "Permissions & Ownership",
+      "command": "chown user:group",
+      "example": "chown app:app app.conf",
+      "use": "Change owner + group",
+      "options": [
+        {
+          "option": "USER:GROUP",
+          "meaning": "Set owner and group together",
+          "example": "sudo chown app:app app.conf",
+          "when": "When service account must own a file"
+        },
+        {
+          "option": "-R",
+          "meaning": "Recurse into directories",
+          "example": "sudo chown -R app:app /srv/app",
+          "when": "Only after reviewing path and current ownership"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chown.1.html"
+    },
+    {
+      "n": 55,
+      "topic": "Permissions & Ownership",
+      "command": "chgrp",
+      "example": "chgrp developers project.txt",
+      "use": "Change group",
+      "options": [
+        {
+          "option": "-R",
+          "meaning": "Change group recursively",
+          "example": "sudo chgrp -R developers /srv/project",
+          "when": "When a whole tree needs a shared group"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chgrp.1.html"
+    },
+    {
+      "n": 56,
+      "topic": "Permissions & Ownership",
+      "command": "umask",
+      "example": "umask 027",
+      "use": "Default permissions",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 57,
+      "topic": "Permissions & Ownership",
+      "command": "getfacl",
+      "example": "getfacl report.txt",
+      "use": "View ACL",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/getfacl.1.html"
+    },
+    {
+      "n": 58,
+      "topic": "Permissions & Ownership",
+      "command": "setfacl",
+      "example": "setfacl -m u:rahul:r report.txt",
+      "use": "Give ACL permission",
+      "options": [
+        {
+          "option": "-m",
+          "meaning": "Modify an ACL entry",
+          "example": "setfacl -m u:trainee:r report.txt",
+          "when": "When one user needs specific access"
+        },
+        {
+          "option": "-x",
+          "meaning": "Remove an ACL entry",
+          "example": "setfacl -x u:trainee report.txt",
+          "when": "When removing an exception"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/setfacl.1.html"
+    },
+    {
+      "n": 59,
+      "topic": "Permissions & Ownership",
+      "command": "lsattr",
+      "example": "lsattr important.conf",
+      "use": "View file attributes",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/lsattr.1.html"
+    },
+    {
+      "n": 60,
+      "topic": "Permissions & Ownership",
+      "command": "chattr",
+      "example": "chattr +i important.conf",
+      "use": "Make file immutable",
+      "options": [
+        {
+          "option": "+i",
+          "meaning": "Make immutable (even root must clear it before editing)",
+          "example": "sudo chattr +i important.conf",
+          "when": "Only after ensuring updates will not need to write it"
+        },
+        {
+          "option": "-i",
+          "meaning": "Remove immutable bit",
+          "example": "sudo chattr -i important.conf",
+          "when": "When an authorized update is needed"
+        }
+      ],
+      "tip": "Immutable attribute blocks edits, including by administrators until cleared.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/chattr.1.html"
+    },
+    {
+      "n": 61,
+      "topic": "Processes",
+      "command": "ps",
+      "example": "ps",
+      "use": "Current shell processes",
+      "options": [
+        {
+          "option": "aux",
+          "meaning": "BSD-style all-user process detail",
+          "example": "ps aux",
+          "when": "When checking CPU and memory by process"
+        },
+        {
+          "option": "-ef",
+          "meaning": "POSIX-style full process listing",
+          "example": "ps -ef",
+          "when": "When locating parent/child PIDs"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/ps.1.html"
+    },
+    {
+      "n": 62,
+      "topic": "Processes",
+      "command": "ps aux",
+      "example": "ps aux",
+      "use": "All detailed processes",
+      "options": [
+        {
+          "option": "aux",
+          "meaning": "BSD-style all-user process detail",
+          "example": "ps aux",
+          "when": "When checking CPU and memory by process"
+        },
+        {
+          "option": "-ef",
+          "meaning": "POSIX-style full process listing",
+          "example": "ps -ef",
+          "when": "When locating parent/child PIDs"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/ps.1.html"
+    },
+    {
+      "n": 63,
+      "topic": "Processes",
+      "command": "ps -ef",
+      "example": "ps -ef | grep nginx",
+      "use": "Find PID/process details",
+      "options": [
+        {
+          "option": "-ef",
+          "meaning": "POSIX-style full process listing",
+          "example": "ps -ef",
+          "when": "When locating parent/child PIDs"
+        },
+        {
+          "option": "aux",
+          "meaning": "BSD-style all-user process detail",
+          "example": "ps aux",
+          "when": "When checking CPU and memory by process"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/ps.1.html"
+    },
+    {
+      "n": 64,
+      "topic": "Processes",
+      "command": "top",
+      "example": "top",
+      "use": "Live CPU/RAM monitoring",
+      "options": [
+        {
+          "option": "-p PID",
+          "meaning": "Track one process ID",
+          "example": "top -p 1234",
+          "when": "When investigating a particular service"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/top.1.html"
+    },
+    {
+      "n": 65,
+      "topic": "Processes",
+      "command": "htop",
+      "example": "htop",
+      "use": "Interactive monitoring",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/htop.1.html"
+    },
+    {
+      "n": 66,
+      "topic": "Processes",
+      "command": "pgrep",
+      "example": "pgrep nginx",
+      "use": "Find PID by name",
+      "options": [
+        {
+          "option": "-a",
+          "meaning": "Show PID and full command line",
+          "example": "pgrep -a nginx",
+          "when": "When confirming matched processes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/pgrep.1.html"
+    },
+    {
+      "n": 67,
+      "topic": "Processes",
+      "command": "pkill",
+      "example": "pkill nginx",
+      "use": "Terminate by name",
+      "options": [
+        {
+          "option": "-f",
+          "meaning": "Match full command line, not just process name",
+          "example": "pkill -f exact-pattern",
+          "when": "Only after previewing with pgrep -af; may kill many"
+        }
+      ],
+      "tip": "Matches all named processes. Preview with pgrep before sending a signal.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/pkill.1.html"
+    },
+    {
+      "n": 68,
+      "topic": "Processes",
+      "command": "kill",
+      "example": "kill 1234",
+      "use": "Graceful termination",
+      "options": [
+        {
+          "option": "-TERM",
+          "meaning": "Ask process to shut down gracefully (default)",
+          "example": "kill -TERM 1234",
+          "when": "First choice to stop a stuck process"
+        },
+        {
+          "option": "-9",
+          "meaning": "Force SIGKILL with no cleanup",
+          "example": "kill -9 1234",
+          "when": "Last resort after graceful stop fails"
+        }
+      ],
+      "tip": "Prefer graceful SIGTERM; SIGKILL prevents cleanup.",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 69,
+      "topic": "Processes",
+      "command": "kill -9",
+      "example": "kill -9 1234",
+      "use": "Force terminate",
+      "options": [
+        {
+          "option": "-9",
+          "meaning": "Force SIGKILL with no cleanup",
+          "example": "kill -9 1234",
+          "when": "Last resort after graceful stop fails"
+        },
+        {
+          "option": "-TERM",
+          "meaning": "Ask process to shut down gracefully (default)",
+          "example": "kill -TERM 1234",
+          "when": "First choice to stop a stuck process"
+        }
+      ],
+      "tip": "Prefer graceful SIGTERM; SIGKILL prevents cleanup.",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 70,
+      "topic": "Processes",
+      "command": "jobs",
+      "example": "jobs",
+      "use": "Background jobs",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "Include job PIDs",
+          "example": "jobs -l",
+          "when": "When correlating shell jobs with processes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 71,
+      "topic": "Services & systemd",
+      "command": "systemctl status",
+      "example": "systemctl status sshd",
+      "use": "Service status",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 72,
+      "topic": "Services & systemd",
+      "command": "systemctl start",
+      "example": "systemctl start nginx",
+      "use": "Start service",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 73,
+      "topic": "Services & systemd",
+      "command": "systemctl stop",
+      "example": "systemctl stop nginx",
+      "use": "Stop service",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 74,
+      "topic": "Services & systemd",
+      "command": "systemctl restart",
+      "example": "systemctl restart nginx",
+      "use": "Restart service",
+      "options": [
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 75,
+      "topic": "Services & systemd",
+      "command": "systemctl reload",
+      "example": "systemctl reload nginx",
+      "use": "Reload config when supported",
+      "options": [
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 76,
+      "topic": "Services & systemd",
+      "command": "systemctl enable",
+      "example": "systemctl enable nginx",
+      "use": "Start at boot",
+      "options": [
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 77,
+      "topic": "Services & systemd",
+      "command": "systemctl disable",
+      "example": "systemctl disable nginx",
+      "use": "Disable boot start",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 78,
+      "topic": "Services & systemd",
+      "command": "systemctl is-active",
+      "example": "systemctl is-active nginx",
+      "use": "Check active state",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 79,
+      "topic": "Services & systemd",
+      "command": "systemctl is-enabled",
+      "example": "systemctl is-enabled nginx",
+      "use": "Check boot state",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 80,
+      "topic": "Services & systemd",
+      "command": "systemctl list-units",
+      "example": "systemctl list-units --type=service",
+      "use": "List loaded services",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 81,
+      "topic": "Networking Basics",
+      "command": "ip addr",
+      "example": "ip addr show",
+      "use": "IP/interface details",
+      "options": [
+        {
+          "option": "addr show",
+          "meaning": "Show interface IP addresses",
+          "example": "ip addr show",
+          "when": "When checking address assignment"
+        },
+        {
+          "option": "link show",
+          "meaning": "Show interface status",
+          "example": "ip link show",
+          "when": "When checking link state"
+        },
+        {
+          "option": "route",
+          "meaning": "Show routing table",
+          "example": "ip route",
+          "when": "When diagnosing gateway"
+        },
+        {
+          "option": "neigh",
+          "meaning": "Show ARP/neighbor cache",
+          "example": "ip neigh",
+          "when": "When diagnosing local reachability"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 82,
+      "topic": "Networking Basics",
+      "command": "ip link",
+      "example": "ip link show",
+      "use": "Interface state",
+      "options": [
+        {
+          "option": "addr show",
+          "meaning": "Show interface IP addresses",
+          "example": "ip addr show",
+          "when": "When checking address assignment"
+        },
+        {
+          "option": "link show",
+          "meaning": "Show interface status",
+          "example": "ip link show",
+          "when": "When checking link state"
+        },
+        {
+          "option": "route",
+          "meaning": "Show routing table",
+          "example": "ip route",
+          "when": "When diagnosing gateway"
+        },
+        {
+          "option": "neigh",
+          "meaning": "Show ARP/neighbor cache",
+          "example": "ip neigh",
+          "when": "When diagnosing local reachability"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 83,
+      "topic": "Networking Basics",
+      "command": "ip route",
+      "example": "ip route",
+      "use": "Routing/default gateway",
+      "options": [
+        {
+          "option": "route",
+          "meaning": "Show routing table",
+          "example": "ip route",
+          "when": "When diagnosing gateway"
+        },
+        {
+          "option": "addr show",
+          "meaning": "Show interface IP addresses",
+          "example": "ip addr show",
+          "when": "When checking address assignment"
+        },
+        {
+          "option": "link show",
+          "meaning": "Show interface status",
+          "example": "ip link show",
+          "when": "When checking link state"
+        },
+        {
+          "option": "neigh",
+          "meaning": "Show ARP/neighbor cache",
+          "example": "ip neigh",
+          "when": "When diagnosing local reachability"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 84,
+      "topic": "Networking Basics",
+      "command": "ip neigh",
+      "example": "ip neigh",
+      "use": "ARP/neighbor table",
+      "options": [
+        {
+          "option": "neigh",
+          "meaning": "Show ARP/neighbor cache",
+          "example": "ip neigh",
+          "when": "When diagnosing local reachability"
+        },
+        {
+          "option": "addr show",
+          "meaning": "Show interface IP addresses",
+          "example": "ip addr show",
+          "when": "When checking address assignment"
+        },
+        {
+          "option": "link show",
+          "meaning": "Show interface status",
+          "example": "ip link show",
+          "when": "When checking link state"
+        },
+        {
+          "option": "route",
+          "meaning": "Show routing table",
+          "example": "ip route",
+          "when": "When diagnosing gateway"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 85,
+      "topic": "Networking Basics",
+      "command": "ping",
+      "example": "ping -c 4 8.8.8.8",
+      "use": "Connectivity test",
+      "options": [
+        {
+          "option": "-c N",
+          "meaning": "Send N probes then stop",
+          "example": "ping -c 4 8.8.8.8",
+          "when": "When checking reachability without endless output"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 86,
+      "topic": "Networking Basics",
+      "command": "ss -tuln",
+      "example": "ss -tuln",
+      "use": "Listening ports",
+      "options": [
+        {
+          "option": "-tuln",
+          "meaning": "TCP/UDP, listening sockets, numeric ports",
+          "example": "ss -tuln",
+          "when": "When checking what ports are listening"
+        },
+        {
+          "option": "-tp",
+          "meaning": "TCP sockets with owning processes (may need sudo)",
+          "example": "sudo ss -tp",
+          "when": "When linking a connection to a process"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 87,
+      "topic": "Networking Basics",
+      "command": "ss -tp",
+      "example": "ss -tp",
+      "use": "Connections + processes",
+      "options": [
+        {
+          "option": "-tp",
+          "meaning": "TCP sockets with owning processes (may need sudo)",
+          "example": "sudo ss -tp",
+          "when": "When linking a connection to a process"
+        },
+        {
+          "option": "-tuln",
+          "meaning": "TCP/UDP, listening sockets, numeric ports",
+          "example": "ss -tuln",
+          "when": "When checking what ports are listening"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "iproute2 manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/ip.8.html"
+    },
+    {
+      "n": 88,
+      "topic": "Networking Basics",
+      "command": "hostname",
+      "example": "hostname",
+      "use": "Server hostname",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/hostname.1.html"
+    },
+    {
+      "n": 89,
+      "topic": "Networking Basics",
+      "command": "hostnamectl",
+      "example": "hostnamectl",
+      "use": "Hostname/system details",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html"
+    },
+    {
+      "n": 90,
+      "topic": "Networking Basics",
+      "command": "curl",
+      "example": "curl -I https://example.com",
+      "use": "HTTP connectivity test",
+      "options": [
+        {
+          "option": "-I",
+          "meaning": "Request response headers only",
+          "example": "curl -I https://example.com",
+          "when": "When checking HTTP status"
+        },
+        {
+          "option": "-L",
+          "meaning": "Follow redirects",
+          "example": "curl -L https://example.com",
+          "when": "When URL redirects"
+        },
+        {
+          "option": "-v",
+          "meaning": "Verbose connection diagnostics",
+          "example": "curl -v https://example.com",
+          "when": "When TLS/HTTP requests fail"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/curl.1.html"
+    },
+    {
+      "n": 91,
+      "topic": "DNS & Network Tools",
+      "command": "nslookup",
+      "example": "nslookup example.com",
+      "use": "DNS resolution",
+      "options": [
+        {
+          "option": "-type=MX",
+          "meaning": "Query mail exchanger records",
+          "example": "nslookup -type=MX example.com",
+          "when": "When diagnosing email DNS"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 92,
+      "topic": "DNS & Network Tools",
+      "command": "dig",
+      "example": "dig example.com",
+      "use": "Detailed DNS query",
+      "options": [
+        {
+          "option": "+short",
+          "meaning": "Short DNS answer",
+          "example": "dig example.com +short",
+          "when": "When only the resolved address matters"
+        },
+        {
+          "option": "MX",
+          "meaning": "Ask for MX records",
+          "example": "dig example.com MX",
+          "when": "When checking mail routing"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 93,
+      "topic": "DNS & Network Tools",
+      "command": "host",
+      "example": "host example.com",
+      "use": "Simple DNS lookup",
+      "options": [
+        {
+          "option": "-t MX",
+          "meaning": "Select DNS record type",
+          "example": "host -t MX example.com",
+          "when": "When looking up mail records"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 94,
+      "topic": "DNS & Network Tools",
+      "command": "traceroute",
+      "example": "traceroute example.com",
+      "use": "Packet path",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Do not reverse-resolve hops",
+          "example": "traceroute -n example.com",
+          "when": "When DNS makes traces slow"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 95,
+      "topic": "DNS & Network Tools",
+      "command": "tracepath",
+      "example": "tracepath example.com",
+      "use": "Path/MTU troubleshooting",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 96,
+      "topic": "DNS & Network Tools",
+      "command": "nmcli",
+      "example": "nmcli device status",
+      "use": "NetworkManager status",
+      "options": [
+        {
+          "option": "device status",
+          "meaning": "Show NetworkManager interfaces",
+          "example": "nmcli device status",
+          "when": "When diagnosing managed interfaces"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 97,
+      "topic": "DNS & Network Tools",
+      "command": "nmtui",
+      "example": "nmtui",
+      "use": "Text UI network config",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 98,
+      "topic": "DNS & Network Tools",
+      "command": "ethtool",
+      "example": "ethtool eth0",
+      "use": "NIC link/speed info",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Show NIC driver details",
+          "example": "ethtool -i eth0",
+          "when": "When checking the network driver"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 99,
+      "topic": "DNS & Network Tools",
+      "command": "tcpdump",
+      "example": "tcpdump -i eth0 port 443",
+      "use": "Packet troubleshooting",
+      "options": [
+        {
+          "option": "-i IFACE",
+          "meaning": "Capture on one interface",
+          "example": "sudo tcpdump -i eth0 port 443",
+          "when": "When tracing traffic; packet captures may contain private data"
+        },
+        {
+          "option": "-c N",
+          "meaning": "Stop after N packets",
+          "example": "sudo tcpdump -i eth0 -c 20",
+          "when": "When limiting capture size"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/tcpdump.8.html"
+    },
+    {
+      "n": 100,
+      "topic": "DNS & Network Tools",
+      "command": "wget",
+      "example": "wget https://example.com/file.zip",
+      "use": "Download file",
+      "options": [
+        {
+          "option": "-O FILE",
+          "meaning": "Choose download filename",
+          "example": "wget -O file.zip https://example.com/file.zip",
+          "when": "When saving under a chosen name"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/wget.1.html"
+    },
+    {
+      "n": 101,
+      "topic": "Storage & Filesystems",
+      "command": "lsblk",
+      "example": "lsblk -f",
+      "use": "Disks/partitions/filesystems",
+      "options": [
+        {
+          "option": "-f",
+          "meaning": "Show filesystem type, UUID and mount point",
+          "example": "lsblk -f",
+          "when": "When identifying a disk before mounting"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 102,
+      "topic": "Storage & Filesystems",
+      "command": "blkid",
+      "example": "blkid /dev/sdb1",
+      "use": "UUID/filesystem type",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/blkid.8.html"
+    },
+    {
+      "n": 103,
+      "topic": "Storage & Filesystems",
+      "command": "fdisk",
+      "example": "fdisk -l",
+      "use": "Partition information",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "List partitions without changing them",
+          "example": "sudo fdisk -l",
+          "when": "When inspecting disks; interactive fdisk can alter tables"
+        }
+      ],
+      "tip": "Listing with -l is read-only; partition changes can destroy data.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/fdisk.8.html"
+    },
+    {
+      "n": 104,
+      "topic": "Storage & Filesystems",
+      "command": "parted",
+      "example": "parted -l",
+      "use": "Partition table inspect",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "List partition layouts",
+          "example": "sudo parted -l",
+          "when": "When inspecting partition tables"
+        }
+      ],
+      "tip": "Listing with -l is read-only; interactive edits can destroy data.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 105,
+      "topic": "Storage & Filesystems",
+      "command": "df -h",
+      "example": "df -h",
+      "use": "Filesystem space",
+      "options": [
+        {
+          "option": "-h",
+          "meaning": "Human-readable disk space",
+          "example": "df -h",
+          "when": "When checking full filesystems"
+        },
+        {
+          "option": "-i",
+          "meaning": "Show inode usage",
+          "example": "df -i",
+          "when": "When writes fail though space remains"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/df.1.html"
+    },
+    {
+      "n": 106,
+      "topic": "Storage & Filesystems",
+      "command": "df -i",
+      "example": "df -i",
+      "use": "Inode usage",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Show inode usage",
+          "example": "df -i",
+          "when": "When writes fail though space remains"
+        },
+        {
+          "option": "-h",
+          "meaning": "Human-readable disk space",
+          "example": "df -h",
+          "when": "When checking full filesystems"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/df.1.html"
+    },
+    {
+      "n": 107,
+      "topic": "Storage & Filesystems",
+      "command": "du -sh",
+      "example": "du -sh /var/log",
+      "use": "Directory size",
+      "options": [
+        {
+          "option": "-sh",
+          "meaning": "Summary total in human units",
+          "example": "du -sh /var/log",
+          "when": "When finding heavy directories"
+        },
+        {
+          "option": "-ah",
+          "meaning": "Show all entries in human units",
+          "example": "du -ah /var/log",
+          "when": "When locating large files"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/du.1.html"
+    },
+    {
+      "n": 108,
+      "topic": "Storage & Filesystems",
+      "command": "du -ah",
+      "example": "du -ah /var | sort -h",
+      "use": "Find large items",
+      "options": [
+        {
+          "option": "-ah",
+          "meaning": "Show all entries in human units",
+          "example": "du -ah /var/log",
+          "when": "When locating large files"
+        },
+        {
+          "option": "-sh",
+          "meaning": "Summary total in human units",
+          "example": "du -sh /var/log",
+          "when": "When finding heavy directories"
+        }
+      ],
+      "tip": "This scans a whole tree and can be slow; narrow the path first. Sort -h sorts human-readable sizes.",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/du.1.html"
+    },
+    {
+      "n": 109,
+      "topic": "Storage & Filesystems",
+      "command": "mount",
+      "example": "mount /dev/sdb1 /data",
+      "use": "Mount filesystem",
+      "options": [
+        {
+          "option": "-o ro",
+          "meaning": "Mount read-only",
+          "example": "sudo mount -o ro /dev/sdb1 /mnt/data",
+          "when": "When inspecting an untrusted disk without writing"
+        }
+      ],
+      "tip": "Mount point contents are hidden while mounted; verify device and mount point first.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/mount.8.html"
+    },
+    {
+      "n": 110,
+      "topic": "Storage & Filesystems",
+      "command": "umount",
+      "example": "umount /data",
+      "use": "Unmount filesystem",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "Unmount only after users/processes release the filesystem.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/umount.8.html"
+    },
+    {
+      "n": 111,
+      "topic": "LVM",
+      "command": "pvs",
+      "example": "pvs",
+      "use": "PV summary",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 112,
+      "topic": "LVM",
+      "command": "pvdisplay",
+      "example": "pvdisplay",
+      "use": "Detailed PV",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 113,
+      "topic": "LVM",
+      "command": "pvcreate",
+      "example": "pvcreate /dev/sdb1",
+      "use": "Create physical volume",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "Destructive: writes LVM metadata to the named device. Confirm the exact disk and data backups before running.",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 114,
+      "topic": "LVM",
+      "command": "vgs",
+      "example": "vgs",
+      "use": "VG summary",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 115,
+      "topic": "LVM",
+      "command": "vgdisplay",
+      "example": "vgdisplay",
+      "use": "Detailed VG",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 116,
+      "topic": "LVM",
+      "command": "vgcreate",
+      "example": "vgcreate vgdata /dev/sdb1",
+      "use": "Create volume group",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "Creates a volume group on an initialized PV. Confirm disk and existing data before use.",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 117,
+      "topic": "LVM",
+      "command": "vgextend",
+      "example": "vgextend vgdata /dev/sdc1",
+      "use": "Add PV to VG",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "Adds a PV to a VG. Confirm disk identity and free capacity first.",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 118,
+      "topic": "LVM",
+      "command": "lvs",
+      "example": "lvs",
+      "use": "LV summary",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 119,
+      "topic": "LVM",
+      "command": "lvdisplay",
+      "example": "lvdisplay",
+      "use": "Detailed LV",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 120,
+      "topic": "LVM",
+      "command": "lvcreate",
+      "example": "lvcreate -L 5G -n lvapp vgdata",
+      "use": "Create logical volume",
+      "options": [
+        {
+          "option": "-L SIZE",
+          "meaning": "Set logical volume size",
+          "example": "sudo lvcreate -L 5G -n lvapp vgdata",
+          "when": "When provisioning within free VG space"
+        },
+        {
+          "option": "-n NAME",
+          "meaning": "Name a new logical volume",
+          "example": "sudo lvcreate -L 5G -n lvapp vgdata",
+          "when": "When creating a named volume"
+        }
+      ],
+      "tip": "Allocates space from VG. Check free extents and filesystem plan first.",
+      "sourceTitle": "Red Hat LVM guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index"
+    },
+    {
+      "n": 121,
+      "topic": "Package Management RHEL",
+      "command": "dnf install",
+      "example": "dnf install httpd",
+      "use": "Install package",
+      "options": [
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        },
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 122,
+      "topic": "Package Management RHEL",
+      "command": "dnf remove",
+      "example": "dnf remove httpd",
+      "use": "Remove package",
+      "options": [
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        },
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 123,
+      "topic": "Package Management RHEL",
+      "command": "dnf update",
+      "example": "dnf update",
+      "use": "Update packages",
+      "options": [
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        },
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 124,
+      "topic": "Package Management RHEL",
+      "command": "dnf search",
+      "example": "dnf search nginx",
+      "use": "Search packages",
+      "options": [
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        },
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 125,
+      "topic": "Package Management RHEL",
+      "command": "dnf info",
+      "example": "dnf info httpd",
+      "use": "Package details",
+      "options": [
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        },
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 126,
+      "topic": "Package Management RHEL",
+      "command": "dnf history",
+      "example": "dnf history",
+      "use": "Transaction history",
+      "options": [
+        {
+          "option": "history",
+          "meaning": "Review package transactions",
+          "example": "dnf history",
+          "when": "When tracing recent package changes"
+        },
+        {
+          "option": "install",
+          "meaning": "Install a package and dependencies",
+          "example": "sudo dnf install httpd",
+          "when": "When adding a trusted package"
+        },
+        {
+          "option": "remove",
+          "meaning": "Remove a package",
+          "example": "sudo dnf remove httpd",
+          "when": "When retiring software; inspect dependencies"
+        },
+        {
+          "option": "search",
+          "meaning": "Find packages by name or description",
+          "example": "dnf search nginx",
+          "when": "When package name is unknown"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 127,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qa",
+      "example": "rpm -qa | grep httpd",
+      "use": "Installed RPMs",
+      "options": [
+        {
+          "option": "-qa",
+          "meaning": "Query all installed RPMs",
+          "example": "rpm -qa",
+          "when": "When auditing installed software"
+        },
+        {
+          "option": "-qi",
+          "meaning": "Query installed package metadata",
+          "example": "rpm -qi httpd",
+          "when": "When checking version/vendor"
+        },
+        {
+          "option": "-ql",
+          "meaning": "List files installed by a package",
+          "example": "rpm -ql httpd",
+          "when": "When finding a config"
+        },
+        {
+          "option": "-qf",
+          "meaning": "Find owner of installed file",
+          "example": "rpm -qf /usr/sbin/httpd",
+          "when": "When identifying which RPM installed a binary"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 128,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qi",
+      "example": "rpm -qi httpd",
+      "use": "RPM package info",
+      "options": [
+        {
+          "option": "-qi",
+          "meaning": "Query installed package metadata",
+          "example": "rpm -qi httpd",
+          "when": "When checking version/vendor"
+        },
+        {
+          "option": "-qa",
+          "meaning": "Query all installed RPMs",
+          "example": "rpm -qa",
+          "when": "When auditing installed software"
+        },
+        {
+          "option": "-ql",
+          "meaning": "List files installed by a package",
+          "example": "rpm -ql httpd",
+          "when": "When finding a config"
+        },
+        {
+          "option": "-qf",
+          "meaning": "Find owner of installed file",
+          "example": "rpm -qf /usr/sbin/httpd",
+          "when": "When identifying which RPM installed a binary"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 129,
+      "topic": "Package Management RHEL",
+      "command": "rpm -ql",
+      "example": "rpm -ql httpd",
+      "use": "Files installed by RPM",
+      "options": [
+        {
+          "option": "-ql",
+          "meaning": "List files installed by a package",
+          "example": "rpm -ql httpd",
+          "when": "When finding a config"
+        },
+        {
+          "option": "-qa",
+          "meaning": "Query all installed RPMs",
+          "example": "rpm -qa",
+          "when": "When auditing installed software"
+        },
+        {
+          "option": "-qi",
+          "meaning": "Query installed package metadata",
+          "example": "rpm -qi httpd",
+          "when": "When checking version/vendor"
+        },
+        {
+          "option": "-qf",
+          "meaning": "Find owner of installed file",
+          "example": "rpm -qf /usr/sbin/httpd",
+          "when": "When identifying which RPM installed a binary"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 130,
+      "topic": "Package Management RHEL",
+      "command": "rpm -qf",
+      "example": "rpm -qf /usr/sbin/httpd",
+      "use": "Find owning package",
+      "options": [
+        {
+          "option": "-qf",
+          "meaning": "Find owner of installed file",
+          "example": "rpm -qf /usr/sbin/httpd",
+          "when": "When identifying which RPM installed a binary"
+        },
+        {
+          "option": "-qa",
+          "meaning": "Query all installed RPMs",
+          "example": "rpm -qa",
+          "when": "When auditing installed software"
+        },
+        {
+          "option": "-qi",
+          "meaning": "Query installed package metadata",
+          "example": "rpm -qi httpd",
+          "when": "When checking version/vendor"
+        },
+        {
+          "option": "-ql",
+          "meaning": "List files installed by a package",
+          "example": "rpm -ql httpd",
+          "when": "When finding a config"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Red Hat DNF commands",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/assembly_yum-commands-list_managing-software-with-the-dnf-tool"
+    },
+    {
+      "n": 131,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl",
+      "example": "journalctl",
+      "use": "Systemd journal",
+      "options": [
+        {
+          "option": "-u UNIT",
+          "meaning": "Show logs for one systemd unit",
+          "example": "journalctl -u nginx",
+          "when": "When troubleshooting a service"
+        },
+        {
+          "option": "-f",
+          "meaning": "Follow new log entries",
+          "example": "journalctl -f",
+          "when": "When watching an active issue"
+        },
+        {
+          "option": "-b",
+          "meaning": "Show current boot only",
+          "example": "journalctl -b",
+          "when": "When checking startup"
+        },
+        {
+          "option": "--since TIME",
+          "meaning": "Filter by start time",
+          "example": "journalctl --since \"1 hour ago\"",
+          "when": "When narrowing recent events"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd journalctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/journalctl.html"
+    },
+    {
+      "n": 132,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -u",
+      "example": "journalctl -u nginx",
+      "use": "Service logs",
+      "options": [
+        {
+          "option": "-u UNIT",
+          "meaning": "Show logs for one systemd unit",
+          "example": "journalctl -u nginx",
+          "when": "When troubleshooting a service"
+        },
+        {
+          "option": "-f",
+          "meaning": "Follow new log entries",
+          "example": "journalctl -f",
+          "when": "When watching an active issue"
+        },
+        {
+          "option": "-b",
+          "meaning": "Show current boot only",
+          "example": "journalctl -b",
+          "when": "When checking startup"
+        },
+        {
+          "option": "--since TIME",
+          "meaning": "Filter by start time",
+          "example": "journalctl --since \"1 hour ago\"",
+          "when": "When narrowing recent events"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd journalctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/journalctl.html"
+    },
+    {
+      "n": 133,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -f",
+      "example": "journalctl -f",
+      "use": "Follow logs live",
+      "options": [
+        {
+          "option": "-f",
+          "meaning": "Follow new log entries",
+          "example": "journalctl -f",
+          "when": "When watching an active issue"
+        },
+        {
+          "option": "-u UNIT",
+          "meaning": "Show logs for one systemd unit",
+          "example": "journalctl -u nginx",
+          "when": "When troubleshooting a service"
+        },
+        {
+          "option": "-b",
+          "meaning": "Show current boot only",
+          "example": "journalctl -b",
+          "when": "When checking startup"
+        },
+        {
+          "option": "--since TIME",
+          "meaning": "Filter by start time",
+          "example": "journalctl --since \"1 hour ago\"",
+          "when": "When narrowing recent events"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd journalctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/journalctl.html"
+    },
+    {
+      "n": 134,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl -b",
+      "example": "journalctl -b",
+      "use": "Current boot logs",
+      "options": [
+        {
+          "option": "-b",
+          "meaning": "Show current boot only",
+          "example": "journalctl -b",
+          "when": "When checking startup"
+        },
+        {
+          "option": "-u UNIT",
+          "meaning": "Show logs for one systemd unit",
+          "example": "journalctl -u nginx",
+          "when": "When troubleshooting a service"
+        },
+        {
+          "option": "-f",
+          "meaning": "Follow new log entries",
+          "example": "journalctl -f",
+          "when": "When watching an active issue"
+        },
+        {
+          "option": "--since TIME",
+          "meaning": "Filter by start time",
+          "example": "journalctl --since \"1 hour ago\"",
+          "when": "When narrowing recent events"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd journalctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/journalctl.html"
+    },
+    {
+      "n": 135,
+      "topic": "Logs & Troubleshooting",
+      "command": "journalctl --since",
+      "example": "journalctl --since '1 hour ago'",
+      "use": "Recent logs",
+      "options": [
+        {
+          "option": "-u UNIT",
+          "meaning": "Show logs for one systemd unit",
+          "example": "journalctl -u nginx",
+          "when": "When troubleshooting a service"
+        },
+        {
+          "option": "-f",
+          "meaning": "Follow new log entries",
+          "example": "journalctl -f",
+          "when": "When watching an active issue"
+        },
+        {
+          "option": "-b",
+          "meaning": "Show current boot only",
+          "example": "journalctl -b",
+          "when": "When checking startup"
+        },
+        {
+          "option": "--since TIME",
+          "meaning": "Filter by start time",
+          "example": "journalctl --since \"1 hour ago\"",
+          "when": "When narrowing recent events"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd journalctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/journalctl.html"
+    },
+    {
+      "n": 136,
+      "topic": "Logs & Troubleshooting",
+      "command": "dmesg",
+      "example": "dmesg | tail",
+      "use": "Kernel/hardware messages",
+      "options": [
+        {
+          "option": "-T",
+          "meaning": "Display human-readable timestamps (approximate)",
+          "example": "dmesg -T | tail",
+          "when": "When checking recent kernel messages"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/dmesg.1.html"
+    },
+    {
+      "n": 137,
+      "topic": "Logs & Troubleshooting",
+      "command": "logger",
+      "example": "logger 'Backup completed'",
+      "use": "Write custom log message",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/logger.1.html"
+    },
+    {
+      "n": 138,
+      "topic": "Logs & Troubleshooting",
+      "command": "last",
+      "example": "last",
+      "use": "Login/reboot history",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/last.1.html"
+    },
+    {
+      "n": 139,
+      "topic": "Logs & Troubleshooting",
+      "command": "lastb",
+      "example": "lastb",
+      "use": "Failed login attempts",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/lastb.1.html"
+    },
+    {
+      "n": 140,
+      "topic": "Logs & Troubleshooting",
+      "command": "tail -f",
+      "example": "tail -f /var/log/messages",
+      "use": "Live traditional log",
+      "options": [
+        {
+          "option": "-f",
+          "meaning": "Follow appended lines",
+          "example": "tail -f app.log",
+          "when": "When watching a live log; Ctrl+C stops"
+        },
+        {
+          "option": "-n N",
+          "meaning": "Print last N lines",
+          "example": "tail -n 50 app.log",
+          "when": "When reading recent entries"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tail.1.html"
+    },
+    {
+      "n": 141,
+      "topic": "SSH & File Transfer",
+      "command": "ssh",
+      "example": "ssh user@192.168.1.10",
+      "use": "Remote login",
+      "options": [
+        {
+          "option": "-p PORT",
+          "meaning": "Connect to non-default SSH port",
+          "example": "ssh -p 2222 user@server",
+          "when": "When server uses a custom port"
+        },
+        {
+          "option": "-v",
+          "meaning": "Show connection diagnostics",
+          "example": "ssh -v user@server",
+          "when": "When login fails"
+        },
+        {
+          "option": "-i KEY",
+          "meaning": "Choose an identity file",
+          "example": "ssh -i ~/.ssh/id_ed25519 user@server",
+          "when": "When selecting a key"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 142,
+      "topic": "SSH & File Transfer",
+      "command": "ssh -p",
+      "example": "ssh -p 2222 user@server",
+      "use": "Connect on custom port",
+      "options": [
+        {
+          "option": "-p PORT",
+          "meaning": "Connect to non-default SSH port",
+          "example": "ssh -p 2222 user@server",
+          "when": "When server uses a custom port"
+        },
+        {
+          "option": "-v",
+          "meaning": "Show connection diagnostics",
+          "example": "ssh -v user@server",
+          "when": "When login fails"
+        },
+        {
+          "option": "-i KEY",
+          "meaning": "Choose an identity file",
+          "example": "ssh -i ~/.ssh/id_ed25519 user@server",
+          "when": "When selecting a key"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 143,
+      "topic": "SSH & File Transfer",
+      "command": "ssh -v",
+      "example": "ssh -v user@server",
+      "use": "Debug SSH connection",
+      "options": [
+        {
+          "option": "-v",
+          "meaning": "Show connection diagnostics",
+          "example": "ssh -v user@server",
+          "when": "When login fails"
+        },
+        {
+          "option": "-p PORT",
+          "meaning": "Connect to non-default SSH port",
+          "example": "ssh -p 2222 user@server",
+          "when": "When server uses a custom port"
+        },
+        {
+          "option": "-i KEY",
+          "meaning": "Choose an identity file",
+          "example": "ssh -i ~/.ssh/id_ed25519 user@server",
+          "when": "When selecting a key"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 144,
+      "topic": "SSH & File Transfer",
+      "command": "scp",
+      "example": "scp app.conf user@server:/tmp/",
+      "use": "Secure file copy",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Copy a directory recursively",
+          "example": "scp -r app/ user@server:/opt/",
+          "when": "When transferring a folder"
+        },
+        {
+          "option": "-P PORT",
+          "meaning": "Use remote SSH port (uppercase P)",
+          "example": "scp -P 2222 app.conf user@server:/tmp/",
+          "when": "When SSH has a custom port"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 145,
+      "topic": "SSH & File Transfer",
+      "command": "scp -r",
+      "example": "scp -r app/ user@server:/opt/",
+      "use": "Directory copy",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Copy a directory recursively",
+          "example": "scp -r app/ user@server:/opt/",
+          "when": "When transferring a folder"
+        },
+        {
+          "option": "-P PORT",
+          "meaning": "Use remote SSH port (uppercase P)",
+          "example": "scp -P 2222 app.conf user@server:/tmp/",
+          "when": "When SSH has a custom port"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 146,
+      "topic": "SSH & File Transfer",
+      "command": "sftp",
+      "example": "sftp user@server",
+      "use": "Interactive file transfer",
+      "options": [
+        {
+          "option": "-P PORT",
+          "meaning": "Connect to custom SSH port",
+          "example": "sftp -P 2222 user@server",
+          "when": "When using non-default SSH port"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 147,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-keygen",
+      "example": "ssh-keygen -t ed25519",
+      "use": "Generate SSH keys",
+      "options": [
+        {
+          "option": "-t TYPE",
+          "meaning": "Select key algorithm",
+          "example": "ssh-keygen -t ed25519",
+          "when": "When creating a modern SSH key"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 148,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-copy-id",
+      "example": "ssh-copy-id user@server",
+      "use": "Install public key",
+      "options": [
+        {
+          "option": "-i KEY",
+          "meaning": "Choose public key to install",
+          "example": "ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server",
+          "when": "When enrolling the chosen key"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 149,
+      "topic": "SSH & File Transfer",
+      "command": "ssh-keyscan",
+      "example": "ssh-keyscan server",
+      "use": "Get host key",
+      "options": [
+        {
+          "option": "-p PORT",
+          "meaning": "Fetch host key from custom port",
+          "example": "ssh-keyscan -p 2222 server",
+          "when": "When gathering a key; verify fingerprint independently"
+        }
+      ],
+      "tip": "A fetched key is not authenticated. Check its fingerprint over a trusted channel.",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 150,
+      "topic": "SSH & File Transfer",
+      "command": "sshd -t",
+      "example": "sshd -t",
+      "use": "Validate SSH config syntax",
+      "options": [
+        {
+          "option": "-t",
+          "meaning": "Test SSH daemon configuration syntax",
+          "example": "sudo sshd -t",
+          "when": "Before restarting SSH after edits"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "OpenSSH manuals",
+      "sourceUrl": "https://www.openssh.org/manual.html"
+    },
+    {
+      "n": 151,
+      "topic": "Archive & Compression",
+      "command": "tar -cf",
+      "example": "tar -cf backup.tar /data",
+      "use": "Create tar archive",
+      "options": [
+        {
+          "option": "-cf",
+          "meaning": "Create archive file",
+          "example": "tar -cf backup.tar /data",
+          "when": "When bundling files; tar alone does not compress"
+        },
+        {
+          "option": "-xf",
+          "meaning": "Extract archive",
+          "example": "tar -xf backup.tar -C /tmp/restore",
+          "when": "When restoring to a checked destination"
+        },
+        {
+          "option": "-tf",
+          "meaning": "List contents before extraction",
+          "example": "tar -tf backup.tar",
+          "when": "When checking unknown archive paths"
+        },
+        {
+          "option": "-czf",
+          "meaning": "Create gzip-compressed tar",
+          "example": "tar -czf logs.tar.gz /var/log/app",
+          "when": "When archiving and compressing"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tar.1.html"
+    },
+    {
+      "n": 152,
+      "topic": "Archive & Compression",
+      "command": "tar -xf",
+      "example": "tar -xf backup.tar",
+      "use": "Extract tar archive",
+      "options": [
+        {
+          "option": "-xf",
+          "meaning": "Extract archive",
+          "example": "tar -xf backup.tar -C /tmp/restore",
+          "when": "When restoring to a checked destination"
+        },
+        {
+          "option": "-cf",
+          "meaning": "Create archive file",
+          "example": "tar -cf backup.tar /data",
+          "when": "When bundling files; tar alone does not compress"
+        },
+        {
+          "option": "-tf",
+          "meaning": "List contents before extraction",
+          "example": "tar -tf backup.tar",
+          "when": "When checking unknown archive paths"
+        },
+        {
+          "option": "-czf",
+          "meaning": "Create gzip-compressed tar",
+          "example": "tar -czf logs.tar.gz /var/log/app",
+          "when": "When archiving and compressing"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tar.1.html"
+    },
+    {
+      "n": 153,
+      "topic": "Archive & Compression",
+      "command": "tar -tf",
+      "example": "tar -tf backup.tar",
+      "use": "List archive contents",
+      "options": [
+        {
+          "option": "-tf",
+          "meaning": "List contents before extraction",
+          "example": "tar -tf backup.tar",
+          "when": "When checking unknown archive paths"
+        },
+        {
+          "option": "-cf",
+          "meaning": "Create archive file",
+          "example": "tar -cf backup.tar /data",
+          "when": "When bundling files; tar alone does not compress"
+        },
+        {
+          "option": "-xf",
+          "meaning": "Extract archive",
+          "example": "tar -xf backup.tar -C /tmp/restore",
+          "when": "When restoring to a checked destination"
+        },
+        {
+          "option": "-czf",
+          "meaning": "Create gzip-compressed tar",
+          "example": "tar -czf logs.tar.gz /var/log/app",
+          "when": "When archiving and compressing"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tar.1.html"
+    },
+    {
+      "n": 154,
+      "topic": "Archive & Compression",
+      "command": "tar -czf",
+      "example": "tar -czf logs.tar.gz /var/log/app",
+      "use": "Create gzip tar archive",
+      "options": [
+        {
+          "option": "-czf",
+          "meaning": "Create gzip-compressed tar",
+          "example": "tar -czf logs.tar.gz /var/log/app",
+          "when": "When archiving and compressing"
+        },
+        {
+          "option": "-cf",
+          "meaning": "Create archive file",
+          "example": "tar -cf backup.tar /data",
+          "when": "When bundling files; tar alone does not compress"
+        },
+        {
+          "option": "-xf",
+          "meaning": "Extract archive",
+          "example": "tar -xf backup.tar -C /tmp/restore",
+          "when": "When restoring to a checked destination"
+        },
+        {
+          "option": "-tf",
+          "meaning": "List contents before extraction",
+          "example": "tar -tf backup.tar",
+          "when": "When checking unknown archive paths"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tar.1.html"
+    },
+    {
+      "n": 155,
+      "topic": "Archive & Compression",
+      "command": "tar -xzf",
+      "example": "tar -xzf logs.tar.gz",
+      "use": "Extract gzip tar",
+      "options": [
+        {
+          "option": "-cf",
+          "meaning": "Create archive file",
+          "example": "tar -cf backup.tar /data",
+          "when": "When bundling files; tar alone does not compress"
+        },
+        {
+          "option": "-xf",
+          "meaning": "Extract archive",
+          "example": "tar -xf backup.tar -C /tmp/restore",
+          "when": "When restoring to a checked destination"
+        },
+        {
+          "option": "-tf",
+          "meaning": "List contents before extraction",
+          "example": "tar -tf backup.tar",
+          "when": "When checking unknown archive paths"
+        },
+        {
+          "option": "-czf",
+          "meaning": "Create gzip-compressed tar",
+          "example": "tar -czf logs.tar.gz /var/log/app",
+          "when": "When archiving and compressing"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/tar.1.html"
+    },
+    {
+      "n": 156,
+      "topic": "Archive & Compression",
+      "command": "gzip",
+      "example": "gzip app.log",
+      "use": "Compress file",
+      "options": [
+        {
+          "option": "-k",
+          "meaning": "Keep original file",
+          "example": "gzip -k app.log",
+          "when": "When compression must not remove original"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 157,
+      "topic": "Archive & Compression",
+      "command": "gunzip",
+      "example": "gunzip app.log.gz",
+      "use": "Decompress gzip",
+      "options": [
+        {
+          "option": "-k",
+          "meaning": "Keep compressed source",
+          "example": "gunzip -k app.log.gz",
+          "when": "When retaining archive"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 158,
+      "topic": "Archive & Compression",
+      "command": "zip",
+      "example": "zip backup.zip app.conf",
+      "use": "Create ZIP",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Include directories recursively",
+          "example": "zip -r backup.zip app/",
+          "when": "When archiving a folder"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 159,
+      "topic": "Archive & Compression",
+      "command": "unzip",
+      "example": "unzip backup.zip",
+      "use": "Extract ZIP",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "List files before extraction",
+          "example": "unzip -l backup.zip",
+          "when": "When checking contents safely"
+        },
+        {
+          "option": "-d DIR",
+          "meaning": "Extract to chosen directory",
+          "example": "unzip backup.zip -d /tmp/restore",
+          "when": "When controlling output location"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 160,
+      "topic": "Archive & Compression",
+      "command": "zcat",
+      "example": "zcat app.log.gz",
+      "use": "Read compressed log directly",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 161,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -e",
+      "example": "crontab -e",
+      "use": "Edit user cron jobs",
+      "options": [
+        {
+          "option": "-e",
+          "meaning": "Edit current user crontab",
+          "example": "crontab -e",
+          "when": "When scheduling recurring jobs"
+        },
+        {
+          "option": "-l",
+          "meaning": "List current user crontab",
+          "example": "crontab -l",
+          "when": "When auditing schedules"
+        },
+        {
+          "option": "-r",
+          "meaning": "Remove entire current user crontab",
+          "example": "crontab -r",
+          "when": "Danger: backs up crontab -l first; removes all entries"
+        }
+      ],
+      "tip": "Use crontab -l to back up before -r, which deletes the whole crontab.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/crontab.1.html"
+    },
+    {
+      "n": 162,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -l",
+      "example": "crontab -l",
+      "use": "List cron jobs",
+      "options": [
+        {
+          "option": "-l",
+          "meaning": "List current user crontab",
+          "example": "crontab -l",
+          "when": "When auditing schedules"
+        },
+        {
+          "option": "-e",
+          "meaning": "Edit current user crontab",
+          "example": "crontab -e",
+          "when": "When scheduling recurring jobs"
+        },
+        {
+          "option": "-r",
+          "meaning": "Remove entire current user crontab",
+          "example": "crontab -r",
+          "when": "Danger: backs up crontab -l first; removes all entries"
+        }
+      ],
+      "tip": "Use crontab -l to back up before -r, which deletes the whole crontab.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/crontab.1.html"
+    },
+    {
+      "n": 163,
+      "topic": "Scheduling & Repetition",
+      "command": "crontab -r",
+      "example": "crontab -r",
+      "use": "Remove user cron jobs; caution",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Remove entire current user crontab",
+          "example": "crontab -r",
+          "when": "Danger: backs up crontab -l first; removes all entries"
+        },
+        {
+          "option": "-e",
+          "meaning": "Edit current user crontab",
+          "example": "crontab -e",
+          "when": "When scheduling recurring jobs"
+        },
+        {
+          "option": "-l",
+          "meaning": "List current user crontab",
+          "example": "crontab -l",
+          "when": "When auditing schedules"
+        }
+      ],
+      "tip": "Danger: removes every entry in the current user crontab, not just one task. Back up crontab -l first.",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/crontab.1.html"
+    },
+    {
+      "n": 164,
+      "topic": "Scheduling & Repetition",
+      "command": "at",
+      "example": "at 23:00",
+      "use": "One-time scheduled job",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 165,
+      "topic": "Scheduling & Repetition",
+      "command": "atq",
+      "example": "atq",
+      "use": "List pending at jobs",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 166,
+      "topic": "Scheduling & Repetition",
+      "command": "atrm",
+      "example": "atrm 5",
+      "use": "Remove at job",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 167,
+      "topic": "Scheduling & Repetition",
+      "command": "systemctl list-timers",
+      "example": "systemctl list-timers",
+      "use": "List systemd timers",
+      "options": [
+        {
+          "option": "status",
+          "meaning": "Inspect unit status and recent messages",
+          "example": "systemctl status nginx",
+          "when": "When diagnosing a service"
+        },
+        {
+          "option": "restart",
+          "meaning": "Stop then start the unit",
+          "example": "sudo systemctl restart nginx",
+          "when": "After an approved change; causes brief outage"
+        },
+        {
+          "option": "reload",
+          "meaning": "Apply config without full restart if supported",
+          "example": "sudo systemctl reload nginx",
+          "when": "After supported config changes"
+        },
+        {
+          "option": "enable",
+          "meaning": "Start unit at boot; does not start now",
+          "example": "sudo systemctl enable nginx",
+          "when": "When service must survive reboot"
+        },
+        {
+          "option": "--type=service",
+          "meaning": "Filter unit list to services",
+          "example": "systemctl list-units --type=service",
+          "when": "When browsing only services"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "systemd systemctl manual",
+      "sourceUrl": "https://freedesktop.org/software/systemd/man/latest/systemctl.html"
+    },
+    {
+      "n": 168,
+      "topic": "Scheduling & Repetition",
+      "command": "watch",
+      "example": "watch -n 2 df -h",
+      "use": "Repeat command for monitoring",
+      "options": [
+        {
+          "option": "-n SEC",
+          "meaning": "Refresh interval in seconds",
+          "example": "watch -n 2 df -h",
+          "when": "When watching disk space change"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/watch.1.html"
+    },
+    {
+      "n": 169,
+      "topic": "Scheduling & Repetition",
+      "command": "sleep",
+      "example": "sleep 10",
+      "use": "Script delay",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/sleep.1.html"
+    },
+    {
+      "n": 170,
+      "topic": "Scheduling & Repetition",
+      "command": "timeout",
+      "example": "timeout 10s ping server",
+      "use": "Limit command duration",
+      "options": [
+        {
+          "option": "10s",
+          "meaning": "Limit runtime to 10 seconds",
+          "example": "timeout 10s ping server",
+          "when": "When a command may hang"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/timeout.1.html"
+    },
+    {
+      "n": 171,
+      "topic": "Shell & Text Processing",
+      "command": "echo",
+      "example": "echo $PATH",
+      "use": "Print values",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Do not append newline",
+          "example": "echo -n ready",
+          "when": "When composing output on one line"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 172,
+      "topic": "Shell & Text Processing",
+      "command": "printf",
+      "example": "printf 'Server: %s\\n' \"$HOSTNAME\"",
+      "use": "Formatted output",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 173,
+      "topic": "Shell & Text Processing",
+      "command": "env",
+      "example": "env",
+      "use": "Environment variables",
+      "options": [
+        {
+          "option": "-i",
+          "meaning": "Run with an empty environment",
+          "example": "env -i /usr/bin/printenv",
+          "when": "When testing environment dependencies"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/env.1.html"
+    },
+    {
+      "n": 174,
+      "topic": "Shell & Text Processing",
+      "command": "printenv",
+      "example": "printenv HOME",
+      "use": "Specific environment variable",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/printenv.1.html"
+    },
+    {
+      "n": 175,
+      "topic": "Shell & Text Processing",
+      "command": "export",
+      "example": "export APP_ENV=prod",
+      "use": "Export variable",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 176,
+      "topic": "Shell & Text Processing",
+      "command": "source",
+      "example": "source ~/.bashrc",
+      "use": "Reload shell config",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 177,
+      "topic": "Shell & Text Processing",
+      "command": "alias",
+      "example": "alias ll='ls -lah'",
+      "use": "Create shortcut",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 178,
+      "topic": "Shell & Text Processing",
+      "command": "unalias",
+      "example": "unalias ll",
+      "use": "Remove alias",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 179,
+      "topic": "Shell & Text Processing",
+      "command": "awk",
+      "example": "awk '{print $1}' access.log",
+      "use": "Extract/process columns",
+      "options": [
+        {
+          "option": "-F SEP",
+          "meaning": "Specify input field delimiter",
+          "example": "awk -F: '{print $1}' /etc/passwd",
+          "when": "When parsing colon-separated records"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 180,
+      "topic": "Shell & Text Processing",
+      "command": "sed",
+      "example": "sed 's/old/new/g' file.txt",
+      "use": "Replace text",
+      "options": [
+        {
+          "option": "-n",
+          "meaning": "Suppress default output; print only selected lines",
+          "example": "sed -n \"1,10p\" file.txt",
+          "when": "When extracting a line range"
+        },
+        {
+          "option": "-i",
+          "meaning": "Edit file in place",
+          "example": "sed -i.bak \"s/old/new/g\" file.txt",
+          "when": "Only after checking replacement; .bak keeps backup"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/sed.1.html"
+    },
+    {
+      "n": 181,
+      "topic": "System Info & Monitoring",
+      "command": "uname -a",
+      "example": "uname -a",
+      "use": "System/kernel information",
+      "options": [
+        {
+          "option": "-a",
+          "meaning": "Print all available system info",
+          "example": "uname -a",
+          "when": "When checking kernel and architecture"
+        },
+        {
+          "option": "-r",
+          "meaning": "Print kernel release",
+          "example": "uname -r",
+          "when": "When checking module compatibility"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/uname.1.html"
+    },
+    {
+      "n": 182,
+      "topic": "System Info & Monitoring",
+      "command": "uname -r",
+      "example": "uname -r",
+      "use": "Kernel version",
+      "options": [
+        {
+          "option": "-r",
+          "meaning": "Print kernel release",
+          "example": "uname -r",
+          "when": "When checking module compatibility"
+        },
+        {
+          "option": "-a",
+          "meaning": "Print all available system info",
+          "example": "uname -a",
+          "when": "When checking kernel and architecture"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/uname.1.html"
+    },
+    {
+      "n": 183,
+      "topic": "System Info & Monitoring",
+      "command": "cat /etc/os-release",
+      "example": "cat /etc/os-release",
+      "use": "OS/version",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "GNU coreutils manual page (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/cat.1.html"
+    },
+    {
+      "n": 184,
+      "topic": "System Info & Monitoring",
+      "command": "lscpu",
+      "example": "lscpu",
+      "use": "CPU details",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/lscpu.1.html"
+    },
+    {
+      "n": 185,
+      "topic": "System Info & Monitoring",
+      "command": "lsmem",
+      "example": "lsmem",
+      "use": "Memory layout",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/lsmem.1.html"
+    },
+    {
+      "n": 186,
+      "topic": "System Info & Monitoring",
+      "command": "lsusb",
+      "example": "lsusb",
+      "use": "USB devices",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 187,
+      "topic": "System Info & Monitoring",
+      "command": "lspci",
+      "example": "lspci",
+      "use": "PCI hardware",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 188,
+      "topic": "System Info & Monitoring",
+      "command": "vmstat",
+      "example": "vmstat 1 5",
+      "use": "CPU/memory/IO stats",
+      "options": [
+        {
+          "option": "1 5",
+          "meaning": "Sample every 1 second, 5 times",
+          "example": "vmstat 1 5",
+          "when": "When watching CPU, memory and I/O"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 189,
+      "topic": "System Info & Monitoring",
+      "command": "iostat",
+      "example": "iostat -xz 1 3",
+      "use": "Disk I/O stats",
+      "options": [
+        {
+          "option": "-xz",
+          "meaning": "Extended device stats; omit inactive devices",
+          "example": "iostat -xz 1 3",
+          "when": "When investigating disk latency"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/iostat.1.html"
+    },
+    {
+      "n": 190,
+      "topic": "System Info & Monitoring",
+      "command": "sar",
+      "example": "sar -u 1 5",
+      "use": "Performance statistics; sysstat required",
+      "options": [
+        {
+          "option": "-u",
+          "meaning": "Report CPU utilization",
+          "example": "sar -u 1 5",
+          "when": "When observing CPU over time"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/sar.1.html"
+    },
+    {
+      "n": 191,
+      "topic": "Security & Firewall",
+      "command": "sudo",
+      "example": "sudo systemctl restart nginx",
+      "use": "Run authorized admin command",
+      "options": [
+        {
+          "option": "-u USER",
+          "meaning": "Run command as specified user",
+          "example": "sudo -u appuser whoami",
+          "when": "When testing service account access"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 192,
+      "topic": "Security & Firewall",
+      "command": "su",
+      "example": "su - appuser",
+      "use": "Switch user",
+      "options": [
+        {
+          "option": "-",
+          "meaning": "Start a login shell for target user",
+          "example": "su - appuser",
+          "when": "When environment should match normal login"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Bash manual (man7 mirror)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    },
+    {
+      "n": 193,
+      "topic": "Security & Firewall",
+      "command": "visudo",
+      "example": "visudo",
+      "use": "Safely edit sudoers",
+      "options": [
+        {
+          "option": "-c",
+          "meaning": "Check sudoers syntax",
+          "example": "sudo visudo -c",
+          "when": "Before deploying sudoers changes"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/man8/visudo.8.html"
+    },
+    {
+      "n": 194,
+      "topic": "Security & Firewall",
+      "command": "getenforce",
+      "example": "getenforce",
+      "use": "SELinux mode",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 195,
+      "topic": "Security & Firewall",
+      "command": "sestatus",
+      "example": "sestatus",
+      "use": "SELinux details",
+      "options": [],
+      "no_flags": "This example uses a command, argument, or subcommand rather than an everyday short flag. See the linked manual for supported options on your distribution.",
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    },
+    {
+      "n": 196,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --state",
+      "example": "firewall-cmd --state",
+      "use": "Firewalld state",
+      "options": [
+        {
+          "option": "--state",
+          "meaning": "Check if firewalld is running",
+          "example": "sudo firewall-cmd --state",
+          "when": "When rules seem inactive"
+        },
+        {
+          "option": "--list-all",
+          "meaning": "Show active zone settings",
+          "example": "sudo firewall-cmd --list-all",
+          "when": "When auditing open services"
+        },
+        {
+          "option": "--add-service=NAME",
+          "meaning": "Allow named service",
+          "example": "sudo firewall-cmd --add-service=http --permanent",
+          "when": "Only after change approval; permanent needs reload"
+        },
+        {
+          "option": "--reload",
+          "meaning": "Apply permanent config to runtime",
+          "example": "sudo firewall-cmd --reload",
+          "when": "After verified permanent changes"
+        }
+      ],
+      "tip": "A firewall change can cut off remote access. Verify zone and recovery path first.",
+      "sourceTitle": "Red Hat firewalld guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_firewalls_and_packet_filters/using-and-configuring-firewalld_firewall-packet-filters"
+    },
+    {
+      "n": 197,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --list-all",
+      "example": "firewall-cmd --list-all",
+      "use": "Current firewall rules",
+      "options": [
+        {
+          "option": "--list-all",
+          "meaning": "Show active zone settings",
+          "example": "sudo firewall-cmd --list-all",
+          "when": "When auditing open services"
+        },
+        {
+          "option": "--state",
+          "meaning": "Check if firewalld is running",
+          "example": "sudo firewall-cmd --state",
+          "when": "When rules seem inactive"
+        },
+        {
+          "option": "--add-service=NAME",
+          "meaning": "Allow named service",
+          "example": "sudo firewall-cmd --add-service=http --permanent",
+          "when": "Only after change approval; permanent needs reload"
+        },
+        {
+          "option": "--reload",
+          "meaning": "Apply permanent config to runtime",
+          "example": "sudo firewall-cmd --reload",
+          "when": "After verified permanent changes"
+        }
+      ],
+      "tip": "A firewall change can cut off remote access. Verify zone and recovery path first.",
+      "sourceTitle": "Red Hat firewalld guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_firewalls_and_packet_filters/using-and-configuring-firewalld_firewall-packet-filters"
+    },
+    {
+      "n": 198,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --add-service",
+      "example": "firewall-cmd --add-service=http --permanent",
+      "use": "Allow HTTP",
+      "options": [
+        {
+          "option": "--state",
+          "meaning": "Check if firewalld is running",
+          "example": "sudo firewall-cmd --state",
+          "when": "When rules seem inactive"
+        },
+        {
+          "option": "--list-all",
+          "meaning": "Show active zone settings",
+          "example": "sudo firewall-cmd --list-all",
+          "when": "When auditing open services"
+        },
+        {
+          "option": "--add-service=NAME",
+          "meaning": "Allow named service",
+          "example": "sudo firewall-cmd --add-service=http --permanent",
+          "when": "Only after change approval; permanent needs reload"
+        },
+        {
+          "option": "--reload",
+          "meaning": "Apply permanent config to runtime",
+          "example": "sudo firewall-cmd --reload",
+          "when": "After verified permanent changes"
+        }
+      ],
+      "tip": "A firewall change can cut off remote access. Verify zone and recovery path first.",
+      "sourceTitle": "Red Hat firewalld guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_firewalls_and_packet_filters/using-and-configuring-firewalld_firewall-packet-filters"
+    },
+    {
+      "n": 199,
+      "topic": "Security & Firewall",
+      "command": "firewall-cmd --reload",
+      "example": "firewall-cmd --reload",
+      "use": "Apply permanent firewalld changes",
+      "options": [
+        {
+          "option": "--reload",
+          "meaning": "Apply permanent config to runtime",
+          "example": "sudo firewall-cmd --reload",
+          "when": "After verified permanent changes"
+        },
+        {
+          "option": "--state",
+          "meaning": "Check if firewalld is running",
+          "example": "sudo firewall-cmd --state",
+          "when": "When rules seem inactive"
+        },
+        {
+          "option": "--list-all",
+          "meaning": "Show active zone settings",
+          "example": "sudo firewall-cmd --list-all",
+          "when": "When auditing open services"
+        },
+        {
+          "option": "--add-service=NAME",
+          "meaning": "Allow named service",
+          "example": "sudo firewall-cmd --add-service=http --permanent",
+          "when": "Only after change approval; permanent needs reload"
+        }
+      ],
+      "tip": "A firewall change can cut off remote access. Verify zone and recovery path first.",
+      "sourceTitle": "Red Hat firewalld guide",
+      "sourceUrl": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_firewalls_and_packet_filters/using-and-configuring-firewalld_firewall-packet-filters"
+    },
+    {
+      "n": 200,
+      "topic": "Security & Firewall",
+      "command": "openssl",
+      "example": "openssl s_client -connect example.com:443",
+      "use": "TLS/SSL troubleshooting",
+      "options": [
+        {
+          "option": "s_client",
+          "meaning": "Connect and inspect TLS server",
+          "example": "openssl s_client -connect example.com:443 -servername example.com",
+          "when": "When debugging TLS certificates"
+        }
+      ],
+      "tip": "",
+      "sourceTitle": "Linux manual index (find this command)",
+      "sourceUrl": "https://man7.org/linux/man-pages/dir_section_1.html"
+    }
+  ]
+}
