@@ -324,9 +324,9 @@ def main():
     time.sleep(1)
 
     # Sourced Linux and Computer definitions.
-    nodes, xml = wait_node(15, text='Definitions')
+    nodes, xml = find_scrolled(5, text='Definitions')
     PAGES.append(xml)
-    check('definitions card present', tap_exact(xml, 'Definitions'))
+    check('definitions card present', bool(nodes) and tap_exact(xml, 'Definitions'))
     nodes, xml = wait_node(20, contains='Online-sourced definitions')
     PAGES.append(xml)
     check('definitions screen opens', bool(nodes) and bool(find_all(xml, text='Linux')) and bool(find_all(xml, text='Computer')))
@@ -338,14 +338,35 @@ def main():
         run(['adb', 'shell', 'input', 'text', 'Kernel'])
         time.sleep(1.6)
         run(['adb', 'shell', 'input', 'keyevent', '4'])
-        nodes, xml = wait_node(25, contains='The core of the operating system, managing hardware and processes.')
+        nodes, xml = wait_node(25, contains='The Linux kernel is the core of the operating system.')
         PAGES.append(xml)
-        check('definitions search finds Kernel', bool(nodes) and bool(find_all(xml, contains='Linux Glossary')))
+        check('definitions search finds Kernel', bool(nodes) and bool(find_all(xml, contains='Example:')))
         shot('12b_definitions')
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(0.7)
     run(['adb', 'shell', 'input', 'keyevent', '4'])
     time.sleep(1)
+
+    # Commands learner: new standalone Home button, topic table and option detail.
+    nodes, xml = restart_app()
+    nodes, xml = find_scrolled(6, text='Commands')
+    check('Commands home card present', bool(nodes) and tap_exact(xml, 'Commands'))
+    nodes, xml = wait_node(20, contains='Learn Linux commands')
+    check('Commands topic index opens', bool(nodes) and bool(find_all(xml, contains='Navigation & Basics')))
+    shot('12c_commands_topics')
+    if tap_exact(xml, 'Navigation & Basics'):
+        nodes, xml = wait_node(20, contains='COMMAND')
+        check('Commands topic table opens', bool(nodes) and bool(find_all(xml, text='ls')))
+        shot('12d_commands_table')
+        if tap_exact(xml, 'ls'):
+            nodes, xml = wait_node(20, contains='What it does')
+            check('Command detail shows flag explanation', bool(nodes) and bool(find_all(xml, contains='Try this example')))
+            shot('12e_command_ls_detail')
+        else: check('Command detail shows flag explanation', False)
+    else:
+        check('Commands topic table opens', False)
+        check('Command detail shows flag explanation', False)
+    restart_app()
 
     # Interview source sections and book-style question screen.
     nodes, xml = wait_node(15, text='Interview Questions')
