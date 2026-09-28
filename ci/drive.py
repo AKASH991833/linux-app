@@ -152,6 +152,17 @@ def tap_exact(xml, label, contains=False):
         return True
     return False
 
+def tap_open_near(xml, label):
+    titles = find_all(xml, contains=label)
+    if not titles: return False
+    ty = y1(titles[0])
+    for button in find_all(xml, text='Open', clazz='Button'):
+        if abs(y1(button)-ty) < 120:
+            tap_node(button)
+            return True
+    tap_node(titles[0])
+    return True
+
 def current_question(xml):
     texts = {n.get('text') or '' for n in find_all(xml)}
     for asset in ('questions.json', 'computer_questions.json'):
@@ -358,7 +369,9 @@ def main():
         nodes, xml = wait_node(20, contains='COMMAND')
         check('Commands topic table opens', bool(nodes) and bool(find_all(xml, text='ls')))
         shot('12d_commands_table')
-        if tap_exact(xml, 'ls'):
+        rows = [n for n in find_all(xml, clazz='LinearLayout', clickable=True) if (n.get('content-desc') or '').startswith('ls. View files, hidden files and permissions.')]
+        if rows:
+            tap_node(rows[0])
             nodes, xml = wait_node(20, contains='What it does')
             check('Command detail shows flag explanation', bool(nodes) and bool(find_all(xml, contains='Try this example')))
             shot('12e_command_ls_detail')
@@ -379,7 +392,7 @@ def main():
           bool(find_all(xml, contains='My Interview Questions')) and bool(find_all(xml, contains='200 Important Commands')) and
           bool(find_all(xml, contains='Networking Interview Q&A')) and bool(find_all(xml, contains='15 Advanced Topics Handbook')))
     shot('13_interview_sections')
-    if tap_exact(xml, '200 Important Commands', contains=True):
+    if tap_open_near(xml, '200 Important Commands'):
         nodes, xml = wait_node(20, contains='all 200 rows in original order')
         PAGES.append(xml)
         check('200 Important Commands opens', bool(nodes) and bool(find_all(xml, contains='#1')))
