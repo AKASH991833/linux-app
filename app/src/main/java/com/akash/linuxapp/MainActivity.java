@@ -1474,9 +1474,9 @@ public class MainActivity extends Activity {
             if(!c.topic.equals(topic)) continue;
             LinearLayout row=new LinearLayout(this); row.setOrientation(LinearLayout.HORIZONTAL);
             row.setBackground(bg(CARD,12)); row.setPadding(dp(10),dp(11),dp(10),dp(11));
-            TextView command=mono(c.command,11,BLUE); command.setTypeface(Typeface.MONOSPACE,Typeface.BOLD);
+            TextView command=mono(c.command,11,BLUE); command.setTextIsSelectable(false); command.setTypeface(Typeface.MONOSPACE,Typeface.BOLD);
             row.addView(command,new LinearLayout.LayoutParams(0,-2,1f));
-            TextView ex=mono(c.example,10,TEXT); ex.setPadding(dp(5),0,dp(5),0);
+            TextView ex=mono(c.example,10,TEXT); ex.setTextIsSelectable(false); ex.setPadding(dp(5),0,dp(5),0);
             row.addView(ex,new LinearLayout.LayoutParams(0,-2,1.35f));
             row.addView(text(c.use,10,DIM),new LinearLayout.LayoutParams(0,-2,1.25f));
             row.setContentDescription(c.command+". "+c.use+". Tap for examples and options.");
@@ -2859,4 +2859,4 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
-}
+                }
