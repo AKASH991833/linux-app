@@ -146,58 +146,40 @@ def open_interview_sections():
         return [], xml
     return wait_node(25, contains='Your Questions & PDFs')
 
-r = run(['adb', 'install', '-r', 'app/build/outputs/apk/debug/app-debug.apk'], timeout=120)
-out = r.stdout.decode('utf-8', 'ignore') + r.stderr.decode('utf-8', 'ignore')
-check('apk installs', 'Success' in out, out.strip().splitlines()[-1] if out.strip() else '')
-run(['adb', 'shell', 'am', 'start', '-n', PKG + '/.MainActivity'], timeout=10)
-nodes, xml = wait_home()
-check('home opens', bool(nodes))
-
-nodes, xml = restart_app()
-check('home opens for Commands', bool(nodes))
-if tap_exact(xml, 'Commands'):
-    nodes, xml = wait_node(25, contains='Learn Linux commands')
-    check('Commands topics open', bool(nodes))
-    shot('commands_topics')
-    if tap_exact(xml, 'Navigation & Basics'):
-        nodes, xml = wait_node(25, contains='COMMAND')
-        check('Commands table opens', bool(nodes))
-        shot('commands_table')
-        # Record the exact accessibility hierarchy and each candidate so failures are diagnosable.
-        open(os.path.join(OUT, 'command_table.xml'), 'w').write(xml)
-        candidates = [n for n in find_all(xml, clazz='LinearLayout', clickable=True) if (n.get('content-desc') or '').startswith('ls.')]
-        print('ls row candidates: '+repr([(n.get('bounds'),n.get('content-desc')) for n in candidates]),flush=True)
-        if candidates:
-            tap_node(candidates[0])
-            nodes, xml = wait_node(8, contains='What it does')
-            if not nodes:
-                # If the center was obscured, tap the left half of the same visible row.
-                a,b = yrange(candidates[0]); x,y = center(candidates[0])
-                run(['adb','shell','input','tap',str(max(90,x//2)),str((a+b)//2)])
-                nodes, xml = wait_node(8, contains='What it does')
-            check('Command detail opens with flags', bool(nodes) and bool(find_all(xml, contains='Try this example')))
-            open(os.path.join(OUT, 'command_detail.xml'), 'w').write(xml)
-            shot('commands_ls_detail')
-        else: check('Command detail opens with flags',False)
-    else: check('Commands table opens',False)
-else: check('Commands topics open',False)
-
-nodes, xml = open_interview_sections()
-check('interview sections open',bool(nodes))
-open(os.path.join(OUT, 'interview_sections.xml'), 'w').write(xml)
-print('PDF candidates: '+repr([(n.get('text'),n.get('bounds')) for n in find_all(xml, contains='200 Important Commands')]),flush=True)
-if tap_open_near(xml, '200 Important Commands'):
-    nodes, xml = wait_node(8, contains='all 200 rows in original order')
-    if not nodes:
-        # The whole card is clickable, not just its label.
-        before=xml
-        titles=find_all(before, contains='200 Important Commands')
-        if titles:
-            x,y=center(titles[0]); run(['adb','shell','input','tap',str(x),str(y)])
-            nodes,xml=wait_node(8,contains='all 200 rows in original order')
-    check('200 Important Commands opens',bool(nodes) and bool(find_all(xml,contains='#1')))
-    open(os.path.join(OUT, 'commands_200.xml'), 'w').write(xml)
-    shot('commands_200')
-else: check('200 Important Commands opens',False)
-
+r = run(['adb','install','-r','app/build/outputs/apk/debug/app-debug.apk'],timeout=120)
+check('apk installs', b'Success' in r.stdout)
+run(['adb','shell','am','start','-n',PKG+'/.MainActivity'])
+nodes,xml=wait_home()
+check('home opens',bool(nodes))
+if not tap_exact(xml,'Linux Quiz'):
+    nodes,xml=restart_app()
+    check('quiz card present',tap_exact(xml,'Linux Quiz'))
+else:check('quiz card present',True)
+nodes,xml=wait_node(25,contains='Create Quiz')
+check('quiz setup opens',bool(nodes))
+shot('01_setup_initial')
+# Difficulty controls may be below the first viewport; swipe once and re-dump.
+for _ in range(6):
+    if find_all(xml,text='Normal'):break
+    run(['adb','shell','input','swipe','500','1640','500','800','350']);time.sleep(.5)
+    xml=dump()
+check('Normal button found',bool(find_all(xml,text='Normal')))
+if tap_exact(xml,'Normal'):
+    time.sleep(.5)
+    xml=dump()
+    for _ in range(6):
+        if find_all(xml,text='20'):break
+        run(['adb','shell','input','swipe','500','1640','500','800','350']);time.sleep(.5)
+        xml=dump()
+    check('20 option found',bool(find_all(xml,text='20')))
+    tap_exact(xml,'20');time.sleep(.5);xml=dump()
+    normal=[n for n in find_all(xml,clazz='Button') if n.get('content-desc')=='Normal selected']
+    twenty=[n for n in find_all(xml,clazz='Button') if n.get('content-desc')=='20 questions selected']
+    fifty=[n for n in find_all(xml,clazz='Button') if (n.get('content-desc') or '').startswith('50 questions unavailable')]
+    check('Normal selected persists',bool(normal))
+    check('20 selected persists',bool(twenty))
+    check('50 unavailable with 24 questions',bool(fifty) and fifty[0].get('enabled')=='false')
+    open(os.path.join(OUT,'quiz_setup.xml'),'w').write(xml)
+    shot('02_normal_20')
+else:check('Normal selected persists',False)
 finish()
