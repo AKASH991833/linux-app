@@ -273,6 +273,7 @@ public class MainActivity extends Activity {
         GradientDrawable d = bg(selected ? color : CARD, 18);
         if(!selected) d.setStroke(dp(1), SOFT);
         b.setBackground(d);
+        b.setContentDescription(label + (selected ? " selected" : " not selected"));
         b.setOnClickListener(click);
         press(b);
         return b;
@@ -949,7 +950,9 @@ public class MainActivity extends Activity {
         showQuizSetup();
     }
 
-    private void showQuizSetup(){
+    private void showQuizSetup(){ showQuizSetup(0); }
+
+    private void showQuizSetup(int restoreScrollY){
         cancelTimer();
         chrome(true);
         setNav(2);
@@ -958,11 +961,11 @@ public class MainActivity extends Activity {
         if(setupTrackIndex < 0 || setupTrackIndex >= tracks.size()) setupTrackIndex = 0;
         final QuizTrack selected = tracks.get(setupTrackIndex);
         int maxCount = trackQuestionCount(selected, setupDifficulty);
-        int[] counts = selected.computer == null ? new int[]{10, 20, 30} : new int[]{5, 10, 15};
-        boolean countAllowed = false;
-        for(int c : counts) if(setupCount == c) countAllowed = true;
-        if(!countAllowed) setupCount = counts[0];
-        if(setupCount > maxCount) setupCount = Math.max(1, Math.min(counts[0], maxCount));
+        // Never advertise an unbuildable quiz: some level/difficulty sets have fewer
+        // than 20 questions, and no current Linux level/difficulty set has 50.
+        int[] counts = selected.computer == null ? new int[]{10, 20, 50} : new int[]{5, 10, 15};
+        if(setupCount > maxCount || setupCount < 1)
+            setupCount = Math.max(1, Math.min(counts[0], maxCount));
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
@@ -994,7 +997,7 @@ public class MainActivity extends Activity {
             title.setPadding(dp(10), 0, 0, 0);
             row.addView(title, new LinearLayout.LayoutParams(0, -2, 1));
             if(idx == setupTrackIndex) row.addView(icon(R.drawable.ic_check, GREEN, 18));
-            row.setOnClickListener(v -> { setupTrackIndex = idx; setupCount = tracks.get(idx).computer == null ? 10 : 5; showQuizSetup(); });
+            row.setOnClickListener(v -> { setupTrackIndex = idx; setupCount = tracks.get(idx).computer == null ? 10 : 5; showQuizSetup(scroll.getScrollY()); });
             press(row);
             setupCard.addView(row, margins(0, 3));
         }
@@ -1007,7 +1010,7 @@ public class MainActivity extends Activity {
         for(int d=DIFF_EASY; d<=DIFF_HARD; d++){
             final int choice = d;
             Button chip = chip(difficultyName(d), setupDifficulty == d, d == DIFF_EASY ? GREEN : d == DIFF_NORMAL ? ORANGE : RED,
-                    v -> { setupDifficulty = choice; showQuizSetup(); });
+                    v -> { setupDifficulty = choice; showQuizSetup(scroll.getScrollY()); });
             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(0, dp(42), 1);
             if(d > 0) cp.leftMargin = dp(7);
             diffs.addView(chip, cp);
@@ -1019,26 +1022,43 @@ public class MainActivity extends Activity {
         setupCard.addView(countLabel);
         LinearLayout countRow = new LinearLayout(this);
         countRow.setOrientation(LinearLayout.HORIZONTAL);
+        // A small computer topic can have fewer than 5 questions. Show its exact
+        // attainable total rather than silently starting fewer than the selection.
+        if(maxCount > 0 && maxCount < counts[0]){
+            setupCount = maxCount;
+            Button exact = chip(String.valueOf(maxCount), true, BLUE, v -> {});
+            exact.setContentDescription(maxCount + " questions selected");
+            countRow.addView(exact, new LinearLayout.LayoutParams(0, dp(42), 1));
+        }
         for(int i=0;i<counts.length;i++){
             final int choice = counts[i];
-            Button chip = chip(String.valueOf(choice), setupCount == choice, BLUE, v -> { setupCount = choice; showQuizSetup(); });
+            Button chip = chip(String.valueOf(choice), setupCount == choice, BLUE,
+                    v -> { setupCount = choice; showQuizSetup(scroll.getScrollY()); });
+            boolean enabled = choice <= maxCount;
+            chip.setEnabled(enabled);
+            chip.setAlpha(enabled ? 1f : 0.40f);
+            chip.setContentDescription(choice + (enabled ? (setupCount == choice ? " questions selected" : " questions not selected") : " questions unavailable; only " + maxCount + " in this set"));
             LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(0, dp(42), 1);
-            if(i > 0) cp.leftMargin = dp(7);
+            if(i > 0 || maxCount < counts[0]) cp.leftMargin = dp(7);
             countRow.addView(chip, cp);
         }
         setupCard.addView(countRow);
-        TextView available = text(maxCount + " verified questions available in this set", 11, DIM);
+        TextView available = text(maxCount + " questions available in this topic and difficulty; grey choices need more questions.", 11, DIM);
         available.setPadding(0, dp(8), 0, 0);
         setupCard.addView(available);
         col.addView(setupCard, margins(0, 8));
 
         Button start = primaryButton("Start Quiz", BLUE, v -> startTrackQuiz(selected));
+        start.setEnabled(maxCount > 0);
+        start.setAlpha(maxCount > 0 ? 1f : 0.4f);
         col.addView(start, new LinearLayout.LayoutParams(-1, dp(54)));
         switchScreen(scroll);
+        if(restoreScrollY > 0) scroll.post(() -> scroll.scrollTo(0, restoreScrollY));
     }
 
     private void startTrackQuiz(final QuizTrack track){
         List<Q> source = trackQuestions(track, setupDifficulty);
+        if(source.isEmpty()) return;
         Collections.shuffle(source);
         int count = Math.max(1, Math.min(setupCount, source.size()));
         List<Q> pick = new ArrayList<>(source.subList(0, count));
@@ -2859,4 +2879,4 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
-                }
+            }
