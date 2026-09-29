@@ -1,0 +1,36 @@
+name: Diagrams visual emulator check API 34
+on:
+  workflow_dispatch:
+jobs:
+  diagrams:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - run: gradle --no-daemon :app:assembleDebug
+      - name: Inspect diagrams on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          script: |
+            adb wait-for-device
+            for i in $(seq 1 90); do [ "$(adb shell getprop sys.boot_completed | tr -d "\r")" = "1" ] && break; sleep 2; done
+            adb shell input keyevent 82
+            OUT_DIR="$GITHUB_WORKSPACE/out-diagrams" python3 ci/drive_diagrams.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: diagrams-visual-check
+          path: out-diagrams/
