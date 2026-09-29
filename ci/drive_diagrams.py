@@ -2,7 +2,14 @@ import os,re,subprocess,time,xml.etree.ElementTree as ET
 OUT=os.environ.get('OUT_DIR','out-diagrams');os.makedirs(OUT,exist_ok=True)
 def adb(*args,timeout=30):return subprocess.run(['adb',*args],capture_output=True,timeout=timeout).stdout
 def dump():
- adb('shell','uiautomator','dump','/sdcard/ui.xml');return adb('shell','cat','/sdcard/ui.xml').decode('utf-8','ignore')
+ for attempt in range(3):
+  try:
+   adb('shell','uiautomator','dump','/sdcard/ui.xml',timeout=60)
+   xml=adb('shell','cat','/sdcard/ui.xml',timeout=20).decode('utf-8','ignore')
+   if '<hierarchy' in xml:return xml
+  except subprocess.TimeoutExpired: print('uiautomator timeout, retrying',flush=True)
+  time.sleep(2)
+ return ''
 def find(xml,label):
  try: return [n for n in ET.fromstring(xml).iter('node') if label in (n.get('text') or '')]
  except: return []
@@ -19,7 +26,8 @@ def until(label,tries=16):
 def swipe():adb('shell','input','swipe','480','1550','480','450','450')
 def shot(n):open(os.path.join(OUT,n+'.png'),'wb').write(adb('exec-out','screencap','-p'))
 print(adb('install','-r','app/build/outputs/apk/debug/app-debug.apk',timeout=120).decode(),flush=True)
-adb('shell','pm','clear','com.akash.linuxapp');adb('shell','am','start','-n','com.akash.linuxapp/.MainActivity');x=until('Welcome to');tap(find(x,'Get Started')[0]);x=until('Continue Learning');
+shot('00_installed')
+adb('shell','pm','clear','com.akash.linuxapp');adb('shell','am','start','-n','com.akash.linuxapp/.MainActivity');time.sleep(15);shot('00_first_launch');x=until('Welcome to',6);tap(find(x,'Get Started')[0]);x=until('Continue Learning');
 for _ in range(8):
  x=dump()
  if find(x,'Diagrams'):break
