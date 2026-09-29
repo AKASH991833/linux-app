@@ -235,8 +235,31 @@ def main():
     start_nodes, xml = find_scrolled(10, text='Start Quiz')
     check('quiz setup difficulty and count present',
           bool(find_all(xml, text='Easy')) and bool(find_all(xml, text='Normal')) and bool(find_all(xml, text='Hard')) and
-          bool(find_all(xml, text='10')) and bool(find_all(xml, text='20')) and bool(find_all(xml, text='30')))
+          bool(find_all(xml, text='10')) and bool(find_all(xml, text='20')) and bool(find_all(xml, text='50')))
     shot('04b_quiz_setup_controls')
+    # Reproduce the reported selection bug: level/difficulty and count must stay
+    # selected after a redraw, not silently reset or scroll away.
+    if tap_exact(xml, 'Normal'):
+        time.sleep(1.0)
+        normal_nodes, xml = wait_node(10, text='Number of Questions')
+        twenty = find_all(xml, text='20')
+        if twenty: tap_node(twenty[0])
+        time.sleep(1.0)
+        _, xml = wait_node(10, text='Start Quiz')
+        selected_20 = [n for n in find_all(xml, clazz='Button') if n.get('enabled') == 'true' and n.get('content-desc') == '20 questions selected']
+        selected_normal = [n for n in find_all(xml, clazz='Button') if n.get('enabled') == 'true' and n.get('content-desc') == 'Normal selected']
+        check('Normal and 20 remain selectable', bool(normal_nodes) and bool(selected_20) and bool(selected_normal))
+        shot('04c_quiz_normal_20')
+        # Switch to Beginner/Normal (24 questions): 50 is visibly unavailable.
+        fifty = [n for n in find_all(xml, clazz='Button') if (n.get('content-desc') or '').startswith('50 questions unavailable')]
+        check('50 disabled when pool has fewer questions', bool(fifty) and fifty[0].get('enabled') == 'false')
+        ten = find_all(xml, text='10')
+        if ten: tap_node(ten[0])
+        time.sleep(1.0)
+        start_nodes, xml = wait_node(10, text='Start Quiz')
+    else:
+        check('Normal and 20 remain selectable', False)
+        check('50 disabled when pool has fewer questions', False)
     if not start_nodes:
         die('start quiz button not found')
     tap_node(start_nodes[0])
@@ -369,7 +392,7 @@ def main():
         nodes, xml = wait_node(20, contains='COMMAND')
         check('Commands topic table opens', bool(nodes) and bool(find_all(xml, text='ls')))
         shot('12d_commands_table')
-        rows = [n for n in find_all(xml, clazz='LinearLayout', clickable=True) if (n.get('content-desc') or '').startswith('ls. View files, hidden files and permissions.')]
+        rows = [n for n in find_all(xml, clazz='LinearLayout', clickable=True) if (n.get('content-desc') or '').startswith('ls.')]
         if rows:
             tap_node(rows[0])
             nodes, xml = wait_node(20, contains='What it does')
