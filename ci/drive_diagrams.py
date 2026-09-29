@@ -18,7 +18,7 @@ def until(label,tries=16):
  raise RuntimeError('Not found: '+label)
 def swipe():adb('shell','input','swipe','480','1550','480','450','450')
 def shot(n):open(os.path.join(OUT,n+'.png'),'wb').write(adb('exec-out','screencap','-p'))
-print(adb('install','-r','app/build/outputs/apk/debug/app-debug.apk').decode(),flush=True)
+print(adb('install','-r','app/build/outputs/apk/debug/app-debug.apk',timeout=120).decode(),flush=True)
 adb('shell','pm','clear','com.akash.linuxapp');adb('shell','am','start','-n','com.akash.linuxapp/.MainActivity');x=until('Welcome to');tap(find(x,'Get Started')[0]);x=until('Continue Learning');
 for _ in range(8):
  x=dump()
