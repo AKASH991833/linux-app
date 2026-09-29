@@ -181,5 +181,14 @@ if tap_exact(xml,'Normal'):
     check('50 unavailable with 24 questions',bool(fifty) and fifty[0].get('enabled')=='false')
     open(os.path.join(OUT,'quiz_setup.xml'),'w').write(xml)
     shot('02_normal_20')
+    for _ in range(3):
+        run(['adb','shell','input','swipe','500','1850','500','900','350'])
+        time.sleep(.4)
+    xml=dump()
+    shot('03_normal_20_scrolled')
+    normal=[n for n in find_all(xml,clazz='Button') if n.get('content-desc')=='Normal selected']
+    twenty=[n for n in find_all(xml,clazz='Button') if n.get('content-desc')=='20 questions selected']
+    start=find_all(xml,text='Start Quiz')
+    check('quiz selections and start are visible after scroll',bool(normal) and bool(twenty) and bool(start))
 else:check('Normal selected persists',False)
 finish()
