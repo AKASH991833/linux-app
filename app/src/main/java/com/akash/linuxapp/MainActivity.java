@@ -843,6 +843,8 @@ public class MainActivity extends Activity {
                 v -> showCommandTopics()), margins(0, 6));
         col.addView(actionCard("Definitions", definitions.size() + " sourced Linux & Computer meanings", GREEN, "Open",
                 v -> showDefinitions()), margins(0, 6));
+        col.addView(actionCard("Diagrams", "Filesystem, boot, and networking explained visually", PURPLE, "Open",
+                v -> showDiagrams()), margins(0, 6));
 
         col.addView(actionCard("Daily Challenge", "10 questions - new set every day", BLUE,
                 prefs.getString("lastDaily", "").equals(today()) ? "Done" : "Start",
@@ -903,6 +905,7 @@ public class MainActivity extends Activity {
         col.addView(topicCard("", "Full Forms", fullFormCount + " searchable technical abbreviations", PURPLE, "Open", v -> showFullForms()), margins(0, 5));
         col.addView(topicCard("", "Commands", commandGuide.size() + " topic-wise examples and flags", BLUE, "Open", v -> showCommandTopics()), margins(0, 5));
         col.addView(topicCard("", "Definitions", definitions.size() + " online-sourced Linux and Computer definitions", GREEN, "Open", v -> showDefinitions()), margins(0, 5));
+        col.addView(topicCard("", "Diagrams", "3 original visual explainers with source notes", PURPLE, "Open", v -> showDiagrams()), margins(0, 5));
         col.addView(topicCard("", "Interview Questions", "Your 4 named sections plus topic-wise revision", ORANGE, "Open", v -> showInterviewTopics()), margins(0, 5));
         col.addView(topicCard("", "Daily Challenge", "10 mixed questions every day", GREEN, "Start", v -> startDaily()), margins(0, 5));
         switchScreen(scroll);
@@ -1295,6 +1298,52 @@ public class MainActivity extends Activity {
             }
         });
         col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 10));
+        switchScreen(scroll);
+    }
+
+    private void showDiagrams(){
+        cancelTimer();
+        chrome(true);
+        setNav(4);
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(16), dp(6), dp(16), dp(24));
+        scroll.addView(col);
+        col.addView(screenTopBar("Diagrams", () -> showHome()));
+        col.addView(sectionHead("▣", "See how Linux works", "Original illustrations with concept sources. Tap a topic to view it.", PURPLE), margins(0, 7));
+        col.addView(topicCard("", "Filesystem hierarchy", "What common directories under / are for", PURPLE, "View", v -> showDiagram("1-filesystem.png", "Filesystem hierarchy", "https://refspecs.linuxfoundation.org/FHS_3.0/index.html", 1572)), margins(0, 5));
+        col.addView(topicCard("", "Linux boot path", "Firmware, boot loader, kernel, initramfs, and login", PURPLE, "View", v -> showDiagram("2-boot.png", "Linux boot path", "https://man7.org/linux/man-pages/man7/boot.7.html", 1161)), margins(0, 5));
+        col.addView(topicCard("", "Network request", "Application, transport, internet, and link layers", PURPLE, "View", v -> showDiagram("3-network.png", "Network request", "https://datatracker.ietf.org/doc/html/rfc1122.html", 1015)), margins(0, 5));
+        col.addView(text("These are original app illustrations, not reused third-party images. Linux distributions and protocols vary.", 12, DIM), margins(0, 14));
+        col.addView(listBackButton("Back to Home", v -> showHome()), margins(0, 12));
+        switchScreen(scroll);
+    }
+
+    private void showDiagram(String asset, String title, String sourceUrl, int imageHeight){
+        cancelTimer();
+        chrome(true);
+        setNav(4);
+        ScrollView scroll = new ScrollView(this);
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setPadding(dp(12), dp(6), dp(12), dp(24));
+        scroll.addView(col);
+        col.addView(screenTopBar(title, () -> showDiagrams()));
+        try(InputStream in = getAssets().open(asset)){
+            android.graphics.Bitmap bitmap = android.graphics.BitmapFactory.decodeStream(in);
+            if(bitmap != null){
+                ImageView image = new ImageView(this);
+                image.setImageBitmap(bitmap);
+                image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                image.setAdjustViewBounds(true);
+                image.setContentDescription(title + " diagram; text labels and source are shown in the image");
+                int width = getResources().getDisplayMetrics().widthPixels - dp(24);
+                col.addView(image, new LinearLayout.LayoutParams(-1, Math.max(dp(400), width * imageHeight / 720)));
+            } else col.addView(text("Diagram could not be loaded.", 15, RED));
+        }catch(Exception e){ col.addView(text("Diagram could not be loaded.", 15, RED)); }
+        col.addView(primaryButton("Read concept source", PURPLE, v -> {try {startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(sourceUrl)));} catch(Exception ignored){} }), margins(0, 10));
+        col.addView(listBackButton("Back to Diagrams", v -> showDiagrams()), margins(0, 10));
         switchScreen(scroll);
     }
 
@@ -2879,4 +2928,4 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
     }
-            }
+    }
