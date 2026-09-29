@@ -1,0 +1,58 @@
+PASS: apk installs
+PASS: splash screen captured
+PASS: welcome screen opens
+PASS: welcome feature list present
+PASS: home dashboard opens
+PASS: home greeting present
+PASS: home action cards present
+PASS: progress card present
+PASS: bottom navigation present
+PASS: no generated diagrams
+PASS: linux quiz card present
+PASS: quiz setup opens
+PASS: quiz setup topic controls present
+PASS: quiz setup controls present
+PASS: quiz setup difficulty and count present
+PASS: Normal and 20 remain selectable
+PASS: 50 disabled when pool has fewer questions
+PASS: quiz question opens centered flow
+PASS: answer option tappable
+PASS: answer review explains every option
+PASS: answer review marks correct option
+PASS: correct answer option tappable
+PASS: correct pick review shows only correct state
+PASS: returned home after quiz
+PASS: computer quiz card present
+PASS: computer quiz chapters open
+PASS: computer difficulty screen opens
+PASS: quiz result screen opens
+PASS: result stats present
+PASS: review mistakes offered
+PASS: full forms card present
+PASS: full forms screen opens
+PASS: full form search box present
+PASS: full form search finds DNS
+PASS: definitions card present
+PASS: definitions screen opens
+PASS: definitions source labels present
+PASS: definitions search box present
+PASS: definitions search finds Kernel
+PASS: Commands home card present
+PASS: Commands topic index opens
+PASS: Commands topic table opens
+PASS: Command detail shows flag explanation
+PASS: interview card present
+PASS: interview sections open
+PASS: all four named interview sections visible
+PASS: 200 Important Commands opens
+PASS: Networking Interview Q&A opens
+PASS: 15 Advanced Topics Handbook opens
+PASS: My Interview Questions opens
+PASS: interview question screen opens
+PASS: topics tab present
+PASS: topics list opens
+PASS: chapter home opens
+PASS: chapter lessons list opens
+PASS: lesson reader opens with quick check
+PASS: lesson speak remains available
+PASS: quick check correct pick state opens
